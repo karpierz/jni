@@ -1,4 +1,4 @@
-# Copyright (c) 2004-2018 Adam Karpierz
+# Copyright (c) 2004-2019 Adam Karpierz
 # Licensed under proprietary License
 # Please refer to the accompanying LICENSE file.
 
@@ -10,6 +10,8 @@ import os
 import logging
 
 from . import test_dir
+
+test_java = os.path.join(test_dir, "java")
 
 
 def test_suite(names=None, omit=()):
@@ -31,22 +33,31 @@ def main():
     from ._jvm import JVM
 
     jvm_dll_paths = [
-        r"C:\Program Files\Java\jre7\bin\client\jvm.dll",
-        r"C:\Program Files\Java\jre7\bin\server\jvm.dll",
         r"C:\Program Files (x86)\Java\jre7\bin\client\jvm.dll",
         r"C:\Program Files (x86)\Java\jre7\bin\server\jvm.dll",
-        r"C:\Program Files\Java\jre1.8.0_161\bin\client\jvm.dll",
-        r"C:\Program Files\Java\jre1.8.0_161\bin\server\jvm.dll",
-        r"C:\Program Files (x86)\Java\jre1.8.0_161\bin\client\jvm.dll",
-        r"C:\Program Files (x86)\Java\jre1.8.0_161\bin\server\jvm.dll",
-        r"C:\Program Files\Java\jdk-9\bin\client\jvm.dll",
-        r"C:\Program Files\Java\jdk-9\bin\server\jvm.dll",
+        r"C:\Program Files\Java\jre7\bin\client\jvm.dll",
+        r"C:\Program Files\Java\jre7\bin\server\jvm.dll",
+        r"C:\Program Files (x86)\Java\jre1.8.0_202\bin\client\jvm.dll",
+        r"C:\Program Files (x86)\Java\jre1.8.0_202\bin\server\jvm.dll",
+        r"C:\Program Files (x86)\Java\jdk1.8.0_202\bin\client\jvm.dll",
+        r"C:\Program Files (x86)\Java\jdk1.8.0_202\bin\server\jvm.dll",
+        r"C:\Program Files\Java\jre1.8.0_202\bin\client\jvm.dll",
+        r"C:\Program Files\Java\jre1.8.0_202\bin\server\jvm.dll",
+        r"C:\Program Files\Java\jdk1.8.0_202\bin\client\jvm.dll",
+        r"C:\Program Files\Java\jdk1.8.0_202\bin\server\jvm.dll",
         r"C:\Program Files (x86)\Java\jdk-9\bin\client\jvm.dll",
         r"C:\Program Files (x86)\Java\jdk-9\bin\server\jvm.dll",
+        r"C:\Program Files\Java\jdk-9\bin\client\jvm.dll",
+        r"C:\Program Files\Java\jdk-9\bin\server\jvm.dll",
+        r"C:\Program Files\Java\jre-10.0.2\bin\client\jvm.dll",
+        r"C:\Program Files\Java\jre-10.0.2\bin\server\jvm.dll",
+        r"C:\Program Files\Java\jdk-10.0.2\bin\client\jvm.dll",
+        r"C:\Program Files\Java\jdk-10.0.2\bin\server\jvm.dll",
     ]
 
     try:
-        jvm_path = next(item for item in jvm_dll_paths if os.path.exists(item))
+        jvm_path = next(item for item in reversed(jvm_dll_paths)
+                        if os.path.exists(item))
     except:
         raise Exception("jvm.dll not found !")
 
@@ -54,7 +65,9 @@ def main():
 
     package = sys.modules[__package__]
     package.jvm = jvm = JVM(jvm_path)
-    jvm.start("-ea", "-Xms16M", "-Xmx512M")
+    jvm.start("-Djava.class.path={}".format(
+              os.pathsep.join([os.path.join(test_java, "classes")])),
+              "-ea", "-Xms16M", "-Xmx512M")
     try:
         tests = test_suite(sys.argv[1:] or None)
         result = unittest.TextTestRunner(verbosity=2).run(tests)

@@ -6,10 +6,10 @@ Installation
 Requirements
 ------------
 
-+ Python 2.7 or higher or 3.4 or higher
++ Python 2.7 or Python 3.4 or later
 
   * http://www.python.org/
-  * 2.7 and 3.4 are primary test environments.
+  * 2.7 and 3.7 are primary test environments.
 
 + pip and setuptools
 

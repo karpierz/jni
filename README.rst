@@ -6,10 +6,12 @@ Pure Python Java package
 Overview
 ========
 
-  | jtypes.jni is a bridge between Python and Java JNI.
+  | **jtypes.jni** is a bridge between Python and Java JNI.
   | It is an effort to allow python programs full access to Java JNI API.
-  | 
-  | jtypes.jni is a lightweight Python package, based on the ctypes FFI library.
+
+  `PyPI record <https://pypi.python.org/pypi/jtypes.jni>`__.
+
+  | **jtypes.jni** is a lightweight Python package, based on the *ctypes* or *cffi* library.
   | It is done by implementing whole JNI API functionality in a clean Python
     instead of C/C++.
 
@@ -17,7 +19,7 @@ Overview
 What is jtypes.jni:
 -------------------
 
-  jtypes.jni is an effort to allow python programs full access to Java JNI API.
+  **jtypes.jni** is an effort to allow python programs full access to Java JNI API.
   This is achieved not through re-implementing Python, as Jython/JPython has done,
   but rather through interfacing at the native level in both virtual machines.
 
@@ -31,10 +33,10 @@ Installation
 
 Prerequisites:
 
-+ Python 2.7 or higher or 3.4 or higher
++ Python 2.7 or Python 3.4 or later
 
   * http://www.python.org/
-  * 2.7 and 3.4 are primary test environments.
+  * 2.7 and 3.7 are primary test environments.
 
 + pip and setuptools
 
@@ -52,7 +54,7 @@ To ensure everything is running correctly you can run the tests using::
 License
 =======
 
-  | Copyright (c) 2004-2018 Adam Karpierz
+  | Copyright (c) 2004-2019 Adam Karpierz
   |
   | Licensed under proprietary License
   | Please refer to the accompanying LICENSE file.
@@ -60,4 +62,4 @@ License
 Authors
 =======
 
-* Adam Karpierz <python@python.pl>
+* Adam Karpierz <adam@karpierz.net>

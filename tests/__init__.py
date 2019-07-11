@@ -1,4 +1,4 @@
-# Copyright (c) 2004-2018 Adam Karpierz
+# Copyright (c) 2004-2019 Adam Karpierz
 # Licensed under proprietary License
 # Please refer to the accompanying LICENSE file.
 
