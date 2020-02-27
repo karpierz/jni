@@ -1,17 +1,21 @@
+# Copyright (c) 2004-2020 Adam Karpierz
+# Licensed under proprietary License
+# Please refer to the accompanying LICENSE file.
+
 include README.rst
 include CHANGES.rst
 include LICENSE
-include tox.ini
 
 graft docs
-prune docs/_build
 
 graft src
-prune src/jt/jni/\#
-prune src/jt/jni/include
+prune src/jni/\#
+exclude src/jni/cffi/_util.py
+prune src/jni/cython
+prune src/jni/capi
 
 graft tests
 exclude tests/_info_.txt tests/_report_.txt
 
 global-exclude .build .build.*
-global-exclude *.py[co] __pycache__
+global-exclude *.py[cod] __pycache__

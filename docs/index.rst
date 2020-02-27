@@ -1,5 +1,5 @@
-jtypes.jni documentation
-========================
+jni documentation
+=================
 
 .. toctree::
    :maxdepth: 2

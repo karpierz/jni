@@ -1,0 +1,25 @@
+jni.py zapewnia automapping dla struktury jni.jval
+
+class jvalue(ct.Union):
+    z: jboolean = 0      # <-> int
+    b: jbyte    = 0      # <-> int
+    c: jchar    = u'\0'  # <-> unicode (one char)
+    s: jshort   = 0      # <-> int
+    i: jint     = 0      # <-> int
+    j: jlong    = 0      # <-> long
+    f: jfloat   = 0.0    # <-> float
+    d: jdouble  = 0.0    # <-> float
+    l: jobject  = None   # <->
+
+jni.py nie pozwala na konwersje dla typow
+
+    int    (jboolean)
+    int    (jbyte)
+    unicode(jchar)
+    int    (jshort)
+    int    (jint)
+    long   (jlong)
+    float  (jfloat)
+    float  (jdouble)
+
+-XX:+PrintJNIResolving

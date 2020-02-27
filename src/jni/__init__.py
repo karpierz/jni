@@ -1,4 +1,4 @@
-# Copyright (c) 2004-2019 Adam Karpierz
+# Copyright (c) 2004-2020 Adam Karpierz
 # Licensed under proprietary License
 # Please refer to the accompanying LICENSE file.
 
@@ -12,6 +12,6 @@ BACKEND = config.get("BACKEND", "ctypes")
 try:
     exec("from .{} import *".format(BACKEND), globals())
 except ImportError:
-    raise ImportError("Unknown jtypes.jni backend: {}".format(BACKEND))
+    raise ImportError("Unknown jni backend: {}".format(BACKEND))
 
 del config

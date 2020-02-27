@@ -1,8 +1,6 @@
-# Copyright (c) 2004-2019 Adam Karpierz
+# Copyright (c) 2004-2020 Adam Karpierz
 # Licensed under proprietary License
 # Please refer to the accompanying LICENSE file.
-
-from __future__ import absolute_import
 
 
 def get_config(cfg_path, cfg_section):
@@ -20,13 +18,11 @@ def get_config(cfg_path, cfg_section):
     return cfg[cfg_section]
 
 
-def make_config(cfg_name, cfg_section):
-
+def make_config(cfg_fname, cfg_section):
     import sys
     from os import path
-
     fglobals = sys._getframe(1).f_globals
-    cfg_path = path.join(path.dirname(path.dirname(fglobals["__file__"])), cfg_name)
+    cfg_path = path.join(path.dirname(fglobals["__file__"]), *cfg_fname.split("/"))
     fglobals["config"] = get_config(cfg_path, cfg_section)
     fglobals.pop("__builtins__", None)
     fglobals.pop("__cached__",   None)

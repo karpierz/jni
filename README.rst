@@ -1,25 +1,25 @@
-jtypes.jni
-==========
+jni
+===
 
-Pure Python Java package
+Python bridge for the Java Native Interface.
 
 Overview
 ========
 
-  | **jtypes.jni** is a bridge between Python and Java JNI.
+  | |package_bold| is a complete bridge between Python and Java JNI.
   | It is an effort to allow python programs full access to Java JNI API.
 
-  `PyPI record <https://pypi.python.org/pypi/jtypes.jni>`__.
+  `PyPI record`_.
 
-  | **jtypes.jni** is a lightweight Python package, based on the *ctypes* or *cffi* library.
-  | It is done by implementing whole JNI API functionality in a clean Python
-    instead of C/C++.
+  | |package_bold| is a lightweight Python package, based on the *ctypes*, or *cffi* library, or Cython wrapper (currently under development).
+  | It is done by implementing whole JNI API functionality in a clean Python  instead of C/C++.
+  | |package_bold| also contains a JNI wrapper in pure C based on Python C-API  (currently under development) - mainly for performance reasons.
 
 
-What is jtypes.jni:
+What is |package|:
 -------------------
 
-  **jtypes.jni** is an effort to allow python programs full access to Java JNI API.
+  |package_bold| is an effort to allow python programs full access to Java JNI API.
   This is achieved not through re-implementing Python, as Jython/JPython has done,
   but rather through interfacing at the native level in both virtual machines.
 
@@ -33,29 +33,32 @@ Installation
 
 Prerequisites:
 
-+ Python 2.7 or Python 3.4 or later
++ Python 3.6 or higher
 
-  * http://www.python.org/
-  * 2.7 and 3.7 are primary test environments.
+  * https://www.python.org/
+  * 3.7 is a primary test environment.
 
 + pip and setuptools
 
-  * http://pypi.python.org/pypi/pip
-  * http://pypi.python.org/pypi/setuptools
+  * https://pypi.org/project/pip/
+  * https://pypi.org/project/setuptools/
 
-To install run::
+To install run:
 
-    python -m pip install --upgrade jtypes.jni
+.. parsed-literal::
+
+    python -m pip install --upgrade |package|
 
 To ensure everything is running correctly you can run the tests using::
 
-    python -m jt.jni.tests
+    python -m jni.tests
 
 License
 =======
 
-  | Copyright (c) 2004-2019 Adam Karpierz
+  | Copyright (c) 2004-2020 Adam Karpierz
   |
+  | Licensed under CC BY-NC-ND 4.0
   | Licensed under proprietary License
   | Please refer to the accompanying LICENSE file.
 
@@ -63,3 +66,7 @@ Authors
 =======
 
 * Adam Karpierz <adam@karpierz.net>
+
+.. |package| replace:: jni
+.. |package_bold| replace:: **jni**
+.. _PyPI record: https://pypi.org/project/jni/

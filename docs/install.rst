@@ -6,19 +6,19 @@ Installation
 Requirements
 ------------
 
-+ Python 2.7 or Python 3.4 or later
++ Python 3.6 or higher
 
-  * http://www.python.org/
-  * 2.7 and 3.7 are primary test environments.
+  * https://www.python.org/
+  * 3.7 is a primary test environment.
 
 + pip and setuptools
 
-  * http://pypi.python.org/pypi/pip
-  * http://pypi.python.org/pypi/setuptools
+  * https://pypi.org/project/pip/
+  * https://pypi.org/project/setuptools/
 
 Install
 -------
 
 Should be easy as ::
 
-    python -m pip install --upgrade jtypes.jni
+    python -m pip install --upgrade jni

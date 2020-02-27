@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.0.0b5 (2020-02-27)
+--------------------
+- Drop support for Python2.
+
 1.0.0b4 (2019-07-10)
 --------------------
 - Last release for Python2.

@@ -1,21 +1,20 @@
-# Copyright (c) 2004-2019 Adam Karpierz
+# Copyright (c) 2004-2020 Adam Karpierz
 # Licensed under proprietary License
 # Please refer to the accompanying LICENSE file.
 
-from jt import jni
+import jni
 
 
-class JVM(object):
+class JVM:
 
     """Java Virtual Machine"""
 
     JNI_VERSION = jni.JNI_VERSION_1_6
 
     def __init__(self, dll_path):
-
         self._jnijvm = None
         try:
-            if not isinstance(dll_path, (str, type(u""))):
+            if not isinstance(dll_path, str):
                 raise JVMException(jni.JNI_EINVAL,
                                    "First paramter must be a string or unicode")
             try:
@@ -27,7 +26,6 @@ class JVM(object):
             self.handleException(exc)
 
     def __del__(self):
-
         if not self._jnijvm: return
         try: self._jnijvm.DestroyJavaVM()
         except: pass
@@ -37,9 +35,7 @@ class JVM(object):
         self._JNI = None
 
     def start(self, *jvmoptions, **jvmargs):
-
         ignoreUnrecognized = jvmargs.get("ignoreUnrecognized", True)
-
         try:
             pjvm = jni.obj(jni.POINTER(jni.JavaVM))
             penv = jni.obj(jni.POINTER(jni.JNIEnv))
@@ -58,7 +54,8 @@ class JVM(object):
             err = self._JNI.CreateJavaVM(pjvm, penv, jvm_args)
             del _keep, options, jvm_args
             if err != jni.JNI_OK or jni.isNULL(pjvm):
-                raise jni.JNIException(err, info="JNI_CreateJavaVM")
+                raise jni.JNIException(err if err != jni.JNI_OK else jni.JNI_ERR,
+                                       info="JNI_CreateJavaVM")
             self._jnijvm = jni.JVM(pjvm)
             return self._jnijvm, jni.JEnv(penv)
         except Exception as exc:
@@ -68,7 +65,6 @@ class JVM(object):
                 self._jnijvm = None
 
     def shutdown(self):
-
         if self._jnijvm is None: return
         try:
             penv = jni.obj(jni.POINTER(jni.JNIEnv))
@@ -81,12 +77,10 @@ class JVM(object):
                 self._jnijvm = None
 
     def isStarted(self):
-
         # Check if the JVM environment has been initialized
         return self._jnijvm is not None
 
     def attachThread(self, daemon=False):
-
         try:
             penv = jni.obj(jni.POINTER(jni.JNIEnv))
             if not daemon:
@@ -98,14 +92,12 @@ class JVM(object):
             self.handleException(exc)
 
     def detachThread(self):
-
         try:
             self._jnijvm.DetachCurrentThread()
         except Exception as exc:
             self.handleException(exc)
 
     def isThreadAttached(self):
-
         try:
             penv = jni.obj(jni.POINTER(jni.JNIEnv))
             self._jnijvm.GetEnv(penv, JVM.JNI_VERSION)
@@ -119,7 +111,6 @@ class JVM(object):
             return not jni.isNULL(penv)
 
     def handleException(self, exc):
-
         try:
             raise exc
         except jni.Throwable as exc:
@@ -140,4 +131,4 @@ class JVM(object):
 class JVMException(Exception):
 
     def __init__(self, *args, **kwargs):
-        super(JVMException, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)

@@ -1,18 +1,18 @@
-# Copyright (c) 2004-2019 Adam Karpierz
+# Copyright (c) 2004-2020 Adam Karpierz
 # Licensed under proprietary License
 # Please refer to the accompanying LICENSE file.
 
-from __future__ import absolute_import
-
 import sys
 from os import path
+from io import open
+from glob import glob
 from setuptools import setup, Extension
 
-USE_CYTHON = True  # command line option, try-import, ...
+USE_CYTHON = False  # command line option, try-import, ...
 
 ext = ".pyx" if USE_CYTHON else ".c"
-ext_modules = [Extension(name="jt.jni.cython.jni",
-                         sources=["src/jt/jni/cython/jni" + ext])]
+ext_modules = [Extension(name="jni.cython.jni",
+                         sources=["src/jni/cython/jni" + ext])]
 if ext == ".pyx":
     from Cython.Build    import cythonize
     from Cython.Compiler import Options
@@ -20,11 +20,12 @@ if ext == ".pyx":
     Options.emit_code_comments = False
     ext_modules = cythonize(ext_modules, language_level=sys.version_info[0])#, force=True)
 
-ext_modules += [Extension(name="jt.jni.capi.jni",
-                          sources=["src/jt/jni/capi/jni.c"])] if sys.version_info[0] >= 3 else []
+ext_modules += [Extension(name="jni.capi.jni",
+                          sources=["src/jni/capi/jni.c"])]
 
 top_dir = path.dirname(path.abspath(__file__))
-with open(path.join(top_dir, "src", "jt", "jni", "__about__.py")) as f:
+with open(glob(path.join(top_dir, "src/*/__about__.py"))[0],
+          encoding="utf-8") as f:
     class about: exec(f.read(), None)
 
 setup(
@@ -40,5 +41,5 @@ setup(
     maintainer_email = about.__email__,
     license          = about.__license__,
 
-    ext_modules = ext_modules,
+    #ext_modules = ext_modules,
 )

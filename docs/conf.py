@@ -2,14 +2,15 @@
 #
 # This file only contains a selection of the most common options. For a full
 # list see the documentation:
-# http://www.sphinx-doc.org/en/master/config
+# https://www.sphinx-doc.org/en/master/usage/configuration.html
 
-import sys
-import os
+from os import path
+from io import open
+from glob import glob
 
-top_dir = os.path.join(os.path.dirname(__file__), os.pardir)
-
-with open(os.path.join(top_dir, "src", "jt", "jni", "__about__.py")) as f:
+top_dir = path.dirname(path.dirname(path.abspath(__file__)))
+with open(glob(path.join(top_dir, "src/*/__about__.py"))[0],
+          encoding="utf-8") as f:
     class about: exec(f.read(), None)
 
 def setup(app):
@@ -31,9 +32,6 @@ def setup(app):
 project   = about.__title__
 copyright = about.__copyright__
 author    = about.__author__
-
-# The short X.Y version
-version = '{0.major}.{0.minor}'.format(about.__version_info__)
 
 # The full version, including alpha/beta/rc tags
 release = about.__version__
@@ -57,7 +55,11 @@ extensions = [
    #'sphinx.ext.coverage',
     'sphinx.ext.ifconfig',
     'sphinx.ext.napoleon',
+   #'rinoh.frontend.sphinx',
 ]
+
+# Needed for e.g. linkcheck builder
+tls_verify = False
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -92,6 +94,17 @@ html_static_path = ['_static']
 
 
 # -- Extension configuration -------------------------------------------------
+
+# -- Options for autodoc extension -------------------------------------------
+
+autoclass_content = 'both'
+autodoc_member_order = 'bysource'
+
+# -- Options for apidoc extension --------------------------------------------
+
+apidoc_separate_modules = True
+apidoc_module_first = True
+apidoc_output_dir = 'api'
 
 # -- Options for intersphinx extension ---------------------------------------
 
