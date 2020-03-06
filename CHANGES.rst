@@ -1,9 +1,11 @@
 Changelog
 =========
 
-1.0.0b5 (2020-02-27)
+1.0.0b6 (2020-03-06)
 --------------------
 - Drop support for Python2.
+- Update of license info.
+- Setup update.
 
 1.0.0b4 (2019-07-10)
 --------------------

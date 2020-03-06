@@ -17,7 +17,7 @@ struct c_JavaVMAttachArgs;
 typedef struct c_JavaVMAttachArgs c_JavaVMAttachArgs;
 struct JNIInvokeInterface_;
 
-/* "jni/cython/jni.pxd":68
+/* "jni/cython/jni.pxd":69
  *     # Return values from jobjectRefType
  * 
  *     cpdef enum _jobjectType:             # <<<<<<<<<<<<<<
@@ -31,7 +31,7 @@ enum _jobjectType {
   JNIWeakGlobalRefType = 3
 };
 
-/* "jni/cython/jni.pxd":79
+/* "jni/cython/jni.pxd":80
  *     #
  * 
  *     cpdef enum:             # <<<<<<<<<<<<<<
@@ -43,7 +43,7 @@ enum  {
   JNI_TRUE = 1
 };
 
-/* "jni/cython/jni.pxd":87
+/* "jni/cython/jni.pxd":88
  *     #
  * 
  *     cpdef enum:             # <<<<<<<<<<<<<<
@@ -60,7 +60,7 @@ enum  {
   JNI_EINVAL = -6L
 };
 
-/* "jni/cython/jni.pxd":100
+/* "jni/cython/jni.pxd":101
  *     #
  * 
  *     cpdef enum:             # <<<<<<<<<<<<<<
@@ -72,7 +72,7 @@ enum  {
   JNI_ABORT = 2
 };
 
-/* "jni/cython/jni.pxd":455
+/* "jni/cython/jni.pxd":456
  *     # These will be VM-specific.
  * 
  *     cpdef enum:             # <<<<<<<<<<<<<<
@@ -84,7 +84,7 @@ enum  {
   JDK1_4 = 1
 };
 
-/* "jni/cython/jni.pxd":473
+/* "jni/cython/jni.pxd":474
  *         c_jint (*AttachCurrentThreadAsDaemon)(c_JavaVM* vm, void** penv, void* args) # nogil
  * 
  *     cpdef enum:             # <<<<<<<<<<<<<<
@@ -101,7 +101,7 @@ enum  {
   JNI_VERSION_10 = 0x000a0000
 };
 
-/* "jni/cython/jni.pxd":49
+/* "jni/cython/jni.pxd":50
  *     ctypedef c_jobject c_jweak
  * 
  *     ctypedef union c_jvalue:             # <<<<<<<<<<<<<<
@@ -120,7 +120,7 @@ union c_jvalue {
   __pyx_t_3jni_6cython_3jni_c_jobject l;
 };
 
-/* "jni/cython/jni.pxd":109
+/* "jni/cython/jni.pxd":110
  *     #
  * 
  *     ctypedef struct c_JNINativeMethod:             # <<<<<<<<<<<<<<
@@ -133,7 +133,7 @@ struct c_JNINativeMethod {
   void *fnPtr;
 };
 
-/* "jni/cython/jni.pxd":118
+/* "jni/cython/jni.pxd":119
  *     #
  * 
  *     struct JNINativeInterface_             # <<<<<<<<<<<<<<
@@ -376,7 +376,7 @@ struct JNINativeInterface_ {
   __pyx_t_3jni_6cython_3jni_c_jobjectRefType (*GetObjectRefType)(__pyx_t_3jni_6cython_3jni_c_JNIEnv *, __pyx_t_3jni_6cython_3jni_c_jobject);
 };
 
-/* "jni/cython/jni.pxd":438
+/* "jni/cython/jni.pxd":439
  *     # JNI Invocation Interface.
  * 
  *     ctypedef struct c_JavaVMOption:             # <<<<<<<<<<<<<<
@@ -388,7 +388,7 @@ struct c_JavaVMOption {
   void *extraInfo;
 };
 
-/* "jni/cython/jni.pxd":442
+/* "jni/cython/jni.pxd":443
  *         void* extraInfo
  * 
  *     ctypedef struct c_JavaVMInitArgs:             # <<<<<<<<<<<<<<
@@ -402,7 +402,7 @@ struct c_JavaVMInitArgs {
   __pyx_t_3jni_6cython_3jni_c_jboolean ignoreUnrecognized;
 };
 
-/* "jni/cython/jni.pxd":448
+/* "jni/cython/jni.pxd":449
  *         c_jboolean      ignoreUnrecognized
  * 
  *     ctypedef struct c_JavaVMAttachArgs:             # <<<<<<<<<<<<<<
@@ -415,7 +415,7 @@ struct c_JavaVMAttachArgs {
   __pyx_t_3jni_6cython_3jni_c_jobject group;
 };
 
-/* "jni/cython/jni.pxd":125
+/* "jni/cython/jni.pxd":126
  *     #
  * 
  *     struct JNIInvokeInterface_             # <<<<<<<<<<<<<<

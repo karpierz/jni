@@ -822,7 +822,7 @@ static const char *__pyx_f[] = {
   "src\\jni\\cython\\jni.pxd",
 };
 
-/* "jni/cython/jni.pxd":21
+/* "jni/cython/jni.pxd":22
  *     #
  * 
  *     ctypedef long           c_jint             # <<<<<<<<<<<<<<
@@ -831,7 +831,7 @@ static const char *__pyx_f[] = {
  */
 typedef long __pyx_t_3jni_6cython_3jni_c_jint;
 
-/* "jni/cython/jni.pxd":22
+/* "jni/cython/jni.pxd":23
  * 
  *     ctypedef long           c_jint
  *     ctypedef long long      c_jlong  # int64_t, jni.h: __int64             # <<<<<<<<<<<<<<
@@ -840,7 +840,7 @@ typedef long __pyx_t_3jni_6cython_3jni_c_jint;
  */
 typedef PY_LONG_LONG __pyx_t_3jni_6cython_3jni_c_jlong;
 
-/* "jni/cython/jni.pxd":23
+/* "jni/cython/jni.pxd":24
  *     ctypedef long           c_jint
  *     ctypedef long long      c_jlong  # int64_t, jni.h: __int64
  *     ctypedef signed char    c_jbyte  # javabridge: unsigned (chyba blad!!!)             # <<<<<<<<<<<<<<
@@ -849,7 +849,7 @@ typedef PY_LONG_LONG __pyx_t_3jni_6cython_3jni_c_jlong;
  */
 typedef signed char __pyx_t_3jni_6cython_3jni_c_jbyte;
 
-/* "jni/cython/jni.pxd":25
+/* "jni/cython/jni.pxd":26
  *     ctypedef signed char    c_jbyte  # javabridge: unsigned (chyba blad!!!)
  * 
  *     ctypedef unsigned char  c_jboolean             # <<<<<<<<<<<<<<
@@ -858,7 +858,7 @@ typedef signed char __pyx_t_3jni_6cython_3jni_c_jbyte;
  */
 typedef unsigned char __pyx_t_3jni_6cython_3jni_c_jboolean;
 
-/* "jni/cython/jni.pxd":26
+/* "jni/cython/jni.pxd":27
  * 
  *     ctypedef unsigned char  c_jboolean
  *     ctypedef unsigned short c_jchar             # <<<<<<<<<<<<<<
@@ -867,7 +867,7 @@ typedef unsigned char __pyx_t_3jni_6cython_3jni_c_jboolean;
  */
 typedef unsigned short __pyx_t_3jni_6cython_3jni_c_jchar;
 
-/* "jni/cython/jni.pxd":27
+/* "jni/cython/jni.pxd":28
  *     ctypedef unsigned char  c_jboolean
  *     ctypedef unsigned short c_jchar
  *     ctypedef short          c_jshort             # <<<<<<<<<<<<<<
@@ -876,7 +876,7 @@ typedef unsigned short __pyx_t_3jni_6cython_3jni_c_jchar;
  */
 typedef short __pyx_t_3jni_6cython_3jni_c_jshort;
 
-/* "jni/cython/jni.pxd":28
+/* "jni/cython/jni.pxd":29
  *     ctypedef unsigned short c_jchar
  *     ctypedef short          c_jshort
  *     ctypedef float          c_jfloat             # <<<<<<<<<<<<<<
@@ -885,7 +885,7 @@ typedef short __pyx_t_3jni_6cython_3jni_c_jshort;
  */
 typedef float __pyx_t_3jni_6cython_3jni_c_jfloat;
 
-/* "jni/cython/jni.pxd":29
+/* "jni/cython/jni.pxd":30
  *     ctypedef short          c_jshort
  *     ctypedef float          c_jfloat
  *     ctypedef double         c_jdouble             # <<<<<<<<<<<<<<
@@ -894,7 +894,7 @@ typedef float __pyx_t_3jni_6cython_3jni_c_jfloat;
  */
 typedef double __pyx_t_3jni_6cython_3jni_c_jdouble;
 
-/* "jni/cython/jni.pxd":30
+/* "jni/cython/jni.pxd":31
  *     ctypedef float          c_jfloat
  *     ctypedef double         c_jdouble
  *     ctypedef c_jint         c_jsize             # <<<<<<<<<<<<<<
@@ -940,7 +940,7 @@ struct JNIInvokeInterface_;
 struct __pyx_defaults;
 typedef struct __pyx_defaults __pyx_defaults;
 
-/* "jni/cython/jni.pxd":68
+/* "jni/cython/jni.pxd":69
  *     # Return values from jobjectRefType
  * 
  *     cpdef enum _jobjectType:             # <<<<<<<<<<<<<<
@@ -954,7 +954,7 @@ enum _jobjectType {
   JNIWeakGlobalRefType = 3
 };
 
-/* "jni/cython/jni.pxd":79
+/* "jni/cython/jni.pxd":80
  *     #
  * 
  *     cpdef enum:             # <<<<<<<<<<<<<<
@@ -966,7 +966,7 @@ enum  {
   JNI_TRUE = 1
 };
 
-/* "jni/cython/jni.pxd":87
+/* "jni/cython/jni.pxd":88
  *     #
  * 
  *     cpdef enum:             # <<<<<<<<<<<<<<
@@ -983,7 +983,7 @@ enum  {
   JNI_EINVAL = -6L
 };
 
-/* "jni/cython/jni.pxd":100
+/* "jni/cython/jni.pxd":101
  *     #
  * 
  *     cpdef enum:             # <<<<<<<<<<<<<<
@@ -995,7 +995,7 @@ enum  {
   JNI_ABORT = 2
 };
 
-/* "jni/cython/jni.pxd":455
+/* "jni/cython/jni.pxd":456
  *     # These will be VM-specific.
  * 
  *     cpdef enum:             # <<<<<<<<<<<<<<
@@ -1007,7 +1007,7 @@ enum  {
   JDK1_4 = 1
 };
 
-/* "jni/cython/jni.pxd":473
+/* "jni/cython/jni.pxd":474
  *         c_jint (*AttachCurrentThreadAsDaemon)(c_JavaVM* vm, void** penv, void* args) # nogil
  * 
  *     cpdef enum:             # <<<<<<<<<<<<<<
@@ -1024,7 +1024,7 @@ enum  {
   JNI_VERSION_10 = 0x000a0000
 };
 
-/* "jni/cython/jni.pxd":33
+/* "jni/cython/jni.pxd":34
  * 
  *     struct _jobject
  *     ctypedef _jobject* c_jobject             # <<<<<<<<<<<<<<
@@ -1033,7 +1033,7 @@ enum  {
  */
 typedef struct _jobject *__pyx_t_3jni_6cython_3jni_c_jobject;
 
-/* "jni/cython/jni.pxd":34
+/* "jni/cython/jni.pxd":35
  *     struct _jobject
  *     ctypedef _jobject* c_jobject
  *     ctypedef c_jobject c_jclass             # <<<<<<<<<<<<<<
@@ -1042,7 +1042,7 @@ typedef struct _jobject *__pyx_t_3jni_6cython_3jni_c_jobject;
  */
 typedef __pyx_t_3jni_6cython_3jni_c_jobject __pyx_t_3jni_6cython_3jni_c_jclass;
 
-/* "jni/cython/jni.pxd":35
+/* "jni/cython/jni.pxd":36
  *     ctypedef _jobject* c_jobject
  *     ctypedef c_jobject c_jclass
  *     ctypedef c_jobject c_jthrowable             # <<<<<<<<<<<<<<
@@ -1051,7 +1051,7 @@ typedef __pyx_t_3jni_6cython_3jni_c_jobject __pyx_t_3jni_6cython_3jni_c_jclass;
  */
 typedef __pyx_t_3jni_6cython_3jni_c_jobject __pyx_t_3jni_6cython_3jni_c_jthrowable;
 
-/* "jni/cython/jni.pxd":36
+/* "jni/cython/jni.pxd":37
  *     ctypedef c_jobject c_jclass
  *     ctypedef c_jobject c_jthrowable
  *     ctypedef c_jobject c_jstring             # <<<<<<<<<<<<<<
@@ -1060,7 +1060,7 @@ typedef __pyx_t_3jni_6cython_3jni_c_jobject __pyx_t_3jni_6cython_3jni_c_jthrowab
  */
 typedef __pyx_t_3jni_6cython_3jni_c_jobject __pyx_t_3jni_6cython_3jni_c_jstring;
 
-/* "jni/cython/jni.pxd":37
+/* "jni/cython/jni.pxd":38
  *     ctypedef c_jobject c_jthrowable
  *     ctypedef c_jobject c_jstring
  *     ctypedef c_jobject c_jarray             # <<<<<<<<<<<<<<
@@ -1069,7 +1069,7 @@ typedef __pyx_t_3jni_6cython_3jni_c_jobject __pyx_t_3jni_6cython_3jni_c_jstring;
  */
 typedef __pyx_t_3jni_6cython_3jni_c_jobject __pyx_t_3jni_6cython_3jni_c_jarray;
 
-/* "jni/cython/jni.pxd":38
+/* "jni/cython/jni.pxd":39
  *     ctypedef c_jobject c_jstring
  *     ctypedef c_jobject c_jarray
  *     ctypedef c_jarray  c_jbooleanArray             # <<<<<<<<<<<<<<
@@ -1078,7 +1078,7 @@ typedef __pyx_t_3jni_6cython_3jni_c_jobject __pyx_t_3jni_6cython_3jni_c_jarray;
  */
 typedef __pyx_t_3jni_6cython_3jni_c_jarray __pyx_t_3jni_6cython_3jni_c_jbooleanArray;
 
-/* "jni/cython/jni.pxd":39
+/* "jni/cython/jni.pxd":40
  *     ctypedef c_jobject c_jarray
  *     ctypedef c_jarray  c_jbooleanArray
  *     ctypedef c_jarray  c_jbyteArray             # <<<<<<<<<<<<<<
@@ -1087,7 +1087,7 @@ typedef __pyx_t_3jni_6cython_3jni_c_jarray __pyx_t_3jni_6cython_3jni_c_jbooleanA
  */
 typedef __pyx_t_3jni_6cython_3jni_c_jarray __pyx_t_3jni_6cython_3jni_c_jbyteArray;
 
-/* "jni/cython/jni.pxd":40
+/* "jni/cython/jni.pxd":41
  *     ctypedef c_jarray  c_jbooleanArray
  *     ctypedef c_jarray  c_jbyteArray
  *     ctypedef c_jarray  c_jcharArray             # <<<<<<<<<<<<<<
@@ -1096,7 +1096,7 @@ typedef __pyx_t_3jni_6cython_3jni_c_jarray __pyx_t_3jni_6cython_3jni_c_jbyteArra
  */
 typedef __pyx_t_3jni_6cython_3jni_c_jarray __pyx_t_3jni_6cython_3jni_c_jcharArray;
 
-/* "jni/cython/jni.pxd":41
+/* "jni/cython/jni.pxd":42
  *     ctypedef c_jarray  c_jbyteArray
  *     ctypedef c_jarray  c_jcharArray
  *     ctypedef c_jarray  c_jshortArray             # <<<<<<<<<<<<<<
@@ -1105,7 +1105,7 @@ typedef __pyx_t_3jni_6cython_3jni_c_jarray __pyx_t_3jni_6cython_3jni_c_jcharArra
  */
 typedef __pyx_t_3jni_6cython_3jni_c_jarray __pyx_t_3jni_6cython_3jni_c_jshortArray;
 
-/* "jni/cython/jni.pxd":42
+/* "jni/cython/jni.pxd":43
  *     ctypedef c_jarray  c_jcharArray
  *     ctypedef c_jarray  c_jshortArray
  *     ctypedef c_jarray  c_jintArray             # <<<<<<<<<<<<<<
@@ -1114,7 +1114,7 @@ typedef __pyx_t_3jni_6cython_3jni_c_jarray __pyx_t_3jni_6cython_3jni_c_jshortArr
  */
 typedef __pyx_t_3jni_6cython_3jni_c_jarray __pyx_t_3jni_6cython_3jni_c_jintArray;
 
-/* "jni/cython/jni.pxd":43
+/* "jni/cython/jni.pxd":44
  *     ctypedef c_jarray  c_jshortArray
  *     ctypedef c_jarray  c_jintArray
  *     ctypedef c_jarray  c_jlongArray             # <<<<<<<<<<<<<<
@@ -1123,7 +1123,7 @@ typedef __pyx_t_3jni_6cython_3jni_c_jarray __pyx_t_3jni_6cython_3jni_c_jintArray
  */
 typedef __pyx_t_3jni_6cython_3jni_c_jarray __pyx_t_3jni_6cython_3jni_c_jlongArray;
 
-/* "jni/cython/jni.pxd":44
+/* "jni/cython/jni.pxd":45
  *     ctypedef c_jarray  c_jintArray
  *     ctypedef c_jarray  c_jlongArray
  *     ctypedef c_jarray  c_jfloatArray             # <<<<<<<<<<<<<<
@@ -1132,7 +1132,7 @@ typedef __pyx_t_3jni_6cython_3jni_c_jarray __pyx_t_3jni_6cython_3jni_c_jlongArra
  */
 typedef __pyx_t_3jni_6cython_3jni_c_jarray __pyx_t_3jni_6cython_3jni_c_jfloatArray;
 
-/* "jni/cython/jni.pxd":45
+/* "jni/cython/jni.pxd":46
  *     ctypedef c_jarray  c_jlongArray
  *     ctypedef c_jarray  c_jfloatArray
  *     ctypedef c_jarray  c_jdoubleArray             # <<<<<<<<<<<<<<
@@ -1141,7 +1141,7 @@ typedef __pyx_t_3jni_6cython_3jni_c_jarray __pyx_t_3jni_6cython_3jni_c_jfloatArr
  */
 typedef __pyx_t_3jni_6cython_3jni_c_jarray __pyx_t_3jni_6cython_3jni_c_jdoubleArray;
 
-/* "jni/cython/jni.pxd":46
+/* "jni/cython/jni.pxd":47
  *     ctypedef c_jarray  c_jfloatArray
  *     ctypedef c_jarray  c_jdoubleArray
  *     ctypedef c_jarray  c_jobjectArray             # <<<<<<<<<<<<<<
@@ -1150,7 +1150,7 @@ typedef __pyx_t_3jni_6cython_3jni_c_jarray __pyx_t_3jni_6cython_3jni_c_jdoubleAr
  */
 typedef __pyx_t_3jni_6cython_3jni_c_jarray __pyx_t_3jni_6cython_3jni_c_jobjectArray;
 
-/* "jni/cython/jni.pxd":47
+/* "jni/cython/jni.pxd":48
  *     ctypedef c_jarray  c_jdoubleArray
  *     ctypedef c_jarray  c_jobjectArray
  *     ctypedef c_jobject c_jweak             # <<<<<<<<<<<<<<
@@ -1159,7 +1159,7 @@ typedef __pyx_t_3jni_6cython_3jni_c_jarray __pyx_t_3jni_6cython_3jni_c_jobjectAr
  */
 typedef __pyx_t_3jni_6cython_3jni_c_jobject __pyx_t_3jni_6cython_3jni_c_jweak;
 
-/* "jni/cython/jni.pxd":49
+/* "jni/cython/jni.pxd":50
  *     ctypedef c_jobject c_jweak
  * 
  *     ctypedef union c_jvalue:             # <<<<<<<<<<<<<<
@@ -1178,7 +1178,7 @@ union c_jvalue {
   __pyx_t_3jni_6cython_3jni_c_jobject l;
 };
 
-/* "jni/cython/jni.pxd":61
+/* "jni/cython/jni.pxd":62
  * 
  *     struct _jfieldID
  *     ctypedef _jfieldID* c_jfieldID             # <<<<<<<<<<<<<<
@@ -1187,7 +1187,7 @@ union c_jvalue {
  */
 typedef struct _jfieldID *__pyx_t_3jni_6cython_3jni_c_jfieldID;
 
-/* "jni/cython/jni.pxd":64
+/* "jni/cython/jni.pxd":65
  * 
  *     struct _jmethodID
  *     ctypedef _jmethodID* c_jmethodID             # <<<<<<<<<<<<<<
@@ -1196,7 +1196,7 @@ typedef struct _jfieldID *__pyx_t_3jni_6cython_3jni_c_jfieldID;
  */
 typedef struct _jmethodID *__pyx_t_3jni_6cython_3jni_c_jmethodID;
 
-/* "jni/cython/jni.pxd":73
+/* "jni/cython/jni.pxd":74
  *         JNIGlobalRefType     = 2
  *         JNIWeakGlobalRefType = 3
  *     ctypedef _jobjectType c_jobjectRefType             # <<<<<<<<<<<<<<
@@ -1205,7 +1205,7 @@ typedef struct _jmethodID *__pyx_t_3jni_6cython_3jni_c_jmethodID;
  */
 typedef enum _jobjectType __pyx_t_3jni_6cython_3jni_c_jobjectRefType;
 
-/* "jni/cython/jni.pxd":109
+/* "jni/cython/jni.pxd":110
  *     #
  * 
  *     ctypedef struct c_JNINativeMethod:             # <<<<<<<<<<<<<<
@@ -1218,7 +1218,7 @@ struct c_JNINativeMethod {
   void *fnPtr;
 };
 
-/* "jni/cython/jni.pxd":119
+/* "jni/cython/jni.pxd":120
  * 
  *     struct JNINativeInterface_
  *     ctypedef const JNINativeInterface_* c_JNIEnv             # <<<<<<<<<<<<<<
@@ -1227,7 +1227,7 @@ struct c_JNINativeMethod {
  */
 typedef struct JNINativeInterface_ const *__pyx_t_3jni_6cython_3jni_c_JNIEnv;
 
-/* "jni/cython/jni.pxd":126
+/* "jni/cython/jni.pxd":127
  * 
  *     struct JNIInvokeInterface_
  *     ctypedef const JNIInvokeInterface_* c_JavaVM             # <<<<<<<<<<<<<<
@@ -1236,7 +1236,7 @@ typedef struct JNINativeInterface_ const *__pyx_t_3jni_6cython_3jni_c_JNIEnv;
  */
 typedef struct JNIInvokeInterface_ const *__pyx_t_3jni_6cython_3jni_c_JavaVM;
 
-/* "jni/cython/jni.pxd":118
+/* "jni/cython/jni.pxd":119
  *     #
  * 
  *     struct JNINativeInterface_             # <<<<<<<<<<<<<<
@@ -1479,7 +1479,7 @@ struct JNINativeInterface_ {
   __pyx_t_3jni_6cython_3jni_c_jobjectRefType (*GetObjectRefType)(__pyx_t_3jni_6cython_3jni_c_JNIEnv *, __pyx_t_3jni_6cython_3jni_c_jobject);
 };
 
-/* "jni/cython/jni.pxd":438
+/* "jni/cython/jni.pxd":439
  *     # JNI Invocation Interface.
  * 
  *     ctypedef struct c_JavaVMOption:             # <<<<<<<<<<<<<<
@@ -1491,7 +1491,7 @@ struct c_JavaVMOption {
   void *extraInfo;
 };
 
-/* "jni/cython/jni.pxd":442
+/* "jni/cython/jni.pxd":443
  *         void* extraInfo
  * 
  *     ctypedef struct c_JavaVMInitArgs:             # <<<<<<<<<<<<<<
@@ -1505,7 +1505,7 @@ struct c_JavaVMInitArgs {
   __pyx_t_3jni_6cython_3jni_c_jboolean ignoreUnrecognized;
 };
 
-/* "jni/cython/jni.pxd":448
+/* "jni/cython/jni.pxd":449
  *         c_jboolean      ignoreUnrecognized
  * 
  *     ctypedef struct c_JavaVMAttachArgs:             # <<<<<<<<<<<<<<
@@ -1518,7 +1518,7 @@ struct c_JavaVMAttachArgs {
   __pyx_t_3jni_6cython_3jni_c_jobject group;
 };
 
-/* "jni/cython/jni.pxd":125
+/* "jni/cython/jni.pxd":126
  *     #
  * 
  *     struct JNIInvokeInterface_             # <<<<<<<<<<<<<<
@@ -1539,7 +1539,7 @@ struct __pyx_defaults {
   PyObject *__pyx_arg_error;
 };
 
-/* "jni/cython/jni.pyx":13
+/* "jni/cython/jni.pyx":14
  * # JNI Types
  * 
  * cdef class _CData:             # <<<<<<<<<<<<<<
@@ -1551,7 +1551,7 @@ struct __pyx_obj_3jni_6cython_3jni__CData {
 };
 
 
-/* "jni/cython/jni.pyx":16
+/* "jni/cython/jni.pyx":17
  *     pass
  * 
  * cdef class jint(_CData):             # <<<<<<<<<<<<<<
@@ -1564,7 +1564,7 @@ struct __pyx_obj_3jni_6cython_3jni_jint {
 };
 
 
-/* "jni/cython/jni.pyx":25
+/* "jni/cython/jni.pyx":26
  *         return self.value != 0
  * 
  * cdef class jlong(_CData):             # <<<<<<<<<<<<<<
@@ -1577,7 +1577,7 @@ struct __pyx_obj_3jni_6cython_3jni_jlong {
 };
 
 
-/* "jni/cython/jni.pyx":34
+/* "jni/cython/jni.pyx":35
  *         return self.value != 0
  * 
  * cdef class jbyte(_CData):             # <<<<<<<<<<<<<<
@@ -1590,7 +1590,7 @@ struct __pyx_obj_3jni_6cython_3jni_jbyte {
 };
 
 
-/* "jni/cython/jni.pyx":43
+/* "jni/cython/jni.pyx":44
  *         return self.value != 0
  * 
  * cdef class jboolean(_CData):             # <<<<<<<<<<<<<<
@@ -1603,7 +1603,7 @@ struct __pyx_obj_3jni_6cython_3jni_jboolean {
 };
 
 
-/* "jni/cython/jni.pyx":60
+/* "jni/cython/jni.pyx":61
  *         return self.val != 0
  * 
  * cdef class jchar(_CData):             # <<<<<<<<<<<<<<
@@ -1616,7 +1616,7 @@ struct __pyx_obj_3jni_6cython_3jni_jchar {
 };
 
 
-/* "jni/cython/jni.pyx":77
+/* "jni/cython/jni.pyx":78
  *         return self.val != 0
  * 
  * cdef class jshort(_CData):             # <<<<<<<<<<<<<<
@@ -1629,7 +1629,7 @@ struct __pyx_obj_3jni_6cython_3jni_jshort {
 };
 
 
-/* "jni/cython/jni.pyx":86
+/* "jni/cython/jni.pyx":87
  *         return self.value != 0
  * 
  * cdef class jfloat(_CData):             # <<<<<<<<<<<<<<
@@ -1642,7 +1642,7 @@ struct __pyx_obj_3jni_6cython_3jni_jfloat {
 };
 
 
-/* "jni/cython/jni.pyx":95
+/* "jni/cython/jni.pyx":96
  *         return self.value != 0.0
  * 
  * cdef class jdouble(_CData):             # <<<<<<<<<<<<<<
@@ -1655,7 +1655,7 @@ struct __pyx_obj_3jni_6cython_3jni_jdouble {
 };
 
 
-/* "jni/cython/jni.pyx":106
+/* "jni/cython/jni.pyx":107
  * jsize = jint
  * 
  * cdef class jobject(_CData):             # <<<<<<<<<<<<<<
@@ -1668,7 +1668,7 @@ struct __pyx_obj_3jni_6cython_3jni_jobject {
 };
 
 
-/* "jni/cython/jni.pyx":138
+/* "jni/cython/jni.pyx":139
  * jweak         = jobject
  * 
  * cdef class jvalue(_CData):             # <<<<<<<<<<<<<<
@@ -1681,7 +1681,7 @@ struct __pyx_obj_3jni_6cython_3jni_jvalue {
 };
 
 
-/* "jni/cython/jni.pyx":214
+/* "jni/cython/jni.pyx":215
  *                        <c_jobject><uintptr_t>val if val is not None else NULL)
  * 
  * cdef class jfieldID(_CData):             # <<<<<<<<<<<<<<
@@ -1694,7 +1694,7 @@ struct __pyx_obj_3jni_6cython_3jni_jfieldID {
 };
 
 
-/* "jni/cython/jni.pyx":231
+/* "jni/cython/jni.pyx":232
  *         return self.val != NULL
  * 
  * cdef class jmethodID(_CData):             # <<<<<<<<<<<<<<
@@ -1707,7 +1707,7 @@ struct __pyx_obj_3jni_6cython_3jni_jmethodID {
 };
 
 
-/* "jni/cython/jni.pyx":261
+/* "jni/cython/jni.pyx":262
  * # JNI Native Method Interface.
  * 
  * cdef class JNINativeMethod(_CData):             # <<<<<<<<<<<<<<
@@ -1720,7 +1720,7 @@ struct __pyx_obj_3jni_6cython_3jni_JNINativeMethod {
 };
 
 
-/* "jni/cython/jni.pyx":289
+/* "jni/cython/jni.pyx":290
  *                            <void*><uintptr_t>val if val is not None else NULL)
  * 
  * cdef class JNIEnv(_CData):             # <<<<<<<<<<<<<<
@@ -1733,7 +1733,7 @@ struct __pyx_obj_3jni_6cython_3jni_JNIEnv {
 };
 
 
-/* "jni/cython/jni.pyx":295
+/* "jni/cython/jni.pyx":296
  * # JNI Invocation Interface.
  * 
  * cdef class JavaVM(_CData):             # <<<<<<<<<<<<<<
@@ -1746,7 +1746,7 @@ struct __pyx_obj_3jni_6cython_3jni_JavaVM {
 };
 
 
-/* "jni/cython/jni.pyx":299
+/* "jni/cython/jni.pyx":300
  * # [...] !!!
  * 
  * cdef class JavaVMOption(_CData):             # <<<<<<<<<<<<<<
@@ -1759,7 +1759,7 @@ struct __pyx_obj_3jni_6cython_3jni_JavaVMOption {
 };
 
 
-/* "jni/cython/jni.pyx":319
+/* "jni/cython/jni.pyx":320
  *                                <void*><uintptr_t>val if val is not None else NULL)
  * 
  * cdef class JavaVMInitArgs(_CData):             # <<<<<<<<<<<<<<
@@ -1772,7 +1772,7 @@ struct __pyx_obj_3jni_6cython_3jni_JavaVMInitArgs {
 };
 
 
-/* "jni/cython/jni.pyx":349
+/* "jni/cython/jni.pyx":350
  *         self.this.ignoreUnrecognized = val.val if isinstance(val, jboolean) else val
  * 
  * cdef class JavaVMAttachArgs(_CData):             # <<<<<<<<<<<<<<
@@ -1785,7 +1785,7 @@ struct __pyx_obj_3jni_6cython_3jni_JavaVMAttachArgs {
 };
 
 
-/* "jni/cython/jni.pyx":464
+/* "jni/cython/jni.pyx":465
  * 
  * 
  * cdef class Throwable(Exception):             # <<<<<<<<<<<<<<
@@ -1813,7 +1813,7 @@ struct __pyx_obj___Pyx_EnumMeta {
 
 
 
-/* "jni/cython/jni.pyx":464
+/* "jni/cython/jni.pyx":465
  * 
  * 
  * cdef class Throwable(Exception):             # <<<<<<<<<<<<<<
@@ -3184,7 +3184,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6_CData_2__setstate_cython__(struct 
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":19
+/* "jni/cython/jni.pyx":20
  *     cdef public c_jint value
  * 
  *     def __init__(self, val=0):             # <<<<<<<<<<<<<<
@@ -3221,7 +3221,7 @@ static int __pyx_pw_3jni_6cython_3jni_4jint_1__init__(PyObject *__pyx_v_self, Py
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 19, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 20, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -3235,7 +3235,7 @@ static int __pyx_pw_3jni_6cython_3jni_4jint_1__init__(PyObject *__pyx_v_self, Py
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 19, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 20, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("jni.cython.jni.jint.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -3254,17 +3254,17 @@ static int __pyx_pf_3jni_6cython_3jni_4jint___init__(struct __pyx_obj_3jni_6cyth
   __pyx_t_3jni_6cython_3jni_c_jint __pyx_t_1;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "jni/cython/jni.pyx":20
+  /* "jni/cython/jni.pyx":21
  * 
  *     def __init__(self, val=0):
  *         self.value = val             # <<<<<<<<<<<<<<
  * 
  *     def __bool__(self):
  */
-  __pyx_t_1 = __Pyx_PyInt_As_long(__pyx_v_val); if (unlikely((__pyx_t_1 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_long(__pyx_v_val); if (unlikely((__pyx_t_1 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L1_error)
   __pyx_v_self->value = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":19
+  /* "jni/cython/jni.pyx":20
  *     cdef public c_jint value
  * 
  *     def __init__(self, val=0):             # <<<<<<<<<<<<<<
@@ -3283,7 +3283,7 @@ static int __pyx_pf_3jni_6cython_3jni_4jint___init__(struct __pyx_obj_3jni_6cyth
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":22
+/* "jni/cython/jni.pyx":23
  *         self.value = val
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
@@ -3309,7 +3309,7 @@ static int __pyx_pf_3jni_6cython_3jni_4jint_2__bool__(struct __pyx_obj_3jni_6cyt
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__bool__", 0);
 
-  /* "jni/cython/jni.pyx":23
+  /* "jni/cython/jni.pyx":24
  * 
  *     def __bool__(self):
  *         return self.value != 0             # <<<<<<<<<<<<<<
@@ -3319,7 +3319,7 @@ static int __pyx_pf_3jni_6cython_3jni_4jint_2__bool__(struct __pyx_obj_3jni_6cyt
   __pyx_r = (__pyx_v_self->value != 0);
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":22
+  /* "jni/cython/jni.pyx":23
  *         self.value = val
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
@@ -3333,7 +3333,7 @@ static int __pyx_pf_3jni_6cython_3jni_4jint_2__bool__(struct __pyx_obj_3jni_6cyt
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":17
+/* "jni/cython/jni.pyx":18
  * 
  * cdef class jint(_CData):
  *     cdef public c_jint value             # <<<<<<<<<<<<<<
@@ -3360,7 +3360,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_4jint_5value___get__(struct __pyx_ob
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_self->value); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_self->value); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 18, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3395,7 +3395,7 @@ static int __pyx_pf_3jni_6cython_3jni_4jint_5value_2__set__(struct __pyx_obj_3jn
   __Pyx_RefNannyDeclarations
   __pyx_t_3jni_6cython_3jni_c_jint __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_long(__pyx_v_value); if (unlikely((__pyx_t_1 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 17, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_long(__pyx_v_value); if (unlikely((__pyx_t_1 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 18, __pyx_L1_error)
   __pyx_v_self->value = __pyx_t_1;
 
   /* function exit code */
@@ -3697,7 +3697,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_4jint_6__setstate_cython__(struct __
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":28
+/* "jni/cython/jni.pyx":29
  *     cdef public c_jlong value
  * 
  *     def __init__(self, val=0):             # <<<<<<<<<<<<<<
@@ -3734,7 +3734,7 @@ static int __pyx_pw_3jni_6cython_3jni_5jlong_1__init__(PyObject *__pyx_v_self, P
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 28, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 29, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -3748,7 +3748,7 @@ static int __pyx_pw_3jni_6cython_3jni_5jlong_1__init__(PyObject *__pyx_v_self, P
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 28, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 29, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("jni.cython.jni.jlong.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -3767,17 +3767,17 @@ static int __pyx_pf_3jni_6cython_3jni_5jlong___init__(struct __pyx_obj_3jni_6cyt
   __pyx_t_3jni_6cython_3jni_c_jlong __pyx_t_1;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "jni/cython/jni.pyx":29
+  /* "jni/cython/jni.pyx":30
  * 
  *     def __init__(self, val=0):
  *         self.value = val             # <<<<<<<<<<<<<<
  * 
  *     def __bool__(self):
  */
-  __pyx_t_1 = __Pyx_PyInt_As_PY_LONG_LONG(__pyx_v_val); if (unlikely((__pyx_t_1 == (PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_PY_LONG_LONG(__pyx_v_val); if (unlikely((__pyx_t_1 == (PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 30, __pyx_L1_error)
   __pyx_v_self->value = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":28
+  /* "jni/cython/jni.pyx":29
  *     cdef public c_jlong value
  * 
  *     def __init__(self, val=0):             # <<<<<<<<<<<<<<
@@ -3796,7 +3796,7 @@ static int __pyx_pf_3jni_6cython_3jni_5jlong___init__(struct __pyx_obj_3jni_6cyt
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":31
+/* "jni/cython/jni.pyx":32
  *         self.value = val
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
@@ -3822,7 +3822,7 @@ static int __pyx_pf_3jni_6cython_3jni_5jlong_2__bool__(struct __pyx_obj_3jni_6cy
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__bool__", 0);
 
-  /* "jni/cython/jni.pyx":32
+  /* "jni/cython/jni.pyx":33
  * 
  *     def __bool__(self):
  *         return self.value != 0             # <<<<<<<<<<<<<<
@@ -3832,7 +3832,7 @@ static int __pyx_pf_3jni_6cython_3jni_5jlong_2__bool__(struct __pyx_obj_3jni_6cy
   __pyx_r = (__pyx_v_self->value != 0);
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":31
+  /* "jni/cython/jni.pyx":32
  *         self.value = val
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
@@ -3846,7 +3846,7 @@ static int __pyx_pf_3jni_6cython_3jni_5jlong_2__bool__(struct __pyx_obj_3jni_6cy
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":26
+/* "jni/cython/jni.pyx":27
  * 
  * cdef class jlong(_CData):
  *     cdef public c_jlong value             # <<<<<<<<<<<<<<
@@ -3873,7 +3873,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_5jlong_5value___get__(struct __pyx_o
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_self->value); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 26, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_self->value); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 27, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3908,7 +3908,7 @@ static int __pyx_pf_3jni_6cython_3jni_5jlong_5value_2__set__(struct __pyx_obj_3j
   __Pyx_RefNannyDeclarations
   __pyx_t_3jni_6cython_3jni_c_jlong __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_PY_LONG_LONG(__pyx_v_value); if (unlikely((__pyx_t_1 == (PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 26, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_PY_LONG_LONG(__pyx_v_value); if (unlikely((__pyx_t_1 == (PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 27, __pyx_L1_error)
   __pyx_v_self->value = __pyx_t_1;
 
   /* function exit code */
@@ -4210,7 +4210,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_5jlong_6__setstate_cython__(struct _
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":37
+/* "jni/cython/jni.pyx":38
  *     cdef public c_jbyte value
  * 
  *     def __init__(self, val=0):             # <<<<<<<<<<<<<<
@@ -4247,7 +4247,7 @@ static int __pyx_pw_3jni_6cython_3jni_5jbyte_1__init__(PyObject *__pyx_v_self, P
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 37, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 38, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -4261,7 +4261,7 @@ static int __pyx_pw_3jni_6cython_3jni_5jbyte_1__init__(PyObject *__pyx_v_self, P
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 37, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 38, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("jni.cython.jni.jbyte.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -4280,17 +4280,17 @@ static int __pyx_pf_3jni_6cython_3jni_5jbyte___init__(struct __pyx_obj_3jni_6cyt
   __pyx_t_3jni_6cython_3jni_c_jbyte __pyx_t_1;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "jni/cython/jni.pyx":38
+  /* "jni/cython/jni.pyx":39
  * 
  *     def __init__(self, val=0):
  *         self.value = val             # <<<<<<<<<<<<<<
  * 
  *     def __bool__(self):
  */
-  __pyx_t_1 = __Pyx_PyInt_As_signed__char(__pyx_v_val); if (unlikely((__pyx_t_1 == (signed char)-1) && PyErr_Occurred())) __PYX_ERR(0, 38, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_signed__char(__pyx_v_val); if (unlikely((__pyx_t_1 == (signed char)-1) && PyErr_Occurred())) __PYX_ERR(0, 39, __pyx_L1_error)
   __pyx_v_self->value = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":37
+  /* "jni/cython/jni.pyx":38
  *     cdef public c_jbyte value
  * 
  *     def __init__(self, val=0):             # <<<<<<<<<<<<<<
@@ -4309,7 +4309,7 @@ static int __pyx_pf_3jni_6cython_3jni_5jbyte___init__(struct __pyx_obj_3jni_6cyt
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":40
+/* "jni/cython/jni.pyx":41
  *         self.value = val
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
@@ -4335,7 +4335,7 @@ static int __pyx_pf_3jni_6cython_3jni_5jbyte_2__bool__(struct __pyx_obj_3jni_6cy
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__bool__", 0);
 
-  /* "jni/cython/jni.pyx":41
+  /* "jni/cython/jni.pyx":42
  * 
  *     def __bool__(self):
  *         return self.value != 0             # <<<<<<<<<<<<<<
@@ -4345,7 +4345,7 @@ static int __pyx_pf_3jni_6cython_3jni_5jbyte_2__bool__(struct __pyx_obj_3jni_6cy
   __pyx_r = (__pyx_v_self->value != 0);
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":40
+  /* "jni/cython/jni.pyx":41
  *         self.value = val
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
@@ -4359,7 +4359,7 @@ static int __pyx_pf_3jni_6cython_3jni_5jbyte_2__bool__(struct __pyx_obj_3jni_6cy
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":35
+/* "jni/cython/jni.pyx":36
  * 
  * cdef class jbyte(_CData):
  *     cdef public c_jbyte value             # <<<<<<<<<<<<<<
@@ -4386,7 +4386,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_5jbyte_5value___get__(struct __pyx_o
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_signed__char(__pyx_v_self->value); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_signed__char(__pyx_v_self->value); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -4421,7 +4421,7 @@ static int __pyx_pf_3jni_6cython_3jni_5jbyte_5value_2__set__(struct __pyx_obj_3j
   __Pyx_RefNannyDeclarations
   __pyx_t_3jni_6cython_3jni_c_jbyte __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_signed__char(__pyx_v_value); if (unlikely((__pyx_t_1 == (signed char)-1) && PyErr_Occurred())) __PYX_ERR(0, 35, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_signed__char(__pyx_v_value); if (unlikely((__pyx_t_1 == (signed char)-1) && PyErr_Occurred())) __PYX_ERR(0, 36, __pyx_L1_error)
   __pyx_v_self->value = __pyx_t_1;
 
   /* function exit code */
@@ -4723,7 +4723,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_5jbyte_6__setstate_cython__(struct _
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":46
+/* "jni/cython/jni.pyx":47
  *     cdef c_jboolean val
  * 
  *     def __init__(self, val=0):             # <<<<<<<<<<<<<<
@@ -4760,7 +4760,7 @@ static int __pyx_pw_3jni_6cython_3jni_8jboolean_1__init__(PyObject *__pyx_v_self
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 46, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 47, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -4774,7 +4774,7 @@ static int __pyx_pw_3jni_6cython_3jni_8jboolean_1__init__(PyObject *__pyx_v_self
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 46, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 47, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("jni.cython.jni.jboolean.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -4793,17 +4793,17 @@ static int __pyx_pf_3jni_6cython_3jni_8jboolean___init__(struct __pyx_obj_3jni_6
   __pyx_t_3jni_6cython_3jni_c_jboolean __pyx_t_1;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "jni/cython/jni.pyx":47
+  /* "jni/cython/jni.pyx":48
  * 
  *     def __init__(self, val=0):
  *         self.val = val             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
-  __pyx_t_1 = __Pyx_PyInt_As_unsigned_char(__pyx_v_val); if (unlikely((__pyx_t_1 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 47, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_unsigned_char(__pyx_v_val); if (unlikely((__pyx_t_1 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 48, __pyx_L1_error)
   __pyx_v_self->val = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":46
+  /* "jni/cython/jni.pyx":47
  *     cdef c_jboolean val
  * 
  *     def __init__(self, val=0):             # <<<<<<<<<<<<<<
@@ -4822,7 +4822,7 @@ static int __pyx_pf_3jni_6cython_3jni_8jboolean___init__(struct __pyx_obj_3jni_6
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":50
+/* "jni/cython/jni.pyx":51
  * 
  *     @property
  *     def value(self):             # <<<<<<<<<<<<<<
@@ -4849,7 +4849,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_8jboolean_5value___get__(struct __py
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":51
+  /* "jni/cython/jni.pyx":52
  *     @property
  *     def value(self):
  *         return self.val             # <<<<<<<<<<<<<<
@@ -4857,13 +4857,13 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_8jboolean_5value___get__(struct __py
  *     @value.setter
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_char(__pyx_v_self->val); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_char(__pyx_v_self->val); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":50
+  /* "jni/cython/jni.pyx":51
  * 
  *     @property
  *     def value(self):             # <<<<<<<<<<<<<<
@@ -4882,7 +4882,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_8jboolean_5value___get__(struct __py
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":54
+/* "jni/cython/jni.pyx":55
  * 
  *     @value.setter
  *     def value(self, val):             # <<<<<<<<<<<<<<
@@ -4909,17 +4909,17 @@ static int __pyx_pf_3jni_6cython_3jni_8jboolean_5value_2__set__(struct __pyx_obj
   __pyx_t_3jni_6cython_3jni_c_jboolean __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":55
+  /* "jni/cython/jni.pyx":56
  *     @value.setter
  *     def value(self, val):
  *         self.val = val             # <<<<<<<<<<<<<<
  * 
  *     def __bool__(self):
  */
-  __pyx_t_1 = __Pyx_PyInt_As_unsigned_char(__pyx_v_val); if (unlikely((__pyx_t_1 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 55, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_unsigned_char(__pyx_v_val); if (unlikely((__pyx_t_1 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 56, __pyx_L1_error)
   __pyx_v_self->val = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":54
+  /* "jni/cython/jni.pyx":55
  * 
  *     @value.setter
  *     def value(self, val):             # <<<<<<<<<<<<<<
@@ -4938,7 +4938,7 @@ static int __pyx_pf_3jni_6cython_3jni_8jboolean_5value_2__set__(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":57
+/* "jni/cython/jni.pyx":58
  *         self.val = val
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
@@ -4964,7 +4964,7 @@ static int __pyx_pf_3jni_6cython_3jni_8jboolean_2__bool__(struct __pyx_obj_3jni_
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__bool__", 0);
 
-  /* "jni/cython/jni.pyx":58
+  /* "jni/cython/jni.pyx":59
  * 
  *     def __bool__(self):
  *         return self.val != 0             # <<<<<<<<<<<<<<
@@ -4974,7 +4974,7 @@ static int __pyx_pf_3jni_6cython_3jni_8jboolean_2__bool__(struct __pyx_obj_3jni_
   __pyx_r = (__pyx_v_self->val != 0);
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":57
+  /* "jni/cython/jni.pyx":58
  *         self.val = val
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
@@ -5276,7 +5276,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_8jboolean_6__setstate_cython__(struc
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":63
+/* "jni/cython/jni.pyx":64
  *     cdef c_jchar val
  * 
  *     def __init__(self, val=u"\0"):             # <<<<<<<<<<<<<<
@@ -5313,7 +5313,7 @@ static int __pyx_pw_3jni_6cython_3jni_5jchar_1__init__(PyObject *__pyx_v_self, P
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 63, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 64, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -5327,7 +5327,7 @@ static int __pyx_pw_3jni_6cython_3jni_5jchar_1__init__(PyObject *__pyx_v_self, P
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 63, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 64, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("jni.cython.jni.jchar.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -5346,17 +5346,17 @@ static int __pyx_pf_3jni_6cython_3jni_5jchar___init__(struct __pyx_obj_3jni_6cyt
   long __pyx_t_1;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "jni/cython/jni.pyx":64
+  /* "jni/cython/jni.pyx":65
  * 
  *     def __init__(self, val=u"\0"):
  *         self.val = <c_jchar>ord(val)             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
-  __pyx_t_1 = __Pyx_PyObject_Ord(__pyx_v_val); if (unlikely(__pyx_t_1 == ((long)(long)(Py_UCS4)-1))) __PYX_ERR(0, 64, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Ord(__pyx_v_val); if (unlikely(__pyx_t_1 == ((long)(long)(Py_UCS4)-1))) __PYX_ERR(0, 65, __pyx_L1_error)
   __pyx_v_self->val = ((__pyx_t_3jni_6cython_3jni_c_jchar)__pyx_t_1);
 
-  /* "jni/cython/jni.pyx":63
+  /* "jni/cython/jni.pyx":64
  *     cdef c_jchar val
  * 
  *     def __init__(self, val=u"\0"):             # <<<<<<<<<<<<<<
@@ -5375,7 +5375,7 @@ static int __pyx_pf_3jni_6cython_3jni_5jchar___init__(struct __pyx_obj_3jni_6cyt
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":67
+/* "jni/cython/jni.pyx":68
  * 
  *     @property
  *     def value(self):             # <<<<<<<<<<<<<<
@@ -5403,7 +5403,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_5jchar_5value___get__(struct __pyx_o
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":68
+  /* "jni/cython/jni.pyx":69
  *     @property
  *     def value(self):
  *         return chr(self.val)             # <<<<<<<<<<<<<<
@@ -5411,16 +5411,16 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_5jchar_5value___get__(struct __pyx_o
  *     @value.setter
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_short(__pyx_v_self->val); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 68, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_short(__pyx_v_self->val); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 69, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_chr, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 68, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_chr, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 69, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":67
+  /* "jni/cython/jni.pyx":68
  * 
  *     @property
  *     def value(self):             # <<<<<<<<<<<<<<
@@ -5440,7 +5440,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_5jchar_5value___get__(struct __pyx_o
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":71
+/* "jni/cython/jni.pyx":72
  * 
  *     @value.setter
  *     def value(self, val):             # <<<<<<<<<<<<<<
@@ -5467,17 +5467,17 @@ static int __pyx_pf_3jni_6cython_3jni_5jchar_5value_2__set__(struct __pyx_obj_3j
   long __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":72
+  /* "jni/cython/jni.pyx":73
  *     @value.setter
  *     def value(self, val):
  *         self.val = <c_jchar>ord(val)             # <<<<<<<<<<<<<<
  * 
  *     def __bool__(self):
  */
-  __pyx_t_1 = __Pyx_PyObject_Ord(__pyx_v_val); if (unlikely(__pyx_t_1 == ((long)(long)(Py_UCS4)-1))) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Ord(__pyx_v_val); if (unlikely(__pyx_t_1 == ((long)(long)(Py_UCS4)-1))) __PYX_ERR(0, 73, __pyx_L1_error)
   __pyx_v_self->val = ((__pyx_t_3jni_6cython_3jni_c_jchar)__pyx_t_1);
 
-  /* "jni/cython/jni.pyx":71
+  /* "jni/cython/jni.pyx":72
  * 
  *     @value.setter
  *     def value(self, val):             # <<<<<<<<<<<<<<
@@ -5496,7 +5496,7 @@ static int __pyx_pf_3jni_6cython_3jni_5jchar_5value_2__set__(struct __pyx_obj_3j
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":74
+/* "jni/cython/jni.pyx":75
  *         self.val = <c_jchar>ord(val)
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
@@ -5522,7 +5522,7 @@ static int __pyx_pf_3jni_6cython_3jni_5jchar_2__bool__(struct __pyx_obj_3jni_6cy
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__bool__", 0);
 
-  /* "jni/cython/jni.pyx":75
+  /* "jni/cython/jni.pyx":76
  * 
  *     def __bool__(self):
  *         return self.val != 0             # <<<<<<<<<<<<<<
@@ -5532,7 +5532,7 @@ static int __pyx_pf_3jni_6cython_3jni_5jchar_2__bool__(struct __pyx_obj_3jni_6cy
   __pyx_r = (__pyx_v_self->val != 0);
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":74
+  /* "jni/cython/jni.pyx":75
  *         self.val = <c_jchar>ord(val)
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
@@ -5834,7 +5834,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_5jchar_6__setstate_cython__(struct _
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":80
+/* "jni/cython/jni.pyx":81
  *     cdef public c_jshort value
  * 
  *     def __init__(self, val=0):             # <<<<<<<<<<<<<<
@@ -5871,7 +5871,7 @@ static int __pyx_pw_3jni_6cython_3jni_6jshort_1__init__(PyObject *__pyx_v_self, 
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 80, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 81, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -5885,7 +5885,7 @@ static int __pyx_pw_3jni_6cython_3jni_6jshort_1__init__(PyObject *__pyx_v_self, 
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 80, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 81, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("jni.cython.jni.jshort.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -5904,17 +5904,17 @@ static int __pyx_pf_3jni_6cython_3jni_6jshort___init__(struct __pyx_obj_3jni_6cy
   __pyx_t_3jni_6cython_3jni_c_jshort __pyx_t_1;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "jni/cython/jni.pyx":81
+  /* "jni/cython/jni.pyx":82
  * 
  *     def __init__(self, val=0):
  *         self.value = val             # <<<<<<<<<<<<<<
  * 
  *     def __bool__(self):
  */
-  __pyx_t_1 = __Pyx_PyInt_As_short(__pyx_v_val); if (unlikely((__pyx_t_1 == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_short(__pyx_v_val); if (unlikely((__pyx_t_1 == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 82, __pyx_L1_error)
   __pyx_v_self->value = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":80
+  /* "jni/cython/jni.pyx":81
  *     cdef public c_jshort value
  * 
  *     def __init__(self, val=0):             # <<<<<<<<<<<<<<
@@ -5933,7 +5933,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jshort___init__(struct __pyx_obj_3jni_6cy
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":83
+/* "jni/cython/jni.pyx":84
  *         self.value = val
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
@@ -5959,7 +5959,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jshort_2__bool__(struct __pyx_obj_3jni_6c
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__bool__", 0);
 
-  /* "jni/cython/jni.pyx":84
+  /* "jni/cython/jni.pyx":85
  * 
  *     def __bool__(self):
  *         return self.value != 0             # <<<<<<<<<<<<<<
@@ -5969,7 +5969,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jshort_2__bool__(struct __pyx_obj_3jni_6c
   __pyx_r = (__pyx_v_self->value != 0);
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":83
+  /* "jni/cython/jni.pyx":84
  *         self.value = val
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
@@ -5983,7 +5983,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jshort_2__bool__(struct __pyx_obj_3jni_6c
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":78
+/* "jni/cython/jni.pyx":79
  * 
  * cdef class jshort(_CData):
  *     cdef public c_jshort value             # <<<<<<<<<<<<<<
@@ -6010,7 +6010,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jshort_5value___get__(struct __pyx_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_short(__pyx_v_self->value); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_short(__pyx_v_self->value); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -6045,7 +6045,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jshort_5value_2__set__(struct __pyx_obj_3
   __Pyx_RefNannyDeclarations
   __pyx_t_3jni_6cython_3jni_c_jshort __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_short(__pyx_v_value); if (unlikely((__pyx_t_1 == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_short(__pyx_v_value); if (unlikely((__pyx_t_1 == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 79, __pyx_L1_error)
   __pyx_v_self->value = __pyx_t_1;
 
   /* function exit code */
@@ -6347,7 +6347,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jshort_6__setstate_cython__(struct 
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":89
+/* "jni/cython/jni.pyx":90
  *     cdef public c_jfloat value
  * 
  *     def __init__(self, val=0.0):             # <<<<<<<<<<<<<<
@@ -6384,7 +6384,7 @@ static int __pyx_pw_3jni_6cython_3jni_6jfloat_1__init__(PyObject *__pyx_v_self, 
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 89, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 90, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -6398,7 +6398,7 @@ static int __pyx_pw_3jni_6cython_3jni_6jfloat_1__init__(PyObject *__pyx_v_self, 
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 89, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 90, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("jni.cython.jni.jfloat.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -6417,17 +6417,17 @@ static int __pyx_pf_3jni_6cython_3jni_6jfloat___init__(struct __pyx_obj_3jni_6cy
   __pyx_t_3jni_6cython_3jni_c_jfloat __pyx_t_1;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "jni/cython/jni.pyx":90
+  /* "jni/cython/jni.pyx":91
  * 
  *     def __init__(self, val=0.0):
  *         self.value = val             # <<<<<<<<<<<<<<
  * 
  *     def __bool__(self):
  */
-  __pyx_t_1 = __pyx_PyFloat_AsFloat(__pyx_v_val); if (unlikely((__pyx_t_1 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 90, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsFloat(__pyx_v_val); if (unlikely((__pyx_t_1 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 91, __pyx_L1_error)
   __pyx_v_self->value = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":89
+  /* "jni/cython/jni.pyx":90
  *     cdef public c_jfloat value
  * 
  *     def __init__(self, val=0.0):             # <<<<<<<<<<<<<<
@@ -6446,7 +6446,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jfloat___init__(struct __pyx_obj_3jni_6cy
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":92
+/* "jni/cython/jni.pyx":93
  *         self.value = val
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
@@ -6472,7 +6472,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jfloat_2__bool__(struct __pyx_obj_3jni_6c
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__bool__", 0);
 
-  /* "jni/cython/jni.pyx":93
+  /* "jni/cython/jni.pyx":94
  * 
  *     def __bool__(self):
  *         return self.value != 0.0             # <<<<<<<<<<<<<<
@@ -6482,7 +6482,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jfloat_2__bool__(struct __pyx_obj_3jni_6c
   __pyx_r = (__pyx_v_self->value != 0.0);
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":92
+  /* "jni/cython/jni.pyx":93
  *         self.value = val
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
@@ -6496,7 +6496,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jfloat_2__bool__(struct __pyx_obj_3jni_6c
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":87
+/* "jni/cython/jni.pyx":88
  * 
  * cdef class jfloat(_CData):
  *     cdef public c_jfloat value             # <<<<<<<<<<<<<<
@@ -6523,7 +6523,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jfloat_5value___get__(struct __pyx_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->value); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->value); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -6558,7 +6558,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jfloat_5value_2__set__(struct __pyx_obj_3
   __Pyx_RefNannyDeclarations
   __pyx_t_3jni_6cython_3jni_c_jfloat __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsFloat(__pyx_v_value); if (unlikely((__pyx_t_1 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsFloat(__pyx_v_value); if (unlikely((__pyx_t_1 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 88, __pyx_L1_error)
   __pyx_v_self->value = __pyx_t_1;
 
   /* function exit code */
@@ -6860,7 +6860,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jfloat_6__setstate_cython__(struct 
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":98
+/* "jni/cython/jni.pyx":99
  *     cdef public c_jdouble value
  * 
  *     def __init__(self, val=0.0):             # <<<<<<<<<<<<<<
@@ -6897,7 +6897,7 @@ static int __pyx_pw_3jni_6cython_3jni_7jdouble_1__init__(PyObject *__pyx_v_self,
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 98, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 99, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -6911,7 +6911,7 @@ static int __pyx_pw_3jni_6cython_3jni_7jdouble_1__init__(PyObject *__pyx_v_self,
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 98, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 99, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("jni.cython.jni.jdouble.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -6930,17 +6930,17 @@ static int __pyx_pf_3jni_6cython_3jni_7jdouble___init__(struct __pyx_obj_3jni_6c
   __pyx_t_3jni_6cython_3jni_c_jdouble __pyx_t_1;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "jni/cython/jni.pyx":99
+  /* "jni/cython/jni.pyx":100
  * 
  *     def __init__(self, val=0.0):
  *         self.value = val             # <<<<<<<<<<<<<<
  * 
  *     def __bool__(self):
  */
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_val); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 99, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_val); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 100, __pyx_L1_error)
   __pyx_v_self->value = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":98
+  /* "jni/cython/jni.pyx":99
  *     cdef public c_jdouble value
  * 
  *     def __init__(self, val=0.0):             # <<<<<<<<<<<<<<
@@ -6959,7 +6959,7 @@ static int __pyx_pf_3jni_6cython_3jni_7jdouble___init__(struct __pyx_obj_3jni_6c
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":101
+/* "jni/cython/jni.pyx":102
  *         self.value = val
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
@@ -6985,7 +6985,7 @@ static int __pyx_pf_3jni_6cython_3jni_7jdouble_2__bool__(struct __pyx_obj_3jni_6
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__bool__", 0);
 
-  /* "jni/cython/jni.pyx":102
+  /* "jni/cython/jni.pyx":103
  * 
  *     def __bool__(self):
  *         return self.value != 0.0             # <<<<<<<<<<<<<<
@@ -6995,7 +6995,7 @@ static int __pyx_pf_3jni_6cython_3jni_7jdouble_2__bool__(struct __pyx_obj_3jni_6
   __pyx_r = (__pyx_v_self->value != 0.0);
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":101
+  /* "jni/cython/jni.pyx":102
  *         self.value = val
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
@@ -7009,7 +7009,7 @@ static int __pyx_pf_3jni_6cython_3jni_7jdouble_2__bool__(struct __pyx_obj_3jni_6
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":96
+/* "jni/cython/jni.pyx":97
  * 
  * cdef class jdouble(_CData):
  *     cdef public c_jdouble value             # <<<<<<<<<<<<<<
@@ -7036,7 +7036,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_7jdouble_5value___get__(struct __pyx
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->value); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->value); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7071,7 +7071,7 @@ static int __pyx_pf_3jni_6cython_3jni_7jdouble_5value_2__set__(struct __pyx_obj_
   __Pyx_RefNannyDeclarations
   __pyx_t_3jni_6cython_3jni_c_jdouble __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 97, __pyx_L1_error)
   __pyx_v_self->value = __pyx_t_1;
 
   /* function exit code */
@@ -7373,7 +7373,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_7jdouble_6__setstate_cython__(struct
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":109
+/* "jni/cython/jni.pyx":110
  *     cdef c_jobject val
  * 
  *     def __init__(self, val=None):             # <<<<<<<<<<<<<<
@@ -7410,7 +7410,7 @@ static int __pyx_pw_3jni_6cython_3jni_7jobject_1__init__(PyObject *__pyx_v_self,
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 109, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 110, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -7424,7 +7424,7 @@ static int __pyx_pw_3jni_6cython_3jni_7jobject_1__init__(PyObject *__pyx_v_self,
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 109, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 110, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("jni.cython.jni.jobject.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -7445,7 +7445,7 @@ static int __pyx_pf_3jni_6cython_3jni_7jobject___init__(struct __pyx_obj_3jni_6c
   uintptr_t __pyx_t_3;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "jni/cython/jni.pyx":110
+  /* "jni/cython/jni.pyx":111
  * 
  *     def __init__(self, val=None):
  *         self.val = <c_jobject><uintptr_t>val if val is not None else NULL             # <<<<<<<<<<<<<<
@@ -7454,14 +7454,14 @@ static int __pyx_pf_3jni_6cython_3jni_7jobject___init__(struct __pyx_obj_3jni_6c
  */
   __pyx_t_2 = (__pyx_v_val != Py_None);
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyInt_As_size_t(__pyx_v_val); if (unlikely((__pyx_t_3 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 110, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyInt_As_size_t(__pyx_v_val); if (unlikely((__pyx_t_3 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 111, __pyx_L1_error)
     __pyx_t_1 = ((__pyx_t_3jni_6cython_3jni_c_jobject)((uintptr_t)__pyx_t_3));
   } else {
     __pyx_t_1 = NULL;
   }
   __pyx_v_self->val = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":109
+  /* "jni/cython/jni.pyx":110
  *     cdef c_jobject val
  * 
  *     def __init__(self, val=None):             # <<<<<<<<<<<<<<
@@ -7480,7 +7480,7 @@ static int __pyx_pf_3jni_6cython_3jni_7jobject___init__(struct __pyx_obj_3jni_6c
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":113
+/* "jni/cython/jni.pyx":114
  * 
  *     @property
  *     def value(self):             # <<<<<<<<<<<<<<
@@ -7509,7 +7509,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_7jobject_5value___get__(struct __pyx
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":114
+  /* "jni/cython/jni.pyx":115
  *     @property
  *     def value(self):
  *         return int(<uintptr_t>self.val) if self.val is not NULL else None             # <<<<<<<<<<<<<<
@@ -7518,9 +7518,9 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_7jobject_5value___get__(struct __pyx
  */
   __Pyx_XDECREF(__pyx_r);
   if (((__pyx_v_self->val != NULL) != 0)) {
-    __pyx_t_2 = __Pyx_PyInt_FromSize_t(((uintptr_t)__pyx_v_self->val)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 114, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyInt_FromSize_t(((uintptr_t)__pyx_v_self->val)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 115, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyInt_Type)), __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 114, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyInt_Type)), __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 115, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_1 = __pyx_t_3;
@@ -7533,7 +7533,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_7jobject_5value___get__(struct __pyx
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":113
+  /* "jni/cython/jni.pyx":114
  * 
  *     @property
  *     def value(self):             # <<<<<<<<<<<<<<
@@ -7554,7 +7554,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_7jobject_5value___get__(struct __pyx
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":117
+/* "jni/cython/jni.pyx":118
  * 
  *     @value.setter
  *     def value(self, val):             # <<<<<<<<<<<<<<
@@ -7583,7 +7583,7 @@ static int __pyx_pf_3jni_6cython_3jni_7jobject_5value_2__set__(struct __pyx_obj_
   uintptr_t __pyx_t_3;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":118
+  /* "jni/cython/jni.pyx":119
  *     @value.setter
  *     def value(self, val):
  *         self.val = <c_jobject><uintptr_t>val if val is not None else NULL             # <<<<<<<<<<<<<<
@@ -7592,14 +7592,14 @@ static int __pyx_pf_3jni_6cython_3jni_7jobject_5value_2__set__(struct __pyx_obj_
  */
   __pyx_t_2 = (__pyx_v_val != Py_None);
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyInt_As_size_t(__pyx_v_val); if (unlikely((__pyx_t_3 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 118, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyInt_As_size_t(__pyx_v_val); if (unlikely((__pyx_t_3 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 119, __pyx_L1_error)
     __pyx_t_1 = ((__pyx_t_3jni_6cython_3jni_c_jobject)((uintptr_t)__pyx_t_3));
   } else {
     __pyx_t_1 = NULL;
   }
   __pyx_v_self->val = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":117
+  /* "jni/cython/jni.pyx":118
  * 
  *     @value.setter
  *     def value(self, val):             # <<<<<<<<<<<<<<
@@ -7618,7 +7618,7 @@ static int __pyx_pf_3jni_6cython_3jni_7jobject_5value_2__set__(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":120
+/* "jni/cython/jni.pyx":121
  *         self.val = <c_jobject><uintptr_t>val if val is not None else NULL
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
@@ -7644,7 +7644,7 @@ static int __pyx_pf_3jni_6cython_3jni_7jobject_2__bool__(struct __pyx_obj_3jni_6
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__bool__", 0);
 
-  /* "jni/cython/jni.pyx":121
+  /* "jni/cython/jni.pyx":122
  * 
  *     def __bool__(self):
  *         return self.val != NULL             # <<<<<<<<<<<<<<
@@ -7654,7 +7654,7 @@ static int __pyx_pf_3jni_6cython_3jni_7jobject_2__bool__(struct __pyx_obj_3jni_6
   __pyx_r = (__pyx_v_self->val != NULL);
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":120
+  /* "jni/cython/jni.pyx":121
  *         self.val = <c_jobject><uintptr_t>val if val is not None else NULL
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
@@ -7775,7 +7775,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_7jobject_6__setstate_cython__(CYTHON
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":142
+/* "jni/cython/jni.pyx":143
  * 
  *     @property
  *     def z(self):             # <<<<<<<<<<<<<<
@@ -7802,7 +7802,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1z___get__(struct __pyx_obj_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":143
+  /* "jni/cython/jni.pyx":144
  *     @property
  *     def z(self):
  *         return self.this.z             # <<<<<<<<<<<<<<
@@ -7810,13 +7810,13 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1z___get__(struct __pyx_obj_
  *     @z.setter
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_char(__pyx_v_self->this.z); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_char(__pyx_v_self->this.z); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":142
+  /* "jni/cython/jni.pyx":143
  * 
  *     @property
  *     def z(self):             # <<<<<<<<<<<<<<
@@ -7835,7 +7835,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1z___get__(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":146
+/* "jni/cython/jni.pyx":147
  * 
  *     @z.setter
  *     def z(self, val):             # <<<<<<<<<<<<<<
@@ -7865,7 +7865,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1z_2__set__(struct __pyx_obj_3jni_
   __pyx_t_3jni_6cython_3jni_c_jboolean __pyx_t_4;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":147
+  /* "jni/cython/jni.pyx":148
  *     @z.setter
  *     def z(self, val):
  *         self.this.z = val.val if isinstance(val, jboolean) else val             # <<<<<<<<<<<<<<
@@ -7874,18 +7874,18 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1z_2__set__(struct __pyx_obj_3jni_
  */
   __pyx_t_2 = __Pyx_TypeCheck(__pyx_v_val, __pyx_ptype_3jni_6cython_3jni_jboolean); 
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 147, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 148, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyInt_As_unsigned_char(__pyx_t_3); if (unlikely((__pyx_t_4 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 147, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_unsigned_char(__pyx_t_3); if (unlikely((__pyx_t_4 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 148, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_1 = __pyx_t_4;
   } else {
-    __pyx_t_4 = __Pyx_PyInt_As_unsigned_char(__pyx_v_val); if (unlikely((__pyx_t_4 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 147, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_unsigned_char(__pyx_v_val); if (unlikely((__pyx_t_4 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 148, __pyx_L1_error)
     __pyx_t_1 = __pyx_t_4;
   }
   __pyx_v_self->this.z = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":146
+  /* "jni/cython/jni.pyx":147
  * 
  *     @z.setter
  *     def z(self, val):             # <<<<<<<<<<<<<<
@@ -7905,7 +7905,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1z_2__set__(struct __pyx_obj_3jni_
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":150
+/* "jni/cython/jni.pyx":151
  * 
  *     @property
  *     def b(self):             # <<<<<<<<<<<<<<
@@ -7932,7 +7932,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1b___get__(struct __pyx_obj_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":151
+  /* "jni/cython/jni.pyx":152
  *     @property
  *     def b(self):
  *         return self.this.b             # <<<<<<<<<<<<<<
@@ -7940,13 +7940,13 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1b___get__(struct __pyx_obj_
  *     @b.setter
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_signed__char(__pyx_v_self->this.b); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 151, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_signed__char(__pyx_v_self->this.b); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 152, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":150
+  /* "jni/cython/jni.pyx":151
  * 
  *     @property
  *     def b(self):             # <<<<<<<<<<<<<<
@@ -7965,7 +7965,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1b___get__(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":154
+/* "jni/cython/jni.pyx":155
  * 
  *     @b.setter
  *     def b(self, val):             # <<<<<<<<<<<<<<
@@ -7995,7 +7995,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1b_2__set__(struct __pyx_obj_3jni_
   __pyx_t_3jni_6cython_3jni_c_jbyte __pyx_t_4;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":155
+  /* "jni/cython/jni.pyx":156
  *     @b.setter
  *     def b(self, val):
  *         self.this.b = val.val if isinstance(val, jbyte) else val             # <<<<<<<<<<<<<<
@@ -8004,18 +8004,18 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1b_2__set__(struct __pyx_obj_3jni_
  */
   __pyx_t_2 = __Pyx_TypeCheck(__pyx_v_val, __pyx_ptype_3jni_6cython_3jni_jbyte); 
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 155, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 156, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyInt_As_signed__char(__pyx_t_3); if (unlikely((__pyx_t_4 == (signed char)-1) && PyErr_Occurred())) __PYX_ERR(0, 155, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_signed__char(__pyx_t_3); if (unlikely((__pyx_t_4 == (signed char)-1) && PyErr_Occurred())) __PYX_ERR(0, 156, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_1 = __pyx_t_4;
   } else {
-    __pyx_t_4 = __Pyx_PyInt_As_signed__char(__pyx_v_val); if (unlikely((__pyx_t_4 == (signed char)-1) && PyErr_Occurred())) __PYX_ERR(0, 155, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_signed__char(__pyx_v_val); if (unlikely((__pyx_t_4 == (signed char)-1) && PyErr_Occurred())) __PYX_ERR(0, 156, __pyx_L1_error)
     __pyx_t_1 = __pyx_t_4;
   }
   __pyx_v_self->this.b = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":154
+  /* "jni/cython/jni.pyx":155
  * 
  *     @b.setter
  *     def b(self, val):             # <<<<<<<<<<<<<<
@@ -8035,7 +8035,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1b_2__set__(struct __pyx_obj_3jni_
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":158
+/* "jni/cython/jni.pyx":159
  * 
  *     @property
  *     def c(self):             # <<<<<<<<<<<<<<
@@ -8063,7 +8063,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1c___get__(struct __pyx_obj_
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":159
+  /* "jni/cython/jni.pyx":160
  *     @property
  *     def c(self):
  *         return chr(self.this.c)             # <<<<<<<<<<<<<<
@@ -8071,16 +8071,16 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1c___get__(struct __pyx_obj_
  *     @c.setter
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_short(__pyx_v_self->this.c); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_short(__pyx_v_self->this.c); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_chr, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 159, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_chr, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":158
+  /* "jni/cython/jni.pyx":159
  * 
  *     @property
  *     def c(self):             # <<<<<<<<<<<<<<
@@ -8100,7 +8100,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1c___get__(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":162
+/* "jni/cython/jni.pyx":163
  * 
  *     @c.setter
  *     def c(self, val):             # <<<<<<<<<<<<<<
@@ -8131,7 +8131,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1c_2__set__(struct __pyx_obj_3jni_
   long __pyx_t_5;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":163
+  /* "jni/cython/jni.pyx":164
  *     @c.setter
  *     def c(self, val):
  *         self.this.c = val.val if isinstance(val, jchar) else <c_jchar>ord(val)             # <<<<<<<<<<<<<<
@@ -8140,18 +8140,18 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1c_2__set__(struct __pyx_obj_3jni_
  */
   __pyx_t_2 = __Pyx_TypeCheck(__pyx_v_val, __pyx_ptype_3jni_6cython_3jni_jchar); 
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 163, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 164, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyInt_As_unsigned_short(__pyx_t_3); if (unlikely((__pyx_t_4 == (unsigned short)-1) && PyErr_Occurred())) __PYX_ERR(0, 163, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_unsigned_short(__pyx_t_3); if (unlikely((__pyx_t_4 == (unsigned short)-1) && PyErr_Occurred())) __PYX_ERR(0, 164, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_1 = __pyx_t_4;
   } else {
-    __pyx_t_5 = __Pyx_PyObject_Ord(__pyx_v_val); if (unlikely(__pyx_t_5 == ((long)(long)(Py_UCS4)-1))) __PYX_ERR(0, 163, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Ord(__pyx_v_val); if (unlikely(__pyx_t_5 == ((long)(long)(Py_UCS4)-1))) __PYX_ERR(0, 164, __pyx_L1_error)
     __pyx_t_1 = ((__pyx_t_3jni_6cython_3jni_c_jchar)__pyx_t_5);
   }
   __pyx_v_self->this.c = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":162
+  /* "jni/cython/jni.pyx":163
  * 
  *     @c.setter
  *     def c(self, val):             # <<<<<<<<<<<<<<
@@ -8171,7 +8171,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1c_2__set__(struct __pyx_obj_3jni_
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":166
+/* "jni/cython/jni.pyx":167
  * 
  *     @property
  *     def s(self):             # <<<<<<<<<<<<<<
@@ -8198,7 +8198,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1s___get__(struct __pyx_obj_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":167
+  /* "jni/cython/jni.pyx":168
  *     @property
  *     def s(self):
  *         return self.this.s             # <<<<<<<<<<<<<<
@@ -8206,13 +8206,13 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1s___get__(struct __pyx_obj_
  *     @s.setter
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_short(__pyx_v_self->this.s); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_short(__pyx_v_self->this.s); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 168, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":166
+  /* "jni/cython/jni.pyx":167
  * 
  *     @property
  *     def s(self):             # <<<<<<<<<<<<<<
@@ -8231,7 +8231,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1s___get__(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":170
+/* "jni/cython/jni.pyx":171
  * 
  *     @s.setter
  *     def s(self, val):             # <<<<<<<<<<<<<<
@@ -8261,7 +8261,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1s_2__set__(struct __pyx_obj_3jni_
   __pyx_t_3jni_6cython_3jni_c_jshort __pyx_t_4;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":171
+  /* "jni/cython/jni.pyx":172
  *     @s.setter
  *     def s(self, val):
  *         self.this.s = val.val if isinstance(val, jshort) else val             # <<<<<<<<<<<<<<
@@ -8270,18 +8270,18 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1s_2__set__(struct __pyx_obj_3jni_
  */
   __pyx_t_2 = __Pyx_TypeCheck(__pyx_v_val, __pyx_ptype_3jni_6cython_3jni_jshort); 
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 171, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 172, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyInt_As_short(__pyx_t_3); if (unlikely((__pyx_t_4 == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 171, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_short(__pyx_t_3); if (unlikely((__pyx_t_4 == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 172, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_1 = __pyx_t_4;
   } else {
-    __pyx_t_4 = __Pyx_PyInt_As_short(__pyx_v_val); if (unlikely((__pyx_t_4 == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 171, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_short(__pyx_v_val); if (unlikely((__pyx_t_4 == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 172, __pyx_L1_error)
     __pyx_t_1 = __pyx_t_4;
   }
   __pyx_v_self->this.s = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":170
+  /* "jni/cython/jni.pyx":171
  * 
  *     @s.setter
  *     def s(self, val):             # <<<<<<<<<<<<<<
@@ -8301,7 +8301,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1s_2__set__(struct __pyx_obj_3jni_
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":174
+/* "jni/cython/jni.pyx":175
  * 
  *     @property
  *     def i(self):             # <<<<<<<<<<<<<<
@@ -8328,7 +8328,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1i___get__(struct __pyx_obj_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":175
+  /* "jni/cython/jni.pyx":176
  *     @property
  *     def i(self):
  *         return self.this.i             # <<<<<<<<<<<<<<
@@ -8336,13 +8336,13 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1i___get__(struct __pyx_obj_
  *     @i.setter
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_self->this.i); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 175, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_self->this.i); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 176, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":174
+  /* "jni/cython/jni.pyx":175
  * 
  *     @property
  *     def i(self):             # <<<<<<<<<<<<<<
@@ -8361,7 +8361,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1i___get__(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":178
+/* "jni/cython/jni.pyx":179
  * 
  *     @i.setter
  *     def i(self, val):             # <<<<<<<<<<<<<<
@@ -8391,7 +8391,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1i_2__set__(struct __pyx_obj_3jni_
   __pyx_t_3jni_6cython_3jni_c_jint __pyx_t_4;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":179
+  /* "jni/cython/jni.pyx":180
  *     @i.setter
  *     def i(self, val):
  *         self.this.i = val.val if isinstance(val, jint) else val             # <<<<<<<<<<<<<<
@@ -8400,18 +8400,18 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1i_2__set__(struct __pyx_obj_3jni_
  */
   __pyx_t_2 = __Pyx_TypeCheck(__pyx_v_val, __pyx_ptype_3jni_6cython_3jni_jint); 
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 179, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 180, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_4 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 179, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_4 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 180, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_1 = __pyx_t_4;
   } else {
-    __pyx_t_4 = __Pyx_PyInt_As_long(__pyx_v_val); if (unlikely((__pyx_t_4 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 179, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_long(__pyx_v_val); if (unlikely((__pyx_t_4 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 180, __pyx_L1_error)
     __pyx_t_1 = __pyx_t_4;
   }
   __pyx_v_self->this.i = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":178
+  /* "jni/cython/jni.pyx":179
  * 
  *     @i.setter
  *     def i(self, val):             # <<<<<<<<<<<<<<
@@ -8431,7 +8431,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1i_2__set__(struct __pyx_obj_3jni_
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":182
+/* "jni/cython/jni.pyx":183
  * 
  *     @property
  *     def j(self):             # <<<<<<<<<<<<<<
@@ -8458,7 +8458,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1j___get__(struct __pyx_obj_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":183
+  /* "jni/cython/jni.pyx":184
  *     @property
  *     def j(self):
  *         return self.this.j             # <<<<<<<<<<<<<<
@@ -8466,13 +8466,13 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1j___get__(struct __pyx_obj_
  *     @j.setter
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_self->this.j); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 183, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_self->this.j); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 184, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":182
+  /* "jni/cython/jni.pyx":183
  * 
  *     @property
  *     def j(self):             # <<<<<<<<<<<<<<
@@ -8491,7 +8491,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1j___get__(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":186
+/* "jni/cython/jni.pyx":187
  * 
  *     @j.setter
  *     def j(self, val):             # <<<<<<<<<<<<<<
@@ -8521,7 +8521,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1j_2__set__(struct __pyx_obj_3jni_
   __pyx_t_3jni_6cython_3jni_c_jlong __pyx_t_4;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":187
+  /* "jni/cython/jni.pyx":188
  *     @j.setter
  *     def j(self, val):
  *         self.this.j = val.val if isinstance(val, jlong) else val             # <<<<<<<<<<<<<<
@@ -8530,18 +8530,18 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1j_2__set__(struct __pyx_obj_3jni_
  */
   __pyx_t_2 = __Pyx_TypeCheck(__pyx_v_val, __pyx_ptype_3jni_6cython_3jni_jlong); 
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyInt_As_PY_LONG_LONG(__pyx_t_3); if (unlikely((__pyx_t_4 == (PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_PY_LONG_LONG(__pyx_t_3); if (unlikely((__pyx_t_4 == (PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 188, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_1 = __pyx_t_4;
   } else {
-    __pyx_t_4 = __Pyx_PyInt_As_PY_LONG_LONG(__pyx_v_val); if (unlikely((__pyx_t_4 == (PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_PY_LONG_LONG(__pyx_v_val); if (unlikely((__pyx_t_4 == (PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 188, __pyx_L1_error)
     __pyx_t_1 = __pyx_t_4;
   }
   __pyx_v_self->this.j = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":186
+  /* "jni/cython/jni.pyx":187
  * 
  *     @j.setter
  *     def j(self, val):             # <<<<<<<<<<<<<<
@@ -8561,7 +8561,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1j_2__set__(struct __pyx_obj_3jni_
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":190
+/* "jni/cython/jni.pyx":191
  * 
  *     @property
  *     def f(self):             # <<<<<<<<<<<<<<
@@ -8588,7 +8588,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1f___get__(struct __pyx_obj_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":191
+  /* "jni/cython/jni.pyx":192
  *     @property
  *     def f(self):
  *         return self.this.f             # <<<<<<<<<<<<<<
@@ -8596,13 +8596,13 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1f___get__(struct __pyx_obj_
  *     @f.setter
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->this.f); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 191, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->this.f); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 192, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":190
+  /* "jni/cython/jni.pyx":191
  * 
  *     @property
  *     def f(self):             # <<<<<<<<<<<<<<
@@ -8621,7 +8621,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1f___get__(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":194
+/* "jni/cython/jni.pyx":195
  * 
  *     @f.setter
  *     def f(self, val):             # <<<<<<<<<<<<<<
@@ -8651,7 +8651,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1f_2__set__(struct __pyx_obj_3jni_
   __pyx_t_3jni_6cython_3jni_c_jfloat __pyx_t_4;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":195
+  /* "jni/cython/jni.pyx":196
  *     @f.setter
  *     def f(self, val):
  *         self.this.f = val.val if isinstance(val, jfloat) else val             # <<<<<<<<<<<<<<
@@ -8660,18 +8660,18 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1f_2__set__(struct __pyx_obj_3jni_
  */
   __pyx_t_2 = __Pyx_TypeCheck(__pyx_v_val, __pyx_ptype_3jni_6cython_3jni_jfloat); 
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 195, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 196, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __pyx_PyFloat_AsFloat(__pyx_t_3); if (unlikely((__pyx_t_4 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 195, __pyx_L1_error)
+    __pyx_t_4 = __pyx_PyFloat_AsFloat(__pyx_t_3); if (unlikely((__pyx_t_4 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 196, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_1 = __pyx_t_4;
   } else {
-    __pyx_t_4 = __pyx_PyFloat_AsFloat(__pyx_v_val); if (unlikely((__pyx_t_4 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 195, __pyx_L1_error)
+    __pyx_t_4 = __pyx_PyFloat_AsFloat(__pyx_v_val); if (unlikely((__pyx_t_4 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 196, __pyx_L1_error)
     __pyx_t_1 = __pyx_t_4;
   }
   __pyx_v_self->this.f = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":194
+  /* "jni/cython/jni.pyx":195
  * 
  *     @f.setter
  *     def f(self, val):             # <<<<<<<<<<<<<<
@@ -8691,7 +8691,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1f_2__set__(struct __pyx_obj_3jni_
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":198
+/* "jni/cython/jni.pyx":199
  * 
  *     @property
  *     def d(self):             # <<<<<<<<<<<<<<
@@ -8718,7 +8718,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1d___get__(struct __pyx_obj_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":199
+  /* "jni/cython/jni.pyx":200
  *     @property
  *     def d(self):
  *         return self.this.d             # <<<<<<<<<<<<<<
@@ -8726,13 +8726,13 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1d___get__(struct __pyx_obj_
  *     @d.setter
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->this.d); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 199, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->this.d); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 200, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":198
+  /* "jni/cython/jni.pyx":199
  * 
  *     @property
  *     def d(self):             # <<<<<<<<<<<<<<
@@ -8751,7 +8751,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1d___get__(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":202
+/* "jni/cython/jni.pyx":203
  * 
  *     @d.setter
  *     def d(self, val):             # <<<<<<<<<<<<<<
@@ -8781,7 +8781,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1d_2__set__(struct __pyx_obj_3jni_
   __pyx_t_3jni_6cython_3jni_c_jdouble __pyx_t_4;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":203
+  /* "jni/cython/jni.pyx":204
  *     @d.setter
  *     def d(self, val):
  *         self.this.d = val.val if isinstance(val, jdouble) else val             # <<<<<<<<<<<<<<
@@ -8790,18 +8790,18 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1d_2__set__(struct __pyx_obj_3jni_
  */
   __pyx_t_2 = __Pyx_TypeCheck(__pyx_v_val, __pyx_ptype_3jni_6cython_3jni_jdouble); 
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 203, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 204, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 203, __pyx_L1_error)
+    __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 204, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_1 = __pyx_t_4;
   } else {
-    __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_v_val); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 203, __pyx_L1_error)
+    __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_v_val); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 204, __pyx_L1_error)
     __pyx_t_1 = __pyx_t_4;
   }
   __pyx_v_self->this.d = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":202
+  /* "jni/cython/jni.pyx":203
  * 
  *     @d.setter
  *     def d(self, val):             # <<<<<<<<<<<<<<
@@ -8821,7 +8821,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1d_2__set__(struct __pyx_obj_3jni_
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":206
+/* "jni/cython/jni.pyx":207
  * 
  *     @property
  *     def l(self):             # <<<<<<<<<<<<<<
@@ -8850,7 +8850,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1l___get__(struct __pyx_obj_
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":207
+  /* "jni/cython/jni.pyx":208
  *     @property
  *     def l(self):
  *         return int(<uintptr_t>self.this.l) if self.this.l is not NULL else None             # <<<<<<<<<<<<<<
@@ -8859,9 +8859,9 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1l___get__(struct __pyx_obj_
  */
   __Pyx_XDECREF(__pyx_r);
   if (((__pyx_v_self->this.l != NULL) != 0)) {
-    __pyx_t_2 = __Pyx_PyInt_FromSize_t(((uintptr_t)__pyx_v_self->this.l)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 207, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyInt_FromSize_t(((uintptr_t)__pyx_v_self->this.l)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 208, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyInt_Type)), __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 207, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyInt_Type)), __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 208, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_1 = __pyx_t_3;
@@ -8874,7 +8874,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1l___get__(struct __pyx_obj_
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":206
+  /* "jni/cython/jni.pyx":207
  * 
  *     @property
  *     def l(self):             # <<<<<<<<<<<<<<
@@ -8895,7 +8895,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_1l___get__(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":210
+/* "jni/cython/jni.pyx":211
  * 
  *     @l.setter
  *     def l(self, val):             # <<<<<<<<<<<<<<
@@ -8927,7 +8927,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1l_2__set__(struct __pyx_obj_3jni_
   uintptr_t __pyx_t_6;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":211
+  /* "jni/cython/jni.pyx":212
  *     @l.setter
  *     def l(self, val):
  *         self.this.l = (<c_jobject>val.val if isinstance(val, jobject) else             # <<<<<<<<<<<<<<
@@ -8936,13 +8936,13 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1l_2__set__(struct __pyx_obj_3jni_
  */
   __pyx_t_2 = __Pyx_TypeCheck(__pyx_v_val, __pyx_ptype_3jni_6cython_3jni_jobject); 
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 211, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 212, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_1 = ((__pyx_t_3jni_6cython_3jni_c_jobject)__pyx_t_3);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
 
-    /* "jni/cython/jni.pyx":212
+    /* "jni/cython/jni.pyx":213
  *     def l(self, val):
  *         self.this.l = (<c_jobject>val.val if isinstance(val, jobject) else
  *                        <c_jobject><uintptr_t>val if val is not None else NULL)             # <<<<<<<<<<<<<<
@@ -8951,7 +8951,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1l_2__set__(struct __pyx_obj_3jni_
  */
     __pyx_t_5 = (__pyx_v_val != Py_None);
     if ((__pyx_t_5 != 0)) {
-      __pyx_t_6 = __Pyx_PyInt_As_size_t(__pyx_v_val); if (unlikely((__pyx_t_6 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 212, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyInt_As_size_t(__pyx_v_val); if (unlikely((__pyx_t_6 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 213, __pyx_L1_error)
       __pyx_t_4 = ((__pyx_t_3jni_6cython_3jni_c_jobject)((uintptr_t)__pyx_t_6));
     } else {
       __pyx_t_4 = NULL;
@@ -8959,7 +8959,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1l_2__set__(struct __pyx_obj_3jni_
     __pyx_t_1 = __pyx_t_4;
   }
 
-  /* "jni/cython/jni.pyx":211
+  /* "jni/cython/jni.pyx":212
  *     @l.setter
  *     def l(self, val):
  *         self.this.l = (<c_jobject>val.val if isinstance(val, jobject) else             # <<<<<<<<<<<<<<
@@ -8968,7 +8968,7 @@ static int __pyx_pf_3jni_6cython_3jni_6jvalue_1l_2__set__(struct __pyx_obj_3jni_
  */
   __pyx_v_self->this.l = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":210
+  /* "jni/cython/jni.pyx":211
  * 
  *     @l.setter
  *     def l(self, val):             # <<<<<<<<<<<<<<
@@ -9095,7 +9095,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6jvalue_2__setstate_cython__(CYTHON_
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":217
+/* "jni/cython/jni.pyx":218
  *     cdef c_jfieldID val
  * 
  *     def __init__(self, val=None):             # <<<<<<<<<<<<<<
@@ -9132,7 +9132,7 @@ static int __pyx_pw_3jni_6cython_3jni_8jfieldID_1__init__(PyObject *__pyx_v_self
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 217, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 218, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -9146,7 +9146,7 @@ static int __pyx_pw_3jni_6cython_3jni_8jfieldID_1__init__(PyObject *__pyx_v_self
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 217, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 218, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("jni.cython.jni.jfieldID.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -9167,7 +9167,7 @@ static int __pyx_pf_3jni_6cython_3jni_8jfieldID___init__(struct __pyx_obj_3jni_6
   uintptr_t __pyx_t_3;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "jni/cython/jni.pyx":218
+  /* "jni/cython/jni.pyx":219
  * 
  *     def __init__(self, val=None):
  *         self.val = <c_jfieldID><uintptr_t>val if val is not None else NULL             # <<<<<<<<<<<<<<
@@ -9176,14 +9176,14 @@ static int __pyx_pf_3jni_6cython_3jni_8jfieldID___init__(struct __pyx_obj_3jni_6
  */
   __pyx_t_2 = (__pyx_v_val != Py_None);
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyInt_As_size_t(__pyx_v_val); if (unlikely((__pyx_t_3 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 218, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyInt_As_size_t(__pyx_v_val); if (unlikely((__pyx_t_3 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 219, __pyx_L1_error)
     __pyx_t_1 = ((__pyx_t_3jni_6cython_3jni_c_jfieldID)((uintptr_t)__pyx_t_3));
   } else {
     __pyx_t_1 = NULL;
   }
   __pyx_v_self->val = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":217
+  /* "jni/cython/jni.pyx":218
  *     cdef c_jfieldID val
  * 
  *     def __init__(self, val=None):             # <<<<<<<<<<<<<<
@@ -9202,7 +9202,7 @@ static int __pyx_pf_3jni_6cython_3jni_8jfieldID___init__(struct __pyx_obj_3jni_6
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":221
+/* "jni/cython/jni.pyx":222
  * 
  *     @property
  *     def value(self):             # <<<<<<<<<<<<<<
@@ -9231,7 +9231,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_8jfieldID_5value___get__(struct __py
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":222
+  /* "jni/cython/jni.pyx":223
  *     @property
  *     def value(self):
  *         return int(<uintptr_t>self.val) if self.val is not NULL else None             # <<<<<<<<<<<<<<
@@ -9240,9 +9240,9 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_8jfieldID_5value___get__(struct __py
  */
   __Pyx_XDECREF(__pyx_r);
   if (((__pyx_v_self->val != NULL) != 0)) {
-    __pyx_t_2 = __Pyx_PyInt_FromSize_t(((uintptr_t)__pyx_v_self->val)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 222, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyInt_FromSize_t(((uintptr_t)__pyx_v_self->val)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 223, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyInt_Type)), __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 222, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyInt_Type)), __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 223, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_1 = __pyx_t_3;
@@ -9255,7 +9255,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_8jfieldID_5value___get__(struct __py
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":221
+  /* "jni/cython/jni.pyx":222
  * 
  *     @property
  *     def value(self):             # <<<<<<<<<<<<<<
@@ -9276,7 +9276,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_8jfieldID_5value___get__(struct __py
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":225
+/* "jni/cython/jni.pyx":226
  * 
  *     @value.setter
  *     def value(self, val):             # <<<<<<<<<<<<<<
@@ -9305,7 +9305,7 @@ static int __pyx_pf_3jni_6cython_3jni_8jfieldID_5value_2__set__(struct __pyx_obj
   uintptr_t __pyx_t_3;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":226
+  /* "jni/cython/jni.pyx":227
  *     @value.setter
  *     def value(self, val):
  *         self.val = <c_jfieldID><uintptr_t>val if val is not None else NULL             # <<<<<<<<<<<<<<
@@ -9314,14 +9314,14 @@ static int __pyx_pf_3jni_6cython_3jni_8jfieldID_5value_2__set__(struct __pyx_obj
  */
   __pyx_t_2 = (__pyx_v_val != Py_None);
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyInt_As_size_t(__pyx_v_val); if (unlikely((__pyx_t_3 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 226, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyInt_As_size_t(__pyx_v_val); if (unlikely((__pyx_t_3 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 227, __pyx_L1_error)
     __pyx_t_1 = ((__pyx_t_3jni_6cython_3jni_c_jfieldID)((uintptr_t)__pyx_t_3));
   } else {
     __pyx_t_1 = NULL;
   }
   __pyx_v_self->val = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":225
+  /* "jni/cython/jni.pyx":226
  * 
  *     @value.setter
  *     def value(self, val):             # <<<<<<<<<<<<<<
@@ -9340,7 +9340,7 @@ static int __pyx_pf_3jni_6cython_3jni_8jfieldID_5value_2__set__(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":228
+/* "jni/cython/jni.pyx":229
  *         self.val = <c_jfieldID><uintptr_t>val if val is not None else NULL
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
@@ -9366,7 +9366,7 @@ static int __pyx_pf_3jni_6cython_3jni_8jfieldID_2__bool__(struct __pyx_obj_3jni_
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__bool__", 0);
 
-  /* "jni/cython/jni.pyx":229
+  /* "jni/cython/jni.pyx":230
  * 
  *     def __bool__(self):
  *         return self.val != NULL             # <<<<<<<<<<<<<<
@@ -9376,7 +9376,7 @@ static int __pyx_pf_3jni_6cython_3jni_8jfieldID_2__bool__(struct __pyx_obj_3jni_
   __pyx_r = (__pyx_v_self->val != NULL);
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":228
+  /* "jni/cython/jni.pyx":229
  *         self.val = <c_jfieldID><uintptr_t>val if val is not None else NULL
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
@@ -9497,7 +9497,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_8jfieldID_6__setstate_cython__(CYTHO
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":234
+/* "jni/cython/jni.pyx":235
  *     cdef c_jmethodID val
  * 
  *     def __init__(self, val=None):             # <<<<<<<<<<<<<<
@@ -9534,7 +9534,7 @@ static int __pyx_pw_3jni_6cython_3jni_9jmethodID_1__init__(PyObject *__pyx_v_sel
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 234, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 235, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -9548,7 +9548,7 @@ static int __pyx_pw_3jni_6cython_3jni_9jmethodID_1__init__(PyObject *__pyx_v_sel
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 234, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 235, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("jni.cython.jni.jmethodID.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -9569,7 +9569,7 @@ static int __pyx_pf_3jni_6cython_3jni_9jmethodID___init__(struct __pyx_obj_3jni_
   uintptr_t __pyx_t_3;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "jni/cython/jni.pyx":235
+  /* "jni/cython/jni.pyx":236
  * 
  *     def __init__(self, val=None):
  *         self.val = <c_jmethodID><uintptr_t>val if val is not None else NULL             # <<<<<<<<<<<<<<
@@ -9578,14 +9578,14 @@ static int __pyx_pf_3jni_6cython_3jni_9jmethodID___init__(struct __pyx_obj_3jni_
  */
   __pyx_t_2 = (__pyx_v_val != Py_None);
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyInt_As_size_t(__pyx_v_val); if (unlikely((__pyx_t_3 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 235, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyInt_As_size_t(__pyx_v_val); if (unlikely((__pyx_t_3 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 236, __pyx_L1_error)
     __pyx_t_1 = ((__pyx_t_3jni_6cython_3jni_c_jmethodID)((uintptr_t)__pyx_t_3));
   } else {
     __pyx_t_1 = NULL;
   }
   __pyx_v_self->val = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":234
+  /* "jni/cython/jni.pyx":235
  *     cdef c_jmethodID val
  * 
  *     def __init__(self, val=None):             # <<<<<<<<<<<<<<
@@ -9604,7 +9604,7 @@ static int __pyx_pf_3jni_6cython_3jni_9jmethodID___init__(struct __pyx_obj_3jni_
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":238
+/* "jni/cython/jni.pyx":239
  * 
  *     @property
  *     def value(self):             # <<<<<<<<<<<<<<
@@ -9633,7 +9633,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_9jmethodID_5value___get__(struct __p
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":239
+  /* "jni/cython/jni.pyx":240
  *     @property
  *     def value(self):
  *         return int(<uintptr_t>self.val) if self.val is not NULL else None             # <<<<<<<<<<<<<<
@@ -9642,9 +9642,9 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_9jmethodID_5value___get__(struct __p
  */
   __Pyx_XDECREF(__pyx_r);
   if (((__pyx_v_self->val != NULL) != 0)) {
-    __pyx_t_2 = __Pyx_PyInt_FromSize_t(((uintptr_t)__pyx_v_self->val)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 239, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyInt_FromSize_t(((uintptr_t)__pyx_v_self->val)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 240, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyInt_Type)), __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 239, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyInt_Type)), __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 240, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_1 = __pyx_t_3;
@@ -9657,7 +9657,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_9jmethodID_5value___get__(struct __p
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":238
+  /* "jni/cython/jni.pyx":239
  * 
  *     @property
  *     def value(self):             # <<<<<<<<<<<<<<
@@ -9678,7 +9678,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_9jmethodID_5value___get__(struct __p
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":242
+/* "jni/cython/jni.pyx":243
  * 
  *     @value.setter
  *     def value(self, val):             # <<<<<<<<<<<<<<
@@ -9707,7 +9707,7 @@ static int __pyx_pf_3jni_6cython_3jni_9jmethodID_5value_2__set__(struct __pyx_ob
   uintptr_t __pyx_t_3;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":243
+  /* "jni/cython/jni.pyx":244
  *     @value.setter
  *     def value(self, val):
  *         self.val = <c_jmethodID><uintptr_t>val if val is not None else NULL             # <<<<<<<<<<<<<<
@@ -9716,14 +9716,14 @@ static int __pyx_pf_3jni_6cython_3jni_9jmethodID_5value_2__set__(struct __pyx_ob
  */
   __pyx_t_2 = (__pyx_v_val != Py_None);
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyInt_As_size_t(__pyx_v_val); if (unlikely((__pyx_t_3 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 243, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyInt_As_size_t(__pyx_v_val); if (unlikely((__pyx_t_3 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 244, __pyx_L1_error)
     __pyx_t_1 = ((__pyx_t_3jni_6cython_3jni_c_jmethodID)((uintptr_t)__pyx_t_3));
   } else {
     __pyx_t_1 = NULL;
   }
   __pyx_v_self->val = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":242
+  /* "jni/cython/jni.pyx":243
  * 
  *     @value.setter
  *     def value(self, val):             # <<<<<<<<<<<<<<
@@ -9742,7 +9742,7 @@ static int __pyx_pf_3jni_6cython_3jni_9jmethodID_5value_2__set__(struct __pyx_ob
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":245
+/* "jni/cython/jni.pyx":246
  *         self.val = <c_jmethodID><uintptr_t>val if val is not None else NULL
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
@@ -9768,7 +9768,7 @@ static int __pyx_pf_3jni_6cython_3jni_9jmethodID_2__bool__(struct __pyx_obj_3jni
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__bool__", 0);
 
-  /* "jni/cython/jni.pyx":246
+  /* "jni/cython/jni.pyx":247
  * 
  *     def __bool__(self):
  *         return self.val != NULL             # <<<<<<<<<<<<<<
@@ -9778,7 +9778,7 @@ static int __pyx_pf_3jni_6cython_3jni_9jmethodID_2__bool__(struct __pyx_obj_3jni
   __pyx_r = (__pyx_v_self->val != NULL);
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":245
+  /* "jni/cython/jni.pyx":246
  *         self.val = <c_jmethodID><uintptr_t>val if val is not None else NULL
  * 
  *     def __bool__(self):             # <<<<<<<<<<<<<<
@@ -9899,7 +9899,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_9jmethodID_6__setstate_cython__(CYTH
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":265
+/* "jni/cython/jni.pyx":266
  * 
  *     @property
  *     def name(self):             # <<<<<<<<<<<<<<
@@ -9927,7 +9927,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_15JNINativeMethod_4name___get__(stru
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":266
+  /* "jni/cython/jni.pyx":267
  *     @property
  *     def name(self):
  *         return self.this.name if self.this.name is not NULL else None             # <<<<<<<<<<<<<<
@@ -9936,7 +9936,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_15JNINativeMethod_4name___get__(stru
  */
   __Pyx_XDECREF(__pyx_r);
   if (((__pyx_v_self->this.name != NULL) != 0)) {
-    __pyx_t_2 = __Pyx_PyBytes_FromString(__pyx_v_self->this.name); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 266, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyBytes_FromString(__pyx_v_self->this.name); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 267, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_1 = __pyx_t_2;
     __pyx_t_2 = 0;
@@ -9948,7 +9948,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_15JNINativeMethod_4name___get__(stru
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":265
+  /* "jni/cython/jni.pyx":266
  * 
  *     @property
  *     def name(self):             # <<<<<<<<<<<<<<
@@ -9968,7 +9968,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_15JNINativeMethod_4name___get__(stru
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":269
+/* "jni/cython/jni.pyx":270
  * 
  *     @name.setter
  *     def name(self, val):             # <<<<<<<<<<<<<<
@@ -9997,7 +9997,7 @@ static int __pyx_pf_3jni_6cython_3jni_15JNINativeMethod_4name_2__set__(struct __
   char *__pyx_t_3;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":270
+  /* "jni/cython/jni.pyx":271
  *     @name.setter
  *     def name(self, val):
  *         self.this.name = <char*>val if val is not None else NULL             # <<<<<<<<<<<<<<
@@ -10006,14 +10006,14 @@ static int __pyx_pf_3jni_6cython_3jni_15JNINativeMethod_4name_2__set__(struct __
  */
   __pyx_t_2 = (__pyx_v_val != Py_None);
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyObject_AsWritableString(__pyx_v_val); if (unlikely((!__pyx_t_3) && PyErr_Occurred())) __PYX_ERR(0, 270, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_AsWritableString(__pyx_v_val); if (unlikely((!__pyx_t_3) && PyErr_Occurred())) __PYX_ERR(0, 271, __pyx_L1_error)
     __pyx_t_1 = ((char *)__pyx_t_3);
   } else {
     __pyx_t_1 = NULL;
   }
   __pyx_v_self->this.name = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":269
+  /* "jni/cython/jni.pyx":270
  * 
  *     @name.setter
  *     def name(self, val):             # <<<<<<<<<<<<<<
@@ -10032,7 +10032,7 @@ static int __pyx_pf_3jni_6cython_3jni_15JNINativeMethod_4name_2__set__(struct __
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":273
+/* "jni/cython/jni.pyx":274
  * 
  *     @property
  *     def signature(self):             # <<<<<<<<<<<<<<
@@ -10060,7 +10060,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_15JNINativeMethod_9signature___get__
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":274
+  /* "jni/cython/jni.pyx":275
  *     @property
  *     def signature(self):
  *         return self.this.signature if self.this.signature is not NULL else None             # <<<<<<<<<<<<<<
@@ -10069,7 +10069,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_15JNINativeMethod_9signature___get__
  */
   __Pyx_XDECREF(__pyx_r);
   if (((__pyx_v_self->this.signature != NULL) != 0)) {
-    __pyx_t_2 = __Pyx_PyBytes_FromString(__pyx_v_self->this.signature); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 274, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyBytes_FromString(__pyx_v_self->this.signature); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 275, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_1 = __pyx_t_2;
     __pyx_t_2 = 0;
@@ -10081,7 +10081,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_15JNINativeMethod_9signature___get__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":273
+  /* "jni/cython/jni.pyx":274
  * 
  *     @property
  *     def signature(self):             # <<<<<<<<<<<<<<
@@ -10101,7 +10101,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_15JNINativeMethod_9signature___get__
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":277
+/* "jni/cython/jni.pyx":278
  * 
  *     @signature.setter
  *     def signature(self, val):             # <<<<<<<<<<<<<<
@@ -10130,7 +10130,7 @@ static int __pyx_pf_3jni_6cython_3jni_15JNINativeMethod_9signature_2__set__(stru
   char *__pyx_t_3;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":278
+  /* "jni/cython/jni.pyx":279
  *     @signature.setter
  *     def signature(self, val):
  *         self.this.signature = <char*>val if val is not None else NULL             # <<<<<<<<<<<<<<
@@ -10139,14 +10139,14 @@ static int __pyx_pf_3jni_6cython_3jni_15JNINativeMethod_9signature_2__set__(stru
  */
   __pyx_t_2 = (__pyx_v_val != Py_None);
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyObject_AsWritableString(__pyx_v_val); if (unlikely((!__pyx_t_3) && PyErr_Occurred())) __PYX_ERR(0, 278, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_AsWritableString(__pyx_v_val); if (unlikely((!__pyx_t_3) && PyErr_Occurred())) __PYX_ERR(0, 279, __pyx_L1_error)
     __pyx_t_1 = ((char *)__pyx_t_3);
   } else {
     __pyx_t_1 = NULL;
   }
   __pyx_v_self->this.signature = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":277
+  /* "jni/cython/jni.pyx":278
  * 
  *     @signature.setter
  *     def signature(self, val):             # <<<<<<<<<<<<<<
@@ -10165,7 +10165,7 @@ static int __pyx_pf_3jni_6cython_3jni_15JNINativeMethod_9signature_2__set__(stru
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":281
+/* "jni/cython/jni.pyx":282
  * 
  *     @property
  *     def fnPtr(self):             # <<<<<<<<<<<<<<
@@ -10194,7 +10194,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_15JNINativeMethod_5fnPtr___get__(str
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":282
+  /* "jni/cython/jni.pyx":283
  *     @property
  *     def fnPtr(self):
  *         return int(<uintptr_t>self.this.fnPtr) if self.this.fnPtr is not NULL else None             # <<<<<<<<<<<<<<
@@ -10203,9 +10203,9 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_15JNINativeMethod_5fnPtr___get__(str
  */
   __Pyx_XDECREF(__pyx_r);
   if (((__pyx_v_self->this.fnPtr != NULL) != 0)) {
-    __pyx_t_2 = __Pyx_PyInt_FromSize_t(((uintptr_t)__pyx_v_self->this.fnPtr)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 282, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyInt_FromSize_t(((uintptr_t)__pyx_v_self->this.fnPtr)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 283, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyInt_Type)), __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 282, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyInt_Type)), __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 283, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_1 = __pyx_t_3;
@@ -10218,7 +10218,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_15JNINativeMethod_5fnPtr___get__(str
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":281
+  /* "jni/cython/jni.pyx":282
  * 
  *     @property
  *     def fnPtr(self):             # <<<<<<<<<<<<<<
@@ -10239,7 +10239,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_15JNINativeMethod_5fnPtr___get__(str
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":285
+/* "jni/cython/jni.pyx":286
  * 
  *     @fnPtr.setter
  *     def fnPtr(self, val):             # <<<<<<<<<<<<<<
@@ -10271,7 +10271,7 @@ static int __pyx_pf_3jni_6cython_3jni_15JNINativeMethod_5fnPtr_2__set__(struct _
   uintptr_t __pyx_t_6;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":286
+  /* "jni/cython/jni.pyx":287
  *     @fnPtr.setter
  *     def fnPtr(self, val):
  *         self.this.fnPtr = (<void*>val.val if isinstance(val, jobject) else             # <<<<<<<<<<<<<<
@@ -10280,13 +10280,13 @@ static int __pyx_pf_3jni_6cython_3jni_15JNINativeMethod_5fnPtr_2__set__(struct _
  */
   __pyx_t_2 = __Pyx_TypeCheck(__pyx_v_val, __pyx_ptype_3jni_6cython_3jni_jobject); 
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 286, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 287, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_1 = ((void *)__pyx_t_3);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
 
-    /* "jni/cython/jni.pyx":287
+    /* "jni/cython/jni.pyx":288
  *     def fnPtr(self, val):
  *         self.this.fnPtr = (<void*>val.val if isinstance(val, jobject) else
  *                            <void*><uintptr_t>val if val is not None else NULL)             # <<<<<<<<<<<<<<
@@ -10295,7 +10295,7 @@ static int __pyx_pf_3jni_6cython_3jni_15JNINativeMethod_5fnPtr_2__set__(struct _
  */
     __pyx_t_5 = (__pyx_v_val != Py_None);
     if ((__pyx_t_5 != 0)) {
-      __pyx_t_6 = __Pyx_PyInt_As_size_t(__pyx_v_val); if (unlikely((__pyx_t_6 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 287, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyInt_As_size_t(__pyx_v_val); if (unlikely((__pyx_t_6 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 288, __pyx_L1_error)
       __pyx_t_4 = ((void *)((uintptr_t)__pyx_t_6));
     } else {
       __pyx_t_4 = NULL;
@@ -10303,7 +10303,7 @@ static int __pyx_pf_3jni_6cython_3jni_15JNINativeMethod_5fnPtr_2__set__(struct _
     __pyx_t_1 = __pyx_t_4;
   }
 
-  /* "jni/cython/jni.pyx":286
+  /* "jni/cython/jni.pyx":287
  *     @fnPtr.setter
  *     def fnPtr(self, val):
  *         self.this.fnPtr = (<void*>val.val if isinstance(val, jobject) else             # <<<<<<<<<<<<<<
@@ -10312,7 +10312,7 @@ static int __pyx_pf_3jni_6cython_3jni_15JNINativeMethod_5fnPtr_2__set__(struct _
  */
   __pyx_v_self->this.fnPtr = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":285
+  /* "jni/cython/jni.pyx":286
  * 
  *     @fnPtr.setter
  *     def fnPtr(self, val):             # <<<<<<<<<<<<<<
@@ -10653,7 +10653,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_6JavaVM_2__setstate_cython__(CYTHON_
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":303
+/* "jni/cython/jni.pyx":304
  * 
  *     @property
  *     def optionString(self):             # <<<<<<<<<<<<<<
@@ -10681,7 +10681,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JavaVMOption_12optionString___get_
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":304
+  /* "jni/cython/jni.pyx":305
  *     @property
  *     def optionString(self):
  *         return self.this.optionString if self.this.optionString is not NULL else None             # <<<<<<<<<<<<<<
@@ -10690,7 +10690,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JavaVMOption_12optionString___get_
  */
   __Pyx_XDECREF(__pyx_r);
   if (((__pyx_v_self->this.optionString != NULL) != 0)) {
-    __pyx_t_2 = __Pyx_PyBytes_FromString(__pyx_v_self->this.optionString); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 304, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyBytes_FromString(__pyx_v_self->this.optionString); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 305, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_1 = __pyx_t_2;
     __pyx_t_2 = 0;
@@ -10702,7 +10702,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JavaVMOption_12optionString___get_
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":303
+  /* "jni/cython/jni.pyx":304
  * 
  *     @property
  *     def optionString(self):             # <<<<<<<<<<<<<<
@@ -10722,7 +10722,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JavaVMOption_12optionString___get_
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":307
+/* "jni/cython/jni.pyx":308
  * 
  *     @optionString.setter
  *     def optionString(self, val):             # <<<<<<<<<<<<<<
@@ -10751,7 +10751,7 @@ static int __pyx_pf_3jni_6cython_3jni_12JavaVMOption_12optionString_2__set__(str
   char *__pyx_t_3;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":308
+  /* "jni/cython/jni.pyx":309
  *     @optionString.setter
  *     def optionString(self, val):
  *         self.this.optionString = <char*>val if val is not None else NULL             # <<<<<<<<<<<<<<
@@ -10760,14 +10760,14 @@ static int __pyx_pf_3jni_6cython_3jni_12JavaVMOption_12optionString_2__set__(str
  */
   __pyx_t_2 = (__pyx_v_val != Py_None);
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyObject_AsWritableString(__pyx_v_val); if (unlikely((!__pyx_t_3) && PyErr_Occurred())) __PYX_ERR(0, 308, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_AsWritableString(__pyx_v_val); if (unlikely((!__pyx_t_3) && PyErr_Occurred())) __PYX_ERR(0, 309, __pyx_L1_error)
     __pyx_t_1 = ((char *)__pyx_t_3);
   } else {
     __pyx_t_1 = NULL;
   }
   __pyx_v_self->this.optionString = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":307
+  /* "jni/cython/jni.pyx":308
  * 
  *     @optionString.setter
  *     def optionString(self, val):             # <<<<<<<<<<<<<<
@@ -10786,7 +10786,7 @@ static int __pyx_pf_3jni_6cython_3jni_12JavaVMOption_12optionString_2__set__(str
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":311
+/* "jni/cython/jni.pyx":312
  * 
  *     @property
  *     def extraInfo(self):             # <<<<<<<<<<<<<<
@@ -10815,7 +10815,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JavaVMOption_9extraInfo___get__(st
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":312
+  /* "jni/cython/jni.pyx":313
  *     @property
  *     def extraInfo(self):
  *         return int(<uintptr_t>self.this.extraInfo) if self.this.extraInfo is not NULL else None             # <<<<<<<<<<<<<<
@@ -10824,9 +10824,9 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JavaVMOption_9extraInfo___get__(st
  */
   __Pyx_XDECREF(__pyx_r);
   if (((__pyx_v_self->this.extraInfo != NULL) != 0)) {
-    __pyx_t_2 = __Pyx_PyInt_FromSize_t(((uintptr_t)__pyx_v_self->this.extraInfo)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 312, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyInt_FromSize_t(((uintptr_t)__pyx_v_self->this.extraInfo)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 313, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyInt_Type)), __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 312, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyInt_Type)), __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 313, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_1 = __pyx_t_3;
@@ -10839,7 +10839,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JavaVMOption_9extraInfo___get__(st
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":311
+  /* "jni/cython/jni.pyx":312
  * 
  *     @property
  *     def extraInfo(self):             # <<<<<<<<<<<<<<
@@ -10860,7 +10860,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JavaVMOption_9extraInfo___get__(st
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":315
+/* "jni/cython/jni.pyx":316
  * 
  *     @extraInfo.setter
  *     def extraInfo(self, val):             # <<<<<<<<<<<<<<
@@ -10892,7 +10892,7 @@ static int __pyx_pf_3jni_6cython_3jni_12JavaVMOption_9extraInfo_2__set__(struct 
   uintptr_t __pyx_t_6;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":316
+  /* "jni/cython/jni.pyx":317
  *     @extraInfo.setter
  *     def extraInfo(self, val):
  *         self.this.extraInfo = (<void*>val.val if isinstance(val, jobject) else             # <<<<<<<<<<<<<<
@@ -10901,13 +10901,13 @@ static int __pyx_pf_3jni_6cython_3jni_12JavaVMOption_9extraInfo_2__set__(struct 
  */
   __pyx_t_2 = __Pyx_TypeCheck(__pyx_v_val, __pyx_ptype_3jni_6cython_3jni_jobject); 
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 316, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 317, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_1 = ((void *)__pyx_t_3);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
 
-    /* "jni/cython/jni.pyx":317
+    /* "jni/cython/jni.pyx":318
  *     def extraInfo(self, val):
  *         self.this.extraInfo = (<void*>val.val if isinstance(val, jobject) else
  *                                <void*><uintptr_t>val if val is not None else NULL)             # <<<<<<<<<<<<<<
@@ -10916,7 +10916,7 @@ static int __pyx_pf_3jni_6cython_3jni_12JavaVMOption_9extraInfo_2__set__(struct 
  */
     __pyx_t_5 = (__pyx_v_val != Py_None);
     if ((__pyx_t_5 != 0)) {
-      __pyx_t_6 = __Pyx_PyInt_As_size_t(__pyx_v_val); if (unlikely((__pyx_t_6 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 317, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyInt_As_size_t(__pyx_v_val); if (unlikely((__pyx_t_6 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 318, __pyx_L1_error)
       __pyx_t_4 = ((void *)((uintptr_t)__pyx_t_6));
     } else {
       __pyx_t_4 = NULL;
@@ -10924,7 +10924,7 @@ static int __pyx_pf_3jni_6cython_3jni_12JavaVMOption_9extraInfo_2__set__(struct 
     __pyx_t_1 = __pyx_t_4;
   }
 
-  /* "jni/cython/jni.pyx":316
+  /* "jni/cython/jni.pyx":317
  *     @extraInfo.setter
  *     def extraInfo(self, val):
  *         self.this.extraInfo = (<void*>val.val if isinstance(val, jobject) else             # <<<<<<<<<<<<<<
@@ -10933,7 +10933,7 @@ static int __pyx_pf_3jni_6cython_3jni_12JavaVMOption_9extraInfo_2__set__(struct 
  */
   __pyx_v_self->this.extraInfo = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":315
+  /* "jni/cython/jni.pyx":316
  * 
  *     @extraInfo.setter
  *     def extraInfo(self, val):             # <<<<<<<<<<<<<<
@@ -11060,7 +11060,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JavaVMOption_2__setstate_cython__(
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":338
+/* "jni/cython/jni.pyx":339
  *         self.this.nOptions = val.val if isinstance(val, jint) else val
  * 
  *     options = property(lambda self:      getattr(self.this, "options"),             # <<<<<<<<<<<<<<
@@ -11089,9 +11089,9 @@ static PyObject *__pyx_lambda_funcdef_3jni_6cython_3jni_14JavaVMInitArgs_lambda(
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("lambda", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_this); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 338, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_this); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 339, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetAttr(__pyx_t_1, __pyx_n_u_options); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 338, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetAttr(__pyx_t_1, __pyx_n_u_options); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 339, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
@@ -11110,7 +11110,7 @@ static PyObject *__pyx_lambda_funcdef_3jni_6cython_3jni_14JavaVMInitArgs_lambda(
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":339
+/* "jni/cython/jni.pyx":340
  * 
  *     options = property(lambda self:      getattr(self.this, "options"),
  *                        lambda self, val: setattr(self.this, "options", val))             # <<<<<<<<<<<<<<
@@ -11150,11 +11150,11 @@ static PyObject *__pyx_pw_3jni_6cython_3jni_14JavaVMInitArgs_1lambda1(PyObject *
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_val)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("lambda1", 1, 2, 2, 1); __PYX_ERR(0, 339, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("lambda1", 1, 2, 2, 1); __PYX_ERR(0, 340, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "lambda1") < 0)) __PYX_ERR(0, 339, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "lambda1") < 0)) __PYX_ERR(0, 340, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -11167,7 +11167,7 @@ static PyObject *__pyx_pw_3jni_6cython_3jni_14JavaVMInitArgs_1lambda1(PyObject *
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("lambda1", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 339, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("lambda1", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 340, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("jni.cython.jni.JavaVMInitArgs.lambda1", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -11187,11 +11187,11 @@ static PyObject *__pyx_lambda_funcdef_3jni_6cython_3jni_14JavaVMInitArgs_lambda1
   int __pyx_t_2;
   __Pyx_RefNannySetupContext("lambda1", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_this); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 339, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_this); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 340, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_SetAttr(__pyx_t_1, __pyx_n_u_options, __pyx_v_val); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 339, __pyx_L1_error)
+  __pyx_t_2 = PyObject_SetAttr(__pyx_t_1, __pyx_n_u_options, __pyx_v_val); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(0, 340, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_Owned_Py_None(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 339, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Owned_Py_None(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 340, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -11208,7 +11208,7 @@ static PyObject *__pyx_lambda_funcdef_3jni_6cython_3jni_14JavaVMInitArgs_lambda1
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":323
+/* "jni/cython/jni.pyx":324
  * 
  *     @property
  *     def version(self):             # <<<<<<<<<<<<<<
@@ -11235,7 +11235,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_14JavaVMInitArgs_7version___get__(st
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":324
+  /* "jni/cython/jni.pyx":325
  *     @property
  *     def version(self):
  *         return self.this.version             # <<<<<<<<<<<<<<
@@ -11243,13 +11243,13 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_14JavaVMInitArgs_7version___get__(st
  *     @version.setter
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_self->this.version); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 324, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_self->this.version); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 325, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":323
+  /* "jni/cython/jni.pyx":324
  * 
  *     @property
  *     def version(self):             # <<<<<<<<<<<<<<
@@ -11268,7 +11268,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_14JavaVMInitArgs_7version___get__(st
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":327
+/* "jni/cython/jni.pyx":328
  * 
  *     @version.setter
  *     def version(self, val):             # <<<<<<<<<<<<<<
@@ -11298,7 +11298,7 @@ static int __pyx_pf_3jni_6cython_3jni_14JavaVMInitArgs_7version_2__set__(struct 
   __pyx_t_3jni_6cython_3jni_c_jint __pyx_t_4;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":328
+  /* "jni/cython/jni.pyx":329
  *     @version.setter
  *     def version(self, val):
  *         self.this.version = val.val if isinstance(val, jint) else val             # <<<<<<<<<<<<<<
@@ -11307,18 +11307,18 @@ static int __pyx_pf_3jni_6cython_3jni_14JavaVMInitArgs_7version_2__set__(struct 
  */
   __pyx_t_2 = __Pyx_TypeCheck(__pyx_v_val, __pyx_ptype_3jni_6cython_3jni_jint); 
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 328, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 329, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_4 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 328, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_4 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 329, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_1 = __pyx_t_4;
   } else {
-    __pyx_t_4 = __Pyx_PyInt_As_long(__pyx_v_val); if (unlikely((__pyx_t_4 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 328, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_long(__pyx_v_val); if (unlikely((__pyx_t_4 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 329, __pyx_L1_error)
     __pyx_t_1 = __pyx_t_4;
   }
   __pyx_v_self->this.version = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":327
+  /* "jni/cython/jni.pyx":328
  * 
  *     @version.setter
  *     def version(self, val):             # <<<<<<<<<<<<<<
@@ -11338,7 +11338,7 @@ static int __pyx_pf_3jni_6cython_3jni_14JavaVMInitArgs_7version_2__set__(struct 
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":331
+/* "jni/cython/jni.pyx":332
  * 
  *     @property
  *     def nOptions(self):             # <<<<<<<<<<<<<<
@@ -11365,7 +11365,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_14JavaVMInitArgs_8nOptions___get__(s
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":332
+  /* "jni/cython/jni.pyx":333
  *     @property
  *     def nOptions(self):
  *         return self.this.nOptions             # <<<<<<<<<<<<<<
@@ -11373,13 +11373,13 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_14JavaVMInitArgs_8nOptions___get__(s
  *     @nOptions.setter
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_self->this.nOptions); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 332, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_self->this.nOptions); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 333, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":331
+  /* "jni/cython/jni.pyx":332
  * 
  *     @property
  *     def nOptions(self):             # <<<<<<<<<<<<<<
@@ -11398,7 +11398,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_14JavaVMInitArgs_8nOptions___get__(s
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":335
+/* "jni/cython/jni.pyx":336
  * 
  *     @nOptions.setter
  *     def nOptions(self, val):             # <<<<<<<<<<<<<<
@@ -11428,7 +11428,7 @@ static int __pyx_pf_3jni_6cython_3jni_14JavaVMInitArgs_8nOptions_2__set__(struct
   __pyx_t_3jni_6cython_3jni_c_jint __pyx_t_4;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":336
+  /* "jni/cython/jni.pyx":337
  *     @nOptions.setter
  *     def nOptions(self, val):
  *         self.this.nOptions = val.val if isinstance(val, jint) else val             # <<<<<<<<<<<<<<
@@ -11437,18 +11437,18 @@ static int __pyx_pf_3jni_6cython_3jni_14JavaVMInitArgs_8nOptions_2__set__(struct
  */
   __pyx_t_2 = __Pyx_TypeCheck(__pyx_v_val, __pyx_ptype_3jni_6cython_3jni_jint); 
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 336, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 337, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_4 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 336, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_4 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 337, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_1 = __pyx_t_4;
   } else {
-    __pyx_t_4 = __Pyx_PyInt_As_long(__pyx_v_val); if (unlikely((__pyx_t_4 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 336, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_long(__pyx_v_val); if (unlikely((__pyx_t_4 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 337, __pyx_L1_error)
     __pyx_t_1 = __pyx_t_4;
   }
   __pyx_v_self->this.nOptions = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":335
+  /* "jni/cython/jni.pyx":336
  * 
  *     @nOptions.setter
  *     def nOptions(self, val):             # <<<<<<<<<<<<<<
@@ -11468,7 +11468,7 @@ static int __pyx_pf_3jni_6cython_3jni_14JavaVMInitArgs_8nOptions_2__set__(struct
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":342
+/* "jni/cython/jni.pyx":343
  * 
  *     @property
  *     def ignoreUnrecognized(self):             # <<<<<<<<<<<<<<
@@ -11495,7 +11495,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_14JavaVMInitArgs_18ignoreUnrecognize
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":343
+  /* "jni/cython/jni.pyx":344
  *     @property
  *     def ignoreUnrecognized(self):
  *         return self.this.ignoreUnrecognized             # <<<<<<<<<<<<<<
@@ -11503,13 +11503,13 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_14JavaVMInitArgs_18ignoreUnrecognize
  *     @ignoreUnrecognized.setter
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_char(__pyx_v_self->this.ignoreUnrecognized); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 343, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_char(__pyx_v_self->this.ignoreUnrecognized); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 344, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":342
+  /* "jni/cython/jni.pyx":343
  * 
  *     @property
  *     def ignoreUnrecognized(self):             # <<<<<<<<<<<<<<
@@ -11528,7 +11528,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_14JavaVMInitArgs_18ignoreUnrecognize
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":346
+/* "jni/cython/jni.pyx":347
  * 
  *     @ignoreUnrecognized.setter
  *     def ignoreUnrecognized(self, val):             # <<<<<<<<<<<<<<
@@ -11558,7 +11558,7 @@ static int __pyx_pf_3jni_6cython_3jni_14JavaVMInitArgs_18ignoreUnrecognized_2__s
   __pyx_t_3jni_6cython_3jni_c_jboolean __pyx_t_4;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":347
+  /* "jni/cython/jni.pyx":348
  *     @ignoreUnrecognized.setter
  *     def ignoreUnrecognized(self, val):
  *         self.this.ignoreUnrecognized = val.val if isinstance(val, jboolean) else val             # <<<<<<<<<<<<<<
@@ -11567,18 +11567,18 @@ static int __pyx_pf_3jni_6cython_3jni_14JavaVMInitArgs_18ignoreUnrecognized_2__s
  */
   __pyx_t_2 = __Pyx_TypeCheck(__pyx_v_val, __pyx_ptype_3jni_6cython_3jni_jboolean); 
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 347, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 348, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyInt_As_unsigned_char(__pyx_t_3); if (unlikely((__pyx_t_4 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 347, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_unsigned_char(__pyx_t_3); if (unlikely((__pyx_t_4 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 348, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_1 = __pyx_t_4;
   } else {
-    __pyx_t_4 = __Pyx_PyInt_As_unsigned_char(__pyx_v_val); if (unlikely((__pyx_t_4 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 347, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_unsigned_char(__pyx_v_val); if (unlikely((__pyx_t_4 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 348, __pyx_L1_error)
     __pyx_t_1 = __pyx_t_4;
   }
   __pyx_v_self->this.ignoreUnrecognized = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":346
+  /* "jni/cython/jni.pyx":347
  * 
  *     @ignoreUnrecognized.setter
  *     def ignoreUnrecognized(self, val):             # <<<<<<<<<<<<<<
@@ -11705,7 +11705,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_14JavaVMInitArgs_4__setstate_cython_
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":353
+/* "jni/cython/jni.pyx":354
  * 
  *     @property
  *     def version(self):             # <<<<<<<<<<<<<<
@@ -11732,7 +11732,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_16JavaVMAttachArgs_7version___get__(
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":354
+  /* "jni/cython/jni.pyx":355
  *     @property
  *     def version(self):
  *         return self.this.version             # <<<<<<<<<<<<<<
@@ -11740,13 +11740,13 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_16JavaVMAttachArgs_7version___get__(
  *     @version.setter
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_self->this.version); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 354, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_self->this.version); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 355, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":353
+  /* "jni/cython/jni.pyx":354
  * 
  *     @property
  *     def version(self):             # <<<<<<<<<<<<<<
@@ -11765,7 +11765,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_16JavaVMAttachArgs_7version___get__(
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":357
+/* "jni/cython/jni.pyx":358
  * 
  *     @version.setter
  *     def version(self, val):             # <<<<<<<<<<<<<<
@@ -11795,7 +11795,7 @@ static int __pyx_pf_3jni_6cython_3jni_16JavaVMAttachArgs_7version_2__set__(struc
   __pyx_t_3jni_6cython_3jni_c_jint __pyx_t_4;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":358
+  /* "jni/cython/jni.pyx":359
  *     @version.setter
  *     def version(self, val):
  *         self.this.version = val.val if isinstance(val, jint) else val             # <<<<<<<<<<<<<<
@@ -11804,18 +11804,18 @@ static int __pyx_pf_3jni_6cython_3jni_16JavaVMAttachArgs_7version_2__set__(struc
  */
   __pyx_t_2 = __Pyx_TypeCheck(__pyx_v_val, __pyx_ptype_3jni_6cython_3jni_jint); 
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 358, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 359, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_4 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 358, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_4 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 359, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_1 = __pyx_t_4;
   } else {
-    __pyx_t_4 = __Pyx_PyInt_As_long(__pyx_v_val); if (unlikely((__pyx_t_4 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 358, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_long(__pyx_v_val); if (unlikely((__pyx_t_4 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 359, __pyx_L1_error)
     __pyx_t_1 = __pyx_t_4;
   }
   __pyx_v_self->this.version = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":357
+  /* "jni/cython/jni.pyx":358
  * 
  *     @version.setter
  *     def version(self, val):             # <<<<<<<<<<<<<<
@@ -11835,7 +11835,7 @@ static int __pyx_pf_3jni_6cython_3jni_16JavaVMAttachArgs_7version_2__set__(struc
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":361
+/* "jni/cython/jni.pyx":362
  * 
  *     @property
  *     def name(self):             # <<<<<<<<<<<<<<
@@ -11863,7 +11863,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_16JavaVMAttachArgs_4name___get__(str
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":362
+  /* "jni/cython/jni.pyx":363
  *     @property
  *     def name(self):
  *         return self.this.name if self.this.name is not NULL else None             # <<<<<<<<<<<<<<
@@ -11872,7 +11872,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_16JavaVMAttachArgs_4name___get__(str
  */
   __Pyx_XDECREF(__pyx_r);
   if (((__pyx_v_self->this.name != NULL) != 0)) {
-    __pyx_t_2 = __Pyx_PyBytes_FromString(__pyx_v_self->this.name); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 362, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyBytes_FromString(__pyx_v_self->this.name); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 363, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_1 = __pyx_t_2;
     __pyx_t_2 = 0;
@@ -11884,7 +11884,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_16JavaVMAttachArgs_4name___get__(str
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":361
+  /* "jni/cython/jni.pyx":362
  * 
  *     @property
  *     def name(self):             # <<<<<<<<<<<<<<
@@ -11904,7 +11904,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_16JavaVMAttachArgs_4name___get__(str
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":365
+/* "jni/cython/jni.pyx":366
  * 
  *     @name.setter
  *     def name(self, val):             # <<<<<<<<<<<<<<
@@ -11933,7 +11933,7 @@ static int __pyx_pf_3jni_6cython_3jni_16JavaVMAttachArgs_4name_2__set__(struct _
   char *__pyx_t_3;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":366
+  /* "jni/cython/jni.pyx":367
  *     @name.setter
  *     def name(self, val):
  *         self.this.name = <char*>val if val is not None else NULL             # <<<<<<<<<<<<<<
@@ -11942,14 +11942,14 @@ static int __pyx_pf_3jni_6cython_3jni_16JavaVMAttachArgs_4name_2__set__(struct _
  */
   __pyx_t_2 = (__pyx_v_val != Py_None);
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyObject_AsWritableString(__pyx_v_val); if (unlikely((!__pyx_t_3) && PyErr_Occurred())) __PYX_ERR(0, 366, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_AsWritableString(__pyx_v_val); if (unlikely((!__pyx_t_3) && PyErr_Occurred())) __PYX_ERR(0, 367, __pyx_L1_error)
     __pyx_t_1 = ((char *)__pyx_t_3);
   } else {
     __pyx_t_1 = NULL;
   }
   __pyx_v_self->this.name = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":365
+  /* "jni/cython/jni.pyx":366
  * 
  *     @name.setter
  *     def name(self, val):             # <<<<<<<<<<<<<<
@@ -11968,7 +11968,7 @@ static int __pyx_pf_3jni_6cython_3jni_16JavaVMAttachArgs_4name_2__set__(struct _
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":369
+/* "jni/cython/jni.pyx":370
  * 
  *     @property
  *     def group(self):             # <<<<<<<<<<<<<<
@@ -11997,7 +11997,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_16JavaVMAttachArgs_5group___get__(st
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "jni/cython/jni.pyx":370
+  /* "jni/cython/jni.pyx":371
  *     @property
  *     def group(self):
  *         return int(<uintptr_t>self.this.group) if self.this.group is not NULL else None             # <<<<<<<<<<<<<<
@@ -12006,9 +12006,9 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_16JavaVMAttachArgs_5group___get__(st
  */
   __Pyx_XDECREF(__pyx_r);
   if (((__pyx_v_self->this.group != NULL) != 0)) {
-    __pyx_t_2 = __Pyx_PyInt_FromSize_t(((uintptr_t)__pyx_v_self->this.group)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 370, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyInt_FromSize_t(((uintptr_t)__pyx_v_self->this.group)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 371, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyInt_Type)), __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 370, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyInt_Type)), __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 371, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_1 = __pyx_t_3;
@@ -12021,7 +12021,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_16JavaVMAttachArgs_5group___get__(st
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":369
+  /* "jni/cython/jni.pyx":370
  * 
  *     @property
  *     def group(self):             # <<<<<<<<<<<<<<
@@ -12042,7 +12042,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_16JavaVMAttachArgs_5group___get__(st
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":373
+/* "jni/cython/jni.pyx":374
  * 
  *     @group.setter
  *     def group(self, val):             # <<<<<<<<<<<<<<
@@ -12074,7 +12074,7 @@ static int __pyx_pf_3jni_6cython_3jni_16JavaVMAttachArgs_5group_2__set__(struct 
   uintptr_t __pyx_t_6;
   __Pyx_RefNannySetupContext("__set__", 0);
 
-  /* "jni/cython/jni.pyx":374
+  /* "jni/cython/jni.pyx":375
  *     @group.setter
  *     def group(self, val):
  *         self.this.group = (<c_jobject>val.val if isinstance(val, jobject) else             # <<<<<<<<<<<<<<
@@ -12083,13 +12083,13 @@ static int __pyx_pf_3jni_6cython_3jni_16JavaVMAttachArgs_5group_2__set__(struct 
  */
   __pyx_t_2 = __Pyx_TypeCheck(__pyx_v_val, __pyx_ptype_3jni_6cython_3jni_jobject); 
   if ((__pyx_t_2 != 0)) {
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 374, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_val, __pyx_n_s_val); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 375, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_1 = ((__pyx_t_3jni_6cython_3jni_c_jobject)__pyx_t_3);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else {
 
-    /* "jni/cython/jni.pyx":375
+    /* "jni/cython/jni.pyx":376
  *     def group(self, val):
  *         self.this.group = (<c_jobject>val.val if isinstance(val, jobject) else
  *                            <c_jobject><uintptr_t>val if val is not None else NULL)             # <<<<<<<<<<<<<<
@@ -12098,7 +12098,7 @@ static int __pyx_pf_3jni_6cython_3jni_16JavaVMAttachArgs_5group_2__set__(struct 
  */
     __pyx_t_5 = (__pyx_v_val != Py_None);
     if ((__pyx_t_5 != 0)) {
-      __pyx_t_6 = __Pyx_PyInt_As_size_t(__pyx_v_val); if (unlikely((__pyx_t_6 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 375, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyInt_As_size_t(__pyx_v_val); if (unlikely((__pyx_t_6 == ((uintptr_t)-1)) && PyErr_Occurred())) __PYX_ERR(0, 376, __pyx_L1_error)
       __pyx_t_4 = ((__pyx_t_3jni_6cython_3jni_c_jobject)((uintptr_t)__pyx_t_6));
     } else {
       __pyx_t_4 = NULL;
@@ -12106,7 +12106,7 @@ static int __pyx_pf_3jni_6cython_3jni_16JavaVMAttachArgs_5group_2__set__(struct 
     __pyx_t_1 = __pyx_t_4;
   }
 
-  /* "jni/cython/jni.pyx":374
+  /* "jni/cython/jni.pyx":375
  *     @group.setter
  *     def group(self, val):
  *         self.this.group = (<c_jobject>val.val if isinstance(val, jobject) else             # <<<<<<<<<<<<<<
@@ -12115,7 +12115,7 @@ static int __pyx_pf_3jni_6cython_3jni_16JavaVMAttachArgs_5group_2__set__(struct 
  */
   __pyx_v_self->this.group = __pyx_t_1;
 
-  /* "jni/cython/jni.pyx":373
+  /* "jni/cython/jni.pyx":374
  * 
  *     @group.setter
  *     def group(self, val):             # <<<<<<<<<<<<<<
@@ -12242,7 +12242,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_16JavaVMAttachArgs_2__setstate_cytho
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":450
+/* "jni/cython/jni.pyx":451
  *     }
  * 
  *     def __init__(self, error=JNI_ERR, info=None):             # <<<<<<<<<<<<<<
@@ -12257,7 +12257,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_18__defaults__(CYTHON_UNUSED PyObjec
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("__defaults__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 450, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 451, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_error);
   __Pyx_GIVEREF(__Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_self)->__pyx_arg_error);
@@ -12265,7 +12265,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_18__defaults__(CYTHON_UNUSED PyObjec
   __Pyx_INCREF(((PyObject *)Py_None));
   __Pyx_GIVEREF(((PyObject *)Py_None));
   PyTuple_SET_ITEM(__pyx_t_1, 1, ((PyObject *)Py_None));
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 450, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 451, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
@@ -12337,7 +12337,7 @@ static PyObject *__pyx_pw_3jni_6cython_3jni_12JNIException_1__init__(PyObject *_
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 450, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 451, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -12356,7 +12356,7 @@ static PyObject *__pyx_pw_3jni_6cython_3jni_12JNIException_1__init__(PyObject *_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 450, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 451, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("jni.cython.jni.JNIException.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -12381,34 +12381,34 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JNIException___init__(CYTHON_UNUSE
   int __pyx_t_7;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "jni/cython/jni.pyx":451
+  /* "jni/cython/jni.pyx":452
  * 
  *     def __init__(self, error=JNI_ERR, info=None):
  *         self._error = error             # <<<<<<<<<<<<<<
  *         self._info  = info
  *         super(JNIException, self).__init__(self.getMessage(), self.getError())
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_error_2, __pyx_v_error) < 0) __PYX_ERR(0, 451, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_error_2, __pyx_v_error) < 0) __PYX_ERR(0, 452, __pyx_L1_error)
 
-  /* "jni/cython/jni.pyx":452
+  /* "jni/cython/jni.pyx":453
  *     def __init__(self, error=JNI_ERR, info=None):
  *         self._error = error
  *         self._info  = info             # <<<<<<<<<<<<<<
  *         super(JNIException, self).__init__(self.getMessage(), self.getError())
  * 
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_info_2, __pyx_v_info) < 0) __PYX_ERR(0, 452, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_info_2, __pyx_v_info) < 0) __PYX_ERR(0, 453, __pyx_L1_error)
 
-  /* "jni/cython/jni.pyx":453
+  /* "jni/cython/jni.pyx":454
  *         self._error = error
  *         self._info  = info
  *         super(JNIException, self).__init__(self.getMessage(), self.getError())             # <<<<<<<<<<<<<<
  * 
  *     def getMessage(self):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_JNIException); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 453, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_JNIException); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 454, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 453, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 454, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2);
@@ -12416,13 +12416,13 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JNIException___init__(CYTHON_UNUSE
   __Pyx_GIVEREF(__pyx_v_self);
   PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_v_self);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_super, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 453, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_super, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 454, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_init); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 453, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_init); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 454, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_getMessage); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 453, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_getMessage); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 454, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
@@ -12436,10 +12436,10 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JNIException___init__(CYTHON_UNUSE
   }
   __pyx_t_2 = (__pyx_t_5) ? __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5) : __Pyx_PyObject_CallNoArg(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 453, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 454, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_getError); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 453, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_getError); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 454, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_6 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
@@ -12453,7 +12453,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JNIException___init__(CYTHON_UNUSE
   }
   __pyx_t_4 = (__pyx_t_6) ? __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6) : __Pyx_PyObject_CallNoArg(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 453, __pyx_L1_error)
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 454, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_5 = NULL;
@@ -12471,7 +12471,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JNIException___init__(CYTHON_UNUSE
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_t_2, __pyx_t_4};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 453, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 454, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -12481,7 +12481,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JNIException___init__(CYTHON_UNUSE
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_t_2, __pyx_t_4};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 453, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 454, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -12489,7 +12489,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JNIException___init__(CYTHON_UNUSE
   } else
   #endif
   {
-    __pyx_t_6 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 453, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 454, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     if (__pyx_t_5) {
       __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -12500,14 +12500,14 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JNIException___init__(CYTHON_UNUSE
     PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_7, __pyx_t_4);
     __pyx_t_2 = 0;
     __pyx_t_4 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 453, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 454, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "jni/cython/jni.pyx":450
+  /* "jni/cython/jni.pyx":451
  *     }
  * 
  *     def __init__(self, error=JNI_ERR, info=None):             # <<<<<<<<<<<<<<
@@ -12533,7 +12533,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JNIException___init__(CYTHON_UNUSE
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":455
+/* "jni/cython/jni.pyx":456
  *         super(JNIException, self).__init__(self.getMessage(), self.getError())
  * 
  *     def getMessage(self):             # <<<<<<<<<<<<<<
@@ -12570,21 +12570,21 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JNIException_2getMessage(CYTHON_UN
   int __pyx_t_9;
   __Pyx_RefNannySetupContext("getMessage", 0);
 
-  /* "jni/cython/jni.pyx":456
+  /* "jni/cython/jni.pyx":457
  * 
  *     def getMessage(self):
  *         prefix = self._info + ": " if self._info else ""             # <<<<<<<<<<<<<<
  *         return prefix + JNIException.reason.get(self._error,
  *                                                 u"unknown error code {0}".format(self._error))
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_info_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 456, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_info_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 457, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 456, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 457, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_3) {
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_info_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 456, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_info_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 457, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = PyNumber_Add(__pyx_t_2, __pyx_kp_u__22); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 456, __pyx_L1_error)
+    __pyx_t_4 = PyNumber_Add(__pyx_t_2, __pyx_kp_u__22); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 457, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_1 = __pyx_t_4;
@@ -12596,7 +12596,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JNIException_2getMessage(CYTHON_UN
   __pyx_v_prefix = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "jni/cython/jni.pyx":457
+  /* "jni/cython/jni.pyx":458
  *     def getMessage(self):
  *         prefix = self._info + ": " if self._info else ""
  *         return prefix + JNIException.reason.get(self._error,             # <<<<<<<<<<<<<<
@@ -12604,27 +12604,27 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JNIException_2getMessage(CYTHON_UN
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_JNIException); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 457, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_JNIException); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 458, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_reason); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 457, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_reason); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 458, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_get); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 457, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_get); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 458, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_error_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 457, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_error_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 458, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "jni/cython/jni.pyx":458
+  /* "jni/cython/jni.pyx":459
  *         prefix = self._info + ": " if self._info else ""
  *         return prefix + JNIException.reason.get(self._error,
  *                                                 u"unknown error code {0}".format(self._error))             # <<<<<<<<<<<<<<
  * 
  *     def getError(self):
  */
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_unknown_error_code_0, __pyx_n_s_format); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 458, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_unknown_error_code_0, __pyx_n_s_format); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 459, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_error_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 458, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_error_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 459, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_8 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
@@ -12639,7 +12639,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JNIException_2getMessage(CYTHON_UN
   __pyx_t_5 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_8, __pyx_t_7) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 458, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 459, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_6 = NULL;
@@ -12657,7 +12657,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JNIException_2getMessage(CYTHON_UN
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_4)) {
     PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_2, __pyx_t_5};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_9, 2+__pyx_t_9); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 457, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_9, 2+__pyx_t_9); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 458, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -12667,7 +12667,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JNIException_2getMessage(CYTHON_UN
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
     PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_2, __pyx_t_5};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_9, 2+__pyx_t_9); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 457, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_9, 2+__pyx_t_9); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 458, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -12675,7 +12675,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JNIException_2getMessage(CYTHON_UN
   } else
   #endif
   {
-    __pyx_t_7 = PyTuple_New(2+__pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 457, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(2+__pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 458, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     if (__pyx_t_6) {
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -12686,27 +12686,27 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JNIException_2getMessage(CYTHON_UN
     PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_9, __pyx_t_5);
     __pyx_t_2 = 0;
     __pyx_t_5 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 457, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 458, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "jni/cython/jni.pyx":457
+  /* "jni/cython/jni.pyx":458
  *     def getMessage(self):
  *         prefix = self._info + ": " if self._info else ""
  *         return prefix + JNIException.reason.get(self._error,             # <<<<<<<<<<<<<<
  *                                                 u"unknown error code {0}".format(self._error))
  * 
  */
-  __pyx_t_4 = PyNumber_Add(__pyx_v_prefix, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 457, __pyx_L1_error)
+  __pyx_t_4 = PyNumber_Add(__pyx_v_prefix, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 458, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_4;
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":455
+  /* "jni/cython/jni.pyx":456
  *         super(JNIException, self).__init__(self.getMessage(), self.getError())
  * 
  *     def getMessage(self):             # <<<<<<<<<<<<<<
@@ -12732,7 +12732,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JNIException_2getMessage(CYTHON_UN
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":460
+/* "jni/cython/jni.pyx":461
  *                                                 u"unknown error code {0}".format(self._error))
  * 
  *     def getError(self):             # <<<<<<<<<<<<<<
@@ -12760,7 +12760,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JNIException_4getError(CYTHON_UNUS
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("getError", 0);
 
-  /* "jni/cython/jni.pyx":461
+  /* "jni/cython/jni.pyx":462
  * 
  *     def getError(self):
  *         return self._error             # <<<<<<<<<<<<<<
@@ -12768,13 +12768,13 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JNIException_4getError(CYTHON_UNUS
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_error_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 461, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_error_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 462, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":460
+  /* "jni/cython/jni.pyx":461
  *                                                 u"unknown error code {0}".format(self._error))
  * 
  *     def getError(self):             # <<<<<<<<<<<<<<
@@ -12793,7 +12793,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_12JNIException_4getError(CYTHON_UNUS
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":476
+/* "jni/cython/jni.pyx":477
  *     #    #super(Throwable, self).__init__(self._cause, self._info)
  * 
  *     cdef c_jthrowable getCause(self):             # <<<<<<<<<<<<<<
@@ -12806,7 +12806,7 @@ static __pyx_t_3jni_6cython_3jni_c_jthrowable __pyx_f_3jni_6cython_3jni_9Throwab
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getCause", 0);
 
-  /* "jni/cython/jni.pyx":477
+  /* "jni/cython/jni.pyx":478
  * 
  *     cdef c_jthrowable getCause(self):
  *         return self._cause             # <<<<<<<<<<<<<<
@@ -12816,7 +12816,7 @@ static __pyx_t_3jni_6cython_3jni_c_jthrowable __pyx_f_3jni_6cython_3jni_9Throwab
   __pyx_r = __pyx_v_self->_cause;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":476
+  /* "jni/cython/jni.pyx":477
  *     #    #super(Throwable, self).__init__(self._cause, self._info)
  * 
  *     cdef c_jthrowable getCause(self):             # <<<<<<<<<<<<<<
@@ -12830,7 +12830,7 @@ static __pyx_t_3jni_6cython_3jni_c_jthrowable __pyx_f_3jni_6cython_3jni_9Throwab
   return __pyx_r;
 }
 
-/* "jni/cython/jni.pyx":479
+/* "jni/cython/jni.pyx":480
  *         return self._cause
  * 
  *     cdef c_jstring getInfo(self):             # <<<<<<<<<<<<<<
@@ -12842,7 +12842,7 @@ static __pyx_t_3jni_6cython_3jni_c_jstring __pyx_f_3jni_6cython_3jni_9Throwable_
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getInfo", 0);
 
-  /* "jni/cython/jni.pyx":480
+  /* "jni/cython/jni.pyx":481
  * 
  *     cdef c_jstring getInfo(self):
  *         return self._info             # <<<<<<<<<<<<<<
@@ -12850,7 +12850,7 @@ static __pyx_t_3jni_6cython_3jni_c_jstring __pyx_f_3jni_6cython_3jni_9Throwable_
   __pyx_r = __pyx_v_self->_info;
   goto __pyx_L0;
 
-  /* "jni/cython/jni.pyx":479
+  /* "jni/cython/jni.pyx":480
  *         return self._cause
  * 
  *     cdef c_jstring getInfo(self):             # <<<<<<<<<<<<<<
@@ -21154,11 +21154,11 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 338, __pyx_L1_error)
-  __pyx_builtin_SystemError = __Pyx_GetBuiltinName(__pyx_n_s_SystemError); if (!__pyx_builtin_SystemError) __PYX_ERR(0, 438, __pyx_L1_error)
-  __pyx_builtin_chr = __Pyx_GetBuiltinName(__pyx_n_s_chr); if (!__pyx_builtin_chr) __PYX_ERR(0, 68, __pyx_L1_error)
+  __pyx_builtin_property = __Pyx_GetBuiltinName(__pyx_n_s_property); if (!__pyx_builtin_property) __PYX_ERR(0, 339, __pyx_L1_error)
+  __pyx_builtin_SystemError = __Pyx_GetBuiltinName(__pyx_n_s_SystemError); if (!__pyx_builtin_SystemError) __PYX_ERR(0, 439, __pyx_L1_error)
+  __pyx_builtin_chr = __Pyx_GetBuiltinName(__pyx_n_s_chr); if (!__pyx_builtin_chr) __PYX_ERR(0, 69, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(1, 2, __pyx_L1_error)
-  __pyx_builtin_super = __Pyx_GetBuiltinName(__pyx_n_s_super); if (!__pyx_builtin_super) __PYX_ERR(0, 453, __pyx_L1_error)
+  __pyx_builtin_super = __Pyx_GetBuiltinName(__pyx_n_s_super); if (!__pyx_builtin_super) __PYX_ERR(0, 454, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 33, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
@@ -21378,52 +21378,52 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__25);
   __Pyx_GIVEREF(__pyx_tuple__25);
 
-  /* "jni/cython/jni.pyx":438
+  /* "jni/cython/jni.pyx":439
  * 
  * 
  * class JNIException(SystemError):             # <<<<<<<<<<<<<<
  * 
  *     reason = {
  */
-  __pyx_tuple__26 = PyTuple_Pack(1, __pyx_builtin_SystemError); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(0, 438, __pyx_L1_error)
+  __pyx_tuple__26 = PyTuple_Pack(1, __pyx_builtin_SystemError); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(0, 439, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__26);
   __Pyx_GIVEREF(__pyx_tuple__26);
 
-  /* "jni/cython/jni.pyx":450
+  /* "jni/cython/jni.pyx":451
  *     }
  * 
  *     def __init__(self, error=JNI_ERR, info=None):             # <<<<<<<<<<<<<<
  *         self._error = error
  *         self._info  = info
  */
-  __pyx_tuple__27 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_error, __pyx_n_s_info); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 450, __pyx_L1_error)
+  __pyx_tuple__27 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_error, __pyx_n_s_info); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(0, 451, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__27);
   __Pyx_GIVEREF(__pyx_tuple__27);
-  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_src_jni_cython_jni_pyx, __pyx_n_s_init, 450, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 450, __pyx_L1_error)
+  __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_src_jni_cython_jni_pyx, __pyx_n_s_init, 451, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 451, __pyx_L1_error)
 
-  /* "jni/cython/jni.pyx":455
+  /* "jni/cython/jni.pyx":456
  *         super(JNIException, self).__init__(self.getMessage(), self.getError())
  * 
  *     def getMessage(self):             # <<<<<<<<<<<<<<
  *         prefix = self._info + ": " if self._info else ""
  *         return prefix + JNIException.reason.get(self._error,
  */
-  __pyx_tuple__29 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_prefix); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 455, __pyx_L1_error)
+  __pyx_tuple__29 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_prefix); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 456, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__29);
   __Pyx_GIVEREF(__pyx_tuple__29);
-  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_src_jni_cython_jni_pyx, __pyx_n_s_getMessage, 455, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 455, __pyx_L1_error)
+  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_src_jni_cython_jni_pyx, __pyx_n_s_getMessage, 456, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 456, __pyx_L1_error)
 
-  /* "jni/cython/jni.pyx":460
+  /* "jni/cython/jni.pyx":461
  *                                                 u"unknown error code {0}".format(self._error))
  * 
  *     def getError(self):             # <<<<<<<<<<<<<<
  *         return self._error
  * 
  */
-  __pyx_tuple__31 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(0, 460, __pyx_L1_error)
+  __pyx_tuple__31 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(0, 461, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__31);
   __Pyx_GIVEREF(__pyx_tuple__31);
-  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_src_jni_cython_jni_pyx, __pyx_n_s_getError, 460, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 460, __pyx_L1_error)
+  __pyx_codeobj__32 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__31, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_src_jni_cython_jni_pyx, __pyx_n_s_getError, 461, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__32)) __PYX_ERR(0, 461, __pyx_L1_error)
 
   /* "(tree fragment)":1
  * def __pyx_unpickle__CData(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
@@ -21573,228 +21573,228 @@ static int __Pyx_modinit_type_init_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni__CData) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni__CData) < 0) __PYX_ERR(0, 14, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_3jni_6cython_3jni__CData.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3jni_6cython_3jni__CData.tp_dictoffset && __pyx_type_3jni_6cython_3jni__CData.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3jni_6cython_3jni__CData.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_CData, (PyObject *)&__pyx_type_3jni_6cython_3jni__CData) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni__CData) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_CData, (PyObject *)&__pyx_type_3jni_6cython_3jni__CData) < 0) __PYX_ERR(0, 14, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni__CData) < 0) __PYX_ERR(0, 14, __pyx_L1_error)
   __pyx_ptype_3jni_6cython_3jni__CData = &__pyx_type_3jni_6cython_3jni__CData;
   __pyx_type_3jni_6cython_3jni_jint.tp_base = __pyx_ptype_3jni_6cython_3jni__CData;
-  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jint) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jint) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_3jni_6cython_3jni_jint.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3jni_6cython_3jni_jint.tp_dictoffset && __pyx_type_3jni_6cython_3jni_jint.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3jni_6cython_3jni_jint.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jint, (PyObject *)&__pyx_type_3jni_6cython_3jni_jint) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jint) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jint, (PyObject *)&__pyx_type_3jni_6cython_3jni_jint) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jint) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   __pyx_ptype_3jni_6cython_3jni_jint = &__pyx_type_3jni_6cython_3jni_jint;
   __pyx_type_3jni_6cython_3jni_jlong.tp_base = __pyx_ptype_3jni_6cython_3jni__CData;
-  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jlong) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jlong) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_3jni_6cython_3jni_jlong.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3jni_6cython_3jni_jlong.tp_dictoffset && __pyx_type_3jni_6cython_3jni_jlong.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3jni_6cython_3jni_jlong.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jlong, (PyObject *)&__pyx_type_3jni_6cython_3jni_jlong) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jlong) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jlong, (PyObject *)&__pyx_type_3jni_6cython_3jni_jlong) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jlong) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
   __pyx_ptype_3jni_6cython_3jni_jlong = &__pyx_type_3jni_6cython_3jni_jlong;
   __pyx_type_3jni_6cython_3jni_jbyte.tp_base = __pyx_ptype_3jni_6cython_3jni__CData;
-  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jbyte) < 0) __PYX_ERR(0, 34, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jbyte) < 0) __PYX_ERR(0, 35, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_3jni_6cython_3jni_jbyte.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3jni_6cython_3jni_jbyte.tp_dictoffset && __pyx_type_3jni_6cython_3jni_jbyte.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3jni_6cython_3jni_jbyte.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jbyte, (PyObject *)&__pyx_type_3jni_6cython_3jni_jbyte) < 0) __PYX_ERR(0, 34, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jbyte) < 0) __PYX_ERR(0, 34, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jbyte, (PyObject *)&__pyx_type_3jni_6cython_3jni_jbyte) < 0) __PYX_ERR(0, 35, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jbyte) < 0) __PYX_ERR(0, 35, __pyx_L1_error)
   __pyx_ptype_3jni_6cython_3jni_jbyte = &__pyx_type_3jni_6cython_3jni_jbyte;
   __pyx_type_3jni_6cython_3jni_jboolean.tp_base = __pyx_ptype_3jni_6cython_3jni__CData;
-  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jboolean) < 0) __PYX_ERR(0, 43, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jboolean) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_3jni_6cython_3jni_jboolean.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3jni_6cython_3jni_jboolean.tp_dictoffset && __pyx_type_3jni_6cython_3jni_jboolean.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3jni_6cython_3jni_jboolean.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jboolean, (PyObject *)&__pyx_type_3jni_6cython_3jni_jboolean) < 0) __PYX_ERR(0, 43, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jboolean) < 0) __PYX_ERR(0, 43, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jboolean, (PyObject *)&__pyx_type_3jni_6cython_3jni_jboolean) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jboolean) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
   __pyx_ptype_3jni_6cython_3jni_jboolean = &__pyx_type_3jni_6cython_3jni_jboolean;
   __pyx_type_3jni_6cython_3jni_jchar.tp_base = __pyx_ptype_3jni_6cython_3jni__CData;
-  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jchar) < 0) __PYX_ERR(0, 60, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jchar) < 0) __PYX_ERR(0, 61, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_3jni_6cython_3jni_jchar.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3jni_6cython_3jni_jchar.tp_dictoffset && __pyx_type_3jni_6cython_3jni_jchar.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3jni_6cython_3jni_jchar.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jchar, (PyObject *)&__pyx_type_3jni_6cython_3jni_jchar) < 0) __PYX_ERR(0, 60, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jchar) < 0) __PYX_ERR(0, 60, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jchar, (PyObject *)&__pyx_type_3jni_6cython_3jni_jchar) < 0) __PYX_ERR(0, 61, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jchar) < 0) __PYX_ERR(0, 61, __pyx_L1_error)
   __pyx_ptype_3jni_6cython_3jni_jchar = &__pyx_type_3jni_6cython_3jni_jchar;
   __pyx_type_3jni_6cython_3jni_jshort.tp_base = __pyx_ptype_3jni_6cython_3jni__CData;
-  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jshort) < 0) __PYX_ERR(0, 77, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jshort) < 0) __PYX_ERR(0, 78, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_3jni_6cython_3jni_jshort.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3jni_6cython_3jni_jshort.tp_dictoffset && __pyx_type_3jni_6cython_3jni_jshort.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3jni_6cython_3jni_jshort.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jshort, (PyObject *)&__pyx_type_3jni_6cython_3jni_jshort) < 0) __PYX_ERR(0, 77, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jshort) < 0) __PYX_ERR(0, 77, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jshort, (PyObject *)&__pyx_type_3jni_6cython_3jni_jshort) < 0) __PYX_ERR(0, 78, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jshort) < 0) __PYX_ERR(0, 78, __pyx_L1_error)
   __pyx_ptype_3jni_6cython_3jni_jshort = &__pyx_type_3jni_6cython_3jni_jshort;
   __pyx_type_3jni_6cython_3jni_jfloat.tp_base = __pyx_ptype_3jni_6cython_3jni__CData;
-  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jfloat) < 0) __PYX_ERR(0, 86, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jfloat) < 0) __PYX_ERR(0, 87, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_3jni_6cython_3jni_jfloat.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3jni_6cython_3jni_jfloat.tp_dictoffset && __pyx_type_3jni_6cython_3jni_jfloat.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3jni_6cython_3jni_jfloat.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jfloat, (PyObject *)&__pyx_type_3jni_6cython_3jni_jfloat) < 0) __PYX_ERR(0, 86, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jfloat) < 0) __PYX_ERR(0, 86, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jfloat, (PyObject *)&__pyx_type_3jni_6cython_3jni_jfloat) < 0) __PYX_ERR(0, 87, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jfloat) < 0) __PYX_ERR(0, 87, __pyx_L1_error)
   __pyx_ptype_3jni_6cython_3jni_jfloat = &__pyx_type_3jni_6cython_3jni_jfloat;
   __pyx_type_3jni_6cython_3jni_jdouble.tp_base = __pyx_ptype_3jni_6cython_3jni__CData;
-  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jdouble) < 0) __PYX_ERR(0, 95, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jdouble) < 0) __PYX_ERR(0, 96, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_3jni_6cython_3jni_jdouble.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3jni_6cython_3jni_jdouble.tp_dictoffset && __pyx_type_3jni_6cython_3jni_jdouble.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3jni_6cython_3jni_jdouble.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jdouble, (PyObject *)&__pyx_type_3jni_6cython_3jni_jdouble) < 0) __PYX_ERR(0, 95, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jdouble) < 0) __PYX_ERR(0, 95, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jdouble, (PyObject *)&__pyx_type_3jni_6cython_3jni_jdouble) < 0) __PYX_ERR(0, 96, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jdouble) < 0) __PYX_ERR(0, 96, __pyx_L1_error)
   __pyx_ptype_3jni_6cython_3jni_jdouble = &__pyx_type_3jni_6cython_3jni_jdouble;
   __pyx_type_3jni_6cython_3jni_jobject.tp_base = __pyx_ptype_3jni_6cython_3jni__CData;
-  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jobject) < 0) __PYX_ERR(0, 106, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jobject) < 0) __PYX_ERR(0, 107, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_3jni_6cython_3jni_jobject.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3jni_6cython_3jni_jobject.tp_dictoffset && __pyx_type_3jni_6cython_3jni_jobject.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3jni_6cython_3jni_jobject.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jobject, (PyObject *)&__pyx_type_3jni_6cython_3jni_jobject) < 0) __PYX_ERR(0, 106, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jobject) < 0) __PYX_ERR(0, 106, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jobject, (PyObject *)&__pyx_type_3jni_6cython_3jni_jobject) < 0) __PYX_ERR(0, 107, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jobject) < 0) __PYX_ERR(0, 107, __pyx_L1_error)
   __pyx_ptype_3jni_6cython_3jni_jobject = &__pyx_type_3jni_6cython_3jni_jobject;
   __pyx_type_3jni_6cython_3jni_jvalue.tp_base = __pyx_ptype_3jni_6cython_3jni__CData;
-  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jvalue) < 0) __PYX_ERR(0, 138, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jvalue) < 0) __PYX_ERR(0, 139, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_3jni_6cython_3jni_jvalue.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3jni_6cython_3jni_jvalue.tp_dictoffset && __pyx_type_3jni_6cython_3jni_jvalue.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3jni_6cython_3jni_jvalue.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jvalue, (PyObject *)&__pyx_type_3jni_6cython_3jni_jvalue) < 0) __PYX_ERR(0, 138, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jvalue) < 0) __PYX_ERR(0, 138, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jvalue, (PyObject *)&__pyx_type_3jni_6cython_3jni_jvalue) < 0) __PYX_ERR(0, 139, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jvalue) < 0) __PYX_ERR(0, 139, __pyx_L1_error)
   __pyx_ptype_3jni_6cython_3jni_jvalue = &__pyx_type_3jni_6cython_3jni_jvalue;
   __pyx_type_3jni_6cython_3jni_jfieldID.tp_base = __pyx_ptype_3jni_6cython_3jni__CData;
-  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jfieldID) < 0) __PYX_ERR(0, 214, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jfieldID) < 0) __PYX_ERR(0, 215, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_3jni_6cython_3jni_jfieldID.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3jni_6cython_3jni_jfieldID.tp_dictoffset && __pyx_type_3jni_6cython_3jni_jfieldID.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3jni_6cython_3jni_jfieldID.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jfieldID, (PyObject *)&__pyx_type_3jni_6cython_3jni_jfieldID) < 0) __PYX_ERR(0, 214, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jfieldID) < 0) __PYX_ERR(0, 214, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jfieldID, (PyObject *)&__pyx_type_3jni_6cython_3jni_jfieldID) < 0) __PYX_ERR(0, 215, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jfieldID) < 0) __PYX_ERR(0, 215, __pyx_L1_error)
   __pyx_ptype_3jni_6cython_3jni_jfieldID = &__pyx_type_3jni_6cython_3jni_jfieldID;
   __pyx_type_3jni_6cython_3jni_jmethodID.tp_base = __pyx_ptype_3jni_6cython_3jni__CData;
-  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jmethodID) < 0) __PYX_ERR(0, 231, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_jmethodID) < 0) __PYX_ERR(0, 232, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_3jni_6cython_3jni_jmethodID.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3jni_6cython_3jni_jmethodID.tp_dictoffset && __pyx_type_3jni_6cython_3jni_jmethodID.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3jni_6cython_3jni_jmethodID.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jmethodID, (PyObject *)&__pyx_type_3jni_6cython_3jni_jmethodID) < 0) __PYX_ERR(0, 231, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jmethodID) < 0) __PYX_ERR(0, 231, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_jmethodID, (PyObject *)&__pyx_type_3jni_6cython_3jni_jmethodID) < 0) __PYX_ERR(0, 232, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_jmethodID) < 0) __PYX_ERR(0, 232, __pyx_L1_error)
   __pyx_ptype_3jni_6cython_3jni_jmethodID = &__pyx_type_3jni_6cython_3jni_jmethodID;
   __pyx_type_3jni_6cython_3jni_JNINativeMethod.tp_base = __pyx_ptype_3jni_6cython_3jni__CData;
-  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_JNINativeMethod) < 0) __PYX_ERR(0, 261, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_JNINativeMethod) < 0) __PYX_ERR(0, 262, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_3jni_6cython_3jni_JNINativeMethod.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3jni_6cython_3jni_JNINativeMethod.tp_dictoffset && __pyx_type_3jni_6cython_3jni_JNINativeMethod.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3jni_6cython_3jni_JNINativeMethod.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_JNINativeMethod, (PyObject *)&__pyx_type_3jni_6cython_3jni_JNINativeMethod) < 0) __PYX_ERR(0, 261, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_JNINativeMethod) < 0) __PYX_ERR(0, 261, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_JNINativeMethod, (PyObject *)&__pyx_type_3jni_6cython_3jni_JNINativeMethod) < 0) __PYX_ERR(0, 262, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_JNINativeMethod) < 0) __PYX_ERR(0, 262, __pyx_L1_error)
   __pyx_ptype_3jni_6cython_3jni_JNINativeMethod = &__pyx_type_3jni_6cython_3jni_JNINativeMethod;
   __pyx_type_3jni_6cython_3jni_JNIEnv.tp_base = __pyx_ptype_3jni_6cython_3jni__CData;
-  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_JNIEnv) < 0) __PYX_ERR(0, 289, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_JNIEnv) < 0) __PYX_ERR(0, 290, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_3jni_6cython_3jni_JNIEnv.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3jni_6cython_3jni_JNIEnv.tp_dictoffset && __pyx_type_3jni_6cython_3jni_JNIEnv.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3jni_6cython_3jni_JNIEnv.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_JNIEnv, (PyObject *)&__pyx_type_3jni_6cython_3jni_JNIEnv) < 0) __PYX_ERR(0, 289, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_JNIEnv) < 0) __PYX_ERR(0, 289, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_JNIEnv, (PyObject *)&__pyx_type_3jni_6cython_3jni_JNIEnv) < 0) __PYX_ERR(0, 290, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_JNIEnv) < 0) __PYX_ERR(0, 290, __pyx_L1_error)
   __pyx_ptype_3jni_6cython_3jni_JNIEnv = &__pyx_type_3jni_6cython_3jni_JNIEnv;
   __pyx_type_3jni_6cython_3jni_JavaVM.tp_base = __pyx_ptype_3jni_6cython_3jni__CData;
-  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_JavaVM) < 0) __PYX_ERR(0, 295, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_JavaVM) < 0) __PYX_ERR(0, 296, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_3jni_6cython_3jni_JavaVM.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3jni_6cython_3jni_JavaVM.tp_dictoffset && __pyx_type_3jni_6cython_3jni_JavaVM.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3jni_6cython_3jni_JavaVM.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_JavaVM, (PyObject *)&__pyx_type_3jni_6cython_3jni_JavaVM) < 0) __PYX_ERR(0, 295, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_JavaVM) < 0) __PYX_ERR(0, 295, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_JavaVM, (PyObject *)&__pyx_type_3jni_6cython_3jni_JavaVM) < 0) __PYX_ERR(0, 296, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_JavaVM) < 0) __PYX_ERR(0, 296, __pyx_L1_error)
   __pyx_ptype_3jni_6cython_3jni_JavaVM = &__pyx_type_3jni_6cython_3jni_JavaVM;
   __pyx_type_3jni_6cython_3jni_JavaVMOption.tp_base = __pyx_ptype_3jni_6cython_3jni__CData;
-  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_JavaVMOption) < 0) __PYX_ERR(0, 299, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_JavaVMOption) < 0) __PYX_ERR(0, 300, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_3jni_6cython_3jni_JavaVMOption.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3jni_6cython_3jni_JavaVMOption.tp_dictoffset && __pyx_type_3jni_6cython_3jni_JavaVMOption.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3jni_6cython_3jni_JavaVMOption.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_JavaVMOption, (PyObject *)&__pyx_type_3jni_6cython_3jni_JavaVMOption) < 0) __PYX_ERR(0, 299, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_JavaVMOption) < 0) __PYX_ERR(0, 299, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_JavaVMOption, (PyObject *)&__pyx_type_3jni_6cython_3jni_JavaVMOption) < 0) __PYX_ERR(0, 300, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_JavaVMOption) < 0) __PYX_ERR(0, 300, __pyx_L1_error)
   __pyx_ptype_3jni_6cython_3jni_JavaVMOption = &__pyx_type_3jni_6cython_3jni_JavaVMOption;
   __pyx_type_3jni_6cython_3jni_JavaVMInitArgs.tp_base = __pyx_ptype_3jni_6cython_3jni__CData;
-  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_JavaVMInitArgs) < 0) __PYX_ERR(0, 319, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_JavaVMInitArgs) < 0) __PYX_ERR(0, 320, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_3jni_6cython_3jni_JavaVMInitArgs.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3jni_6cython_3jni_JavaVMInitArgs.tp_dictoffset && __pyx_type_3jni_6cython_3jni_JavaVMInitArgs.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3jni_6cython_3jni_JavaVMInitArgs.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_JavaVMInitArgs, (PyObject *)&__pyx_type_3jni_6cython_3jni_JavaVMInitArgs) < 0) __PYX_ERR(0, 319, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_JavaVMInitArgs) < 0) __PYX_ERR(0, 319, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_JavaVMInitArgs, (PyObject *)&__pyx_type_3jni_6cython_3jni_JavaVMInitArgs) < 0) __PYX_ERR(0, 320, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_JavaVMInitArgs) < 0) __PYX_ERR(0, 320, __pyx_L1_error)
   __pyx_ptype_3jni_6cython_3jni_JavaVMInitArgs = &__pyx_type_3jni_6cython_3jni_JavaVMInitArgs;
   __pyx_type_3jni_6cython_3jni_JavaVMAttachArgs.tp_base = __pyx_ptype_3jni_6cython_3jni__CData;
-  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_JavaVMAttachArgs) < 0) __PYX_ERR(0, 349, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_JavaVMAttachArgs) < 0) __PYX_ERR(0, 350, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_3jni_6cython_3jni_JavaVMAttachArgs.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3jni_6cython_3jni_JavaVMAttachArgs.tp_dictoffset && __pyx_type_3jni_6cython_3jni_JavaVMAttachArgs.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3jni_6cython_3jni_JavaVMAttachArgs.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_JavaVMAttachArgs, (PyObject *)&__pyx_type_3jni_6cython_3jni_JavaVMAttachArgs) < 0) __PYX_ERR(0, 349, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_JavaVMAttachArgs) < 0) __PYX_ERR(0, 349, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_JavaVMAttachArgs, (PyObject *)&__pyx_type_3jni_6cython_3jni_JavaVMAttachArgs) < 0) __PYX_ERR(0, 350, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_JavaVMAttachArgs) < 0) __PYX_ERR(0, 350, __pyx_L1_error)
   __pyx_ptype_3jni_6cython_3jni_JavaVMAttachArgs = &__pyx_type_3jni_6cython_3jni_JavaVMAttachArgs;
   __pyx_vtabptr_3jni_6cython_3jni_Throwable = &__pyx_vtable_3jni_6cython_3jni_Throwable;
   __pyx_vtable_3jni_6cython_3jni_Throwable.getCause = (__pyx_t_3jni_6cython_3jni_c_jthrowable (*)(struct __pyx_obj_3jni_6cython_3jni_Throwable *))__pyx_f_3jni_6cython_3jni_9Throwable_getCause;
   __pyx_vtable_3jni_6cython_3jni_Throwable.getInfo = (__pyx_t_3jni_6cython_3jni_c_jstring (*)(struct __pyx_obj_3jni_6cython_3jni_Throwable *))__pyx_f_3jni_6cython_3jni_9Throwable_getInfo;
   __pyx_type_3jni_6cython_3jni_Throwable.tp_base = (&((PyTypeObject*)PyExc_Exception)[0]);
-  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_Throwable) < 0) __PYX_ERR(0, 464, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3jni_6cython_3jni_Throwable) < 0) __PYX_ERR(0, 465, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_3jni_6cython_3jni_Throwable.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3jni_6cython_3jni_Throwable.tp_dictoffset && __pyx_type_3jni_6cython_3jni_Throwable.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3jni_6cython_3jni_Throwable.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (__Pyx_SetVtable(__pyx_type_3jni_6cython_3jni_Throwable.tp_dict, __pyx_vtabptr_3jni_6cython_3jni_Throwable) < 0) __PYX_ERR(0, 464, __pyx_L1_error)
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Throwable, (PyObject *)&__pyx_type_3jni_6cython_3jni_Throwable) < 0) __PYX_ERR(0, 464, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_Throwable) < 0) __PYX_ERR(0, 464, __pyx_L1_error)
+  if (__Pyx_SetVtable(__pyx_type_3jni_6cython_3jni_Throwable.tp_dict, __pyx_vtabptr_3jni_6cython_3jni_Throwable) < 0) __PYX_ERR(0, 465, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Throwable, (PyObject *)&__pyx_type_3jni_6cython_3jni_Throwable) < 0) __PYX_ERR(0, 465, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_3jni_6cython_3jni_Throwable) < 0) __PYX_ERR(0, 465, __pyx_L1_error)
   __pyx_ptype_3jni_6cython_3jni_Throwable = &__pyx_type_3jni_6cython_3jni_Throwable;
   __Pyx_EnumMeta.tp_base = (&PyType_Type);
   if (PyType_Ready(&__Pyx_EnumMeta) < 0) __PYX_ERR(1, 15, __pyx_L1_error)
@@ -22039,169 +22039,169 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "jni/cython/jni.pyx":104
+  /* "jni/cython/jni.pyx":105
  *         return self.value != 0.0
  * 
  * jsize = jint             # <<<<<<<<<<<<<<
  * 
  * cdef class jobject(_CData):
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jsize, ((PyObject *)__pyx_ptype_3jni_6cython_3jni_jint)) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jsize, ((PyObject *)__pyx_ptype_3jni_6cython_3jni_jint)) < 0) __PYX_ERR(0, 105, __pyx_L1_error)
 
-  /* "jni/cython/jni.pyx":123
+  /* "jni/cython/jni.pyx":124
  *         return self.val != NULL
  * 
  * jclass        = jobject             # <<<<<<<<<<<<<<
  * jthrowable    = jobject
  * jstring       = jobject
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jclass, ((PyObject *)__pyx_ptype_3jni_6cython_3jni_jobject)) < 0) __PYX_ERR(0, 123, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jclass, ((PyObject *)__pyx_ptype_3jni_6cython_3jni_jobject)) < 0) __PYX_ERR(0, 124, __pyx_L1_error)
 
-  /* "jni/cython/jni.pyx":124
+  /* "jni/cython/jni.pyx":125
  * 
  * jclass        = jobject
  * jthrowable    = jobject             # <<<<<<<<<<<<<<
  * jstring       = jobject
  * jarray        = jobject
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jthrowable, ((PyObject *)__pyx_ptype_3jni_6cython_3jni_jobject)) < 0) __PYX_ERR(0, 124, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jthrowable, ((PyObject *)__pyx_ptype_3jni_6cython_3jni_jobject)) < 0) __PYX_ERR(0, 125, __pyx_L1_error)
 
-  /* "jni/cython/jni.pyx":125
+  /* "jni/cython/jni.pyx":126
  * jclass        = jobject
  * jthrowable    = jobject
  * jstring       = jobject             # <<<<<<<<<<<<<<
  * jarray        = jobject
  * jbooleanArray = jarray
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jstring, ((PyObject *)__pyx_ptype_3jni_6cython_3jni_jobject)) < 0) __PYX_ERR(0, 125, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jstring, ((PyObject *)__pyx_ptype_3jni_6cython_3jni_jobject)) < 0) __PYX_ERR(0, 126, __pyx_L1_error)
 
-  /* "jni/cython/jni.pyx":126
+  /* "jni/cython/jni.pyx":127
  * jthrowable    = jobject
  * jstring       = jobject
  * jarray        = jobject             # <<<<<<<<<<<<<<
  * jbooleanArray = jarray
  * jcharArray    = jarray
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jarray, ((PyObject *)__pyx_ptype_3jni_6cython_3jni_jobject)) < 0) __PYX_ERR(0, 126, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jarray, ((PyObject *)__pyx_ptype_3jni_6cython_3jni_jobject)) < 0) __PYX_ERR(0, 127, __pyx_L1_error)
 
-  /* "jni/cython/jni.pyx":127
+  /* "jni/cython/jni.pyx":128
  * jstring       = jobject
  * jarray        = jobject
  * jbooleanArray = jarray             # <<<<<<<<<<<<<<
  * jcharArray    = jarray
  * jbyteArray    = jarray
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_jarray); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 127, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_jarray); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 128, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jbooleanArray, __pyx_t_1) < 0) __PYX_ERR(0, 127, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jbooleanArray, __pyx_t_1) < 0) __PYX_ERR(0, 128, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "jni/cython/jni.pyx":128
+  /* "jni/cython/jni.pyx":129
  * jarray        = jobject
  * jbooleanArray = jarray
  * jcharArray    = jarray             # <<<<<<<<<<<<<<
  * jbyteArray    = jarray
  * jshortArray   = jarray
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_jarray); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 128, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_jarray); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 129, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jcharArray, __pyx_t_1) < 0) __PYX_ERR(0, 128, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jcharArray, __pyx_t_1) < 0) __PYX_ERR(0, 129, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "jni/cython/jni.pyx":129
+  /* "jni/cython/jni.pyx":130
  * jbooleanArray = jarray
  * jcharArray    = jarray
  * jbyteArray    = jarray             # <<<<<<<<<<<<<<
  * jshortArray   = jarray
  * jintArray     = jarray
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_jarray); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 129, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_jarray); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 130, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jbyteArray, __pyx_t_1) < 0) __PYX_ERR(0, 129, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jbyteArray, __pyx_t_1) < 0) __PYX_ERR(0, 130, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "jni/cython/jni.pyx":130
+  /* "jni/cython/jni.pyx":131
  * jcharArray    = jarray
  * jbyteArray    = jarray
  * jshortArray   = jarray             # <<<<<<<<<<<<<<
  * jintArray     = jarray
  * jlongArray    = jarray
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_jarray); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 130, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_jarray); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 131, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jshortArray, __pyx_t_1) < 0) __PYX_ERR(0, 130, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jshortArray, __pyx_t_1) < 0) __PYX_ERR(0, 131, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "jni/cython/jni.pyx":131
+  /* "jni/cython/jni.pyx":132
  * jbyteArray    = jarray
  * jshortArray   = jarray
  * jintArray     = jarray             # <<<<<<<<<<<<<<
  * jlongArray    = jarray
  * jfloatArray   = jarray
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_jarray); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_jarray); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jintArray, __pyx_t_1) < 0) __PYX_ERR(0, 131, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jintArray, __pyx_t_1) < 0) __PYX_ERR(0, 132, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "jni/cython/jni.pyx":132
+  /* "jni/cython/jni.pyx":133
  * jshortArray   = jarray
  * jintArray     = jarray
  * jlongArray    = jarray             # <<<<<<<<<<<<<<
  * jfloatArray   = jarray
  * jdoubleArray  = jarray
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_jarray); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_jarray); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jlongArray, __pyx_t_1) < 0) __PYX_ERR(0, 132, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jlongArray, __pyx_t_1) < 0) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "jni/cython/jni.pyx":133
+  /* "jni/cython/jni.pyx":134
  * jintArray     = jarray
  * jlongArray    = jarray
  * jfloatArray   = jarray             # <<<<<<<<<<<<<<
  * jdoubleArray  = jarray
  * jobjectArray  = jarray
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_jarray); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_jarray); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jfloatArray, __pyx_t_1) < 0) __PYX_ERR(0, 133, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jfloatArray, __pyx_t_1) < 0) __PYX_ERR(0, 134, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "jni/cython/jni.pyx":134
+  /* "jni/cython/jni.pyx":135
  * jlongArray    = jarray
  * jfloatArray   = jarray
  * jdoubleArray  = jarray             # <<<<<<<<<<<<<<
  * jobjectArray  = jarray
  * jweak         = jobject
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_jarray); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_jarray); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 135, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jdoubleArray, __pyx_t_1) < 0) __PYX_ERR(0, 134, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jdoubleArray, __pyx_t_1) < 0) __PYX_ERR(0, 135, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "jni/cython/jni.pyx":135
+  /* "jni/cython/jni.pyx":136
  * jfloatArray   = jarray
  * jdoubleArray  = jarray
  * jobjectArray  = jarray             # <<<<<<<<<<<<<<
  * jweak         = jobject
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_jarray); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 135, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_jarray); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jobjectArray, __pyx_t_1) < 0) __PYX_ERR(0, 135, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jobjectArray, __pyx_t_1) < 0) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "jni/cython/jni.pyx":136
+  /* "jni/cython/jni.pyx":137
  * jdoubleArray  = jarray
  * jobjectArray  = jarray
  * jweak         = jobject             # <<<<<<<<<<<<<<
  * 
  * cdef class jvalue(_CData):
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jweak, ((PyObject *)__pyx_ptype_3jni_6cython_3jni_jobject)) < 0) __PYX_ERR(0, 136, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_jweak, ((PyObject *)__pyx_ptype_3jni_6cython_3jni_jobject)) < 0) __PYX_ERR(0, 137, __pyx_L1_error)
 
-  /* "jni/cython/jni.pyx":256
+  /* "jni/cython/jni.pyx":257
  * # null constant
  * 
  * cpdef c_jobject NULL = <c_jobject>0             # <<<<<<<<<<<<<<
@@ -22210,34 +22210,34 @@ if (!__Pyx_RefNanny) {
  */
   __pyx_v_3jni_6cython_3jni_NULL = ((__pyx_t_3jni_6cython_3jni_c_jobject)0);
 
-  /* "jni/cython/jni.pyx":338
+  /* "jni/cython/jni.pyx":339
  *         self.this.nOptions = val.val if isinstance(val, jint) else val
  * 
  *     options = property(lambda self:      getattr(self.this, "options"),             # <<<<<<<<<<<<<<
  *                        lambda self, val: setattr(self.this, "options", val))
  * 
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3jni_6cython_3jni_14JavaVMInitArgs_lambda, 0, __pyx_n_s_JavaVMInitArgs_lambda, NULL, __pyx_n_s_jni_cython_jni, __pyx_d, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 338, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3jni_6cython_3jni_14JavaVMInitArgs_lambda, 0, __pyx_n_s_JavaVMInitArgs_lambda, NULL, __pyx_n_s_jni_cython_jni, __pyx_d, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 339, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "jni/cython/jni.pyx":339
+  /* "jni/cython/jni.pyx":340
  * 
  *     options = property(lambda self:      getattr(self.this, "options"),
  *                        lambda self, val: setattr(self.this, "options", val))             # <<<<<<<<<<<<<<
  * 
  *     @property
  */
-  __pyx_t_2 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3jni_6cython_3jni_14JavaVMInitArgs_1lambda1, 0, __pyx_n_s_JavaVMInitArgs_lambda, NULL, __pyx_n_s_jni_cython_jni, __pyx_d, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 339, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3jni_6cython_3jni_14JavaVMInitArgs_1lambda1, 0, __pyx_n_s_JavaVMInitArgs_lambda, NULL, __pyx_n_s_jni_cython_jni, __pyx_d, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 340, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "jni/cython/jni.pyx":338
+  /* "jni/cython/jni.pyx":339
  *         self.this.nOptions = val.val if isinstance(val, jint) else val
  * 
  *     options = property(lambda self:      getattr(self.this, "options"),             # <<<<<<<<<<<<<<
  *                        lambda self, val: setattr(self.this, "options", val))
  * 
  */
-  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 338, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 339, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
@@ -22245,178 +22245,178 @@ if (!__Pyx_RefNanny) {
   PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_2);
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 338, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_property, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 339, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_3jni_6cython_3jni_JavaVMInitArgs->tp_dict, __pyx_n_s_options, __pyx_t_2) < 0) __PYX_ERR(0, 338, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_3jni_6cython_3jni_JavaVMInitArgs->tp_dict, __pyx_n_s_options, __pyx_t_2) < 0) __PYX_ERR(0, 339, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_3jni_6cython_3jni_JavaVMInitArgs);
 
-  /* "jni/cython/jni.pyx":438
+  /* "jni/cython/jni.pyx":439
  * 
  * 
  * class JNIException(SystemError):             # <<<<<<<<<<<<<<
  * 
  *     reason = {
  */
-  __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_tuple__26); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 438, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_tuple__26); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 439, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_tuple__26, __pyx_n_s_JNIException, __pyx_n_s_JNIException, (PyObject *) NULL, __pyx_n_s_jni_cython_jni, (PyObject *) NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 438, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_tuple__26, __pyx_n_s_JNIException, __pyx_n_s_JNIException, (PyObject *) NULL, __pyx_n_s_jni_cython_jni, (PyObject *) NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 439, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "jni/cython/jni.pyx":441
+  /* "jni/cython/jni.pyx":442
  * 
  *     reason = {
  *         JNI_OK:        u"success",             # <<<<<<<<<<<<<<
  *         JNI_ERR:       u"unknown error",
  *         JNI_EDETACHED: u"thread detached from the VM",
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 441, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 442, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_PyInt_From_int(JNI_OK); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 441, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(JNI_OK); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 442, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_t_4, __pyx_n_u_success) < 0) __PYX_ERR(0, 441, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_t_4, __pyx_n_u_success) < 0) __PYX_ERR(0, 442, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "jni/cython/jni.pyx":442
+  /* "jni/cython/jni.pyx":443
  *     reason = {
  *         JNI_OK:        u"success",
  *         JNI_ERR:       u"unknown error",             # <<<<<<<<<<<<<<
  *         JNI_EDETACHED: u"thread detached from the VM",
  *         JNI_EVERSION:  u"JNI version error",
  */
-  __pyx_t_4 = __Pyx_PyInt_From_int(JNI_ERR); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 442, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(JNI_ERR); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 443, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_t_4, __pyx_kp_u_unknown_error) < 0) __PYX_ERR(0, 441, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_t_4, __pyx_kp_u_unknown_error) < 0) __PYX_ERR(0, 442, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "jni/cython/jni.pyx":443
+  /* "jni/cython/jni.pyx":444
  *         JNI_OK:        u"success",
  *         JNI_ERR:       u"unknown error",
  *         JNI_EDETACHED: u"thread detached from the VM",             # <<<<<<<<<<<<<<
  *         JNI_EVERSION:  u"JNI version error",
  *         JNI_ENOMEM:    u"not enough memory",
  */
-  __pyx_t_4 = __Pyx_PyInt_From_int(JNI_EDETACHED); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 443, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(JNI_EDETACHED); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 444, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_t_4, __pyx_kp_u_thread_detached_from_the_VM) < 0) __PYX_ERR(0, 441, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_t_4, __pyx_kp_u_thread_detached_from_the_VM) < 0) __PYX_ERR(0, 442, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "jni/cython/jni.pyx":444
+  /* "jni/cython/jni.pyx":445
  *         JNI_ERR:       u"unknown error",
  *         JNI_EDETACHED: u"thread detached from the VM",
  *         JNI_EVERSION:  u"JNI version error",             # <<<<<<<<<<<<<<
  *         JNI_ENOMEM:    u"not enough memory",
  *         JNI_EEXIST:    u"VM already created",
  */
-  __pyx_t_4 = __Pyx_PyInt_From_int(JNI_EVERSION); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 444, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(JNI_EVERSION); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 445, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_t_4, __pyx_kp_u_JNI_version_error) < 0) __PYX_ERR(0, 441, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_t_4, __pyx_kp_u_JNI_version_error) < 0) __PYX_ERR(0, 442, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "jni/cython/jni.pyx":445
+  /* "jni/cython/jni.pyx":446
  *         JNI_EDETACHED: u"thread detached from the VM",
  *         JNI_EVERSION:  u"JNI version error",
  *         JNI_ENOMEM:    u"not enough memory",             # <<<<<<<<<<<<<<
  *         JNI_EEXIST:    u"VM already created",
  *         JNI_EINVAL:    u"invalid arguments",
  */
-  __pyx_t_4 = __Pyx_PyInt_From_int(JNI_ENOMEM); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 445, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(JNI_ENOMEM); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 446, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_t_4, __pyx_kp_u_not_enough_memory) < 0) __PYX_ERR(0, 441, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_t_4, __pyx_kp_u_not_enough_memory) < 0) __PYX_ERR(0, 442, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "jni/cython/jni.pyx":446
+  /* "jni/cython/jni.pyx":447
  *         JNI_EVERSION:  u"JNI version error",
  *         JNI_ENOMEM:    u"not enough memory",
  *         JNI_EEXIST:    u"VM already created",             # <<<<<<<<<<<<<<
  *         JNI_EINVAL:    u"invalid arguments",
  *     }
  */
-  __pyx_t_4 = __Pyx_PyInt_From_int(JNI_EEXIST); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 446, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(JNI_EEXIST); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 447, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_t_4, __pyx_kp_u_VM_already_created) < 0) __PYX_ERR(0, 441, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_t_4, __pyx_kp_u_VM_already_created) < 0) __PYX_ERR(0, 442, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "jni/cython/jni.pyx":447
+  /* "jni/cython/jni.pyx":448
  *         JNI_ENOMEM:    u"not enough memory",
  *         JNI_EEXIST:    u"VM already created",
  *         JNI_EINVAL:    u"invalid arguments",             # <<<<<<<<<<<<<<
  *     }
  * 
  */
-  __pyx_t_4 = __Pyx_PyInt_From_int(JNI_EINVAL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 447, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(JNI_EINVAL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 448, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_t_4, __pyx_kp_u_invalid_arguments) < 0) __PYX_ERR(0, 441, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_t_4, __pyx_kp_u_invalid_arguments) < 0) __PYX_ERR(0, 442, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_reason, __pyx_t_1) < 0) __PYX_ERR(0, 440, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_reason, __pyx_t_1) < 0) __PYX_ERR(0, 441, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "jni/cython/jni.pyx":450
+  /* "jni/cython/jni.pyx":451
  *     }
  * 
  *     def __init__(self, error=JNI_ERR, info=None):             # <<<<<<<<<<<<<<
  *         self._error = error
  *         self._info  = info
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3jni_6cython_3jni_12JNIException_1__init__, 0, __pyx_n_s_JNIException___init, NULL, __pyx_n_s_jni_cython_jni, __pyx_d, ((PyObject *)__pyx_codeobj__28)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 450, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3jni_6cython_3jni_12JNIException_1__init__, 0, __pyx_n_s_JNIException___init, NULL, __pyx_n_s_jni_cython_jni, __pyx_d, ((PyObject *)__pyx_codeobj__28)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 451, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (!__Pyx_CyFunction_InitDefaults(__pyx_t_1, sizeof(__pyx_defaults), 1)) __PYX_ERR(0, 450, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyInt_From_int(JNI_ERR); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 450, __pyx_L1_error)
+  if (!__Pyx_CyFunction_InitDefaults(__pyx_t_1, sizeof(__pyx_defaults), 1)) __PYX_ERR(0, 451, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(JNI_ERR); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 451, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_CyFunction_Defaults(__pyx_defaults, __pyx_t_1)->__pyx_arg_error = __pyx_t_4;
   __Pyx_GIVEREF(__pyx_t_4);
   __pyx_t_4 = 0;
   __Pyx_CyFunction_SetDefaultsGetter(__pyx_t_1, __pyx_pf_3jni_6cython_3jni_18__defaults__);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_init, __pyx_t_1) < 0) __PYX_ERR(0, 450, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_init, __pyx_t_1) < 0) __PYX_ERR(0, 451, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "jni/cython/jni.pyx":455
+  /* "jni/cython/jni.pyx":456
  *         super(JNIException, self).__init__(self.getMessage(), self.getError())
  * 
  *     def getMessage(self):             # <<<<<<<<<<<<<<
  *         prefix = self._info + ": " if self._info else ""
  *         return prefix + JNIException.reason.get(self._error,
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3jni_6cython_3jni_12JNIException_3getMessage, 0, __pyx_n_s_JNIException_getMessage, NULL, __pyx_n_s_jni_cython_jni, __pyx_d, ((PyObject *)__pyx_codeobj__30)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 455, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3jni_6cython_3jni_12JNIException_3getMessage, 0, __pyx_n_s_JNIException_getMessage, NULL, __pyx_n_s_jni_cython_jni, __pyx_d, ((PyObject *)__pyx_codeobj__30)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 456, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_getMessage, __pyx_t_1) < 0) __PYX_ERR(0, 455, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_getMessage, __pyx_t_1) < 0) __PYX_ERR(0, 456, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "jni/cython/jni.pyx":460
+  /* "jni/cython/jni.pyx":461
  *                                                 u"unknown error code {0}".format(self._error))
  * 
  *     def getError(self):             # <<<<<<<<<<<<<<
  *         return self._error
  * 
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3jni_6cython_3jni_12JNIException_5getError, 0, __pyx_n_s_JNIException_getError, NULL, __pyx_n_s_jni_cython_jni, __pyx_d, ((PyObject *)__pyx_codeobj__32)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 460, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3jni_6cython_3jni_12JNIException_5getError, 0, __pyx_n_s_JNIException_getError, NULL, __pyx_n_s_jni_cython_jni, __pyx_d, ((PyObject *)__pyx_codeobj__32)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 461, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_getError, __pyx_t_1) < 0) __PYX_ERR(0, 460, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_3, __pyx_n_s_getError, __pyx_t_1) < 0) __PYX_ERR(0, 461, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "jni/cython/jni.pyx":438
+  /* "jni/cython/jni.pyx":439
  * 
  * 
  * class JNIException(SystemError):             # <<<<<<<<<<<<<<
  * 
  *     reason = {
  */
-  __pyx_t_1 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_JNIException, __pyx_tuple__26, __pyx_t_3, NULL, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 438, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_JNIException, __pyx_tuple__26, __pyx_t_3, NULL, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 439, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_JNIException, __pyx_t_1) < 0) __PYX_ERR(0, 438, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_JNIException, __pyx_t_1) < 0) __PYX_ERR(0, 439, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "jni/cython/jni.pyx":466
+  /* "jni/cython/jni.pyx":467
  * cdef class Throwable(Exception):
  * 
  *     last = None             # <<<<<<<<<<<<<<
  * 
  *     cdef c_jthrowable _cause
  */
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_3jni_6cython_3jni_Throwable->tp_dict, __pyx_n_s_last, Py_None) < 0) __PYX_ERR(0, 466, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_3jni_6cython_3jni_Throwable->tp_dict, __pyx_n_s_last, Py_None) < 0) __PYX_ERR(0, 467, __pyx_L1_error)
   PyType_Modified(__pyx_ptype_3jni_6cython_3jni_Throwable);
 
   /* "(tree fragment)":1
@@ -22519,8 +22519,8 @@ if (!__Pyx_RefNanny) {
 
   /* "jni/cython/jni.pyx":1
  * # Copyright (c) 2004-2020 Adam Karpierz             # <<<<<<<<<<<<<<
+ * # Licensed under CC BY-NC-ND 4.0
  * # Licensed under proprietary License
- * # Please refer to the accompanying LICENSE file.
  */
   __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -23088,103 +23088,103 @@ if (!__Pyx_RefNanny) {
   /*--- Wrapped vars code ---*/
   {
     PyObject* wrapped = __Pyx_PyInt_From_int(JDK1_2);
-    if (unlikely(!wrapped)) __PYX_ERR(2, 456, __pyx_L1_error)
-    if (PyObject_SetAttrString(__pyx_m, "JDK1_2", wrapped) < 0) __PYX_ERR(2, 456, __pyx_L1_error);
+    if (unlikely(!wrapped)) __PYX_ERR(2, 457, __pyx_L1_error)
+    if (PyObject_SetAttrString(__pyx_m, "JDK1_2", wrapped) < 0) __PYX_ERR(2, 457, __pyx_L1_error);
   }
   {
     PyObject* wrapped = __Pyx_PyInt_From_int(JDK1_4);
-    if (unlikely(!wrapped)) __PYX_ERR(2, 457, __pyx_L1_error)
-    if (PyObject_SetAttrString(__pyx_m, "JDK1_4", wrapped) < 0) __PYX_ERR(2, 457, __pyx_L1_error);
+    if (unlikely(!wrapped)) __PYX_ERR(2, 458, __pyx_L1_error)
+    if (PyObject_SetAttrString(__pyx_m, "JDK1_4", wrapped) < 0) __PYX_ERR(2, 458, __pyx_L1_error);
   }
   {
     PyObject* wrapped = __Pyx_PyInt_From_int(JNI_ABORT);
-    if (unlikely(!wrapped)) __PYX_ERR(2, 102, __pyx_L1_error)
-    if (PyObject_SetAttrString(__pyx_m, "JNI_ABORT", wrapped) < 0) __PYX_ERR(2, 102, __pyx_L1_error);
+    if (unlikely(!wrapped)) __PYX_ERR(2, 103, __pyx_L1_error)
+    if (PyObject_SetAttrString(__pyx_m, "JNI_ABORT", wrapped) < 0) __PYX_ERR(2, 103, __pyx_L1_error);
   }
   {
     PyObject* wrapped = __Pyx_PyInt_From_int(JNI_COMMIT);
-    if (unlikely(!wrapped)) __PYX_ERR(2, 101, __pyx_L1_error)
-    if (PyObject_SetAttrString(__pyx_m, "JNI_COMMIT", wrapped) < 0) __PYX_ERR(2, 101, __pyx_L1_error);
+    if (unlikely(!wrapped)) __PYX_ERR(2, 102, __pyx_L1_error)
+    if (PyObject_SetAttrString(__pyx_m, "JNI_COMMIT", wrapped) < 0) __PYX_ERR(2, 102, __pyx_L1_error);
   }
   {
     PyObject* wrapped = __Pyx_PyInt_From_int(JNI_EDETACHED);
-    if (unlikely(!wrapped)) __PYX_ERR(2, 90, __pyx_L1_error)
-    if (PyObject_SetAttrString(__pyx_m, "JNI_EDETACHED", wrapped) < 0) __PYX_ERR(2, 90, __pyx_L1_error);
+    if (unlikely(!wrapped)) __PYX_ERR(2, 91, __pyx_L1_error)
+    if (PyObject_SetAttrString(__pyx_m, "JNI_EDETACHED", wrapped) < 0) __PYX_ERR(2, 91, __pyx_L1_error);
   }
   {
     PyObject* wrapped = __Pyx_PyInt_From_int(JNI_EEXIST);
-    if (unlikely(!wrapped)) __PYX_ERR(2, 93, __pyx_L1_error)
-    if (PyObject_SetAttrString(__pyx_m, "JNI_EEXIST", wrapped) < 0) __PYX_ERR(2, 93, __pyx_L1_error);
+    if (unlikely(!wrapped)) __PYX_ERR(2, 94, __pyx_L1_error)
+    if (PyObject_SetAttrString(__pyx_m, "JNI_EEXIST", wrapped) < 0) __PYX_ERR(2, 94, __pyx_L1_error);
   }
   {
     PyObject* wrapped = __Pyx_PyInt_From_int(JNI_EINVAL);
-    if (unlikely(!wrapped)) __PYX_ERR(2, 94, __pyx_L1_error)
-    if (PyObject_SetAttrString(__pyx_m, "JNI_EINVAL", wrapped) < 0) __PYX_ERR(2, 94, __pyx_L1_error);
+    if (unlikely(!wrapped)) __PYX_ERR(2, 95, __pyx_L1_error)
+    if (PyObject_SetAttrString(__pyx_m, "JNI_EINVAL", wrapped) < 0) __PYX_ERR(2, 95, __pyx_L1_error);
   }
   {
     PyObject* wrapped = __Pyx_PyInt_From_int(JNI_ENOMEM);
-    if (unlikely(!wrapped)) __PYX_ERR(2, 92, __pyx_L1_error)
-    if (PyObject_SetAttrString(__pyx_m, "JNI_ENOMEM", wrapped) < 0) __PYX_ERR(2, 92, __pyx_L1_error);
+    if (unlikely(!wrapped)) __PYX_ERR(2, 93, __pyx_L1_error)
+    if (PyObject_SetAttrString(__pyx_m, "JNI_ENOMEM", wrapped) < 0) __PYX_ERR(2, 93, __pyx_L1_error);
   }
   {
     PyObject* wrapped = __Pyx_PyInt_From_int(JNI_ERR);
-    if (unlikely(!wrapped)) __PYX_ERR(2, 89, __pyx_L1_error)
-    if (PyObject_SetAttrString(__pyx_m, "JNI_ERR", wrapped) < 0) __PYX_ERR(2, 89, __pyx_L1_error);
+    if (unlikely(!wrapped)) __PYX_ERR(2, 90, __pyx_L1_error)
+    if (PyObject_SetAttrString(__pyx_m, "JNI_ERR", wrapped) < 0) __PYX_ERR(2, 90, __pyx_L1_error);
   }
   {
     PyObject* wrapped = __Pyx_PyInt_From_int(JNI_EVERSION);
-    if (unlikely(!wrapped)) __PYX_ERR(2, 91, __pyx_L1_error)
-    if (PyObject_SetAttrString(__pyx_m, "JNI_EVERSION", wrapped) < 0) __PYX_ERR(2, 91, __pyx_L1_error);
+    if (unlikely(!wrapped)) __PYX_ERR(2, 92, __pyx_L1_error)
+    if (PyObject_SetAttrString(__pyx_m, "JNI_EVERSION", wrapped) < 0) __PYX_ERR(2, 92, __pyx_L1_error);
   }
   {
     PyObject* wrapped = __Pyx_PyInt_From_int(JNI_FALSE);
-    if (unlikely(!wrapped)) __PYX_ERR(2, 80, __pyx_L1_error)
-    if (PyObject_SetAttrString(__pyx_m, "JNI_FALSE", wrapped) < 0) __PYX_ERR(2, 80, __pyx_L1_error);
+    if (unlikely(!wrapped)) __PYX_ERR(2, 81, __pyx_L1_error)
+    if (PyObject_SetAttrString(__pyx_m, "JNI_FALSE", wrapped) < 0) __PYX_ERR(2, 81, __pyx_L1_error);
   }
   {
     PyObject* wrapped = __Pyx_PyInt_From_int(JNI_OK);
-    if (unlikely(!wrapped)) __PYX_ERR(2, 88, __pyx_L1_error)
-    if (PyObject_SetAttrString(__pyx_m, "JNI_OK", wrapped) < 0) __PYX_ERR(2, 88, __pyx_L1_error);
+    if (unlikely(!wrapped)) __PYX_ERR(2, 89, __pyx_L1_error)
+    if (PyObject_SetAttrString(__pyx_m, "JNI_OK", wrapped) < 0) __PYX_ERR(2, 89, __pyx_L1_error);
   }
   {
     PyObject* wrapped = __Pyx_PyInt_From_int(JNI_TRUE);
-    if (unlikely(!wrapped)) __PYX_ERR(2, 81, __pyx_L1_error)
-    if (PyObject_SetAttrString(__pyx_m, "JNI_TRUE", wrapped) < 0) __PYX_ERR(2, 81, __pyx_L1_error);
+    if (unlikely(!wrapped)) __PYX_ERR(2, 82, __pyx_L1_error)
+    if (PyObject_SetAttrString(__pyx_m, "JNI_TRUE", wrapped) < 0) __PYX_ERR(2, 82, __pyx_L1_error);
   }
   {
     PyObject* wrapped = __Pyx_PyInt_From_int(JNI_VERSION_10);
-    if (unlikely(!wrapped)) __PYX_ERR(2, 480, __pyx_L1_error)
-    if (PyObject_SetAttrString(__pyx_m, "JNI_VERSION_10", wrapped) < 0) __PYX_ERR(2, 480, __pyx_L1_error);
+    if (unlikely(!wrapped)) __PYX_ERR(2, 481, __pyx_L1_error)
+    if (PyObject_SetAttrString(__pyx_m, "JNI_VERSION_10", wrapped) < 0) __PYX_ERR(2, 481, __pyx_L1_error);
   }
   {
     PyObject* wrapped = __Pyx_PyInt_From_int(JNI_VERSION_1_1);
-    if (unlikely(!wrapped)) __PYX_ERR(2, 474, __pyx_L1_error)
-    if (PyObject_SetAttrString(__pyx_m, "JNI_VERSION_1_1", wrapped) < 0) __PYX_ERR(2, 474, __pyx_L1_error);
+    if (unlikely(!wrapped)) __PYX_ERR(2, 475, __pyx_L1_error)
+    if (PyObject_SetAttrString(__pyx_m, "JNI_VERSION_1_1", wrapped) < 0) __PYX_ERR(2, 475, __pyx_L1_error);
   }
   {
     PyObject* wrapped = __Pyx_PyInt_From_int(JNI_VERSION_1_2);
-    if (unlikely(!wrapped)) __PYX_ERR(2, 475, __pyx_L1_error)
-    if (PyObject_SetAttrString(__pyx_m, "JNI_VERSION_1_2", wrapped) < 0) __PYX_ERR(2, 475, __pyx_L1_error);
+    if (unlikely(!wrapped)) __PYX_ERR(2, 476, __pyx_L1_error)
+    if (PyObject_SetAttrString(__pyx_m, "JNI_VERSION_1_2", wrapped) < 0) __PYX_ERR(2, 476, __pyx_L1_error);
   }
   {
     PyObject* wrapped = __Pyx_PyInt_From_int(JNI_VERSION_1_4);
-    if (unlikely(!wrapped)) __PYX_ERR(2, 476, __pyx_L1_error)
-    if (PyObject_SetAttrString(__pyx_m, "JNI_VERSION_1_4", wrapped) < 0) __PYX_ERR(2, 476, __pyx_L1_error);
+    if (unlikely(!wrapped)) __PYX_ERR(2, 477, __pyx_L1_error)
+    if (PyObject_SetAttrString(__pyx_m, "JNI_VERSION_1_4", wrapped) < 0) __PYX_ERR(2, 477, __pyx_L1_error);
   }
   {
     PyObject* wrapped = __Pyx_PyInt_From_int(JNI_VERSION_1_6);
-    if (unlikely(!wrapped)) __PYX_ERR(2, 477, __pyx_L1_error)
-    if (PyObject_SetAttrString(__pyx_m, "JNI_VERSION_1_6", wrapped) < 0) __PYX_ERR(2, 477, __pyx_L1_error);
+    if (unlikely(!wrapped)) __PYX_ERR(2, 478, __pyx_L1_error)
+    if (PyObject_SetAttrString(__pyx_m, "JNI_VERSION_1_6", wrapped) < 0) __PYX_ERR(2, 478, __pyx_L1_error);
   }
   {
     PyObject* wrapped = __Pyx_PyInt_From_int(JNI_VERSION_1_8);
-    if (unlikely(!wrapped)) __PYX_ERR(2, 478, __pyx_L1_error)
-    if (PyObject_SetAttrString(__pyx_m, "JNI_VERSION_1_8", wrapped) < 0) __PYX_ERR(2, 478, __pyx_L1_error);
+    if (unlikely(!wrapped)) __PYX_ERR(2, 479, __pyx_L1_error)
+    if (PyObject_SetAttrString(__pyx_m, "JNI_VERSION_1_8", wrapped) < 0) __PYX_ERR(2, 479, __pyx_L1_error);
   }
   {
     PyObject* wrapped = __Pyx_PyInt_From_int(JNI_VERSION_9);
-    if (unlikely(!wrapped)) __PYX_ERR(2, 479, __pyx_L1_error)
-    if (PyObject_SetAttrString(__pyx_m, "JNI_VERSION_9", wrapped) < 0) __PYX_ERR(2, 479, __pyx_L1_error);
+    if (unlikely(!wrapped)) __PYX_ERR(2, 480, __pyx_L1_error)
+    if (PyObject_SetAttrString(__pyx_m, "JNI_VERSION_9", wrapped) < 0) __PYX_ERR(2, 480, __pyx_L1_error);
   }
 
   goto __pyx_L0;
