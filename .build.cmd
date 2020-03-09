@@ -25,7 +25,7 @@ popd
 pushd "%~dp0"\tests
 rmdir /Q/S java\classes 2> nul & mkdir java\classes
 dir /S/B/O:N ^
-    java\com\jt\jni\test\*.java ^
+    java\org\jt\jni\test\*.java ^
     2> nul > build.fil
 %javac% -d java/classes -classpath java/lib/* @build.fil
 del /F/Q build.fil

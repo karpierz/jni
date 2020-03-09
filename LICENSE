@@ -1,14 +1,17 @@
-JNI for Python is dual-licensed:
+Python bridge for the Java Native Interface is dual-licensed:
 
-1. JNI for Python is licensed under proprietary License for commercial use.
+1. Python bridge for the Java Native Interface is licensed under
+   proprietary License for commercial use.
 
 Copyright (c) 2004-2020 Adam Karpierz, All Rights Reserved.
 (The full source of proprietary license will be included in the future
-when JNI for Python will be ready for commercial usage and distribution).
+when Python bridge for the Java Native Interface will be ready for
+commercial usage and distribution).
 
 and/or
 
-2. JNI for Python by Adam Karpierz is licensed under CC BY-NC-ND 4.0
+2. Python bridge for the Java Native Interface by Adam Karpierz is
+   licensed under CC BY-NC-ND 4.0.
    To view a copy of this license, visit:
    https://creativecommons.org/licenses/by-nc-nd/4.0
    https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
@@ -48,7 +51,8 @@ making the Licensed Material available under these terms and conditions.
  c. *Effective Technological Measures* means those measures that, in the
     absence of proper authority, may not be circumvented under laws
     fulfilling obligations under Article 11 of the WIPO Copyright Treaty
-    adopted on December 20, 1996, and/or similar international agreements.
+    adopted on December 20, 1996, and/or similar international
+    agreements.
 
  d. *Exceptions and Limitations* means fair use, fair dealing, and/or
     any other exception or limitation to Copyright and Similar Rights

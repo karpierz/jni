@@ -1,5 +1,5 @@
 
-package com.jt.jni.test;
+package org.jt.jni.test;
 
 import java.lang.Math;
 

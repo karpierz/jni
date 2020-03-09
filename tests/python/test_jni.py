@@ -76,7 +76,7 @@ class JNITestCase(unittest.TestCase):
 
         # A class that does exist, that we can then search for
         # non-existent Fields and Methods
-        Example = self.jenv.FindClass(b"com/jt/jni/test/Example")
+        Example = self.jenv.FindClass(b"org/jt/jni/test/Example")
         self.assertTrue(Example)
 
         # Non existent Fields and Methods (static and non-static)
@@ -102,8 +102,8 @@ class JNITestCase(unittest.TestCase):
     def test_object_lifecycle(self):
         """The basic lifecycle operations of an object can be performed"""
 
-        # Get a reference to the com.jt.jni.test.Example class
-        Example = self.jenv.FindClass(b"com/jt/jni/test/Example")
+        # Get a reference to the org.jt.jni.test.Example class
+        Example = self.jenv.FindClass(b"org/jt/jni/test/Example")
         self.assertTrue(Example)
 
         # Find the default constructor
@@ -232,7 +232,7 @@ class JNITestCase(unittest.TestCase):
         self.assertTrue(Example__get_String_field)
         self.assertTrue(Example__set_String_field)
 
-        # Create an instance of com.jt.jni.test.Example using the default constructor
+        # Create an instance of org.jt.jni.test.Example using the default constructor
         obj1 = self.jenv.NewObject(Example, Example__init)
         self.assertTrue(obj1)
 
@@ -504,7 +504,7 @@ class JNITestCase(unittest.TestCase):
         self.assertEqual(self.jenv.GetDoubleField(obj1, Example__double_field), 1162.0)
         self.assertEqual(self.jstring2unicode(self.jenv.GetObjectField(obj1, Example__String_field)), "1162")
 
-        # Create an instance of com.jt.jni.test.Example using the "one int" constructor
+        # Create an instance of org.jt.jni.test.Example using the "one int" constructor
 
         jargs = jni.new_array(jni.jvalue, 1)
         jargs[0].i = 2242
@@ -573,7 +573,7 @@ class JNITestCase(unittest.TestCase):
         self.assertEqual(self.jenv.GetDoubleField(obj2, Example__double_field), 2242.0)
         self.assertEqual(self.jstring2unicode(self.jenv.GetObjectField(obj2, Example__String_field)), "2242")
 
-        # Create an instance of com.jt.jni.test.Example using the "two int" constructor
+        # Create an instance of org.jt.jni.test.Example using the "two int" constructor
 
         jargs = jni.new_array(jni.jvalue, 2)
         jargs[0].i = 3342
@@ -646,8 +646,8 @@ class JNITestCase(unittest.TestCase):
     def test_static(self):
         """Static fields and methods can be invoked"""
 
-        # Get a reference to the com.jt.jni.test.Example class
-        Example = self.jenv.FindClass(b"com/jt/jni/test/Example")
+        # Get a reference to the org.jt.jni.test.Example class
+        Example = self.jenv.FindClass(b"org/jt/jni/test/Example")
         self.assertTrue(Example)
 
         # Find Example.static_base_<type>_field
@@ -1046,7 +1046,7 @@ class JNITestCase(unittest.TestCase):
         s = "Woop"
         java_string = self.jenv.NewStringUTF(s.encode("utf-8"))
 
-        Example = self.jenv.FindClass(b"com/jt/jni/test/Example")
+        Example = self.jenv.FindClass(b"org/jt/jni/test/Example")
         self.assertTrue(Example)
 
         # Find the default constructor
@@ -1057,7 +1057,7 @@ class JNITestCase(unittest.TestCase):
         Example__duplicate_string = self.jenv.GetMethodID(Example, b"duplicate_string", b"(Ljava/lang/String;)Ljava/lang/String;")
         self.assertTrue(Example__duplicate_string)
 
-        # Create an instance of com.jt.jni.test.Example using the default constructor
+        # Create an instance of org.jt.jni.test.Example using the default constructor
         obj1 = self.jenv.NewObject(Example, Example__init)
         self.assertTrue(obj1)
 
@@ -1071,7 +1071,7 @@ class JNITestCase(unittest.TestCase):
         """A Java float can be created, and the content returned"""
 
         # This string contains unicode characters
-        Example = self.jenv.FindClass(b"com/jt/jni/test/Example")
+        Example = self.jenv.FindClass(b"org/jt/jni/test/Example")
         self.assertTrue(Example)
 
         # Find the default constructor
@@ -1096,7 +1096,7 @@ class JNITestCase(unittest.TestCase):
         """A Java float can be created, and the content returned"""
 
         # This string contains unicode characters
-        Example = self.jenv.FindClass(b"com/jt/jni/test/Example")
+        Example = self.jenv.FindClass(b"org/jt/jni/test/Example")
         self.assertTrue(Example)
 
         # Find the default constructor
