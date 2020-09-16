@@ -66,12 +66,12 @@ cdef api: # from "jni.h":
 
     # Return values from jobjectRefType
 
-    cpdef enum _jobjectType:
+    cpdef enum:
         JNIInvalidRefType    = 0
         JNILocalRefType      = 1
         JNIGlobalRefType     = 2
         JNIWeakGlobalRefType = 3
-    ctypedef _jobjectType c_jobjectRefType
+    ctypedef int c_jobjectRefType
 
     #
     # jboolean constants

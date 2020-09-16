@@ -1582,6 +1582,21 @@ JNI_VERSION_10  = 0x000a0000
 
 # eof jni.h
 
+class Throwable(Exception):
+
+    last = None
+
+    def __init__(self, cause=NULL, info=NULL):
+        self._cause = cast(cause, jthrowable)
+        self._info  = cast(info,  jstring)
+        super().__init__(self._cause, self._info)
+
+    def getCause(self):
+        return self._cause
+
+    def getInfo(self):
+        return self._info
+
 class JNIException(SystemError):
 
     reason = {
@@ -1606,21 +1621,6 @@ class JNIException(SystemError):
 
     def getError(self):
         return self._error
-
-class Throwable(Exception):
-
-    last = None
-
-    def __init__(self, cause=NULL, info=NULL):
-        self._cause = cast(cause, jthrowable)
-        self._info  = cast(info,  jstring)
-        super().__init__(self._cause, self._info)
-
-    def getCause(self):
-        return self._cause
-
-    def getInfo(self):
-        return self._info
 
 def load(dll_path, handle=None, __dlclose=dlclose):
 

@@ -11,9 +11,6 @@ graft docs
 
 graft src
 prune src/jni/\#
-exclude src/jni/cffi/_util.py
-exclude src/jni/cython/jni.pyx
-prune src/jni/capi/include
 
 graft tests
 exclude tests/_info_.txt tests/_report_.txt

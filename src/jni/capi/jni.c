@@ -6,7 +6,7 @@
 #include <Python.h>
 #include <structmember.h>
 
-#include "include/jdk-13_win32/jni.h"
+#include "java/jdk/include/jni.h"
 
 #define member_size(type, member) sizeof(((type *)0)->member)
 
@@ -834,36 +834,11 @@ PyTypeObject jmethodID_Type = {
 //-- jobjectRefType --//
 
 #define jobjectRefType_Type PyLong_Type
-// Return values from jobjectRefType
-#define JNIInvalidRefType_Const    JNIInvalidRefType
-#define JNILocalRefType_Const      JNILocalRefType
-#define JNIGlobalRefType_Const     JNIGlobalRefType
-#define JNIWeakGlobalRefType_Const JNIWeakGlobalRefType
-
-//-------- jboolean constants --------//
-
-#define JNI_FALSE_Const JNI_FALSE
-#define JNI_TRUE_Const  JNI_TRUE
 
 //----------- null constant ----------//
 
 //NULL   = obj(jobject, 0)
 //isNULL = lambda jobj: not bool(jobj)
-
-//-- possible return values for JNI functions. --//
-
-#define JNI_OK_Const        JNI_OK        // success
-#define JNI_ERR_Const       JNI_ERR       // unknown error
-#define JNI_EDETACHED_Const JNI_EDETACHED // thread detached from the VM
-#define JNI_EVERSION_Const  JNI_EVERSION  // JNI version error
-#define JNI_ENOMEM_Const    JNI_ENOMEM    // not enough memory
-#define JNI_EEXIST_Const    JNI_EEXIST    // VM already created
-#define JNI_EINVAL_Const    JNI_EINVAL    // invalid arguments
-
-//-- used in ReleaseScalarArrayElements --//
-
-#define JNI_COMMIT_Const JNI_COMMIT
-#define JNI_ABORT_Const  JNI_ABORT
 
 //---- JNI Native Method Interface ---//
 
@@ -1342,47 +1317,50 @@ static PyObject* DestroyJavaVM(JavaVM_Object* self)
 
 static PyObject* AttachCurrentThread(JavaVM_Object* self, PyObject* args)
 {
+    // jint (JNICALL *AttachCurrentThread)(JavaVM *vm, void **penv, void *args);
     PyObject* penv;
     if ( ! PyArg_ParseTuple(args, "O", &penv) )
         return NULL;
-    JavaVM jvm = self->this;
+    JavaVM* jvm = &self->this;
     JNIEnv* jenv;
-    jint ret = jvm->AttachCurrentThread(&jvm, (void**)&jenv, NULL);
+    jint ret = (*jvm)->AttachCurrentThread(jvm, (void**)&jenv, NULL);
     if ( ret != JNI_OK ) return _handle_JNIException(ret);
     Py_RETURN_NONE;
 }
 
 static PyObject* AttachCurrentThreadAsDaemon(JavaVM_Object* self, PyObject* args)
 {
+    //jint (JNICALL *AttachCurrentThreadAsDaemon)(JavaVM *vm, void **penv, void *args);
     PyObject* penv;
     if ( ! PyArg_ParseTuple(args, "O", &penv) )
         return NULL;
-    JavaVM jvm = self->this;
+    JavaVM* jvm = &self->this;
     JNIEnv* jenv;
-    jint ret = jvm->AttachCurrentThreadAsDaemon(&jvm, (void**)&jenv, NULL);
+    jint ret = (*jvm)->AttachCurrentThreadAsDaemon(jvm, (void**)&jenv, NULL);
     if ( ret != JNI_OK ) return _handle_JNIException(ret);
     Py_RETURN_NONE;
 }
 
 static PyObject* DetachCurrentThread(JavaVM_Object* self)
 {
-    JavaVM jvm = self->this;
-    jint ret = jvm->DetachCurrentThread(&jvm);
+    // jint (JNICALL *DetachCurrentThread)(JavaVM *vm);
+    JavaVM* jvm = &self->this;
+    jint ret = (*jvm)->DetachCurrentThread(jvm);
     if ( ret != JNI_OK ) return _handle_JNIException(ret);
     Py_RETURN_NONE;
 }
 
 static PyObject* GetEnv(JavaVM_Object* self, PyObject* args)
 {
+    // jint (JNICALL *GetEnv)(JavaVM *vm, void **penv, jint version);
     PyObject* penv;
     long version;
     if ( ! PyArg_ParseTuple(args, "Ol", &penv, &version) )
         return NULL;
-  // jint (JNICALL *GetEnv)(JavaVM *vm, void **penv, jint version);
   //JNIEnv* jenv = ((JNIEnv*)penv)->this;
-    JavaVM jvm = self->this;
+    JavaVM* jvm = &self->this;
     JNIEnv* jenv;
-    jint ret = jvm->GetEnv(&jvm, (void **)&jenv, (jint)version);
+    jint ret = (*jvm)->GetEnv(jvm, (void **)&jenv, (jint)version);
     return PyLong_FromLong((long)ret);
 }
 
@@ -1404,29 +1382,6 @@ PyTypeObject JavaVM_Type = {
     .tp_base      = &_CData_Type,
     .tp_methods   = JavaVM_methods,
 };
-
-//----- These will be VM-specific ----//
-
-#ifdef JDK1_2
-  #define JDK1_2_Const 1
-#else
-  #define JDK1_2_Const 0
-#endif
-#ifdef JDK1_4
-  #define JDK1_4_Const 1
-#else
-  #define JDK1_4_Const 0
-#endif
-
-//------- JNI version constants ------//
-
-#define JNI_VERSION_1_1_Const JNI_VERSION_1_1
-#define JNI_VERSION_1_2_Const JNI_VERSION_1_2
-#define JNI_VERSION_1_4_Const JNI_VERSION_1_4
-#define JNI_VERSION_1_6_Const JNI_VERSION_1_6
-#define JNI_VERSION_1_8_Const JNI_VERSION_1_8
-#define JNI_VERSION_9_Const   JNI_VERSION_9
-#define JNI_VERSION_10_Const  JNI_VERSION_10
 
 //------------------------------------//
 
@@ -1631,31 +1586,31 @@ PyMODINIT_FUNC MODINIT_FUNC(jni)
     /* Return values from jobjectRefType */
     Py_INCREF(&jobjectRefType_Type);
     PyModule_AddObject(module, "jobjectRefType", (PyObject*)&jobjectRefType_Type);
-    PyModule_AddIntConstant(module, "JNIInvalidRefType",    JNIInvalidRefType_Const);
-    PyModule_AddIntConstant(module, "JNILocalRefType",      JNILocalRefType_Const);
-    PyModule_AddIntConstant(module, "JNIGlobalRefType",     JNIGlobalRefType_Const);
-    PyModule_AddIntConstant(module, "JNIWeakGlobalRefType", JNIWeakGlobalRefType_Const);
+    PyModule_AddIntConstant(module, "JNIInvalidRefType",    JNIInvalidRefType);
+    PyModule_AddIntConstant(module, "JNILocalRefType",      JNILocalRefType);
+    PyModule_AddIntConstant(module, "JNIGlobalRefType",     JNIGlobalRefType);
+    PyModule_AddIntConstant(module, "JNIWeakGlobalRefType", JNIWeakGlobalRefType);
 
     /* jboolean constants */
-    PyModule_AddIntConstant(module, "JNI_FALSE", JNI_FALSE_Const);
-    PyModule_AddIntConstant(module, "JNI_TRUE",  JNI_TRUE_Const);
+    PyModule_AddIntConstant(module, "JNI_FALSE", JNI_FALSE);
+    PyModule_AddIntConstant(module, "JNI_TRUE",  JNI_TRUE);
 
     /* null constant */
     PyModule_AddObject(module, "NULL",
                        (PyObject*)PyObject_New(jobject_Object, &jobject_Type));
 
     /* possible return values for JNI functions. */
-    PyModule_AddIntConstant(module, "JNI_OK",        JNI_OK_Const);
-    PyModule_AddIntConstant(module, "JNI_ERR",       JNI_ERR_Const);
-    PyModule_AddIntConstant(module, "JNI_EDETACHED", JNI_EDETACHED_Const);
-    PyModule_AddIntConstant(module, "JNI_EVERSION",  JNI_EVERSION_Const);
-    PyModule_AddIntConstant(module, "JNI_ENOMEM",    JNI_ENOMEM_Const);
-    PyModule_AddIntConstant(module, "JNI_EEXIST",    JNI_EEXIST_Const);
-    PyModule_AddIntConstant(module, "JNI_EINVAL",    JNI_EINVAL_Const);
+    PyModule_AddIntConstant(module, "JNI_OK",        JNI_OK);
+    PyModule_AddIntConstant(module, "JNI_ERR",       JNI_ERR);
+    PyModule_AddIntConstant(module, "JNI_EDETACHED", JNI_EDETACHED);
+    PyModule_AddIntConstant(module, "JNI_EVERSION",  JNI_EVERSION);
+    PyModule_AddIntConstant(module, "JNI_ENOMEM",    JNI_ENOMEM);
+    PyModule_AddIntConstant(module, "JNI_EEXIST",    JNI_EEXIST);
+    PyModule_AddIntConstant(module, "JNI_EINVAL",    JNI_EINVAL);
 
     /* used in ReleaseScalarArrayElements */
-    PyModule_AddIntConstant(module, "JNI_COMMIT", JNI_COMMIT_Const);
-    PyModule_AddIntConstant(module, "JNI_ABORT",  JNI_ABORT_Const);
+    PyModule_AddIntConstant(module, "JNI_COMMIT", JNI_COMMIT);
+    PyModule_AddIntConstant(module, "JNI_ABORT",  JNI_ABORT);
 
     /* JNI Native Method Interface. */
 
@@ -1682,17 +1637,25 @@ PyMODINIT_FUNC MODINIT_FUNC(jni)
     PyModule_AddObject(module, "JavaVM", (PyObject*)&JavaVM_Type);
 
     /* These will be VM-specific. */
-    PyModule_AddIntConstant(module, "JDK1_2", JDK1_2_Const);
-    PyModule_AddIntConstant(module, "JDK1_4", JDK1_4_Const);
+    #ifdef JDK1_2
+      PyModule_AddIntConstant(module, "JDK1_2", 1);
+    #else
+      PyModule_AddIntConstant(module, "JDK1_2", 0);
+    #endif
+    #ifdef JDK1_4
+      PyModule_AddIntConstant(module, "JDK1_4", 1);
+    #else
+      PyModule_AddIntConstant(module, "JDK1_4", 0);
+    #endif
 
     /* JNI constants. */
-    PyModule_AddIntConstant(module, "JNI_VERSION_1_1", JNI_VERSION_1_1_Const);
-    PyModule_AddIntConstant(module, "JNI_VERSION_1_2", JNI_VERSION_1_2_Const);
-    PyModule_AddIntConstant(module, "JNI_VERSION_1_4", JNI_VERSION_1_4_Const);
-    PyModule_AddIntConstant(module, "JNI_VERSION_1_6", JNI_VERSION_1_6_Const);
-    PyModule_AddIntConstant(module, "JNI_VERSION_1_8", JNI_VERSION_1_8_Const);
-    PyModule_AddIntConstant(module, "JNI_VERSION_9",   JNI_VERSION_9_Const);
-    PyModule_AddIntConstant(module, "JNI_VERSION_10",  JNI_VERSION_10_Const);
+    PyModule_AddIntConstant(module, "JNI_VERSION_1_1", JNI_VERSION_1_1);
+    PyModule_AddIntConstant(module, "JNI_VERSION_1_2", JNI_VERSION_1_2);
+    PyModule_AddIntConstant(module, "JNI_VERSION_1_4", JNI_VERSION_1_4);
+    PyModule_AddIntConstant(module, "JNI_VERSION_1_6", JNI_VERSION_1_6);
+    PyModule_AddIntConstant(module, "JNI_VERSION_1_8", JNI_VERSION_1_8);
+    PyModule_AddIntConstant(module, "JNI_VERSION_9",   JNI_VERSION_9);
+    PyModule_AddIntConstant(module, "JNI_VERSION_10",  JNI_VERSION_10);
 
     return module;
 }

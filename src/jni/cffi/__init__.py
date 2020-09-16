@@ -7,40 +7,7 @@ import sys
 import platform
 import ctypes as ct
 
-def build_ffi(emit_jni_i=False):
-    import os.path
-    import pkgutil
-    import cffi
-    from ._util import preprocess
-    cur_dir = os.path.dirname(__file__)
-    source = pkgutil.get_data(__package__, "jni.h").decode("utf-8")
-    source = preprocess(source,
-        define_macros = (
-            ("JNICALL",   ""),
-            ("JNIIMPORT", ""),
-            ("JNIEXPORT", ""),
-        ),
-        undef_macros = (
-            "_JAVASOFT_JNI_H_",
-            "__cplusplus",
-            "JNI_TYPES_ALREADY_DEFINED_IN_JNI_MD_H",
-            "_JNI_IMPLEMENTATION_",
-        ))
-    if emit_jni_i:
-        with open(os.path.join(cur_dir, "jni.i"), "w") as fo:
-            print(source, file=fo)
-    ffi = cffi.FFI()
-    ffi.set_source("jni", None)
-    ffi.cdef("// temporary for cffi")
-    ffi.cdef("typedef void* va_list;")
-    ffi.cdef(source)
-    ffi.compile(tmpdir=cur_dir)
-
-try:
-    from .jni import ffi ; del jni
-except ImportError:
-    build_ffi(emit_jni_i=True)
-    from .jni import ffi ; del jni
+from .jni import ffi ; del jni
 
 DLL     = lambda name, handle=None, __ffi=ffi: __ffi.dlopen(name)
 dlclose = lambda handle,            __ffi=ffi: __ffi.dlclose(handle)
@@ -75,13 +42,6 @@ from_buffer = lambda data,              __ffi=ffi: __ffi.from_buffer(data)
 _itself_or_NULL = lambda arg, __NULL=ffi.NULL: __NULL if arg is None else arg
 _byref_or_NULL  = lambda arg, __NULL=ffi.NULL: __NULL if arg is None else byref(arg)
 
-def defined(varname, __getframe=sys._getframe):
-    frame = __getframe(1)
-    return varname in frame.f_locals or varname in frame.f_globals
-
-def from_oid(oid, __cast=ct.cast, __py_object=ct.py_object):
-    return __cast(oid, __py_object).value if oid else None
-
 class _CData(ct.Structure):
     _fields_ = ( # PyObject_HEAD
     ("ob_refcnt",     ct.c_ssize_t),
@@ -93,6 +53,13 @@ class _CData(ct.Structure):
 )
 
 _as_CData = lambda obj, __ct=ct: __ct.cast(id(obj), __ct.POINTER(_CData))[0]
+
+def defined(varname, __getframe=sys._getframe):
+    frame = __getframe(1)
+    return varname in frame.f_locals or varname in frame.f_globals
+
+def from_oid(oid, __cast=ct.cast, __py_object=ct.py_object):
+    return __cast(oid, __py_object).value if oid else None
 
 #
 # JNI Types
@@ -1444,6 +1411,21 @@ JNI_VERSION_10  = ffi.integer_const("JNI_VERSION_10")
 
 # eof jni.h
 
+class Throwable(Exception):
+
+    last = None
+
+    def __init__(self, cause=NULL, info=NULL):
+        self._cause = cast(cause, jthrowable)
+        self._info  = cast(info,  jstring)
+        super().__init__(self._cause, self._info)
+
+    def getCause(self):
+        return self._cause
+
+    def getInfo(self):
+        return self._info
+
 class JNIException(SystemError):
 
     reason = {
@@ -1469,21 +1451,6 @@ class JNIException(SystemError):
     def getError(self):
         return self._error
 
-class Throwable(Exception):
-
-    last = None
-
-    def __init__(self, cause=NULL, info=NULL):
-        self._cause = cast(cause, jthrowable)
-        self._info  = cast(info,  jstring)
-        super().__init__(self._cause, self._info)
-
-    def getCause(self):
-        return self._cause
-
-    def getInfo(self):
-        return self._info
-
 def load(dll_path, handle=None, __dlclose=dlclose, __ffi=ffi):
 
     try:
@@ -1493,10 +1460,10 @@ def load(dll_path, handle=None, __dlclose=dlclose, __ffi=ffi):
     except Exception as exc:
         raise OSError("{}".format(exc))
 
-    def GetDefaultJavaVMInitArgs(args, __dll=dll):
+    def JNI_GetDefaultJavaVMInitArgs(args, __dll=dll):
         return __dll.JNI_GetDefaultJavaVMInitArgs(cast(args, "void*"))
 
-    def CreateJavaVM(pvm, penv, args, __dll=dll):
+    def JNI_CreateJavaVM(pvm, penv, args, __dll=dll):
         p_pvm  = pointer(pvm)
         p_penv = pointer(penv)
         p_args = pointer(args)
@@ -1505,13 +1472,13 @@ def load(dll_path, handle=None, __dlclose=dlclose, __ffi=ffi):
         _as_CData(penv).c_data = _as_CData(p_penv[0]).c_data
         return result
 
-    def GetCreatedJavaVMs(pvm, size, nvms, __dll=dll):
+    def JNI_GetCreatedJavaVMs(pvm, size, nvms, __dll=dll):
         return __dll.JNI_GetCreatedJavaVMs(_itself_or_NULL(pvm), size, nvms)
 
     JNI = type("JNI", (), dict(dll=dll, dllclose=classmethod(lambda cls, __dlclose=__dlclose: __dlclose(cls.dll))))
-    JNI.GetDefaultJavaVMInitArgs = GetDefaultJavaVMInitArgs
-    JNI.CreateJavaVM             = CreateJavaVM
-    JNI.GetCreatedJavaVMs        = GetCreatedJavaVMs
+    JNI.GetDefaultJavaVMInitArgs = JNI_GetDefaultJavaVMInitArgs
+    JNI.CreateJavaVM             = JNI_CreateJavaVM
+    JNI.GetCreatedJavaVMs        = JNI_GetCreatedJavaVMs
 
     return JNI
 
@@ -1606,6 +1573,6 @@ __object_types = {
 del sys
 del platform
 del ct
-del build_ffi, ffi
+del ffi
 del tmap
 del dlclose

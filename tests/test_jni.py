@@ -5,26 +5,93 @@
 
 from typing import Optional
 import unittest
+import sys
 import os
 import math
-
-import jni
 
 
 class JNITestCase(unittest.TestCase):
 
-    def setUp(self):
-
+    @classmethod
+    def setUpClass(cls):
         from . import jvm
-        self.jvm    = jvm
-        self.JNI    = jvm._JNI
-        self.jnijvm = jvm._jnijvm
+        cls.jvm    = jvm
+        cls.JNI    = jvm._JNI
+        cls.jnijvm = jvm._jnijvm
 
+    def setUp(self):
+        import jni
         penv = jni.obj(jni.POINTER(jni.JNIEnv))
         self.jnijvm.GetEnv(penv, self.jvm.JNI_VERSION)
         self.jenv = jni.JEnv(penv)
 
+    def test_JNI_constants(self):
+
+        import jni
+
+        # jobjectRefType constants
+        self.assertIs(type(jni.JNIInvalidRefType),    int)
+        self.assertIs(type(jni.JNILocalRefType),      int)
+        self.assertIs(type(jni.JNIGlobalRefType),     int)
+        self.assertIs(type(jni.JNIWeakGlobalRefType), int)
+        self.assertEqual(jni.JNIInvalidRefType,    0) 
+        self.assertEqual(jni.JNILocalRefType,      1) 
+        self.assertEqual(jni.JNIGlobalRefType,     2) 
+        self.assertEqual(jni.JNIWeakGlobalRefType, 3) 
+
+        # jboolean constants
+        self.assertIs(type(jni.JNI_FALSE), int)
+        self.assertIs(type(jni.JNI_TRUE),  int)
+        self.assertEqual(jni.JNI_FALSE, False)
+        self.assertEqual(jni.JNI_TRUE,  True)
+
+        # possible return values constants
+        self.assertIs(type(jni.JNI_OK),        int)
+        self.assertIs(type(jni.JNI_ERR),       int)
+        self.assertIs(type(jni.JNI_EDETACHED), int)
+        self.assertIs(type(jni.JNI_EVERSION),  int)
+        self.assertIs(type(jni.JNI_ENOMEM),    int)
+        self.assertIs(type(jni.JNI_EEXIST),    int)
+        self.assertIs(type(jni.JNI_EINVAL),    int)
+        self.assertEqual(jni.JNI_OK,         0)
+        self.assertEqual(jni.JNI_ERR,       -1)
+        self.assertEqual(jni.JNI_EDETACHED, -2)
+        self.assertEqual(jni.JNI_EVERSION,  -3)
+        self.assertEqual(jni.JNI_ENOMEM,    -4)
+        self.assertEqual(jni.JNI_EEXIST,    -5)
+        self.assertEqual(jni.JNI_EINVAL,    -6)
+
+        # release mode constants
+        self.assertIs(type(jni.JNI_COMMIT), int)
+        self.assertIs(type(jni.JNI_ABORT),  int)
+        self.assertEqual(jni.JNI_COMMIT, 1)
+        self.assertEqual(jni.JNI_ABORT,  2)
+
+        # VM specific constants
+        self.assertIs(type(jni.JDK1_2), int)
+        self.assertIs(type(jni.JDK1_4), int)
+        self.assertEqual(jni.JDK1_2, 1)
+        self.assertEqual(jni.JDK1_4, 1)
+
+        # JNI version constants
+        self.assertIs(type(jni.JNI_VERSION_1_1), int)
+        self.assertIs(type(jni.JNI_VERSION_1_2), int)
+        self.assertIs(type(jni.JNI_VERSION_1_4), int)
+        self.assertIs(type(jni.JNI_VERSION_1_6), int)
+        self.assertIs(type(jni.JNI_VERSION_1_8), int)
+        self.assertIs(type(jni.JNI_VERSION_9),   int)
+        self.assertIs(type(jni.JNI_VERSION_10),  int)
+        self.assertEqual(jni.JNI_VERSION_1_1, 0x00010001)
+        self.assertEqual(jni.JNI_VERSION_1_2, 0x00010002)
+        self.assertEqual(jni.JNI_VERSION_1_4, 0x00010004)
+        self.assertEqual(jni.JNI_VERSION_1_6, 0x00010006)
+        self.assertEqual(jni.JNI_VERSION_1_8, 0x00010008)
+        self.assertEqual(jni.JNI_VERSION_9,   0x00090000)
+        self.assertEqual(jni.JNI_VERSION_10,  0x000a0000)
+
     def test_jvm(self):
+
+        import jni
 
         with self.assertRaises(OSError):
             JNI = jni.load(None)
@@ -43,6 +110,8 @@ class JNITestCase(unittest.TestCase):
                                     jni.JNI_VERSION_10))
 
     def test_classes(self):
+
+        import jni
 
         String = self.jenv.FindClass(b"java/lang/String")
         self.assertTrue(String)
@@ -69,6 +138,8 @@ class JNITestCase(unittest.TestCase):
 
     def test_non_existent(self):
         """Non-existent classes/methods/fields return None from Find/Get APIs"""
+
+        import jni
 
         # A class that doesn't exist
         with self.assertRaises(jni.Throwable):
@@ -101,6 +172,8 @@ class JNITestCase(unittest.TestCase):
 
     def test_object_lifecycle(self):
         """The basic lifecycle operations of an object can be performed"""
+
+        import jni
 
         # Get a reference to the org.jt.jni.test.Example class
         Example = self.jenv.FindClass(b"org/jt/jni/test/Example")
@@ -646,6 +719,8 @@ class JNITestCase(unittest.TestCase):
     def test_static(self):
         """Static fields and methods can be invoked"""
 
+        import jni
+
         # Get a reference to the org.jt.jni.test.Example class
         Example = self.jenv.FindClass(b"org/jt/jni/test/Example")
         self.assertTrue(Example)
@@ -766,217 +841,266 @@ class JNITestCase(unittest.TestCase):
         self.assertTrue(Example__get_static_String_field)
         self.assertTrue(Example__set_static_String_field)
 
-        # Use the get_static_base_<type>_field and get_static_<type>_field methods
+        # Save static fields values
 
-        self.assertEqual(self.jenv.CallStaticBooleanMethod(Example, Example__get_static_base_boolean_field), False)
-        self.assertEqual(self.jenv.CallStaticCharMethod(Example, Example__get_static_base_char_field), u'\u0001')
-        self.assertEqual(self.jenv.CallStaticByteMethod(Example, Example__get_static_base_byte_field), 1)
-        self.assertEqual(self.jenv.CallStaticShortMethod(Example, Example__get_static_base_short_field), 1)
-        self.assertEqual(self.jenv.CallStaticIntMethod(Example, Example__get_static_base_int_field), 1)
-        self.assertEqual(self.jenv.CallStaticLongMethod(Example, Example__get_static_base_long_field), 1)
-        self.assertEqual(self.jenv.CallStaticFloatMethod(Example, Example__get_static_base_float_field), 1.0)
-        self.assertEqual(self.jenv.CallStaticDoubleMethod(Example, Example__get_static_base_double_field), 1.0)
-        self.assertEqual(self.jstring2unicode(self.jenv.CallStaticObjectMethod(Example, Example__get_static_base_String_field)), "1")
+        Example__static_base_boolean_field_save = self.jenv.GetStaticBooleanField(Example, Example__static_base_boolean_field)
+        Example__static_base_char_field_save    = self.jenv.GetStaticCharField(Example, Example__static_base_char_field)
+        Example__static_base_byte_field_save    = self.jenv.GetStaticByteField(Example, Example__static_base_byte_field)
+        Example__static_base_short_field_save   = self.jenv.GetStaticShortField(Example, Example__static_base_short_field)
+        Example__static_base_int_field_save     = self.jenv.GetStaticIntField(Example, Example__static_base_int_field)
+        Example__static_base_long_field_save    = self.jenv.GetStaticLongField(Example, Example__static_base_long_field)
+        Example__static_base_float_field_save   = self.jenv.GetStaticFloatField(Example, Example__static_base_float_field)
+        Example__static_base_double_field_save  = self.jenv.GetStaticDoubleField(Example, Example__static_base_double_field)
+        Example__static_base_String_field_save  = self.jstring2unicode(self.jenv.GetStaticObjectField(Example, Example__static_base_String_field))
 
-        self.assertEqual(self.jenv.CallStaticBooleanMethod(Example, Example__get_static_boolean_field), False)
-        self.assertEqual(self.jenv.CallStaticCharMethod(Example, Example__get_static_char_field), u'\u000B')
-        self.assertEqual(self.jenv.CallStaticByteMethod(Example, Example__get_static_byte_field), 11)
-        self.assertEqual(self.jenv.CallStaticShortMethod(Example, Example__get_static_short_field), 11)
-        self.assertEqual(self.jenv.CallStaticIntMethod(Example, Example__get_static_int_field), 11)
-        self.assertEqual(self.jenv.CallStaticLongMethod(Example, Example__get_static_long_field), 11)
-        self.assertEqual(self.jenv.CallStaticFloatMethod(Example, Example__get_static_float_field), 11.0)
-        self.assertEqual(self.jenv.CallStaticDoubleMethod(Example, Example__get_static_double_field), 11.0)
-        self.assertEqual(self.jstring2unicode(self.jenv.CallStaticObjectMethod(Example, Example__get_static_String_field)), "11")
+        Example__static_boolean_field_save = self.jenv.GetStaticBooleanField(Example, Example__static_boolean_field)
+        Example__static_char_field_save    = self.jenv.GetStaticCharField(Example, Example__static_char_field)
+        Example__static_byte_field_save    = self.jenv.GetStaticByteField(Example, Example__static_byte_field)
+        Example__static_short_field_save   = self.jenv.GetStaticShortField(Example, Example__static_short_field)
+        Example__static_int_field_save     = self.jenv.GetStaticIntField(Example, Example__static_int_field)
+        Example__static_long_field_save    = self.jenv.GetStaticLongField(Example, Example__static_long_field)
+        Example__static_float_field_save   = self.jenv.GetStaticFloatField(Example, Example__static_float_field)
+        Example__static_double_field_save  = self.jenv.GetStaticDoubleField(Example, Example__static_double_field)
+        Example__static_String_field_save  = self.jstring2unicode(self.jenv.GetStaticObjectField(Example, Example__static_String_field))
 
-        # Use the static_base_<type>_field and static_<type>_field methods
+        try:
+            # Use the static_base_<type>_field and static_<type>_field methods
 
-        self.assertEqual(self.jenv.GetStaticBooleanField(Example, Example__static_base_boolean_field), False)
-        self.assertEqual(self.jenv.GetStaticCharField(Example, Example__static_base_char_field), u'\u0001')
-        self.assertEqual(self.jenv.GetStaticByteField(Example, Example__static_base_byte_field), 1)
-        self.assertEqual(self.jenv.GetStaticShortField(Example, Example__static_base_short_field), 1)
-        self.assertEqual(self.jenv.GetStaticIntField(Example, Example__static_base_int_field), 1)
-        self.assertEqual(self.jenv.GetStaticLongField(Example, Example__static_base_long_field), 1)
-        self.assertEqual(self.jenv.GetStaticFloatField(Example, Example__static_base_float_field), 1.0)
-        self.assertEqual(self.jenv.GetStaticDoubleField(Example, Example__static_base_double_field), 1.0)
-        self.assertEqual(self.jstring2unicode(self.jenv.GetStaticObjectField(Example, Example__static_base_String_field)), "1")
+            self.assertEqual(self.jenv.GetStaticBooleanField(Example, Example__static_base_boolean_field), False)
+            self.assertEqual(self.jenv.GetStaticCharField(Example, Example__static_base_char_field), u'\u0001')
+            self.assertEqual(self.jenv.GetStaticByteField(Example, Example__static_base_byte_field), 1)
+            self.assertEqual(self.jenv.GetStaticShortField(Example, Example__static_base_short_field), 1)
+            self.assertEqual(self.jenv.GetStaticIntField(Example, Example__static_base_int_field), 1)
+            self.assertEqual(self.jenv.GetStaticLongField(Example, Example__static_base_long_field), 1)
+            self.assertEqual(self.jenv.GetStaticFloatField(Example, Example__static_base_float_field), 1.0)
+            self.assertEqual(self.jenv.GetStaticDoubleField(Example, Example__static_base_double_field), 1.0)
+            self.assertEqual(self.jstring2unicode(self.jenv.GetStaticObjectField(Example, Example__static_base_String_field)), "1")
 
-        self.assertEqual(self.jenv.GetStaticBooleanField(Example, Example__static_boolean_field), False)
-        self.assertEqual(self.jenv.GetStaticCharField(Example, Example__static_char_field), u'\u000B')
-        self.assertEqual(self.jenv.GetStaticByteField(Example, Example__static_byte_field), 11)
-        self.assertEqual(self.jenv.GetStaticShortField(Example, Example__static_short_field), 11)
-        self.assertEqual(self.jenv.GetStaticIntField(Example, Example__static_int_field), 11)
-        self.assertEqual(self.jenv.GetStaticLongField(Example, Example__static_long_field), 11)
-        self.assertEqual(self.jenv.GetStaticFloatField(Example, Example__static_float_field), 11.0)
-        self.assertEqual(self.jenv.GetStaticDoubleField(Example, Example__static_double_field), 11.0)
-        self.assertEqual(self.jstring2unicode(self.jenv.GetStaticObjectField(Example, Example__static_String_field)), "11")
+            self.assertEqual(self.jenv.GetStaticBooleanField(Example, Example__static_boolean_field), False)
+            self.assertEqual(self.jenv.GetStaticCharField(Example, Example__static_char_field), u'\u000B')
+            self.assertEqual(self.jenv.GetStaticByteField(Example, Example__static_byte_field), 11)
+            self.assertEqual(self.jenv.GetStaticShortField(Example, Example__static_short_field), 11)
+            self.assertEqual(self.jenv.GetStaticIntField(Example, Example__static_int_field), 11)
+            self.assertEqual(self.jenv.GetStaticLongField(Example, Example__static_long_field), 11)
+            self.assertEqual(self.jenv.GetStaticFloatField(Example, Example__static_float_field), 11.0)
+            self.assertEqual(self.jenv.GetStaticDoubleField(Example, Example__static_double_field), 11.0)
+            self.assertEqual(self.jstring2unicode(self.jenv.GetStaticObjectField(Example, Example__static_String_field)), "11")
 
-        # Use the set_static_base_<type>_field and set_static_<type>_field methods
+            # Use the get_static_base_<type>_field and get_static_<type>_field methods
 
-        jargs = jni.new_array(jni.jvalue, 1)
-        jargs[0].z = True
-        self.jenv.CallStaticVoidMethod(Example, Example__set_static_base_boolean_field, jargs)
-        jargs = jni.new_array(jni.jvalue, 1)
-        jargs[0].c = u'\u0471'
-        self.jenv.CallStaticVoidMethod(Example, Example__set_static_base_char_field, jargs)
-        jargs = jni.new_array(jni.jvalue, 1)
-        jargs[0].b = 37
-        self.jenv.CallStaticVoidMethod(Example, Example__set_static_base_byte_field, jargs)
-        jargs = jni.new_array(jni.jvalue, 1)
-        jargs[0].s = 1137
-        self.jenv.CallStaticVoidMethod(Example, Example__set_static_base_short_field, jargs)
-        jargs = jni.new_array(jni.jvalue, 1)
-        jargs[0].i = 1137
-        self.jenv.CallStaticVoidMethod(Example, Example__set_static_base_int_field, jargs)
-        jargs = jni.new_array(jni.jvalue, 1)
-        jargs[0].j = 1137
-        self.jenv.CallStaticVoidMethod(Example, Example__set_static_base_long_field, jargs)
-        jargs = jni.new_array(jni.jvalue, 1)
-        jargs[0].f = 1137
-        self.jenv.CallStaticVoidMethod(Example, Example__set_static_base_float_field, jargs)
-        jargs = jni.new_array(jni.jvalue, 1)
-        jargs[0].d = 1137
-        self.jenv.CallStaticVoidMethod(Example, Example__set_static_base_double_field, jargs)
-        jargs = jni.new_array(jni.jvalue, 1)
-        jargs[0].l = self.jenv.NewStringUTF("1137".encode("utf-8"))
-        self.jenv.CallStaticVoidMethod(Example, Example__set_static_base_String_field, jargs)
+            self.assertEqual(self.jenv.CallStaticBooleanMethod(Example, Example__get_static_base_boolean_field), False)
+            self.assertEqual(self.jenv.CallStaticCharMethod(Example, Example__get_static_base_char_field), u'\u0001')
+            self.assertEqual(self.jenv.CallStaticByteMethod(Example, Example__get_static_base_byte_field), 1)
+            self.assertEqual(self.jenv.CallStaticShortMethod(Example, Example__get_static_base_short_field), 1)
+            self.assertEqual(self.jenv.CallStaticIntMethod(Example, Example__get_static_base_int_field), 1)
+            self.assertEqual(self.jenv.CallStaticLongMethod(Example, Example__get_static_base_long_field), 1)
+            self.assertEqual(self.jenv.CallStaticFloatMethod(Example, Example__get_static_base_float_field), 1.0)
+            self.assertEqual(self.jenv.CallStaticDoubleMethod(Example, Example__get_static_base_double_field), 1.0)
+            self.assertEqual(self.jstring2unicode(self.jenv.CallStaticObjectMethod(Example, Example__get_static_base_String_field)), "1")
 
-        jargs = jni.new_array(jni.jvalue, 1)
-        jargs[0].z = True
-        self.jenv.CallStaticVoidMethod(Example, Example__set_static_boolean_field, jargs)
-        jargs = jni.new_array(jni.jvalue, 1)
-        jargs[0].c = u'\u0476'
-        self.jenv.CallStaticVoidMethod(Example, Example__set_static_char_field, jargs)
-        jargs = jni.new_array(jni.jvalue, 1)
-        jargs[0].b = 42
-        self.jenv.CallStaticVoidMethod(Example, Example__set_static_byte_field, jargs)
-        jargs = jni.new_array(jni.jvalue, 1)
-        jargs[0].s = 1142
-        self.jenv.CallStaticVoidMethod(Example, Example__set_static_short_field, jargs)
-        jargs = jni.new_array(jni.jvalue, 1)
-        jargs[0].i = 1142
-        self.jenv.CallStaticVoidMethod(Example, Example__set_static_int_field, jargs)
-        jargs = jni.new_array(jni.jvalue, 1)
-        jargs[0].j = 1142
-        self.jenv.CallStaticVoidMethod(Example, Example__set_static_long_field, jargs)
-        jargs = jni.new_array(jni.jvalue, 1)
-        jargs[0].f = 1142
-        self.jenv.CallStaticVoidMethod(Example, Example__set_static_float_field, jargs)
-        jargs = jni.new_array(jni.jvalue, 1)
-        jargs[0].d = 1142
-        self.jenv.CallStaticVoidMethod(Example, Example__set_static_double_field, jargs)
-        jargs = jni.new_array(jni.jvalue, 1)
-        jargs[0].l = self.jenv.NewStringUTF("1142".encode("utf-8"))
-        self.jenv.CallStaticVoidMethod(Example, Example__set_static_String_field, jargs)
+            self.assertEqual(self.jenv.CallStaticBooleanMethod(Example, Example__get_static_boolean_field), False)
+            self.assertEqual(self.jenv.CallStaticCharMethod(Example, Example__get_static_char_field), u'\u000B')
+            self.assertEqual(self.jenv.CallStaticByteMethod(Example, Example__get_static_byte_field), 11)
+            self.assertEqual(self.jenv.CallStaticShortMethod(Example, Example__get_static_short_field), 11)
+            self.assertEqual(self.jenv.CallStaticIntMethod(Example, Example__get_static_int_field), 11)
+            self.assertEqual(self.jenv.CallStaticLongMethod(Example, Example__get_static_long_field), 11)
+            self.assertEqual(self.jenv.CallStaticFloatMethod(Example, Example__get_static_float_field), 11.0)
+            self.assertEqual(self.jenv.CallStaticDoubleMethod(Example, Example__get_static_double_field), 11.0)
+            self.assertEqual(self.jstring2unicode(self.jenv.CallStaticObjectMethod(Example, Example__get_static_String_field)), "11")
 
-        # Confirm that the values have changed
+            # Use the set_static_base_<type>_field and set_static_<type>_field methods
 
-        self.assertEqual(self.jenv.CallStaticBooleanMethod(Example, Example__get_static_base_boolean_field), True)
-        self.assertEqual(self.jenv.CallStaticCharMethod(Example, Example__get_static_base_char_field), u'\u0471')
-        self.assertEqual(self.jenv.CallStaticByteMethod(Example, Example__get_static_base_byte_field), 37)
-        self.assertEqual(self.jenv.CallStaticShortMethod(Example, Example__get_static_base_short_field), 1137)
-        self.assertEqual(self.jenv.CallStaticIntMethod(Example, Example__get_static_base_int_field), 1137)
-        self.assertEqual(self.jenv.CallStaticLongMethod(Example, Example__get_static_base_long_field), 1137)
-        self.assertEqual(self.jenv.CallStaticFloatMethod(Example, Example__get_static_base_float_field), 1137.0)
-        self.assertEqual(self.jenv.CallStaticDoubleMethod(Example, Example__get_static_base_double_field), 1137.0)
-        self.assertEqual(self.jstring2unicode(self.jenv.CallStaticObjectMethod(Example, Example__get_static_base_String_field)), "1137")
+            jargs = jni.new_array(jni.jvalue, 1)
+            jargs[0].z = True
+            self.jenv.CallStaticVoidMethod(Example, Example__set_static_base_boolean_field, jargs)
+            jargs = jni.new_array(jni.jvalue, 1)
+            jargs[0].c = u'\u0471'
+            self.jenv.CallStaticVoidMethod(Example, Example__set_static_base_char_field, jargs)
+            jargs = jni.new_array(jni.jvalue, 1)
+            jargs[0].b = 37
+            self.jenv.CallStaticVoidMethod(Example, Example__set_static_base_byte_field, jargs)
+            jargs = jni.new_array(jni.jvalue, 1)
+            jargs[0].s = 1137
+            self.jenv.CallStaticVoidMethod(Example, Example__set_static_base_short_field, jargs)
+            jargs = jni.new_array(jni.jvalue, 1)
+            jargs[0].i = 1137
+            self.jenv.CallStaticVoidMethod(Example, Example__set_static_base_int_field, jargs)
+            jargs = jni.new_array(jni.jvalue, 1)
+            jargs[0].j = 1137
+            self.jenv.CallStaticVoidMethod(Example, Example__set_static_base_long_field, jargs)
+            jargs = jni.new_array(jni.jvalue, 1)
+            jargs[0].f = 1137
+            self.jenv.CallStaticVoidMethod(Example, Example__set_static_base_float_field, jargs)
+            jargs = jni.new_array(jni.jvalue, 1)
+            jargs[0].d = 1137
+            self.jenv.CallStaticVoidMethod(Example, Example__set_static_base_double_field, jargs)
+            jargs = jni.new_array(jni.jvalue, 1)
+            jargs[0].l = self.jenv.NewStringUTF("1137".encode("utf-8"))
+            self.jenv.CallStaticVoidMethod(Example, Example__set_static_base_String_field, jargs)
 
-        self.assertEqual(self.jenv.CallStaticBooleanMethod(Example, Example__get_static_boolean_field), True)
-        self.assertEqual(self.jenv.CallStaticCharMethod(Example, Example__get_static_char_field), u'\u0476')
-        self.assertEqual(self.jenv.CallStaticByteMethod(Example, Example__get_static_byte_field), 42)
-        self.assertEqual(self.jenv.CallStaticShortMethod(Example, Example__get_static_short_field), 1142)
-        self.assertEqual(self.jenv.CallStaticIntMethod(Example, Example__get_static_int_field), 1142)
-        self.assertEqual(self.jenv.CallStaticLongMethod(Example, Example__get_static_long_field), 1142)
-        self.assertEqual(self.jenv.CallStaticFloatMethod(Example, Example__get_static_float_field), 1142.0)
-        self.assertEqual(self.jenv.CallStaticDoubleMethod(Example, Example__get_static_double_field), 1142.0)
-        self.assertEqual(self.jstring2unicode(self.jenv.CallStaticObjectMethod(Example, Example__get_static_String_field)), "1142")
+            jargs = jni.new_array(jni.jvalue, 1)
+            jargs[0].z = True
+            self.jenv.CallStaticVoidMethod(Example, Example__set_static_boolean_field, jargs)
+            jargs = jni.new_array(jni.jvalue, 1)
+            jargs[0].c = u'\u0476'
+            self.jenv.CallStaticVoidMethod(Example, Example__set_static_char_field, jargs)
+            jargs = jni.new_array(jni.jvalue, 1)
+            jargs[0].b = 42
+            self.jenv.CallStaticVoidMethod(Example, Example__set_static_byte_field, jargs)
+            jargs = jni.new_array(jni.jvalue, 1)
+            jargs[0].s = 1142
+            self.jenv.CallStaticVoidMethod(Example, Example__set_static_short_field, jargs)
+            jargs = jni.new_array(jni.jvalue, 1)
+            jargs[0].i = 1142
+            self.jenv.CallStaticVoidMethod(Example, Example__set_static_int_field, jargs)
+            jargs = jni.new_array(jni.jvalue, 1)
+            jargs[0].j = 1142
+            self.jenv.CallStaticVoidMethod(Example, Example__set_static_long_field, jargs)
+            jargs = jni.new_array(jni.jvalue, 1)
+            jargs[0].f = 1142
+            self.jenv.CallStaticVoidMethod(Example, Example__set_static_float_field, jargs)
+            jargs = jni.new_array(jni.jvalue, 1)
+            jargs[0].d = 1142
+            self.jenv.CallStaticVoidMethod(Example, Example__set_static_double_field, jargs)
+            jargs = jni.new_array(jni.jvalue, 1)
+            jargs[0].l = self.jenv.NewStringUTF("1142".encode("utf-8"))
+            self.jenv.CallStaticVoidMethod(Example, Example__set_static_String_field, jargs)
 
-        self.assertEqual(self.jenv.GetStaticBooleanField(Example, Example__static_base_boolean_field), True)
-        self.assertEqual(self.jenv.GetStaticCharField(Example, Example__static_base_char_field), u'\u0471')
-        self.assertEqual(self.jenv.GetStaticByteField(Example, Example__static_base_byte_field), 37)
-        self.assertEqual(self.jenv.GetStaticShortField(Example, Example__static_base_short_field), 1137)
-        self.assertEqual(self.jenv.GetStaticIntField(Example, Example__static_base_int_field), 1137)
-        self.assertEqual(self.jenv.GetStaticLongField(Example, Example__static_base_long_field), 1137)
-        self.assertEqual(self.jenv.GetStaticFloatField(Example, Example__static_base_float_field), 1137.0)
-        self.assertEqual(self.jenv.GetStaticDoubleField(Example, Example__static_base_double_field), 1137.0)
-        self.assertEqual(self.jstring2unicode(self.jenv.GetStaticObjectField(Example, Example__static_base_String_field)), "1137")
+            # Confirm that the values have changed
 
-        self.assertEqual(self.jenv.GetStaticBooleanField(Example, Example__static_boolean_field), True)
-        self.assertEqual(self.jenv.GetStaticCharField(Example, Example__static_char_field), u'\u0476')
-        self.assertEqual(self.jenv.GetStaticByteField(Example, Example__static_byte_field), 42)
-        self.assertEqual(self.jenv.GetStaticShortField(Example, Example__static_short_field), 1142)
-        self.assertEqual(self.jenv.GetStaticIntField(Example, Example__static_int_field), 1142)
-        self.assertEqual(self.jenv.GetStaticLongField(Example, Example__static_long_field), 1142)
-        self.assertEqual(self.jenv.GetStaticFloatField(Example, Example__static_float_field), 1142.0)
-        self.assertEqual(self.jenv.GetStaticDoubleField(Example, Example__static_double_field), 1142.0)
-        self.assertEqual(self.jstring2unicode(self.jenv.GetStaticObjectField(Example, Example__static_String_field)), "1142")
+            self.assertEqual(self.jenv.CallStaticBooleanMethod(Example, Example__get_static_base_boolean_field), True)
+            self.assertEqual(self.jenv.CallStaticCharMethod(Example, Example__get_static_base_char_field), u'\u0471')
+            self.assertEqual(self.jenv.CallStaticByteMethod(Example, Example__get_static_base_byte_field), 37)
+            self.assertEqual(self.jenv.CallStaticShortMethod(Example, Example__get_static_base_short_field), 1137)
+            self.assertEqual(self.jenv.CallStaticIntMethod(Example, Example__get_static_base_int_field), 1137)
+            self.assertEqual(self.jenv.CallStaticLongMethod(Example, Example__get_static_base_long_field), 1137)
+            self.assertEqual(self.jenv.CallStaticFloatMethod(Example, Example__get_static_base_float_field), 1137.0)
+            self.assertEqual(self.jenv.CallStaticDoubleMethod(Example, Example__get_static_base_double_field), 1137.0)
+            self.assertEqual(self.jstring2unicode(self.jenv.CallStaticObjectMethod(Example, Example__get_static_base_String_field)), "1137")
 
-        # Use the static_base_<type>_field and static_<type>_field methods
+            self.assertEqual(self.jenv.CallStaticBooleanMethod(Example, Example__get_static_boolean_field), True)
+            self.assertEqual(self.jenv.CallStaticCharMethod(Example, Example__get_static_char_field), u'\u0476')
+            self.assertEqual(self.jenv.CallStaticByteMethod(Example, Example__get_static_byte_field), 42)
+            self.assertEqual(self.jenv.CallStaticShortMethod(Example, Example__get_static_short_field), 1142)
+            self.assertEqual(self.jenv.CallStaticIntMethod(Example, Example__get_static_int_field), 1142)
+            self.assertEqual(self.jenv.CallStaticLongMethod(Example, Example__get_static_long_field), 1142)
+            self.assertEqual(self.jenv.CallStaticFloatMethod(Example, Example__get_static_float_field), 1142.0)
+            self.assertEqual(self.jenv.CallStaticDoubleMethod(Example, Example__get_static_double_field), 1142.0)
+            self.assertEqual(self.jstring2unicode(self.jenv.CallStaticObjectMethod(Example, Example__get_static_String_field)), "1142")
 
-        self.jenv.SetStaticBooleanField(Example, Example__static_base_boolean_field, False)
-        self.jenv.SetStaticCharField(Example, Example__static_base_char_field, u'\u0485')
-        self.jenv.SetStaticByteField(Example, Example__static_base_byte_field, 57)
-        self.jenv.SetStaticShortField(Example, Example__static_base_short_field, 1157)
-        self.jenv.SetStaticIntField(Example, Example__static_base_int_field, 1157)
-        self.jenv.SetStaticLongField(Example, Example__static_base_long_field, 1157)
-        self.jenv.SetStaticFloatField(Example, Example__static_base_float_field, 1157)
-        self.jenv.SetStaticDoubleField(Example, Example__static_base_double_field, 1157)
-        self.jenv.SetStaticObjectField(Example, Example__static_base_String_field,
-                                       self.jenv.NewStringUTF("1157".encode("utf-8")))
+            self.assertEqual(self.jenv.GetStaticBooleanField(Example, Example__static_base_boolean_field), True)
+            self.assertEqual(self.jenv.GetStaticCharField(Example, Example__static_base_char_field), u'\u0471')
+            self.assertEqual(self.jenv.GetStaticByteField(Example, Example__static_base_byte_field), 37)
+            self.assertEqual(self.jenv.GetStaticShortField(Example, Example__static_base_short_field), 1137)
+            self.assertEqual(self.jenv.GetStaticIntField(Example, Example__static_base_int_field), 1137)
+            self.assertEqual(self.jenv.GetStaticLongField(Example, Example__static_base_long_field), 1137)
+            self.assertEqual(self.jenv.GetStaticFloatField(Example, Example__static_base_float_field), 1137.0)
+            self.assertEqual(self.jenv.GetStaticDoubleField(Example, Example__static_base_double_field), 1137.0)
+            self.assertEqual(self.jstring2unicode(self.jenv.GetStaticObjectField(Example, Example__static_base_String_field)), "1137")
 
-        self.jenv.SetStaticBooleanField(Example, Example__static_boolean_field, False)
-        self.jenv.SetStaticCharField(Example, Example__static_char_field, u'\u048A')
-        self.jenv.SetStaticByteField(Example, Example__static_byte_field, 62)
-        self.jenv.SetStaticShortField(Example, Example__static_short_field, 1162)
-        self.jenv.SetStaticIntField(Example, Example__static_int_field, 1162)
-        self.jenv.SetStaticLongField(Example, Example__static_long_field, 1162)
-        self.jenv.SetStaticFloatField(Example, Example__static_float_field, 1162)
-        self.jenv.SetStaticDoubleField(Example, Example__static_double_field, 1162)
-        self.jenv.SetStaticObjectField(Example, Example__static_String_field,
-                                       self.jenv.NewStringUTF("1162".encode("utf-8")))
+            self.assertEqual(self.jenv.GetStaticBooleanField(Example, Example__static_boolean_field), True)
+            self.assertEqual(self.jenv.GetStaticCharField(Example, Example__static_char_field), u'\u0476')
+            self.assertEqual(self.jenv.GetStaticByteField(Example, Example__static_byte_field), 42)
+            self.assertEqual(self.jenv.GetStaticShortField(Example, Example__static_short_field), 1142)
+            self.assertEqual(self.jenv.GetStaticIntField(Example, Example__static_int_field), 1142)
+            self.assertEqual(self.jenv.GetStaticLongField(Example, Example__static_long_field), 1142)
+            self.assertEqual(self.jenv.GetStaticFloatField(Example, Example__static_float_field), 1142.0)
+            self.assertEqual(self.jenv.GetStaticDoubleField(Example, Example__static_double_field), 1142.0)
+            self.assertEqual(self.jstring2unicode(self.jenv.GetStaticObjectField(Example, Example__static_String_field)), "1142")
 
-        # Confirm that the values have changed
+            # Use the static_base_<type>_field and static_<type>_field methods
 
-        self.assertEqual(self.jenv.CallStaticBooleanMethod(Example, Example__get_static_base_boolean_field), False)
-        self.assertEqual(self.jenv.CallStaticCharMethod(Example, Example__get_static_base_char_field), u'\u0485')
-        self.assertEqual(self.jenv.CallStaticByteMethod(Example, Example__get_static_base_byte_field), 57)
-        self.assertEqual(self.jenv.CallStaticShortMethod(Example, Example__get_static_base_short_field), 1157)
-        self.assertEqual(self.jenv.CallStaticIntMethod(Example, Example__get_static_base_int_field), 1157)
-        self.assertEqual(self.jenv.CallStaticLongMethod(Example, Example__get_static_base_long_field), 1157)
-        self.assertEqual(self.jenv.CallStaticFloatMethod(Example, Example__get_static_base_float_field), 1157.0)
-        self.assertEqual(self.jenv.CallStaticDoubleMethod(Example, Example__get_static_base_double_field), 1157.0)
-        self.assertEqual(self.jstring2unicode(self.jenv.CallStaticObjectMethod(Example, Example__get_static_base_String_field)), "1157")
+            self.jenv.SetStaticBooleanField(Example, Example__static_base_boolean_field, False)
+            self.jenv.SetStaticCharField(Example, Example__static_base_char_field, u'\u0485')
+            self.jenv.SetStaticByteField(Example, Example__static_base_byte_field, 57)
+            self.jenv.SetStaticShortField(Example, Example__static_base_short_field, 1157)
+            self.jenv.SetStaticIntField(Example, Example__static_base_int_field, 1157)
+            self.jenv.SetStaticLongField(Example, Example__static_base_long_field, 1157)
+            self.jenv.SetStaticFloatField(Example, Example__static_base_float_field, 1157)
+            self.jenv.SetStaticDoubleField(Example, Example__static_base_double_field, 1157)
+            self.jenv.SetStaticObjectField(Example, Example__static_base_String_field,
+                                           self.jenv.NewStringUTF("1157".encode("utf-8")))
 
-        self.assertEqual(self.jenv.CallStaticBooleanMethod(Example, Example__get_static_boolean_field), False)
-        self.assertEqual(self.jenv.CallStaticCharMethod(Example, Example__get_static_char_field), u'\u048A')
-        self.assertEqual(self.jenv.CallStaticByteMethod(Example, Example__get_static_byte_field), 62)
-        self.assertEqual(self.jenv.CallStaticShortMethod(Example, Example__get_static_short_field), 1162)
-        self.assertEqual(self.jenv.CallStaticIntMethod(Example, Example__get_static_int_field), 1162)
-        self.assertEqual(self.jenv.CallStaticLongMethod(Example, Example__get_static_long_field), 1162)
-        self.assertEqual(self.jenv.CallStaticFloatMethod(Example, Example__get_static_float_field), 1162.0)
-        self.assertEqual(self.jenv.CallStaticDoubleMethod(Example, Example__get_static_double_field), 1162.0)
-        self.assertEqual(self.jstring2unicode(self.jenv.CallStaticObjectMethod(Example, Example__get_static_String_field)), "1162")
+            self.jenv.SetStaticBooleanField(Example, Example__static_boolean_field, False)
+            self.jenv.SetStaticCharField(Example, Example__static_char_field, u'\u048A')
+            self.jenv.SetStaticByteField(Example, Example__static_byte_field, 62)
+            self.jenv.SetStaticShortField(Example, Example__static_short_field, 1162)
+            self.jenv.SetStaticIntField(Example, Example__static_int_field, 1162)
+            self.jenv.SetStaticLongField(Example, Example__static_long_field, 1162)
+            self.jenv.SetStaticFloatField(Example, Example__static_float_field, 1162)
+            self.jenv.SetStaticDoubleField(Example, Example__static_double_field, 1162)
+            self.jenv.SetStaticObjectField(Example, Example__static_String_field,
+                                           self.jenv.NewStringUTF("1162".encode("utf-8")))
 
-        self.assertEqual(self.jenv.GetStaticBooleanField(Example, Example__static_base_boolean_field), False)
-        self.assertEqual(self.jenv.GetStaticCharField(Example, Example__static_base_char_field), u'\u0485')
-        self.assertEqual(self.jenv.GetStaticByteField(Example, Example__static_base_byte_field), 57)
-        self.assertEqual(self.jenv.GetStaticShortField(Example, Example__static_base_short_field), 1157)
-        self.assertEqual(self.jenv.GetStaticIntField(Example, Example__static_base_int_field), 1157)
-        self.assertEqual(self.jenv.GetStaticLongField(Example, Example__static_base_long_field), 1157)
-        self.assertEqual(self.jenv.GetStaticFloatField(Example, Example__static_base_float_field), 1157.0)
-        self.assertEqual(self.jenv.GetStaticDoubleField(Example, Example__static_base_double_field), 1157.0)
-        self.assertEqual(self.jstring2unicode(self.jenv.GetStaticObjectField(Example, Example__static_base_String_field)), "1157")
+            # Confirm that the values have changed
 
-        self.assertEqual(self.jenv.GetStaticBooleanField(Example, Example__static_boolean_field), False)
-        self.assertEqual(self.jenv.GetStaticCharField(Example, Example__static_char_field), u'\u048A')
-        self.assertEqual(self.jenv.GetStaticByteField(Example, Example__static_byte_field), 62)
-        self.assertEqual(self.jenv.GetStaticShortField(Example, Example__static_short_field), 1162)
-        self.assertEqual(self.jenv.GetStaticIntField(Example, Example__static_int_field), 1162)
-        self.assertEqual(self.jenv.GetStaticLongField(Example, Example__static_long_field), 1162)
-        self.assertEqual(self.jenv.GetStaticFloatField(Example, Example__static_float_field), 1162.0)
-        self.assertEqual(self.jenv.GetStaticDoubleField(Example, Example__static_double_field), 1162.0)
-        self.assertEqual(self.jstring2unicode(self.jenv.GetStaticObjectField(Example, Example__static_String_field)), "1162")
+            self.assertEqual(self.jenv.CallStaticBooleanMethod(Example, Example__get_static_base_boolean_field), False)
+            self.assertEqual(self.jenv.CallStaticCharMethod(Example, Example__get_static_base_char_field), u'\u0485')
+            self.assertEqual(self.jenv.CallStaticByteMethod(Example, Example__get_static_base_byte_field), 57)
+            self.assertEqual(self.jenv.CallStaticShortMethod(Example, Example__get_static_base_short_field), 1157)
+            self.assertEqual(self.jenv.CallStaticIntMethod(Example, Example__get_static_base_int_field), 1157)
+            self.assertEqual(self.jenv.CallStaticLongMethod(Example, Example__get_static_base_long_field), 1157)
+            self.assertEqual(self.jenv.CallStaticFloatMethod(Example, Example__get_static_base_float_field), 1157.0)
+            self.assertEqual(self.jenv.CallStaticDoubleMethod(Example, Example__get_static_base_double_field), 1157.0)
+            self.assertEqual(self.jstring2unicode(self.jenv.CallStaticObjectMethod(Example, Example__get_static_base_String_field)), "1157")
+
+            self.assertEqual(self.jenv.CallStaticBooleanMethod(Example, Example__get_static_boolean_field), False)
+            self.assertEqual(self.jenv.CallStaticCharMethod(Example, Example__get_static_char_field), u'\u048A')
+            self.assertEqual(self.jenv.CallStaticByteMethod(Example, Example__get_static_byte_field), 62)
+            self.assertEqual(self.jenv.CallStaticShortMethod(Example, Example__get_static_short_field), 1162)
+            self.assertEqual(self.jenv.CallStaticIntMethod(Example, Example__get_static_int_field), 1162)
+            self.assertEqual(self.jenv.CallStaticLongMethod(Example, Example__get_static_long_field), 1162)
+            self.assertEqual(self.jenv.CallStaticFloatMethod(Example, Example__get_static_float_field), 1162.0)
+            self.assertEqual(self.jenv.CallStaticDoubleMethod(Example, Example__get_static_double_field), 1162.0)
+            self.assertEqual(self.jstring2unicode(self.jenv.CallStaticObjectMethod(Example, Example__get_static_String_field)), "1162")
+
+            self.assertEqual(self.jenv.GetStaticBooleanField(Example, Example__static_base_boolean_field), False)
+            self.assertEqual(self.jenv.GetStaticCharField(Example, Example__static_base_char_field), u'\u0485')
+            self.assertEqual(self.jenv.GetStaticByteField(Example, Example__static_base_byte_field), 57)
+            self.assertEqual(self.jenv.GetStaticShortField(Example, Example__static_base_short_field), 1157)
+            self.assertEqual(self.jenv.GetStaticIntField(Example, Example__static_base_int_field), 1157)
+            self.assertEqual(self.jenv.GetStaticLongField(Example, Example__static_base_long_field), 1157)
+            self.assertEqual(self.jenv.GetStaticFloatField(Example, Example__static_base_float_field), 1157.0)
+            self.assertEqual(self.jenv.GetStaticDoubleField(Example, Example__static_base_double_field), 1157.0)
+            self.assertEqual(self.jstring2unicode(self.jenv.GetStaticObjectField(Example, Example__static_base_String_field)), "1157")
+
+            self.assertEqual(self.jenv.GetStaticBooleanField(Example, Example__static_boolean_field), False)
+            self.assertEqual(self.jenv.GetStaticCharField(Example, Example__static_char_field), u'\u048A')
+            self.assertEqual(self.jenv.GetStaticByteField(Example, Example__static_byte_field), 62)
+            self.assertEqual(self.jenv.GetStaticShortField(Example, Example__static_short_field), 1162)
+            self.assertEqual(self.jenv.GetStaticIntField(Example, Example__static_int_field), 1162)
+            self.assertEqual(self.jenv.GetStaticLongField(Example, Example__static_long_field), 1162)
+            self.assertEqual(self.jenv.GetStaticFloatField(Example, Example__static_float_field), 1162.0)
+            self.assertEqual(self.jenv.GetStaticDoubleField(Example, Example__static_double_field), 1162.0)
+            self.assertEqual(self.jstring2unicode(self.jenv.GetStaticObjectField(Example, Example__static_String_field)), "1162")
+        finally:
+            # Restore static fields values
+
+            self.jenv.SetStaticBooleanField(Example, Example__static_base_boolean_field, Example__static_base_boolean_field_save)
+            self.jenv.SetStaticCharField(Example, Example__static_base_char_field, Example__static_base_char_field_save)
+            self.jenv.SetStaticByteField(Example, Example__static_base_byte_field, Example__static_base_byte_field_save)
+            self.jenv.SetStaticShortField(Example, Example__static_base_short_field, Example__static_base_short_field_save)
+            self.jenv.SetStaticIntField(Example, Example__static_base_int_field, Example__static_base_int_field_save)
+            self.jenv.SetStaticLongField(Example, Example__static_base_long_field, Example__static_base_long_field_save)
+            self.jenv.SetStaticFloatField(Example, Example__static_base_float_field, Example__static_base_float_field_save)
+            self.jenv.SetStaticDoubleField(Example, Example__static_base_double_field, Example__static_base_double_field_save)
+            self.jenv.SetStaticObjectField(Example, Example__static_base_String_field,
+                                           self.jenv.NewStringUTF(Example__static_base_String_field_save.encode("utf-8")))
+
+            self.jenv.SetStaticBooleanField(Example, Example__static_boolean_field, Example__static_boolean_field_save)
+            self.jenv.SetStaticCharField(Example, Example__static_char_field, Example__static_char_field_save)
+            self.jenv.SetStaticByteField(Example, Example__static_byte_field, Example__static_byte_field_save)
+            self.jenv.SetStaticShortField(Example, Example__static_short_field, Example__static_short_field_save)
+            self.jenv.SetStaticIntField(Example, Example__static_int_field, Example__static_int_field_save)
+            self.jenv.SetStaticLongField(Example, Example__static_long_field, Example__static_long_field_save)
+            self.jenv.SetStaticFloatField(Example, Example__static_float_field, Example__static_float_field_save)
+            self.jenv.SetStaticDoubleField(Example, Example__static_double_field, Example__static_double_field_save)
+            self.jenv.SetStaticObjectField(Example, Example__static_String_field,
+                                           self.jenv.NewStringUTF(Example__static_String_field_save.encode("utf-8")))
 
     def test_arrays(self):
+
+        import jni
 
         # Create an instances of primitve arrays
 
@@ -1026,6 +1150,8 @@ class JNITestCase(unittest.TestCase):
     def test_string(self):
         """A Java string can be created, and the content returned"""
 
+        import jni
+
         # This string contains unicode characters
         s = u"H\xe9llo world"
 
@@ -1041,6 +1167,8 @@ class JNITestCase(unittest.TestCase):
 
     def test_string_method(self):
         """A Java string can be created, and the content returned"""
+
+        import jni
 
         # This string contains unicode characters
         s = "Woop"
@@ -1070,6 +1198,8 @@ class JNITestCase(unittest.TestCase):
     def test_float_method(self):
         """A Java float can be created, and the content returned"""
 
+        import jni
+
         # This string contains unicode characters
         Example = self.jenv.FindClass(b"org/jt/jni/test/Example")
         self.assertTrue(Example)
@@ -1095,6 +1225,8 @@ class JNITestCase(unittest.TestCase):
     def test_double_method(self):
         """A Java float can be created, and the content returned"""
 
+        import jni
+
         # This string contains unicode characters
         Example = self.jenv.FindClass(b"org/jt/jni/test/Example")
         self.assertTrue(Example)
@@ -1118,18 +1250,23 @@ class JNITestCase(unittest.TestCase):
         self.assertEqual(result, 0.25 * (math.pi * 2.25))
 
     def test_ClassStaticField(self):
-        pass
+
+        import jni
+
         #self.assertEqual(self.StringClass, self.ClassArrayTest.staticField[0])
         #self.ClassArrayTest.staticField = self.ClassArray([self.MapClass])
         #self.assertEqual(self.MapClass, self.ClassArrayTest.staticField[0])
 
     def test_WrongType(self):
-        pass
+
+        import jni
+
         #a = self.ClassArray([self.FloatClass])
         #with self.assertRaises(TypeError):
         #    a[0] = 1
 
-    def jstring2unicode(self, jstr: jni.jstring) -> Optional[str]:
+    def jstring2unicode(self, jstr) -> Optional[str]:
+        import jni
         utf8_chars = self.jenv.GetStringUTFChars(jstr)
         try:
             return jni.to_bytes(utf8_chars).decode("utf-8")

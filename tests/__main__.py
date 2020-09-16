@@ -14,14 +14,14 @@ test_java = os.path.join(test_dir, "java")
 
 
 def test_suite(names=None, omit=("run",)):
-
-    from .python import __name__ as pkg_name
-    from .python import __path__ as pkg_path
+    from . import __name__ as pkg_name
+    from . import __path__ as pkg_path
     import unittest
     import pkgutil
     if names is None:
         names = [name for _, name, _ in pkgutil.iter_modules(pkg_path)
-                 if name != "__main__" and name not in omit]
+                 if name != "__main__" and not name.startswith("tman_")
+                 and name not in omit]
     names = [".".join((pkg_name, name)) for name in names]
     tests = unittest.defaultTestLoader.loadTestsFromNames(names)
     return tests
@@ -29,31 +29,29 @@ def test_suite(names=None, omit=("run",)):
 
 def main(argv=sys.argv):
 
-    from ._jvm import JVM
+    from . import _jvm
 
+    is_32bit = (sys.maxsize <= 2**32)
+    dir_prefix = r"C:\Program Files (x86)" if is_32bit else r"C:\Program Files"
     jvm_dll_paths = [
-        r"C:\Program Files\Java\jdk-11.0.2\bin\server\jvm.dll",
-        r"C:\Program Files\Java\jdk-11.0.2\bin\client\jvm.dll",
-        r"C:\Program Files\Java\jre-11.0.2\bin\server\jvm.dll",
-        r"C:\Program Files\Java\jre-11.0.2\bin\client\jvm.dll",
-        r"C:\Program Files\Java\jdk-9\bin\server\jvm.dll",
-        r"C:\Program Files\Java\jdk-9\bin\client\jvm.dll",
-        r"C:\Program Files (x86)\Java\jdk-9\bin\server\jvm.dll",
-        r"C:\Program Files (x86)\Java\jdk-9\bin\client\jvm.dll",
-        r"C:\Program Files\Java\jdk1.8.0_202\bin\server\jvm.dll",
-        r"C:\Program Files\Java\jdk1.8.0_202\bin\client\jvm.dll",
-        r"C:\Program Files\Java\jdk1.8.0_202\jre\bin\server\jvm.dll",
-        r"C:\Program Files\Java\jdk1.8.0_202\jre\bin\client\jvm.dll",
-        r"C:\Program Files\Java\jre1.8.0_201\bin\server\jvm.dll",
-        r"C:\Program Files\Java\jre1.8.0_201\bin\client\jvm.dll",
-        r"C:\Program Files (x86)\Java\jdk1.8.0_202\bin\server\jvm.dll",
-        r"C:\Program Files (x86)\Java\jdk1.8.0_202\bin\client\jvm.dll",
-        r"C:\Program Files (x86)\Java\jre1.8.0_201\bin\server\jvm.dll",
-        r"C:\Program Files (x86)\Java\jre1.8.0_201\bin\client\jvm.dll",
-        r"C:\Program Files\Java\jre7\bin\server\jvm.dll",
-        r"C:\Program Files\Java\jre7\bin\client\jvm.dll",
-        r"C:\Program Files (x86)\Java\jre7\bin\server\jvm.dll",
-        r"C:\Program Files (x86)\Java\jre7\bin\client\jvm.dll",
+        dir_prefix + r"\Java\jdk-14.0.2\bin\server\jvm.dll",
+        dir_prefix + r"\Java\jdk-14.0.2\bin\client\jvm.dll",
+        dir_prefix + r"\Java\jre-14.0.2\bin\server\jvm.dll",
+        dir_prefix + r"\Java\jre-14.0.2\bin\client\jvm.dll",
+        dir_prefix + r"\Java\jdk-11.0.2\bin\server\jvm.dll",
+        dir_prefix + r"\Java\jdk-11.0.2\bin\client\jvm.dll",
+        dir_prefix + r"\Java\jre-11.0.2\bin\server\jvm.dll",
+        dir_prefix + r"\Java\jre-11.0.2\bin\client\jvm.dll",
+        dir_prefix + r"\Java\jdk-9\bin\server\jvm.dll",
+        dir_prefix + r"\Java\jdk-9\bin\client\jvm.dll",
+        dir_prefix + r"\Java\jdk1.8.0_202\bin\server\jvm.dll",
+        dir_prefix + r"\Java\jdk1.8.0_202\bin\client\jvm.dll",
+        dir_prefix + r"\Java\jdk1.8.0_202\jre\bin\server\jvm.dll",
+        dir_prefix + r"\Java\jdk1.8.0_202\jre\bin\client\jvm.dll",
+        dir_prefix + r"\Java\jre1.8.0_201\bin\server\jvm.dll",
+        dir_prefix + r"\Java\jre1.8.0_201\bin\client\jvm.dll",
+        dir_prefix + r"\Java\jre7\bin\server\jvm.dll",
+        dir_prefix + r"\Java\jre7\bin\client\jvm.dll",
     ]
 
     try:
@@ -64,7 +62,7 @@ def main(argv=sys.argv):
     print("Running testsuite using JVM:", jvm_path, "\n", file=sys.stderr)
 
     package = sys.modules[__package__]
-    package.jvm = jvm = JVM(jvm_path)
+    package.jvm = jvm = _jvm.JVM(jvm_path)
     jvm.start("-Djava.class.path={}".format(
               os.pathsep.join([os.path.join(test_java, "classes")])),
               "-ea", "-Xms16M", "-Xmx512M")

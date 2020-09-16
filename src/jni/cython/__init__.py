@@ -4,13 +4,7 @@
 # Please refer to the accompanying LICENSE file.
 
 import sys
-import platform
 import ctypes as ct
-
-if platform.win32_ver()[0]:
-    from _ctypes import FreeLibrary as dlclose
-else:
-    from _ctypes import dlclose as dlclose
 
 __none = object()
 obj         = lambda type, init=__none: type() if init is __none else type(init)
@@ -108,6 +102,4 @@ __object_types = {
 }
 
 del sys
-del platform
 del ct
-del dlclose

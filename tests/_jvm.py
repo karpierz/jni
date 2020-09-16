@@ -43,7 +43,7 @@ class JVM:
             jvm_args = jni.obj(jni.JavaVMInitArgs)
             jvm_args.version  = JVM.JNI_VERSION
             jvm_args.nOptions = len(jvmoptions)
-            jvm_args.options  = options = jni.new_array(jni.JavaVMOption, jvm_args.nOptions)
+            jvm_args.options  = joptions = jni.new_array(jni.JavaVMOption, jvm_args.nOptions)
             _keep = []
             for i, option in enumerate(jvmoptions):
                 optionString = jni.new_cstr(option if isinstance(option, bytes)
@@ -53,7 +53,7 @@ class JVM:
                 jvm_args.options[i].extraInfo    = jni.NULL
             jvm_args.ignoreUnrecognized = jni.JNI_TRUE if ignoreUnrecognized else jni.JNI_FALSE
             err = self._JNI.CreateJavaVM(pjvm, penv, jvm_args)
-            del _keep, options, jvm_args
+            del _keep, joptions, jvm_args
             if err != jni.JNI_OK or jni.isNULL(pjvm):
                 raise jni.JNIException(err if err != jni.JNI_OK else jni.JNI_ERR,
                                        info="JNI_CreateJavaVM")
@@ -77,11 +77,11 @@ class JVM:
             finally:
                 self._jnijvm = None
 
-    def isStarted(self):
+    def isStarted(self) -> bool:
         # Check if the JVM environment has been initialized
         return self._jnijvm is not None
 
-    def attachThread(self, daemon=False):
+    def attachThread(self, daemon: bool=False):
         try:
             penv = jni.obj(jni.POINTER(jni.JNIEnv))
             if not daemon:
@@ -98,7 +98,7 @@ class JVM:
         except Exception as exc:
             self.handleException(exc)
 
-    def isThreadAttached(self):
+    def isThreadAttached(self) -> bool:
         try:
             penv = jni.obj(jni.POINTER(jni.JNIEnv))
             self._jnijvm.GetEnv(penv, JVM.JNI_VERSION)
