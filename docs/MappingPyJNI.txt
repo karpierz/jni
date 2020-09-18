@@ -6,7 +6,7 @@ class jvalue(ct.Union):
     c: jchar    = u'\0'  # <-> unicode (one char)
     s: jshort   = 0      # <-> int
     i: jint     = 0      # <-> int
-    j: jlong    = 0      # <-> long
+    j: jlong    = 0      # <-> int
     f: jfloat   = 0.0    # <-> float
     d: jdouble  = 0.0    # <-> float
     l: jobject  = None   # <->

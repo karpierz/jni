@@ -98,15 +98,24 @@ class JNITestCase(unittest.TestCase):
         with self.assertRaises(OSError):
             JNI = jni.load("")
         with self.assertRaises(OSError):
-            JNI = jni.load("non-existent")
+            here = os.path.dirname(os.path.abspath(__file__))
+            JNI = jni.load(os.path.join(here, "non-existent"))
         with self.assertRaises(OSError):
             JNI = jni.load(os.path.abspath(__file__))
 
+        self.assertTrue(hasattr(self.JNI, "GetDefaultJavaVMInitArgs"))
+        self.assertTrue(hasattr(self.JNI, "CreateJavaVM"))
+        self.assertTrue(hasattr(self.JNI, "GetCreatedJavaVMs"))
+
         jni_version = self.jenv.GetVersion()
-        self.assertTrue(jni_version)
-        self.assertIn(jni_version, (jni.JNI_VERSION_1_1, jni.JNI_VERSION_1_2,
-                                    jni.JNI_VERSION_1_4, jni.JNI_VERSION_1_6,
-                                    jni.JNI_VERSION_1_8, jni.JNI_VERSION_9,
+        self.assertIs(type(jni_version), int)
+        self.assertNotEqual(jni_version, 0)
+        self.assertIn(jni_version, (jni.JNI_VERSION_1_1,
+                                    jni.JNI_VERSION_1_2,
+                                    jni.JNI_VERSION_1_4,
+                                    jni.JNI_VERSION_1_6,
+                                    jni.JNI_VERSION_1_8,
+                                    jni.JNI_VERSION_9,
                                     jni.JNI_VERSION_10))
 
     def test_classes(self):
@@ -1137,6 +1146,15 @@ class JNITestCase(unittest.TestCase):
         float_array_length   = self.jenv.GetArrayLength(float_array)
         double_array_length  = self.jenv.GetArrayLength(double_array)
         String_array_length  = self.jenv.GetArrayLength(String_array)
+        self.assertIs(type(boolean_array_length), int)
+        self.assertIs(type(char_array_length),    int)
+        self.assertIs(type(byte_array_length),    int)
+        self.assertIs(type(short_array_length),   int)
+        self.assertIs(type(int_array_length),     int)
+        self.assertIs(type(long_array_length),    int)
+        self.assertIs(type(float_array_length),   int)
+        self.assertIs(type(double_array_length),  int)
+        self.assertIs(type(String_array_length),  int)
         self.assertEqual(boolean_array_length, 110)
         self.assertEqual(char_array_length,    120)
         self.assertEqual(byte_array_length,    130)

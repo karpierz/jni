@@ -35,7 +35,7 @@ Prerequisites:
 + Python 3.6 or higher
 
   * https://www.python.org/
-  * 3.7 is a primary test environment.
+  * 3.7 with Java 8 is a primary test environment.
 
 + pip and setuptools
 
@@ -54,6 +54,12 @@ To ensure everything is running correctly you can run the tests using::
 
 Development
 ===========
+
+Prerequisites:
+
++ Development is strictly based on *tox*. To install it run::
+
+    python -m pip install --upgrade tox
 
 Visit `development page`_.
 
@@ -76,12 +82,6 @@ or on development mode:
 .. parsed-literal::
 
     python -m pip install --editable ./|package|
-
-Prerequisites:
-
-+ Development is strictly based on *tox*. To install it run::
-
-    python -m pip install --upgrade tox
 
 License
 =======

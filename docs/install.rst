@@ -9,7 +9,7 @@ Requirements
 + Python 3.6 or higher
 
   * https://www.python.org/
-  * 3.7 is a primary test environment.
+  * 3.7 with Java 8 is a primary test environment.
 
 + pip and setuptools
 
