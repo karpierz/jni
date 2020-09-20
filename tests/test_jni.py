@@ -1241,7 +1241,7 @@ class JNITestCase(unittest.TestCase):
         self.assertEqual(result, 2.25)
 
     def test_double_method(self):
-        """A Java float can be created, and the content returned"""
+        """A Java double can be created, and the content returned"""
 
         import jni
 

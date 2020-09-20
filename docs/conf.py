@@ -55,7 +55,6 @@ extensions = [
    #'sphinx.ext.coverage',
     'sphinx.ext.ifconfig',
     'sphinx.ext.napoleon',
-   #'rinoh.frontend.sphinx',
 ]
 
 # Needed for e.g. linkcheck builder

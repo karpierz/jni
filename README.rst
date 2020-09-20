@@ -15,7 +15,6 @@ Overview
   | It is done by implementing whole JNI API functionality in a clean Python  instead of C/C++.
   | |package_bold| also contains a JNI wrapper in pure C based on Python C-API (currently under development) - mainly for performance reasons.
 
-
 What is |package|:
 ------------------
 
@@ -25,7 +24,6 @@ What is |package|:
 
   Known Bugs/Limitations :
     * Because of lack of JVM support, you cannot shutdown the JVM and then restart it.
-
 
 Installation
 ============

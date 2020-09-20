@@ -11,7 +11,7 @@ __title__        = "jni"
 __summary__      = "Python bridge for the Java Native Interface."
 __uri__          = "https://pypi.org/project/jni/"
 __version_info__ = type("version_info", (), dict(major=1, minor=0, micro=0,
-                        releaselevel="beta", serial=8))
+                        releaselevel="beta", serial=9))
 __version__      = "{0.major}.{0.minor}.{0.micro}{1}{2}".format(__version_info__,
                    dict(alpha="a", beta="b", candidate="rc", final="",
                         post=".post", dev=".dev")[__version_info__.releaselevel],
