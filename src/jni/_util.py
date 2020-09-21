@@ -35,7 +35,7 @@ class Preprocessor:
         __getattr__ = dict.__getitem__
         __setattr__ = dict.__setitem__
         __delattr__ = dict.__delitem__
-        copy = lambda self: adict(self)
+        copy = lambda self: self.__class__(self)
 
     comment_pattern = re.compile(r"//.*?$|"
                                  r"/\*.*?\*/|"

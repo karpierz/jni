@@ -3,7 +3,7 @@ jni documentation
 
 .. toctree::
    :maxdepth: 2
-   :caption: Parts of the documentation:
+   :caption: Contents:
 
    README
    install

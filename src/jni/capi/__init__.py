@@ -22,7 +22,7 @@ def defined(varname, __getframe=sys._getframe):
 def from_oid(oid, __cast=ct.cast, __py_object=ct.py_object):
     return __cast(oid, __py_object).value if oid else None
 
-from .jni import * ; del jni
+from .jni import * ; del jni  # noqa
 
 #
 # Decorator for defining Java native method in Python

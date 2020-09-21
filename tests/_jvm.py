@@ -17,12 +17,13 @@ class JVM:
         try:
             if not isinstance(dll_path, str):
                 raise JVMException(jni.JNI_EINVAL,
-                                   "First paramter must be a string or unicode")
+                                   "First paramter must be a string")
             try:
                 self._JNI = jni.load(dll_path)
             except Exception as exc:
                 raise JVMException(1001,
-                                   "Unable to load DLL [{}], error = {}".format(dll_path, exc))
+                                   "Unable to load DLL [{}], error = {}".format(
+                                   dll_path, exc)) from None
         except Exception as exc:
             self.handleException(exc)
 
@@ -119,12 +120,12 @@ class JVM:
             jexc = self.JException(exc)
             classname = jexc.getClass().getName()
             message   = jexc.getMessage()
-            raise RuntimeError(u"Java exception {} occurred: {}".format(classname,
-                               message if message is not None else classname))
+            raise RuntimeError("Java exception {} occurred: {}".format(classname,
+                               message if message is not None else classname)) from None
         except jni.JNIException as exc:
-            raise RuntimeError(exc.getMessage())
+            raise RuntimeError(exc.getMessage()) from None
         except JVMException as exc:
-            raise RuntimeError(exc.args[1])
+            raise RuntimeError(exc.args[1]) from None
         except:
             raise exc
 

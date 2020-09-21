@@ -16,7 +16,7 @@ def defined(varname, __getframe=sys._getframe):
 def from_oid(oid, __cast=ct.cast, __py_object=ct.py_object):
     return __cast(oid, __py_object).value if oid else None
 
-from .jni import * ; del jni
+from .jni import * ; del jni  # noqa
 
 #
 # Decorator for defining Java native method in Python
@@ -26,7 +26,7 @@ def method(signature, **kwargs):
     ret_type, arg_types = __parse_signature(signature)
     fun_name = kwargs.get("name", "").encode("utf-8")
     fun_sign = signature.encode("utf-8")
-   #!!!FunProto = CFUNC(ret_type, POINTER(JNIEnv), jobject, *arg_types)
+    #!!!FunProto = CFUNC(ret_type, POINTER(JNIEnv), jobject, *arg_types)
     def wrapper(fun):
         native_meth = JNINativeMethod()
         native_meth.name      = fun_name or fun.__name__.encode("utf-8")

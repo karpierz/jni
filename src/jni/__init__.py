@@ -13,6 +13,6 @@ BACKEND = config.get("BACKEND", "ctypes")
 try:
     exec("from .{} import *".format(BACKEND), globals())
 except ImportError:
-    raise ImportError("Unknown jni backend: {}".format(BACKEND))
+    raise ImportError("Unknown jni backend: {}".format(BACKEND)) from None
 
 del config

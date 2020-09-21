@@ -202,9 +202,9 @@ class JNIEnv(ct.Structure):
 
     # Java class handling
 
-    def DefineClass(self, name, loader, buf, len):
+    def DefineClass(self, name, loader, buf, blen):
         fun = self.functions[0]
-        ret = fun.DefineClass(self, name, loader, buf, len)
+        ret = fun.DefineClass(self, name, loader, buf, blen)
         if not ret and fun.ExceptionCheck(self): self._handle_JavaException()
         return ret
 
@@ -760,9 +760,9 @@ class JNIEnv(ct.Structure):
 
     # Java strings handling
 
-    def NewString(self, unicode, len):
+    def NewString(self, unicode, slen):
         fun = self.functions[0]
-        ret = fun.NewString(self, unicode, len)
+        ret = fun.NewString(self, unicode, slen)
         if not ret and fun.ExceptionCheck(self): self._handle_JavaException()
         return ret
 
@@ -837,9 +837,9 @@ class JNIEnv(ct.Structure):
         if fun.ExceptionCheck(self): self._handle_JavaException()
         return ret
 
-    def NewObjectArray(self, len, clazz, init=None):
+    def NewObjectArray(self, size, clazz, init=None):
         fun = self.functions[0]
-        ret = fun.NewObjectArray(self, len, clazz, init)
+        ret = fun.NewObjectArray(self, size, clazz, init)
         if not ret and fun.ExceptionCheck(self): self._handle_JavaException()
         return ret
 
@@ -854,51 +854,51 @@ class JNIEnv(ct.Structure):
         fun.SetObjectArrayElement(self, array, index, value)
         if fun.ExceptionCheck(self): self._handle_JavaException()
 
-    def NewBooleanArray(self, len):
+    def NewBooleanArray(self, size):
         fun = self.functions[0]
-        ret = fun.NewBooleanArray(self, len)
+        ret = fun.NewBooleanArray(self, size)
         if not ret and fun.ExceptionCheck(self): self._handle_JavaException()
         return ret
 
-    def NewByteArray(self, len):
+    def NewByteArray(self, size):
         fun = self.functions[0]
-        ret = fun.NewByteArray(self, len)
+        ret = fun.NewByteArray(self, size)
         if not ret and fun.ExceptionCheck(self): self._handle_JavaException()
         return ret
 
-    def NewCharArray(self, len):
+    def NewCharArray(self, size):
         fun = self.functions[0]
-        ret = fun.NewCharArray(self, len)
+        ret = fun.NewCharArray(self, size)
         if not ret and fun.ExceptionCheck(self): self._handle_JavaException()
         return ret
 
-    def NewShortArray(self, len):
+    def NewShortArray(self, size):
         fun = self.functions[0]
-        ret = fun.NewShortArray(self, len)
+        ret = fun.NewShortArray(self, size)
         if not ret and fun.ExceptionCheck(self): self._handle_JavaException()
         return ret
 
-    def NewIntArray(self, len):
+    def NewIntArray(self, size):
         fun = self.functions[0]
-        ret = fun.NewIntArray(self, len)
+        ret = fun.NewIntArray(self, size)
         if not ret and fun.ExceptionCheck(self): self._handle_JavaException()
         return ret
 
-    def NewLongArray(self, len):
+    def NewLongArray(self, size):
         fun = self.functions[0]
-        ret = fun.NewLongArray(self, len)
+        ret = fun.NewLongArray(self, size)
         if not ret and fun.ExceptionCheck(self): self._handle_JavaException()
         return ret
 
-    def NewFloatArray(self, len):
+    def NewFloatArray(self, size):
         fun = self.functions[0]
-        ret = fun.NewFloatArray(self, len)
+        ret = fun.NewFloatArray(self, size)
         if not ret and fun.ExceptionCheck(self): self._handle_JavaException()
         return ret
 
-    def NewDoubleArray(self, len):
+    def NewDoubleArray(self, size):
         fun = self.functions[0]
-        ret = fun.NewDoubleArray(self, len)
+        ret = fun.NewDoubleArray(self, size)
         if not ret and fun.ExceptionCheck(self): self._handle_JavaException()
         return ret
 
@@ -990,84 +990,84 @@ class JNIEnv(ct.Structure):
         fun.ReleaseDoubleArrayElements(self, array, elems, mode)
         if fun.ExceptionCheck(self): self._handle_JavaException()
 
-    def GetBooleanArrayRegion(self, array, start, len, buf):
+    def GetBooleanArrayRegion(self, array, start, size, buf):
         fun = self.functions[0]
-        fun.GetBooleanArrayRegion(self, array, start, len, buf)
+        fun.GetBooleanArrayRegion(self, array, start, size, buf)
         if fun.ExceptionCheck(self): self._handle_JavaException()
 
-    def GetByteArrayRegion(self, array, start, len, buf):
+    def GetByteArrayRegion(self, array, start, size, buf):
         fun = self.functions[0]
-        fun.GetByteArrayRegion(self, array, start, len, buf)
+        fun.GetByteArrayRegion(self, array, start, size, buf)
         if fun.ExceptionCheck(self): self._handle_JavaException()
 
-    def GetCharArrayRegion(self, array, start, len, buf):
+    def GetCharArrayRegion(self, array, start, size, buf):
         fun = self.functions[0]
-        fun.GetCharArrayRegion(self, array, start, len, buf)
+        fun.GetCharArrayRegion(self, array, start, size, buf)
         if fun.ExceptionCheck(self): self._handle_JavaException()
 
-    def GetShortArrayRegion(self, array, start, len, buf):
+    def GetShortArrayRegion(self, array, start, size, buf):
         fun = self.functions[0]
-        fun.GetShortArrayRegion(self, array, start, len, buf)
+        fun.GetShortArrayRegion(self, array, start, size, buf)
         if fun.ExceptionCheck(self): self._handle_JavaException()
 
-    def GetIntArrayRegion(self, array, start, len, buf):
+    def GetIntArrayRegion(self, array, start, size, buf):
         fun = self.functions[0]
-        fun.GetIntArrayRegion(self, array, start, len, buf)
+        fun.GetIntArrayRegion(self, array, start, size, buf)
         if fun.ExceptionCheck(self): self._handle_JavaException()
 
-    def GetLongArrayRegion(self, array, start, len, buf):
+    def GetLongArrayRegion(self, array, start, size, buf):
         fun = self.functions[0]
-        fun.GetLongArrayRegion(self, array, start, len, buf)
+        fun.GetLongArrayRegion(self, array, start, size, buf)
         if fun.ExceptionCheck(self): self._handle_JavaException()
 
-    def GetFloatArrayRegion(self, array, start, len, buf):
+    def GetFloatArrayRegion(self, array, start, size, buf):
         fun = self.functions[0]
-        fun.GetFloatArrayRegion(self, array, start, len, buf)
+        fun.GetFloatArrayRegion(self, array, start, size, buf)
         if fun.ExceptionCheck(self): self._handle_JavaException()
 
-    def GetDoubleArrayRegion(self, array, start, len, buf):
+    def GetDoubleArrayRegion(self, array, start, size, buf):
         fun = self.functions[0]
-        fun.GetDoubleArrayRegion(self, array, start, len, buf)
+        fun.GetDoubleArrayRegion(self, array, start, size, buf)
         if fun.ExceptionCheck(self): self._handle_JavaException()
 
-    def SetBooleanArrayRegion(self, array, start, len, buf):
+    def SetBooleanArrayRegion(self, array, start, size, buf):
         fun = self.functions[0]
-        fun.SetBooleanArrayRegion(self, array, start, len, buf)
+        fun.SetBooleanArrayRegion(self, array, start, size, buf)
         if fun.ExceptionCheck(self): self._handle_JavaException()
 
-    def SetByteArrayRegion(self, array, start, len, buf):
+    def SetByteArrayRegion(self, array, start, size, buf):
         fun = self.functions[0]
-        fun.SetByteArrayRegion(self, array, start, len, buf)
+        fun.SetByteArrayRegion(self, array, start, size, buf)
         if fun.ExceptionCheck(self): self._handle_JavaException()
 
-    def SetCharArrayRegion(self, array, start, len, buf):
+    def SetCharArrayRegion(self, array, start, size, buf):
         fun = self.functions[0]
-        fun.SetCharArrayRegion(self, array, start, len, buf)
+        fun.SetCharArrayRegion(self, array, start, size, buf)
         if fun.ExceptionCheck(self): self._handle_JavaException()
 
-    def SetShortArrayRegion(self, array, start, len, buf):
+    def SetShortArrayRegion(self, array, start, size, buf):
         fun = self.functions[0]
-        fun.SetShortArrayRegion(self, array, start, len, buf)
+        fun.SetShortArrayRegion(self, array, start, size, buf)
         if fun.ExceptionCheck(self): self._handle_JavaException()
 
-    def SetIntArrayRegion(self, array, start, len, buf):
+    def SetIntArrayRegion(self, array, start, size, buf):
         fun = self.functions[0]
-        fun.SetIntArrayRegion(self, array, start, len, buf)
+        fun.SetIntArrayRegion(self, array, start, size, buf)
         if fun.ExceptionCheck(self): self._handle_JavaException()
 
-    def SetLongArrayRegion(self, array, start, len, buf):
+    def SetLongArrayRegion(self, array, start, size, buf):
         fun = self.functions[0]
-        fun.SetLongArrayRegion(self, array, start, len, buf)
+        fun.SetLongArrayRegion(self, array, start, size, buf)
         if fun.ExceptionCheck(self): self._handle_JavaException()
 
-    def SetFloatArrayRegion(self, array, start, len, buf):
+    def SetFloatArrayRegion(self, array, start, size, buf):
         fun = self.functions[0]
-        fun.SetFloatArrayRegion(self, array, start, len, buf)
+        fun.SetFloatArrayRegion(self, array, start, size, buf)
         if fun.ExceptionCheck(self): self._handle_JavaException()
 
-    def SetDoubleArrayRegion(self, array, start, len, buf):
+    def SetDoubleArrayRegion(self, array, start, size, buf):
         fun = self.functions[0]
-        fun.SetDoubleArrayRegion(self, array, start, len, buf)
+        fun.SetDoubleArrayRegion(self, array, start, size, buf)
         if fun.ExceptionCheck(self): self._handle_JavaException()
 
     # ... in a critical manner
@@ -1629,7 +1629,7 @@ def load(dll_path, handle=None, __dlclose=dlclose):
     except OSError as exc:
         raise exc
     except Exception as exc:
-        raise OSError("{}".format(exc))
+        raise OSError("{}".format(exc)) from None
 
     def proto(restype, func, *argtypes):
         func.restype  = restype

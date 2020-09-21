@@ -13555,7 +13555,7 @@ static PyObject *__pyx_pw_3jni_6cython_3jni_1load(PyObject *__pyx_self, PyObject
 }
 
 /* "jni/cython/jni.pyx":503
- *         raise OSError("{}".format(exc))
+ *         raise OSError("{}".format(exc)) from None
  * 
  *     def JNI_GetDefaultJavaVMInitArgs(args, __dll=dll):             # <<<<<<<<<<<<<<
  *         cdef JNI_GetDefaultJavaVMInitArgs_ptr GetDefaultJavaVMInitArgs = <JNI_GetDefaultJavaVMInitArgs_ptr> \
@@ -13796,7 +13796,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_4load_JNI_GetDefaultJavaVMInitArgs(C
   goto __pyx_L0;
 
   /* "jni/cython/jni.pyx":503
- *         raise OSError("{}".format(exc))
+ *         raise OSError("{}".format(exc)) from None
  * 
  *     def JNI_GetDefaultJavaVMInitArgs(args, __dll=dll):             # <<<<<<<<<<<<<<
  *         cdef JNI_GetDefaultJavaVMInitArgs_ptr GetDefaultJavaVMInitArgs = <JNI_GetDefaultJavaVMInitArgs_ptr> \
@@ -14688,7 +14688,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_load(CYTHON_UNUSED PyObject *__pyx_s
  *     except OSError as exc:
  *         raise exc             # <<<<<<<<<<<<<<
  *     except Exception as exc:
- *         raise OSError("{}".format(exc))
+ *         raise OSError("{}".format(exc)) from None
  */
         __Pyx_Raise(__pyx_v_exc, 0, 0, 0);
         __PYX_ERR(0, 499, __pyx_L14_error)
@@ -14742,7 +14742,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_load(CYTHON_UNUSED PyObject *__pyx_s
  *     except OSError as exc:
  *         raise exc
  *     except Exception as exc:             # <<<<<<<<<<<<<<
- *         raise OSError("{}".format(exc))
+ *         raise OSError("{}".format(exc)) from None
  * 
  */
     __pyx_t_9 = __Pyx_PyErr_ExceptionMatches(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
@@ -14759,7 +14759,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_load(CYTHON_UNUSED PyObject *__pyx_s
         /* "jni/cython/jni.pyx":501
  *         raise exc
  *     except Exception as exc:
- *         raise OSError("{}".format(exc))             # <<<<<<<<<<<<<<
+ *         raise OSError("{}".format(exc)) from None             # <<<<<<<<<<<<<<
  * 
  *     def JNI_GetDefaultJavaVMInitArgs(args, __dll=dll):
  */
@@ -14783,7 +14783,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_load(CYTHON_UNUSED PyObject *__pyx_s
         __pyx_t_17 = __Pyx_PyObject_CallOneArg(__pyx_builtin_OSError, __pyx_t_4); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 501, __pyx_L25_error)
         __Pyx_GOTREF(__pyx_t_17);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __Pyx_Raise(__pyx_t_17, 0, 0, 0);
+        __Pyx_Raise(__pyx_t_17, 0, 0, Py_None);
         __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
         __PYX_ERR(0, 501, __pyx_L25_error)
       }
@@ -14792,7 +14792,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_load(CYTHON_UNUSED PyObject *__pyx_s
  *     except OSError as exc:
  *         raise exc
  *     except Exception as exc:             # <<<<<<<<<<<<<<
- *         raise OSError("{}".format(exc))
+ *         raise OSError("{}".format(exc)) from None
  * 
  */
       /*finally:*/ {
@@ -14852,7 +14852,7 @@ static PyObject *__pyx_pf_3jni_6cython_3jni_load(CYTHON_UNUSED PyObject *__pyx_s
   }
 
   /* "jni/cython/jni.pyx":503
- *         raise OSError("{}".format(exc))
+ *         raise OSError("{}".format(exc)) from None
  * 
  *     def JNI_GetDefaultJavaVMInitArgs(args, __dll=dll):             # <<<<<<<<<<<<<<
  *         cdef JNI_GetDefaultJavaVMInitArgs_ptr GetDefaultJavaVMInitArgs = <JNI_GetDefaultJavaVMInitArgs_ptr> \
@@ -21867,7 +21867,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__23);
 
   /* "jni/cython/jni.pyx":503
- *         raise OSError("{}".format(exc))
+ *         raise OSError("{}".format(exc)) from None
  * 
  *     def JNI_GetDefaultJavaVMInitArgs(args, __dll=dll):             # <<<<<<<<<<<<<<
  *         cdef JNI_GetDefaultJavaVMInitArgs_ptr GetDefaultJavaVMInitArgs = <JNI_GetDefaultJavaVMInitArgs_ptr> \

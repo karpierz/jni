@@ -498,7 +498,7 @@ def load(dll_path, handle=None, __dlclose=dlclose):
     except OSError as exc:
         raise exc
     except Exception as exc:
-        raise OSError("{}".format(exc))
+        raise OSError("{}".format(exc)) from None
 
     def JNI_GetDefaultJavaVMInitArgs(args, __dll=dll):
         cdef JNI_GetDefaultJavaVMInitArgs_ptr GetDefaultJavaVMInitArgs = <JNI_GetDefaultJavaVMInitArgs_ptr> \
