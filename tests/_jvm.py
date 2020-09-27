@@ -30,10 +30,10 @@ class JVM:
     def __del__(self):
         if not self._jnijvm: return
         try: self._jnijvm.DestroyJavaVM()
-        except: pass
+        except Exception: pass
         self._jnijvm = None
         try: self._JNI.dllclose()
-        except: pass
+        except Exception: pass
         self._JNI = None
 
     def start(self, *jvmoptions, **jvmargs):
@@ -126,7 +126,7 @@ class JVM:
             raise RuntimeError(exc.getMessage()) from None
         except JVMException as exc:
             raise RuntimeError(exc.args[1]) from None
-        except:
+        except Exception:
             raise exc
 
 

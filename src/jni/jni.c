@@ -22,7 +22,8 @@
   #else
     typedef long jint;
   #endif
-#elif (defined(__GNUC__) && ((__GNUC__ > 4) || (__GNUC__ == 4) && (__GNUC_MINOR__ > 2))) || \
+#elif (defined(__GNUC__) && ((__GNUC__ > 4) || \
+                             (__GNUC__ == 4) && (__GNUC_MINOR__ > 2))) || \
       __has_attribute(visibility)
   #ifdef ARM
     #define JNIEXPORT __attribute__((externally_visible,visibility("default")))

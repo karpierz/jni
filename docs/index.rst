@@ -1,14 +1,17 @@
 jni documentation
 =================
 
+.. include:: README.rst
+
+Contents
+========
+
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
-   README
-   install
-   userguide
-   CHANGES
+   install.rst
+   userguide.rst
+   CHANGES.rst
 
 Indices and tables
 ==================

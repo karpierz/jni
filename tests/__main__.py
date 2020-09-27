@@ -10,18 +10,19 @@ import logging
 
 from . import test_dir
 
+log = logging.getLogger(__name__)
+
 test_java = os.path.join(test_dir, "java")
 
 
-def test_suite(names=None, omit=("run",)):
+def test_suite(names=None, omit=()):
     from . import __name__ as pkg_name
     from . import __path__ as pkg_path
     import unittest
     import pkgutil
     if names is None:
         names = [name for _, name, _ in pkgutil.iter_modules(pkg_path)
-                 if name != "__main__" and not name.startswith("tman_")
-                 and name not in omit]
+                 if name.startswith("test_") and name not in omit]
     names = [".".join((pkg_name, name)) for name in names]
     tests = unittest.defaultTestLoader.loadTestsFromNames(names)
     return tests
@@ -56,7 +57,7 @@ def main(argv=sys.argv):
 
     try:
         jvm_path = next(item for item in jvm_dll_paths if os.path.exists(item))
-    except:
+    except Exception:
         raise Exception("jvm.dll not found !")
 
     print("Running testsuite using JVM:", jvm_path, "\n", file=sys.stderr)

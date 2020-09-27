@@ -19,6 +19,6 @@ Requirements
 Install
 -------
 
-Should be easy as ::
+Should be easy as::
 
     python -m pip install --upgrade jni
