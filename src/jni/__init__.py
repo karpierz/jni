@@ -3,9 +3,9 @@
 # Licensed under proprietary License
 # Please refer to the accompanying LICENSE file.
 
-from . import __config__
-from .__about__ import *  # noqa
-del __config__, __about__, _util
+from . import __config__ ; del __config__
+from .__about__ import * ; del __about__  # noqa
+del _util
 
 from .__config__ import config
 
