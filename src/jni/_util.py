@@ -18,10 +18,10 @@ def get_config(cfg_path, cfg_section):
 
 def make_config(cfg_fname, cfg_section):
     import sys
-    from os import path
+    from pathlib import Path
     fglobals = sys._getframe(1).f_globals
-    cfg_path = path.join(path.dirname(fglobals["__file__"]), *cfg_fname.split("/"))
-    fglobals["config"] = get_config(cfg_path, cfg_section)
+    cfg_path = Path(fglobals["__file__"]).parent/cfg_fname
+    fglobals["config"] = get_config(str(cfg_path), cfg_section)
     fglobals.pop("__builtins__", None)
     fglobals.pop("__cached__",   None)
     fglobals["__all__"] = ("config",)
