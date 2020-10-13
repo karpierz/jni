@@ -6,14 +6,14 @@
 include README.rst
 include CHANGES.rst
 include LICENSE
+include .readthedocs.yml
 
 graft docs
 
 graft src
-prune src/jni/\#
 
 graft tests
-exclude tests/_info_.txt tests/_report_*.txt
 
-global-exclude .build .build.*
+global-exclude \#/** \#*.*/**
+global-exclude .build/** .build.*/**
 global-exclude *.py[cod] __pycache__

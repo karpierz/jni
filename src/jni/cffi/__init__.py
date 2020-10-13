@@ -1493,7 +1493,7 @@ def method(signature, **kwargs):
     FunProto = CFUNC(ret_type, POINTER(JNIEnv), jobject, *arg_types)
     Fun_Proto = None
     _fun_name = None
-    def wrapper(fun):
+    def wrapper(fun, fun_name=fun_name, fun_sign=fun_sign):
         nonlocal Fun_Proto, _fun_name
         Fun_Proto = FunProto(fun)
         _fun_name = new_cstr(fun.__name__.encode("utf-8"))

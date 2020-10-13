@@ -1649,7 +1649,7 @@ def load(dll_path, handle=None, __dlclose=dlclose):
 
 def method(signature, **kwargs):
     ret_type, arg_types = __parse_signature(signature)
-    fun_name = kwargs.get("name", "").encode("utf-8")
+    fun_name = kwargs["name"].encode("utf-8") if "name" in kwargs else None
     fun_sign = signature.encode("utf-8")
     FunProto = CFUNC(ret_type, POINTER(JNIEnv), jobject, *arg_types)
     def wrapper(fun):
