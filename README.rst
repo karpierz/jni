@@ -102,6 +102,6 @@ Authors
 .. |package| replace:: jni
 .. |package_bold| replace:: **jni**
 .. |respository| replace:: https://github.com/karpierz/jni.git
-.. _development page: https://github.com/karpierz/jni/
+.. _development page: https://github.com/karpierz/jni
 .. _PyPI record: https://pypi.org/project/jni/
 .. _Documentation: https://jni.readthedocs.io/
