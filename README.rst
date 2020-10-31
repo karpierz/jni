@@ -10,8 +10,10 @@ Overview
 | It is an effort to allow python programs full access to Java JNI API.
 
 `PyPI record`_.
+`Documentation`_.
 
-| |package_bold| is a lightweight Python package, based on the *ctypes*, or *cffi* library, or Cython wrapper (currently under development).
+| |package_bold| is a lightweight Python package, based on the *ctypes*, or *cffi* library,
+  or Cython wrapper (currently under development).
 | It is done by implementing whole JNI API functionality in a clean Python instead of C/C++.
 | |package_bold| also contains a JNI wrapper in pure C based on Python C-API (currently under
   development) - mainly for performance reasons.
@@ -102,3 +104,4 @@ Authors
 .. |respository| replace:: https://github.com/karpierz/jni.git
 .. _development page: https://github.com/karpierz/jni/
 .. _PyPI record: https://pypi.org/project/jni/
+.. _Documentation: https://jni.readthedocs.io/

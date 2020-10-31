@@ -9,16 +9,16 @@ public class Thing
 
     public Thing(String n)
     {
-        name = n;
+        this.name = n;
     }
 
     public Thing(String n, int count)
     {
-        name = n + " " + count;
+        this.name = n + " " + count;
     }
 
     public String toString()
     {
-        return name;
+        return this.name;
     }
 }
