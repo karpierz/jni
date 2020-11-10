@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0.0b16 (2020-10-31)
+1.0.0b17 (2020-11-10)
 ---------------------
 - Add support for Python 3.9.
 - General update, improvements and cleanup.
