@@ -1,9 +1,10 @@
-# Copyright (c) 2004-2020 Adam Karpierz
+# Copyright (c) 2004-2022 Adam Karpierz
 # Licensed under CC BY-NC-ND 4.0
 # Licensed under proprietary License
 # Please refer to the accompanying LICENSE file.
 
 import sys
+import os
 import platform
 import ctypes as ct
 
@@ -1617,7 +1618,7 @@ class JNIException(SystemError):
     def getMessage(self):
         prefix = self._info + ": " if self._info else ""
         return prefix + JNIException.reason.get(self._error,
-                                                "unknown error code {0}".format(self._error))
+                                                f"unknown error code {self._error}")
 
     def getError(self):
         return self._error
@@ -1625,11 +1626,12 @@ class JNIException(SystemError):
 def load(dll_path, handle=None, __dlclose=dlclose):
 
     try:
+        if isinstance(dll_path, os.PathLike): dll_path = str(dll_path)
         dll = DLL(dll_path, handle=handle)
     except OSError as exc:
         raise exc
     except Exception as exc:
-        raise OSError("{}".format(exc)) from None
+        raise OSError(f"{exc}") from None
 
     def proto(restype, func, *argtypes):
         func.restype  = restype

@@ -1,11 +1,10 @@
-# Copyright (c) 2004-2020 Adam Karpierz
+# Copyright (c) 2004-2022 Adam Karpierz
 # Licensed under CC BY-NC-ND 4.0
 # Licensed under proprietary License
 # Please refer to the accompanying LICENSE file.
 
 from typing import Optional
 import unittest
-import os
 import re
 
 

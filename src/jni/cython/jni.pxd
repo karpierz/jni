@@ -1,4 +1,4 @@
-# Copyright (c) 2004-2020 Adam Karpierz
+# Copyright (c) 2004-2022 Adam Karpierz
 # Licensed under CC BY-NC-ND 4.0
 # Licensed under proprietary License
 # Please refer to the accompanying LICENSE file.
@@ -66,7 +66,7 @@ cdef api: # from "jni.h":
 
     # Return values from jobjectRefType
 
-    cpdef enum:
+    cdef enum:
         JNIInvalidRefType    = 0
         JNILocalRefType      = 1
         JNIGlobalRefType     = 2
@@ -77,7 +77,7 @@ cdef api: # from "jni.h":
     # jboolean constants
     #
 
-    cpdef enum:
+    cdef enum:
         JNI_FALSE = 0
         JNI_TRUE  = 1
 
@@ -85,7 +85,7 @@ cdef api: # from "jni.h":
     # possible return values for JNI functions.
     #
 
-    cpdef enum:
+    cdef enum:
         JNI_OK        =  0  # success
         JNI_ERR       = -1  # unknown error
         JNI_EDETACHED = -2  # thread detached from the VM
@@ -98,7 +98,7 @@ cdef api: # from "jni.h":
     # used in ReleaseScalarArrayElements
     #
 
-    cpdef enum:
+    cdef enum:
         JNI_COMMIT = 1
         JNI_ABORT  = 2
 
@@ -453,7 +453,7 @@ cdef api: # from "jni.h":
 
     # These will be VM-specific.
 
-    cpdef enum:
+    cdef enum:
         JDK1_2 = 1
         JDK1_4 = 1
 
@@ -471,7 +471,7 @@ cdef api: # from "jni.h":
         c_jint (*GetEnv)                     (c_JavaVM* vm, void** penv, c_jint version) # nogil
         c_jint (*AttachCurrentThreadAsDaemon)(c_JavaVM* vm, void** penv, void* args) # nogil
 
-    cpdef enum:
+    cdef enum:
         JNI_VERSION_1_1 = 0x00010001
         JNI_VERSION_1_2 = 0x00010002
         JNI_VERSION_1_4 = 0x00010004

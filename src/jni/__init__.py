@@ -1,4 +1,4 @@
-# Copyright (c) 2004-2020 Adam Karpierz
+# Copyright (c) 2004-2022 Adam Karpierz
 # Licensed under CC BY-NC-ND 4.0
 # Licensed under proprietary License
 # Please refer to the accompanying LICENSE file.
@@ -12,8 +12,8 @@ from .__config__ import config
 BACKEND = config.get("BACKEND", "ctypes")
 
 try:
-    exec("from .{} import *".format(BACKEND), globals())
+    exec(f"from .{BACKEND} import *", globals())
 except ImportError:
-    raise ImportError("Unknown jni backend: {}".format(BACKEND)) from None
+    raise ImportError(f"Unknown jni backend: {BACKEND}") from None
 
 del config

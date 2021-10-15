@@ -50,12 +50,6 @@ To install run:
 
     python -m pip install --upgrade |package|
 
-To ensure everything is running correctly you can run the tests using:
-
-  .. parsed-literal::
-
-    python -m jni.tests
-
 Development
 ===========
 
@@ -90,7 +84,7 @@ or on development mode:
 License
 =======
 
-  | Copyright (c) 2004-2020 Adam Karpierz
+  | Copyright (c) 2004-2022 Adam Karpierz
   | Licensed under CC BY-NC-ND 4.0
   | Licensed under proprietary License
   | Please refer to the accompanying LICENSE file.

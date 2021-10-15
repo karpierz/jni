@@ -1,4 +1,4 @@
-# Copyright (c) 2004-2020 Adam Karpierz
+# Copyright (c) 2004-2022 Adam Karpierz
 # Licensed under CC BY-NC-ND 4.0
 # Licensed under proprietary License
 # Please refer to the accompanying LICENSE file.
@@ -7,6 +7,7 @@
 
 from __future__ import absolute_import
 
+import os
 import platform
 import ctypes as ct
 
@@ -264,7 +265,7 @@ cdef class jmethodID(_CData):
 
 # null constant
 
-cpdef c_jobject NULL = <c_jobject>0
+cdef c_jobject NULL = <c_jobject>0
 #isNULL = lambda jobj, __NULL=NULL: jobj == __NULL
 
 # JNI Native Method Interface.
@@ -397,7 +398,7 @@ cdef class JavaVMAttachArgs(_CData):
 #cdef cast(type, obj):
 #    return cython.cast(type, obj)
 
-#cpdef float eggs(float f, unsigned long n):
+#cdef float eggs(float f, unsigned long n):
 #    print(cython.cast("char*", b"ccc"))
 #    return f * n
 
@@ -494,6 +495,7 @@ ctypedef c_jint (__stdcall *JNI_GetCreatedJavaVMs_ptr)(c_JavaVM** pvm, c_jsize s
 def load(dll_path, handle=None, __dlclose=dlclose):
 
     try:
+        if isinstance(dll_path, os.PathLike): dll_path = str(dll_path)
         dll = DLL(dll_path, handle=handle)
     except OSError as exc:
         raise exc

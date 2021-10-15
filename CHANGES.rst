@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.0.0b18 (2021-10-13)
+---------------------
+- dll_path argument of load() can also be type os.PathLike.
+- Copyright year update.
+- Setup update.
+
 1.0.0b17 (2020-11-10)
 ---------------------
 - Add support for Python 3.9.

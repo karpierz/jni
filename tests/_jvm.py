@@ -1,8 +1,9 @@
-# Copyright (c) 2004-2020 Adam Karpierz
+# Copyright (c) 2004-2022 Adam Karpierz
 # Licensed under CC BY-NC-ND 4.0
 # Licensed under proprietary License
 # Please refer to the accompanying LICENSE file.
 
+import os
 import jni
 
 
@@ -15,14 +16,14 @@ class JVM:
     def __init__(self, dll_path):
         self._jnijvm = None
         try:
-            if not isinstance(dll_path, str):
+            if not isinstance(dll_path, (str, os.PathLike)):
                 raise JVMException(jni.JNI_EINVAL,
-                                   "First paramter must be a string")
+                                   "First parameter must be a string or os.PathLike type")
             try:
                 self._JNI = jni.load(dll_path)
             except Exception as exc:
                 raise JVMException(1001,
-                                   "Unable to load DLL [{}], error = {}".format(
+                                   "Unable to load DLL [{!s}], error = {}".format(
                                    dll_path, exc)) from None
         except Exception as exc:
             self.handleException(exc)
