@@ -23,8 +23,7 @@ class JVM:
                 self._JNI = jni.load(dll_path)
             except Exception as exc:
                 raise JVMException(1001,
-                                   "Unable to load DLL [{!s}], error = {}".format(
-                                   dll_path, exc)) from None
+                                   f"Unable to load DLL [{dll_path}], error = {exc}") from None
         except Exception as exc:
             self.handleException(exc)
 
@@ -121,8 +120,8 @@ class JVM:
             jexc = self.JException(exc)
             classname = jexc.getClass().getName()
             message   = jexc.getMessage()
-            raise RuntimeError("Java exception {} occurred: {}".format(classname,
-                               message if message is not None else classname)) from None
+            if message is None: message = classname
+            raise RuntimeError(f"Java exception {classname} occurred: {message}") from None
         except jni.JNIException as exc:
             raise RuntimeError(exc.getMessage()) from None
         except JVMException as exc:
