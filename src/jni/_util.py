@@ -4,31 +4,6 @@
 # Please refer to the accompanying LICENSE file.
 
 
-def get_config(cfg_path, cfg_section):
-    from pathlib import Path
-    from configparser import ConfigParser, ExtendedInterpolation
-    cfg_path = Path(cfg_path)
-    if not cfg_path.is_file():
-        return {}
-    cfg = ConfigParser(interpolation=ExtendedInterpolation(),
-                       inline_comment_prefixes=('#', ';'),
-                       default_section=cfg_section)
-    cfg.read(str(cfg_path), "utf-8")
-    return cfg[cfg_section]
-
-
-def make_config(cfg_fname, cfg_section=None):
-    import sys
-    from pathlib import Path
-    fglobals = sys._getframe(1).f_globals
-    fglobals.pop("__builtins__", None)
-    fglobals.pop("__cached__",   None)
-    if cfg_section is None: cfg_section = fglobals["__package__"]
-    cfg_path = Path(fglobals["__file__"]).parent/cfg_fname
-    fglobals["__all__"] = ("config",)
-    fglobals["config"] = get_config(cfg_path, cfg_section)
-
-
 class Preprocessor:
 
     import re

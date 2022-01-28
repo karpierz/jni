@@ -3,11 +3,8 @@
 # Licensed under proprietary License
 # Please refer to the accompanying LICENSE file.
 
-from . import __config__ ; del __config__
-from .__about__ import * ; del __about__  # noqa
-del _util
-
-from .__config__ import config
+from .__config__ import * ; del __config__  # noqa
+from .__about__  import * ; del __about__   # noqa
 
 BACKEND = config.get("BACKEND", "ctypes")
 
