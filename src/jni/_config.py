@@ -1,6 +1,6 @@
-# Copyright (c) 2016-2022 Adam Karpierz
+# Copyright (c) 2016 Adam Karpierz
 # Licensed under the zlib/libpng License
-# https://opensource.org/licenses/Zlib
+# https://opensource.org/license/zlib
 
 __all__ = ('make_config',)
 
@@ -46,7 +46,7 @@ def set_config(fglobals, **cfg_dict):
     for key in to_remove: config.pop(key, None)
     # Reload
     for mod_name in tuple(sys.modules):
-        if (mod_name.startswith(package_name + ".") and
-            mod_name != config_name):
+        if (mod_name.startswith(package_name + ".")
+            and mod_name != config_name):  # noqa: E129
             del sys.modules[mod_name]
     importlib.reload(sys.modules[package_name])

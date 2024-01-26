@@ -1,6 +1,6 @@
-# Copyright (c) 2011-2022 Adam Karpierz
+# Copyright (c) 2011 Adam Karpierz
 # Licensed under the zlib/libpng License
-# https://opensource.org/licenses/Zlib
+# https://opensource.org/license/zlib
 #
 # Strictly based on Thomas Heller's recipe.
 # https://sourceforge.net/p/ctypes/mailman/message/22650014/
@@ -13,6 +13,7 @@ __all__ = ('c_ptr_add', 'c_ptr_sub', 'c_ptr_iadd', 'c_ptr_isub')
 def c_ptr_add(ptr, other):
     """
     Add an integer to a pointer instance.
+
     Returns a new pointer:
 
     >>> import ctypes
@@ -26,19 +27,20 @@ def c_ptr_add(ptr, other):
     b'foobar'
     >>>
     """
-    from ctypes import c_void_p, cast, sizeof
+    from ctypes import c_void_p, cast  # , sizeof
     try:
         offset = other.__index__()
     except AttributeError:
         raise TypeError("Can only add integer to pointer")
     void_p = cast(ptr, c_void_p)
-    void_p.value += offset #* sizeof(ptr._type_)
+    void_p.value += offset  # * sizeof(ptr._type_)
     return cast(void_p, type(ptr))
 
 
 def c_ptr_sub(ptr, other):
     """
     Substract an integer or a pointer from a pointer.
+
     Returns a new pointer or an integer.
 
     >>> import ctypes
@@ -63,7 +65,7 @@ def c_ptr_sub(ptr, other):
     0
     >>>
     """
-    from ctypes import c_void_p, cast, sizeof
+    from ctypes import c_void_p, cast  # , sizeof
     if type(ptr) == type(other):
         return cast(ptr, c_void_p).value - cast(other, c_void_p).value
     else:
@@ -72,7 +74,7 @@ def c_ptr_sub(ptr, other):
         except AttributeError:
             raise TypeError("Can only substract pointer or integer from pointer")
         void_p = cast(ptr, c_void_p)
-        void_p.value -= offset #* sizeof(ptr._type_)
+        void_p.value -= offset  # * sizeof(ptr._type_)
         return cast(void_p, type(ptr))
 
 
@@ -89,18 +91,20 @@ def c_ptr_iadd(ptr, other):
     b'bar'
     >>>
     """
-    from ctypes import c_void_p, cast, sizeof, pointer, POINTER
+    from ctypes import c_void_p, cast  # , sizeof
+    from ctypes import pointer, POINTER
     try:
         offset = other.__index__()
     except AttributeError:
         raise TypeError("Can only add integer to pointer")
     void_pp = cast(pointer(ptr), POINTER(c_void_p))
-    void_pp.contents.value += offset #* sizeof(ptr._type_)
+    void_pp.contents.value += offset  # * sizeof(ptr._type_)
 
 
 def c_ptr_isub(ptr, other):
     """
     Substract an integer or a pointer from a pointer.
+
     Returns a new pointer or an integer.
 
     >>> import ctypes
@@ -121,13 +125,14 @@ def c_ptr_isub(ptr, other):
     b'foobar'
     >>>
     """
-    from ctypes import c_void_p, cast, sizeof, pointer, POINTER
+    from ctypes import c_void_p, cast  # , sizeof
+    from ctypes import pointer, POINTER
     try:
         offset = other.__index__()
     except AttributeError:
         raise TypeError("Can only substract integer from pointer")
     void_pp = cast(pointer(ptr), POINTER(c_void_p))
-    void_pp.contents.value -= offset #* sizeof(ptr._type_)
+    void_pp.contents.value -= offset  # * sizeof(ptr._type_)
 
 
 if __name__ == "__main__":

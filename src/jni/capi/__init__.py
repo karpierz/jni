@@ -1,4 +1,4 @@
-# Copyright (c) 2004-2022 Adam Karpierz
+# Copyright (c) 2004 Adam Karpierz
 # Licensed under CC BY-NC-ND 4.0
 # Licensed under proprietary License
 # Please refer to the accompanying LICENSE file.
@@ -8,9 +8,12 @@ import platform
 import ctypes as ct
 
 if platform.win32_ver()[0]:
-    from _ctypes import FreeLibrary as dlclose
+    try:
+        from _ctypes import FreeLibrary as dlclose  # noqa: N813
+    except ImportError:  # pragma: no cover
+        dlclose = lambda handle: 0
 else:
-    from _ctypes import dlclose as dlclose
+    from _ctypes import dlclose as dlclose  # noqa: N813
 
 __none = object()
 obj         = lambda type, init=__none: type() if init is __none else type(init)
@@ -32,13 +35,15 @@ def method(signature, **kwargs):
     ret_type, arg_types = __parse_signature(signature)
     fun_name = kwargs.get("name", "").encode("utf-8")
     fun_sign = signature.encode("utf-8")
-   #!!!FunProto = CFUNC(ret_type, POINTER(JNIEnv), jobject, *arg_types)
+    # !!!FunProto = CFUNC(ret_type, POINTER(JNIEnv), jobject, *arg_types)
+
     def wrapper(fun):
         native_meth = JNINativeMethod()
         native_meth.name      = fun_name or fun.__name__.encode("utf-8")
         native_meth.signature = fun_sign
-        native_meth.fnPtr     = None # !!!cast(FunProto(fun), jobject) # ct.c_void_p
+        native_meth.fnPtr     = None  # !!!cast(FunProto(fun), jobject) # ct.c_void_p
         return native_meth
+
     return wrapper
 
 def __parse_signature(signature):
@@ -78,6 +83,7 @@ def __parse_signature(signature):
             raise JNIException(JNI_EINVAL, info="jni.method")
 
     return arg_types[0], tuple(arg_types[1:])
+
 
 __native_types = {
     "V": None,

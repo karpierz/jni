@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1996, 2018, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1996, 2023, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -55,12 +55,12 @@ extern "C" {
 
 #ifndef JNI_TYPES_ALREADY_DEFINED_IN_JNI_MD_H
 
-typedef long            jint;   /* jdk_win32/jni_md.h */
-typedef int64_t         jlong;  /* jdk_win32/jni_md.h: __int64 */
-typedef signed char     jbyte;  /* jdk_win32/jni_md.h */
+typedef long            jint;   /* jdk/win32/jni_md.h */
+typedef int64_t         jlong;  /* jdk/win32/jni_md.h: __int64 */
+typedef signed char     jbyte;  /* jdk/win32/jni_md.h */
 
 typedef unsigned char   jboolean;
-typedef wchar_t         jchar;  /* jdk_win32/jni.h: unsigned short */
+typedef wchar_t         jchar;  /* jdk/jni.h: unsigned short */
 typedef short           jshort;
 typedef float           jfloat;
 typedef double          jdouble;
@@ -775,6 +775,11 @@ struct JNINativeInterface_ {
 
     jobject (JNICALL *GetModule)
        (JNIEnv* env, jclass clazz);
+
+    /* Virtual threads */
+
+    jboolean (JNICALL *IsVirtualThread)
+       (JNIEnv* env, jobject obj);
 };
 
 /*
@@ -1873,6 +1878,12 @@ struct JNIEnv_ {
         return functions->GetModule(this, clazz);
     }
 
+    /* Virtual threads */
+
+    jboolean IsVirtualThread(jobject obj) {
+        return functions->IsVirtualThread(this, obj);
+    }
+
 #endif /* __cplusplus */
 };
 
@@ -1984,6 +1995,9 @@ JNI_OnUnload(JavaVM *vm, void *reserved);
 #define JNI_VERSION_1_8 0x00010008
 #define JNI_VERSION_9   0x00090000
 #define JNI_VERSION_10  0x000a0000
+#define JNI_VERSION_19  0x00130000
+#define JNI_VERSION_20  0x00140000
+#define JNI_VERSION_21  0x00150000
 
 #ifdef __cplusplus
 } /* extern "C" */

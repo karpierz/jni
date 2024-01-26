@@ -1,0 +1,7 @@
+Url:       https://raw.githubusercontent.com/openjdk/jdk/jdk-21-ga/src/java.base/windows/native/include/jni_md.h
+Completed: 2024-01-22 11:35:56
+File name: jni_md.h
+File date: 2024-01-22 11:35:56
+File size: 1580
+SHA256sum: DBF96659C4C840B15EF40237DB0C65657ECA7A70904225FC984DEB38999DF515
+SHA1sum:   BA5058D9C2A9EE2340AB9EC39068DB2A1F1B151B

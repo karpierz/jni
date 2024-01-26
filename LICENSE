@@ -3,7 +3,7 @@ Python bridge for the Java Native Interface is dual-licensed:
 1. Python bridge for the Java Native Interface is licensed under
    proprietary License for commercial use.
 
-Copyright (c) 2004-2022 Adam Karpierz, All Rights Reserved.
+Copyright (c) 2004-2024 Adam Karpierz, All Rights Reserved.
 (The full source of proprietary license will be included in the future
 when Python bridge for the Java Native Interface will be ready for
 commercial usage and distribution).

@@ -1,1 +1,1 @@
-from . import _config as _ ; _.make_config("jni.cfg", "jni") ; del _
+from . import _config as _ ; _.make_config("jni.cfg") ; del _

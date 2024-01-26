@@ -1,13 +1,11 @@
-# Copyright (c) 2004-2022 Adam Karpierz
+# Copyright (c) 2004 Adam Karpierz
 # Licensed under CC BY-NC-ND 4.0
 # Licensed under proprietary License
 # Please refer to the accompanying LICENSE file.
 
 import sys
 import ctypes as ct
-
-__none = object()
-obj         = lambda type, init=__none: type() if init is __none else type(init)
+import cython
 
 def defined(varname, __getframe=sys._getframe):
     frame = __getframe(1)
@@ -18,6 +16,36 @@ def from_oid(oid, __cast=ct.cast, __py_object=ct.py_object):
 
 from .jni import * ; del jni  # noqa
 
+
+CFUNC = lambda *args, **kwargs: object()
+
+__none = object()
+
+POINTER   = lambda type,              __cyth=cython: __cyth.pointer(type)
+pointer   = lambda obj,               __cyth=cython: __cyth.address(obj)
+byref     = lambda obj, offset=0,     __cyth=cython: __ffi.new(POINTER(__ffi.typeof(obj)), obj)  # !!! zamplementowac offset !!!
+addressof = lambda obj,               __cyth=cython: __cyth.address(obj)
+cast      = lambda obj, type,         __cyth=cython: __cyth.cast(type, obj)
+sizeof    = lambda obj_or_type,       __cyth=cython: __cyth.sizeof(obj_or_type)
+#sizeof   = lambda obj_or_type,       __cyth=cython: __cyth.sizeof(obj_or_type)
+py_object = lambda obj,               __cyth=cython: __ffi.new_handle(obj)
+memmove   = lambda dst, src, count,   __cyth=cython: __ffi.memmove(dst, src, count)
+obj       = lambda type, init=__none, __cyth=cython: (__ffi.new(__ffi.getctype(type)+"*", None if init is __none else init)[0]
+                                                  if type.kind != "primitive" else
+                                                  __ffi.cast(type, 0 if init is __none else init))
+new         = lambda type, init=__none, __cyth=cython: __ffi.new(__ffi.getctype(type)+"*", None if init is __none else init)
+new_array   = lambda type, size,        __cyth=cython: __ffi.new(__ffi.getctype(type)+"[]", size)
+new_cstr    = lambda init,              __cyth=cython: __ffi.new("char[]", init)
+as_cstr     = lambda obj,               __cyth=cython: __ffi.cast("char*", __ffi.from_buffer(obj))
+to_bytes    = lambda obj, size=-1,      __cyth=cython: __ffi.string(obj, size) if size >= 0 else __ffi.string(obj)
+to_unicode  = to_bytes
+from_buffer = lambda data,              __cyth=cython: __ffi.from_buffer(data)
+
+# null constant
+
+from cython import NULL
+isNULL = lambda jobj: jobj is NULL
+
 #
 # Decorator for defining Java native method in Python
 #
@@ -26,13 +54,15 @@ def method(signature, **kwargs):
     ret_type, arg_types = __parse_signature(signature)
     fun_name = kwargs.get("name", "").encode("utf-8")
     fun_sign = signature.encode("utf-8")
-    #!!!FunProto = CFUNC(ret_type, POINTER(JNIEnv), jobject, *arg_types)
+    # !!!FunProto = CFUNC(ret_type, POINTER(JNIEnv), jobject, *arg_types)
+
     def wrapper(fun):
         native_meth = JNINativeMethod()
         native_meth.name      = fun_name or fun.__name__.encode("utf-8")
         native_meth.signature = fun_sign
-        native_meth.fnPtr     = None # !!!cast(FunProto(fun), jobject) # ct.c_void_p
+        native_meth.fnPtr     = None  # !!!cast(FunProto(fun), jobject) # ct.c_void_p
         return native_meth
+
     return wrapper
 
 def __parse_signature(signature):
@@ -73,6 +103,7 @@ def __parse_signature(signature):
 
     return arg_types[0], tuple(arg_types[1:])
 
+
 __native_types = {
     "V": None,
     "Z": jboolean,
@@ -103,3 +134,4 @@ __object_types = {
 
 del sys
 del ct
+del cython

@@ -1,4 +1,4 @@
-# Copyright (c) 2004-2022 Adam Karpierz
+# Copyright (c) 2004 Adam Karpierz
 # Licensed under CC BY-NC-ND 4.0
 # Licensed under proprietary License
 # Please refer to the accompanying LICENSE file.
@@ -12,13 +12,20 @@ import platform
 import ctypes as ct
 
 if platform.win32_ver()[0]:
-    from ctypes  import WinDLL      as DLL
-    from _ctypes import FreeLibrary as dlclose
+    from ctypes import WinDLL as DLL
+    try:
+        from _ctypes import FreeLibrary as dlclose
+    except ImportError:
+        dlclose = lambda handle: 0
 else:
     from ctypes  import CDLL    as DLL
     from _ctypes import dlclose as dlclose
 
 from libc.stdint cimport uintptr_t
+
+JEnv = lambda *args, **kwargs: object()
+JVM  = lambda *args, **kwargs: object()
+
 
 # JNI Types
 
@@ -259,14 +266,14 @@ cdef class jmethodID(_CData):
 
 # Return values from jobjectRefType
 
-#from .jni cimport jobjectRefType as c_jobjectRefType
-#jobjectRefType = c._jobjectType
-#jobjectRefType = c_jobjectRefType
+cdef class jobjectRefType(_CData):
+    cdef public c_jobjectRefType value
 
-# null constant
+    def __init__(self, val=0):
+        self.value = val
 
-cdef c_jobject NULL = <c_jobject>0
-#isNULL = lambda jobj, __NULL=NULL: jobj == __NULL
+    def __bool__(self):
+        return self.value != 0
 
 # JNI Native Method Interface.
 
@@ -389,14 +396,6 @@ cdef class JavaVMAttachArgs(_CData):
 # eof jni.h
 
 #from .jni cimport *
-#import cython
-
-#addressof = lambda obj,             __cyth=cython: __cyth.address(obj)
-#cast      = lambda obj, type,       __cyth=cython: __cyth.cast(type, obj)
-#sizeof    = lambda obj_or_type,     __cyth=cython: __cyth.sizeof(obj_or_type)
-
-#cdef cast(type, obj):
-#    return cython.cast(type, obj)
 
 #cdef float eggs(float f, unsigned long n):
 #    print(cython.cast("char*", b"ccc"))

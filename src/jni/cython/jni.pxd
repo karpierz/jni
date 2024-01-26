@@ -1,4 +1,4 @@
-# Copyright (c) 2004-2022 Adam Karpierz
+# Copyright (c) 2004 Adam Karpierz
 # Licensed under CC BY-NC-ND 4.0
 # Licensed under proprietary License
 # Please refer to the accompanying LICENSE file.
@@ -66,7 +66,7 @@ cdef api: # from "jni.h":
 
     # Return values from jobjectRefType
 
-    cdef enum:
+    cpdef enum:
         JNIInvalidRefType    = 0
         JNILocalRefType      = 1
         JNIGlobalRefType     = 2
@@ -77,7 +77,7 @@ cdef api: # from "jni.h":
     # jboolean constants
     #
 
-    cdef enum:
+    cpdef enum:
         JNI_FALSE = 0
         JNI_TRUE  = 1
 
@@ -85,7 +85,7 @@ cdef api: # from "jni.h":
     # possible return values for JNI functions.
     #
 
-    cdef enum:
+    cpdef enum:
         JNI_OK        =  0  # success
         JNI_ERR       = -1  # unknown error
         JNI_EDETACHED = -2  # thread detached from the VM
@@ -98,7 +98,7 @@ cdef api: # from "jni.h":
     # used in ReleaseScalarArrayElements
     #
 
-    cdef enum:
+    cpdef enum:
         JNI_COMMIT = 1
         JNI_ABORT  = 2
 
@@ -177,85 +177,85 @@ cdef api: # from "jni.h":
 
         c_jmethodID   (*GetMethodID)                  (c_JNIEnv* env, c_jclass clazz, const char* name, const char* sig)
 
-        c_jobject     (*CallObjectMethod)             (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...) # nogil
-        c_jobject     (*CallObjectMethodV)            (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args) # nogil
-        c_jobject     (*CallObjectMethodA)            (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jobject     (*CallObjectMethod)             (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...)  # nogil
+        c_jobject     (*CallObjectMethodV)            (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args)  # nogil
+        c_jobject     (*CallObjectMethodA)            (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jboolean    (*CallBooleanMethod)            (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...) # nogil
-        c_jboolean    (*CallBooleanMethodV)           (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args) # nogil
-        c_jboolean    (*CallBooleanMethodA)           (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jboolean    (*CallBooleanMethod)            (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...)  # nogil
+        c_jboolean    (*CallBooleanMethodV)           (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args)  # nogil
+        c_jboolean    (*CallBooleanMethodA)           (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jbyte       (*CallByteMethod)               (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...) # nogil
-        c_jbyte       (*CallByteMethodV)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args) # nogil
-        c_jbyte       (*CallByteMethodA)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jbyte       (*CallByteMethod)               (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...)  # nogil
+        c_jbyte       (*CallByteMethodV)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args)  # nogil
+        c_jbyte       (*CallByteMethodA)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jchar       (*CallCharMethod)               (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...) # nogil
-        c_jchar       (*CallCharMethodV)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args) # nogil
-        c_jchar       (*CallCharMethodA)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jchar       (*CallCharMethod)               (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...)  # nogil
+        c_jchar       (*CallCharMethodV)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args)  # nogil
+        c_jchar       (*CallCharMethodA)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jshort      (*CallShortMethod)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...) # nogil
-        c_jshort      (*CallShortMethodV)             (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args) # nogil
-        c_jshort      (*CallShortMethodA)             (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jshort      (*CallShortMethod)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...)  # nogil
+        c_jshort      (*CallShortMethodV)             (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args)  # nogil
+        c_jshort      (*CallShortMethodA)             (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jint        (*CallIntMethod)                (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...) # nogil
-        c_jint        (*CallIntMethodV)               (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args) # nogil
-        c_jint        (*CallIntMethodA)               (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jint        (*CallIntMethod)                (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...)  # nogil
+        c_jint        (*CallIntMethodV)               (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args)  # nogil
+        c_jint        (*CallIntMethodA)               (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jlong       (*CallLongMethod)               (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...) # nogil
-        c_jlong       (*CallLongMethodV)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args) # nogil
-        c_jlong       (*CallLongMethodA)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jlong       (*CallLongMethod)               (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...)  # nogil
+        c_jlong       (*CallLongMethodV)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args)  # nogil
+        c_jlong       (*CallLongMethodA)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jfloat      (*CallFloatMethod)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...) # nogil
-        c_jfloat      (*CallFloatMethodV)             (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args) # nogil
-        c_jfloat      (*CallFloatMethodA)             (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jfloat      (*CallFloatMethod)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...)  # nogil
+        c_jfloat      (*CallFloatMethodV)             (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args)  # nogil
+        c_jfloat      (*CallFloatMethodA)             (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jdouble     (*CallDoubleMethod)             (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...) # nogil
-        c_jdouble     (*CallDoubleMethodV)            (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args) # nogil
-        c_jdouble     (*CallDoubleMethodA)            (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jdouble     (*CallDoubleMethod)             (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...)  # nogil
+        c_jdouble     (*CallDoubleMethodV)            (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args)  # nogil
+        c_jdouble     (*CallDoubleMethodA)            (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        void          (*CallVoidMethod)               (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...) # nogil
-        void          (*CallVoidMethodV)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args) # nogil
-        void          (*CallVoidMethodA)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args) # nogil
+        void          (*CallVoidMethod)               (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...)  # nogil
+        void          (*CallVoidMethodV)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args)  # nogil
+        void          (*CallVoidMethodA)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jobject     (*CallNonvirtualObjectMethod)   (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...) # nogil
-        c_jobject     (*CallNonvirtualObjectMethodV)  (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args) # nogil
-        c_jobject     (*CallNonvirtualObjectMethodA)  (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jobject     (*CallNonvirtualObjectMethod)   (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
+        c_jobject     (*CallNonvirtualObjectMethodV)  (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
+        c_jobject     (*CallNonvirtualObjectMethodA)  (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jboolean    (*CallNonvirtualBooleanMethod)  (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...) # nogil
-        c_jboolean    (*CallNonvirtualBooleanMethodV) (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args) # nogil
-        c_jboolean    (*CallNonvirtualBooleanMethodA) (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jboolean    (*CallNonvirtualBooleanMethod)  (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
+        c_jboolean    (*CallNonvirtualBooleanMethodV) (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
+        c_jboolean    (*CallNonvirtualBooleanMethodA) (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jbyte       (*CallNonvirtualByteMethod)     (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...) # nogil
-        c_jbyte       (*CallNonvirtualByteMethodV)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args) # nogil
-        c_jbyte       (*CallNonvirtualByteMethodA)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jbyte       (*CallNonvirtualByteMethod)     (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
+        c_jbyte       (*CallNonvirtualByteMethodV)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
+        c_jbyte       (*CallNonvirtualByteMethodA)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jchar       (*CallNonvirtualCharMethod)     (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...) # nogil
-        c_jchar       (*CallNonvirtualCharMethodV)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args) # nogil
-        c_jchar       (*CallNonvirtualCharMethodA)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jchar       (*CallNonvirtualCharMethod)     (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
+        c_jchar       (*CallNonvirtualCharMethodV)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
+        c_jchar       (*CallNonvirtualCharMethodA)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jshort      (*CallNonvirtualShortMethod)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...) # nogil
-        c_jshort      (*CallNonvirtualShortMethodV)   (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args) # nogil
-        c_jshort      (*CallNonvirtualShortMethodA)   (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jshort      (*CallNonvirtualShortMethod)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
+        c_jshort      (*CallNonvirtualShortMethodV)   (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
+        c_jshort      (*CallNonvirtualShortMethodA)   (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jint        (*CallNonvirtualIntMethod)      (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...) # nogil
-        c_jint        (*CallNonvirtualIntMethodV)     (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args) # nogil
-        c_jint        (*CallNonvirtualIntMethodA)     (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jint        (*CallNonvirtualIntMethod)      (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
+        c_jint        (*CallNonvirtualIntMethodV)     (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
+        c_jint        (*CallNonvirtualIntMethodA)     (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jlong       (*CallNonvirtualLongMethod)     (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...) # nogil
-        c_jlong       (*CallNonvirtualLongMethodV)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args) # nogil
-        c_jlong       (*CallNonvirtualLongMethodA)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jlong       (*CallNonvirtualLongMethod)     (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
+        c_jlong       (*CallNonvirtualLongMethodV)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
+        c_jlong       (*CallNonvirtualLongMethodA)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jfloat      (*CallNonvirtualFloatMethod)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...) # nogil
-        c_jfloat      (*CallNonvirtualFloatMethodV)   (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args) # nogil
-        c_jfloat      (*CallNonvirtualFloatMethodA)   (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jfloat      (*CallNonvirtualFloatMethod)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
+        c_jfloat      (*CallNonvirtualFloatMethodV)   (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
+        c_jfloat      (*CallNonvirtualFloatMethodA)   (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jdouble     (*CallNonvirtualDoubleMethod)   (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...) # nogil
-        c_jdouble     (*CallNonvirtualDoubleMethodV)  (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args) # nogil
-        c_jdouble     (*CallNonvirtualDoubleMethodA)  (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jdouble     (*CallNonvirtualDoubleMethod)   (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
+        c_jdouble     (*CallNonvirtualDoubleMethodV)  (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
+        c_jdouble     (*CallNonvirtualDoubleMethodA)  (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        void          (*CallNonvirtualVoidMethod)     (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...) # nogil
-        void          (*CallNonvirtualVoidMethodV)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args) # nogil
-        void          (*CallNonvirtualVoidMethodA)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args) # nogil
+        void          (*CallNonvirtualVoidMethod)     (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
+        void          (*CallNonvirtualVoidMethodV)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
+        void          (*CallNonvirtualVoidMethodA)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
         c_jfieldID    (*GetFieldID)                   (c_JNIEnv* env, c_jclass clazz, const char* name, const char* sig)
 
@@ -281,45 +281,45 @@ cdef api: # from "jni.h":
 
         c_jmethodID   (*GetStaticMethodID)            (c_JNIEnv* env, c_jclass clazz, const char* name, const char* sig)
 
-        c_jobject     (*CallStaticObjectMethod)       (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...) # nogil
-        c_jobject     (*CallStaticObjectMethodV)      (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args) # nogil
-        c_jobject     (*CallStaticObjectMethodA)      (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jobject     (*CallStaticObjectMethod)       (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
+        c_jobject     (*CallStaticObjectMethodV)      (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
+        c_jobject     (*CallStaticObjectMethodA)      (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jboolean    (*CallStaticBooleanMethod)      (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...) # nogil
-        c_jboolean    (*CallStaticBooleanMethodV)     (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args) # nogil
-        c_jboolean    (*CallStaticBooleanMethodA)     (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jboolean    (*CallStaticBooleanMethod)      (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
+        c_jboolean    (*CallStaticBooleanMethodV)     (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
+        c_jboolean    (*CallStaticBooleanMethodA)     (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jbyte       (*CallStaticByteMethod)         (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...) # nogil
-        c_jbyte       (*CallStaticByteMethodV)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args) # nogil
-        c_jbyte       (*CallStaticByteMethodA)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jbyte       (*CallStaticByteMethod)         (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
+        c_jbyte       (*CallStaticByteMethodV)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
+        c_jbyte       (*CallStaticByteMethodA)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jchar       (*CallStaticCharMethod)         (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...) # nogil
-        c_jchar       (*CallStaticCharMethodV)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args) # nogil
-        c_jchar       (*CallStaticCharMethodA)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jchar       (*CallStaticCharMethod)         (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
+        c_jchar       (*CallStaticCharMethodV)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
+        c_jchar       (*CallStaticCharMethodA)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jshort      (*CallStaticShortMethod)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...) # nogil
-        c_jshort      (*CallStaticShortMethodV)       (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args) # nogil
-        c_jshort      (*CallStaticShortMethodA)       (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jshort      (*CallStaticShortMethod)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
+        c_jshort      (*CallStaticShortMethodV)       (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
+        c_jshort      (*CallStaticShortMethodA)       (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jint        (*CallStaticIntMethod)          (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...) # nogil
-        c_jint        (*CallStaticIntMethodV)         (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args) # nogil
-        c_jint        (*CallStaticIntMethodA)         (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jint        (*CallStaticIntMethod)          (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
+        c_jint        (*CallStaticIntMethodV)         (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
+        c_jint        (*CallStaticIntMethodA)         (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jlong       (*CallStaticLongMethod)         (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...) # nogil
-        c_jlong       (*CallStaticLongMethodV)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args) # nogil
-        c_jlong       (*CallStaticLongMethodA)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jlong       (*CallStaticLongMethod)         (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
+        c_jlong       (*CallStaticLongMethodV)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
+        c_jlong       (*CallStaticLongMethodA)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jfloat      (*CallStaticFloatMethod)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...) # nogil
-        c_jfloat      (*CallStaticFloatMethodV)       (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args) # nogil
-        c_jfloat      (*CallStaticFloatMethodA)       (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jfloat      (*CallStaticFloatMethod)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
+        c_jfloat      (*CallStaticFloatMethodV)       (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
+        c_jfloat      (*CallStaticFloatMethodA)       (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        c_jdouble     (*CallStaticDoubleMethod)       (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...) # nogil
-        c_jdouble     (*CallStaticDoubleMethodV)      (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args) # nogil
-        c_jdouble     (*CallStaticDoubleMethodA)      (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args) # nogil
+        c_jdouble     (*CallStaticDoubleMethod)       (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
+        c_jdouble     (*CallStaticDoubleMethodV)      (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
+        c_jdouble     (*CallStaticDoubleMethodA)      (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
-        void          (*CallStaticVoidMethod)         (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...) # nogil
-        void          (*CallStaticVoidMethodV)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args) # nogil
-        void          (*CallStaticVoidMethodA)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args) # nogil
+        void          (*CallStaticVoidMethod)         (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
+        void          (*CallStaticVoidMethodV)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
+        void          (*CallStaticVoidMethodA)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
 
         c_jfieldID    (*GetStaticFieldID)             (c_JNIEnv* env, c_jclass clazz, const char* name, const char* sig)
 
@@ -453,7 +453,7 @@ cdef api: # from "jni.h":
 
     # These will be VM-specific.
 
-    cdef enum:
+    cpdef enum:
         JDK1_2 = 1
         JDK1_4 = 1
 
@@ -465,13 +465,13 @@ cdef api: # from "jni.h":
         void* reserved1
         void* reserved2
 
-        c_jint (*DestroyJavaVM)              (c_JavaVM* vm) # nogil
-        c_jint (*AttachCurrentThread)        (c_JavaVM* vm, void** penv, void* args) # nogil
-        c_jint (*DetachCurrentThread)        (c_JavaVM* vm) # nogil
-        c_jint (*GetEnv)                     (c_JavaVM* vm, void** penv, c_jint version) # nogil
-        c_jint (*AttachCurrentThreadAsDaemon)(c_JavaVM* vm, void** penv, void* args) # nogil
+        c_jint (*DestroyJavaVM)              (c_JavaVM* vm)  # nogil
+        c_jint (*AttachCurrentThread)        (c_JavaVM* vm, void** penv, void* args)  # nogil
+        c_jint (*DetachCurrentThread)        (c_JavaVM* vm)  # nogil
+        c_jint (*GetEnv)                     (c_JavaVM* vm, void** penv, c_jint version)  # nogil
+        c_jint (*AttachCurrentThreadAsDaemon)(c_JavaVM* vm, void** penv, void* args)  # nogil
 
-    cdef enum:
+    cpdef enum:
         JNI_VERSION_1_1 = 0x00010001
         JNI_VERSION_1_2 = 0x00010002
         JNI_VERSION_1_4 = 0x00010004
@@ -483,6 +483,6 @@ cdef api: # from "jni.h":
 # eof jni.h
 
 cdef extern: # from "jni.h":
-    c_jint __stdcall JNI_GetDefaultJavaVMInitArgs(void* args) # nogil
-    c_jint __stdcall JNI_CreateJavaVM     (c_JavaVM** pvm, void** penv, void* args) # nogil
-    c_jint __stdcall JNI_GetCreatedJavaVMs(c_JavaVM** pvm, c_jsize size, c_jsize* nvms) # nogil
+    c_jint __stdcall JNI_GetDefaultJavaVMInitArgs(void* args)  # nogil
+    c_jint __stdcall JNI_CreateJavaVM     (c_JavaVM** pvm, void** penv, void* args)  # nogil
+    c_jint __stdcall JNI_GetCreatedJavaVMs(c_JavaVM** pvm, c_jsize size, c_jsize* nvms)  # nogil

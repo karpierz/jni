@@ -1,4 +1,4 @@
-# Copyright (c) 2004-2022 Adam Karpierz
+# Copyright (c) 2004 Adam Karpierz
 # Licensed under CC BY-NC-ND 4.0
 # Licensed under proprietary License
 # Please refer to the accompanying LICENSE file.
@@ -34,10 +34,10 @@ class JNITestCase(unittest.TestCase):
         self.assertIs(type(jni.JNILocalRefType),      int)
         self.assertIs(type(jni.JNIGlobalRefType),     int)
         self.assertIs(type(jni.JNIWeakGlobalRefType), int)
-        self.assertEqual(jni.JNIInvalidRefType,    0) 
-        self.assertEqual(jni.JNILocalRefType,      1) 
-        self.assertEqual(jni.JNIGlobalRefType,     2) 
-        self.assertEqual(jni.JNIWeakGlobalRefType, 3) 
+        self.assertEqual(jni.JNIInvalidRefType,    0)
+        self.assertEqual(jni.JNILocalRefType,      1)
+        self.assertEqual(jni.JNIGlobalRefType,     2)
+        self.assertEqual(jni.JNIWeakGlobalRefType, 3)
 
         # jboolean constants
         self.assertIs(type(jni.JNI_FALSE), int)
@@ -81,6 +81,9 @@ class JNITestCase(unittest.TestCase):
         self.assertIs(type(jni.JNI_VERSION_1_8), int)
         self.assertIs(type(jni.JNI_VERSION_9),   int)
         self.assertIs(type(jni.JNI_VERSION_10),  int)
+        self.assertIs(type(jni.JNI_VERSION_19),  int)
+        self.assertIs(type(jni.JNI_VERSION_20),  int)
+        self.assertIs(type(jni.JNI_VERSION_21),  int)
         self.assertEqual(jni.JNI_VERSION_1_1, 0x00010001)
         self.assertEqual(jni.JNI_VERSION_1_2, 0x00010002)
         self.assertEqual(jni.JNI_VERSION_1_4, 0x00010004)
@@ -88,6 +91,9 @@ class JNITestCase(unittest.TestCase):
         self.assertEqual(jni.JNI_VERSION_1_8, 0x00010008)
         self.assertEqual(jni.JNI_VERSION_9,   0x00090000)
         self.assertEqual(jni.JNI_VERSION_10,  0x000a0000)
+        self.assertEqual(jni.JNI_VERSION_19,  0x00130000)
+        self.assertEqual(jni.JNI_VERSION_20,  0x00140000)
+        self.assertEqual(jni.JNI_VERSION_21,  0x00150000)
 
     def test_jvm(self):
 
@@ -116,7 +122,10 @@ class JNITestCase(unittest.TestCase):
                                     jni.JNI_VERSION_1_6,
                                     jni.JNI_VERSION_1_8,
                                     jni.JNI_VERSION_9,
-                                    jni.JNI_VERSION_10))
+                                    jni.JNI_VERSION_10,
+                                    jni.JNI_VERSION_19,
+                                    jni.JNI_VERSION_20,
+                                    jni.JNI_VERSION_21))
 
     def test_classes(self):
 
@@ -1118,14 +1127,14 @@ class JNITestCase(unittest.TestCase):
         String__init = self.jenv.GetMethodID(String, b"<init>", b"()V")
         self.assertTrue(String__init)
 
-        boolean_array = self.jenv.NewBooleanArray(110) 
-        char_array    = self.jenv.NewCharArray(120) 
-        byte_array    = self.jenv.NewByteArray(130) 
-        short_array   = self.jenv.NewShortArray(140) 
-        int_array     = self.jenv.NewIntArray(150) 
-        long_array    = self.jenv.NewLongArray(160) 
-        float_array   = self.jenv.NewFloatArray(170) 
-        double_array  = self.jenv.NewDoubleArray(180) 
+        boolean_array = self.jenv.NewBooleanArray(110)
+        char_array    = self.jenv.NewCharArray(120)
+        byte_array    = self.jenv.NewByteArray(130)
+        short_array   = self.jenv.NewShortArray(140)
+        int_array     = self.jenv.NewIntArray(150)
+        long_array    = self.jenv.NewLongArray(160)
+        float_array   = self.jenv.NewFloatArray(170)
+        double_array  = self.jenv.NewDoubleArray(180)
         String_array  = self.jenv.NewObjectArray(190, String)
         self.assertTrue(boolean_array)
         self.assertTrue(char_array)

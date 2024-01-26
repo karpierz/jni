@@ -1,0 +1,7 @@
+Url:       https://raw.githubusercontent.com/openjdk/jdk/jdk-21-ga/src/java.base/share/native/include/jni.h
+Completed: 2024-01-22 11:34:36
+File name: jni.h
+File date: 2024-01-22 11:34:36
+File size: 76018
+SHA256sum: 99E64EBBE749E6DF284F852F11B3C73F6EA97BAF15120428F40F887FE0616E61
+SHA1sum:   B59AE1CEE2F058088E770C2B24E506EAC23A1549

@@ -7,10 +7,13 @@
 #ifndef __has_attribute
   #define __has_attribute(x) 0
 #endif
+
 #if defined(_WIN32)
-  #define JNIEXPORT __declspec(dllexport)
+  #ifndef JNIEXPORT
+    #define JNIEXPORT __declspec(dllexport)
+  #endif
   #define JNIIMPORT __declspec(dllimport)
-  #define JNICALL   __stdcall
+  #define JNICALL __stdcall
   #if defined(__CYGWIN__)
     typedef int jint;
   #elif defined(__GNUC__)
@@ -22,21 +25,31 @@
   #else
     typedef long jint;
   #endif
-#elif (defined(__GNUC__) && ((__GNUC__ > 4) || \
+#else
+  #ifndef JNIEXPORT
+    #if (defined(__GNUC__) && ((__GNUC__ > 4) || \
+                               (__GNUC__ == 4) && (__GNUC_MINOR__ > 2))) || \
+        __has_attribute(visibility)
+      #ifdef ARM
+        #define JNIEXPORT __attribute__((externally_visible,visibility("default")))
+      #else
+        #define JNIEXPORT __attribute__((visibility("default")))
+      #endif
+    #else
+      #define JNIEXPORT
+    #endif
+  #endif
+  #if (defined(__GNUC__) && ((__GNUC__ > 4) || \
                              (__GNUC__ == 4) && (__GNUC_MINOR__ > 2))) || \
       __has_attribute(visibility)
-  #ifdef ARM
-    #define JNIEXPORT __attribute__((externally_visible,visibility("default")))
-    #define JNIIMPORT __attribute__((externally_visible,visibility("default")))
+    #ifdef ARM
+      #define JNIIMPORT __attribute__((externally_visible,visibility("default")))
+    #else
+      #define JNIIMPORT __attribute__((visibility("default")))
+    #endif
   #else
-    #define JNIEXPORT __attribute__((visibility("default")))
-    #define JNIIMPORT __attribute__((visibility("default")))
+    #define JNIIMPORT
   #endif
-  #define JNICALL
-  typedef int jint;
-#else
-  #define JNIEXPORT
-  #define JNIIMPORT
   #define JNICALL
   typedef int jint;
 #endif
@@ -48,6 +61,9 @@
 #define JNI_VERSION_1_8 0x00010008
 #define JNI_VERSION_9   0x00090000
 #define JNI_VERSION_10  0x000a0000
+#define JNI_VERSION_19  0x00130000
+#define JNI_VERSION_20  0x00140000
+#define JNI_VERSION_21  0x00150000
 
 typedef struct JavaVM JavaVM;
 

@@ -1,4 +1,4 @@
-// Copyright (c) 2004-2022 Adam Karpierz
+// Copyright (c) 2004 Adam Karpierz
 // Licensed under CC BY-NC-ND 4.0
 // Licensed under proprietary License
 // Please refer to the accompanying LICENSE file.
@@ -238,7 +238,7 @@ static int jchar_value_set(jchar_Object* self, PyObject* val)
     wchar_t value = 0;
     if ( PyUnicode_AsWideChar(val, &value, 1) == -1 )
         return -1;
-    if ( PyUnicode_GetSize(val) != 1 )
+    if ( PyUnicode_GetLength(val) != 1 )
     {
         PyErr_SetString(PyExc_TypeError,
                         "one unicode character expected, not str");
@@ -545,7 +545,7 @@ static int jvalue_c_set(jvalue_Object* self, PyObject* val)
         wchar_t value = 0;
         if ( PyUnicode_AsWideChar(val, &value, 1) == -1 )
             return -1;
-        if ( PyUnicode_GetSize(val) != 1 )
+        if ( PyUnicode_GetLength(val) != 1 )
         {
             PyErr_SetString(PyExc_TypeError,
                             "one unicode character expected, not str");
@@ -1656,6 +1656,9 @@ PyMODINIT_FUNC MODINIT_FUNC(jni)
     PyModule_AddIntConstant(module, "JNI_VERSION_1_8", JNI_VERSION_1_8);
     PyModule_AddIntConstant(module, "JNI_VERSION_9",   JNI_VERSION_9);
     PyModule_AddIntConstant(module, "JNI_VERSION_10",  JNI_VERSION_10);
+    PyModule_AddIntConstant(module, "JNI_VERSION_19",  JNI_VERSION_19);
+    PyModule_AddIntConstant(module, "JNI_VERSION_20",  JNI_VERSION_20);
+    PyModule_AddIntConstant(module, "JNI_VERSION_21",  JNI_VERSION_21);
 
     return module;
 }

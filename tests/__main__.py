@@ -1,4 +1,4 @@
-# Copyright (c) 2004-2022 Adam Karpierz
+# Copyright (c) 2004 Adam Karpierz
 # Licensed under CC BY-NC-ND 4.0
 # Licensed under proprietary License
 # Please refer to the accompanying LICENSE file.
@@ -32,31 +32,39 @@ def main(argv=sys.argv[1:]):
     from . import _jvm
 
     is_32bit = (sys.maxsize <= 2**32)
-    dir_prefix = Path("C:/Program Files (x86)" if is_32bit else "C:/Program Files")
+    dir_prefix = Path(os.environ["ProgramFiles(x86)" if is_32bit else "ProgramFiles"])
+    # https://en.wikipedia.org/wiki/Java_version_history
     jvm_dll_paths = [
-        dir_prefix/"Java/jdk-14.0.2/bin/server/jvm.dll",
-        dir_prefix/"Java/jdk-14.0.2/bin/client/jvm.dll",
-        dir_prefix/"Java/jre-14.0.2/bin/server/jvm.dll",
-        dir_prefix/"Java/jre-14.0.2/bin/client/jvm.dll",
+        dir_prefix/"Zulu/zulu-21/jre/bin/server/jvm.dll",
+        dir_prefix/"Zulu/zulu-21-jre/bin/server/jvm.dll",
+        dir_prefix/"Java/jdk-21.0.2/bin/server/jvm.dll",
+        dir_prefix/"Java/jdk-21.0.2/bin/client/jvm.dll",
+        dir_prefix/"Java/jre-21.0.2/bin/server/jvm.dll",
+        dir_prefix/"Java/jre-21.0.2/bin/client/jvm.dll",
+        dir_prefix/"Zulu/zulu-17/jre/bin/server/jvm.dll",
+        dir_prefix/"Zulu/zulu-17-jre/bin/server/jvm.dll",
+        dir_prefix/"Java/jdk-17.0.2/bin/server/jvm.dll",
+        dir_prefix/"Java/jdk-17.0.2/bin/client/jvm.dll",
+        dir_prefix/"Java/jre-17.0.2/bin/server/jvm.dll",
+        dir_prefix/"Java/jre-17.0.2/bin/client/jvm.dll",
+        dir_prefix/"Zulu/zulu-11/jre/bin/server/jvm.dll",
+        dir_prefix/"Zulu/zulu-11-jre/bin/server/jvm.dll",
         dir_prefix/"Java/jdk-11.0.2/bin/server/jvm.dll",
         dir_prefix/"Java/jdk-11.0.2/bin/client/jvm.dll",
         dir_prefix/"Java/jre-11.0.2/bin/server/jvm.dll",
         dir_prefix/"Java/jre-11.0.2/bin/client/jvm.dll",
-        dir_prefix/"Java/jdk-9/bin/server/jvm.dll",
-        dir_prefix/"Java/jdk-9/bin/client/jvm.dll",
+        dir_prefix/"Zulu/zulu-8/jre/bin/server/jvm.dll",
+        dir_prefix/"Zulu/zulu-8-jre/bin/server/jvm.dll",
         dir_prefix/"Java/jdk1.8.0_202/bin/server/jvm.dll",
         dir_prefix/"Java/jdk1.8.0_202/bin/client/jvm.dll",
         dir_prefix/"Java/jdk1.8.0_202/jre/bin/server/jvm.dll",
         dir_prefix/"Java/jdk1.8.0_202/jre/bin/client/jvm.dll",
         dir_prefix/"Java/jre1.8.0_201/bin/server/jvm.dll",
         dir_prefix/"Java/jre1.8.0_201/bin/client/jvm.dll",
-        dir_prefix/"Java/jre7/bin/server/jvm.dll",
-        dir_prefix/"Java/jre7/bin/client/jvm.dll",
     ]
-
     try:
         jvm_path = next(item for item in jvm_dll_paths if item.exists())
-    except Exception:
+    except Exception:  # pragma: no cover
         raise Exception("jvm.dll not found !")
 
     print(f"Running testsuite using JVM: {jvm_path}\n", file=sys.stderr)

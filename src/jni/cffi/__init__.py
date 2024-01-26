@@ -1,4 +1,4 @@
-# Copyright (c) 2004-2022 Adam Karpierz
+# Copyright (c) 2004 Adam Karpierz
 # Licensed under CC BY-NC-ND 4.0
 # Licensed under proprietary License
 # Please refer to the accompanying LICENSE file.
@@ -8,30 +8,31 @@ import os
 import platform
 import ctypes as ct
 
-from .jni import ffi ; del jni
+from .jni import ffi ; del jni  # noqa
 
 DLL     = lambda name, handle=None, __ffi=ffi: __ffi.dlopen(name)
 dlclose = lambda handle,            __ffi=ffi: __ffi.dlclose(handle)
 
 def CFUNC(restype, *argtypes, __ffi=ffi):
-    callback_sign = ((restype.cname if restype is not None else "void") + " __stdcall" +
-                     " (" + ", ".join(arg_type.cname for arg_type in argtypes) + ")")
+    callback_sign = ((restype.cname if restype is not None else "void") + " __stdcall"
+                     + " (" + ", ".join(arg_type.cname for arg_type in argtypes) + ")")
     return __ffi.callback(callback_sign)
+
 
 tmap = {}
 __none = object()
 
 POINTER   = lambda type, __tmap=tmap, __ffi=ffi: __ffi.typeof(__ffi.getctype(__tmap.get(type, type))+"*")
 pointer   = lambda obj,               __ffi=ffi: __ffi.new(POINTER(__ffi.typeof(obj)), obj)
-byref     = lambda obj, offset=0,     __ffi=ffi: __ffi.new(POINTER(__ffi.typeof(obj)), obj) # !!! zamplementowac offset !!!
+byref     = lambda obj, offset=0,     __ffi=ffi: __ffi.new(POINTER(__ffi.typeof(obj)), obj)  # !!! zamplementowac offset !!!
 addressof = lambda obj,               __ffi=ffi: __ffi.addressof(obj)
 cast      = lambda obj, type,         __ffi=ffi: __ffi.cast(type, obj)
 sizeof    = lambda obj_or_type,       __ffi=ffi: __ffi.sizeof(obj_or_type)
 py_object = lambda obj,               __ffi=ffi: __ffi.new_handle(obj)
 memmove   = lambda dst, src, count,   __ffi=ffi: __ffi.memmove(dst, src, count)
-obj       = lambda type, init=__none, __ffi=ffi:(__ffi.new(__ffi.getctype(type)+"*", None if init is __none else init)[0]
-                                                 if type.kind != "primitive" else
-                                                 __ffi.cast(type, 0 if init is __none else init))
+obj       = lambda type, init=__none, __ffi=ffi: (__ffi.new(__ffi.getctype(type)+"*", None if init is __none else init)[0]
+                                                  if type.kind != "primitive" else
+                                                  __ffi.cast(type, 0 if init is __none else init))
 new         = lambda type, init=__none, __ffi=ffi: __ffi.new(__ffi.getctype(type)+"*", None if init is __none else init)
 new_array   = lambda type, size,        __ffi=ffi: __ffi.new(__ffi.getctype(type)+"[]", size)
 new_cstr    = lambda init,              __ffi=ffi: __ffi.new("char[]", init)
@@ -40,20 +41,21 @@ to_bytes    = lambda obj, size=-1,      __ffi=ffi: __ffi.string(obj, size) if si
 to_unicode  = to_bytes
 from_buffer = lambda data,              __ffi=ffi: __ffi.from_buffer(data)
 
-_itself_or_NULL = lambda arg, __NULL=ffi.NULL: __NULL if arg is None else arg
-_byref_or_NULL  = lambda arg, __NULL=ffi.NULL: __NULL if arg is None else byref(arg)
+_itself_or_NULL = lambda arg, __NULL=ffi.NULL: __NULL if arg is None else arg         # noqa: N816
+_byref_or_NULL  = lambda arg, __NULL=ffi.NULL: __NULL if arg is None else byref(arg)  # noqa: N816
 
 class _CData(ct.Structure):
-    _fields_ = ( # PyObject_HEAD
+    _fields_ = (  # PyObject_HEAD
     ("ob_refcnt",     ct.c_ssize_t),
     ("ob_type",       ct.c_void_p),
     # _CData body
-    ("c_type",        ct.py_object), # CTypeDescrObject*
-    ("c_data",        ct.c_void_p),  # char*
-    ("c_weakreflist", ct.py_object), # PyObject*
+    ("c_type",        ct.py_object),  # CTypeDescrObject*
+    ("c_data",        ct.c_void_p),   # char*
+    ("c_weakreflist", ct.py_object),  # PyObject*
 )
 
-_as_CData = lambda obj, __ct=ct: __ct.cast(id(obj), __ct.POINTER(_CData))[0]
+
+_as_CData = lambda obj, __ct=ct: __ct.cast(id(obj), __ct.POINTER(_CData))[0]  # noqa: N816
 
 def defined(varname, __getframe=sys._getframe):
     frame = __getframe(1)
@@ -61,6 +63,7 @@ def defined(varname, __getframe=sys._getframe):
 
 def from_oid(oid, __cast=ct.cast, __py_object=ct.py_object):
     return __cast(oid, __py_object).value if oid else None
+
 
 #
 # JNI Types
@@ -82,26 +85,26 @@ jclass        = ffi.typeof("jclass")
 jthrowable    = ffi.typeof("jthrowable")
 jstring       = ffi.typeof("jstring")
 jarray        = ffi.typeof("jarray")
-jbooleanArray = ffi.typeof("jbooleanArray")
-jbyteArray    = ffi.typeof("jbyteArray")
-jcharArray    = ffi.typeof("jcharArray")
-jshortArray   = ffi.typeof("jshortArray")
-jintArray     = ffi.typeof("jintArray")
-jlongArray    = ffi.typeof("jlongArray")
-jfloatArray   = ffi.typeof("jfloatArray")
-jdoubleArray  = ffi.typeof("jdoubleArray")
-jobjectArray  = ffi.typeof("jobjectArray")
+jbooleanArray = ffi.typeof("jbooleanArray")  # noqa: N816
+jbyteArray    = ffi.typeof("jbyteArray")     # noqa: N816
+jcharArray    = ffi.typeof("jcharArray")     # noqa: N816
+jshortArray   = ffi.typeof("jshortArray")    # noqa: N816
+jintArray     = ffi.typeof("jintArray")      # noqa: N816
+jlongArray    = ffi.typeof("jlongArray")     # noqa: N816
+jfloatArray   = ffi.typeof("jfloatArray")    # noqa: N816
+jdoubleArray  = ffi.typeof("jdoubleArray")   # noqa: N816
+jobjectArray  = ffi.typeof("jobjectArray")   # noqa: N816
 jweak         = ffi.typeof("jweak")
 
 jvalue = ffi.typeof("jvalue")
 
-jfieldID = ffi.typeof("jfieldID")
+jfieldID = ffi.typeof("jfieldID")  # noqa: N816
 
-jmethodID = ffi.typeof("jmethodID")
+jmethodID = ffi.typeof("jmethodID")  # noqa: N816
 
 # Return values from jobjectRefType
 
-jobjectRefType = ffi.typeof("jobjectRefType")
+jobjectRefType = ffi.typeof("jobjectRefType")  # noqa: N816
 JNIInvalidRefType    = jobjectRefType.relements["JNIInvalidRefType"]
 JNILocalRefType      = jobjectRefType.relements["JNILocalRefType"]
 JNIGlobalRefType     = jobjectRefType.relements["JNIGlobalRefType"]
@@ -119,7 +122,7 @@ JNI_TRUE  = ffi.integer_const("JNI_TRUE")
 #
 
 NULL   = ffi.NULL
-isNULL = lambda jobj, __NULL=NULL: jobj == __NULL
+isNULL = lambda jobj, __NULL=NULL: jobj == __NULL  # noqa: N816
 
 #
 # possible return values for JNI functions.
@@ -178,7 +181,7 @@ class JNIEnv:
             if cause: fun.DeleteGlobalRef(env, cause)
             Throwable.last = None
         fun.ExceptionClear(env)
-        Throwable.last = thr = Throwable(jexc)#!!!, fname)
+        Throwable.last = thr = Throwable(jexc)  # !!!, fname)
         raise thr
 
     # Java version
@@ -853,21 +856,21 @@ class JNIEnv:
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetStringLength(self, str):
+    def GetStringLength(self, str):  # noqa: A002
         env = self.__env
         fun = env[0]
         ret = fun.GetStringLength(env, str)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetStringChars(self, str, isCopy=None):
+    def GetStringChars(self, str, isCopy=None):  # noqa: A002
         env = self.__env
         fun = env[0]
         ret = fun.GetStringChars(env, str, _byref_or_NULL(isCopy))
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def ReleaseStringChars(self, str, chars):
+    def ReleaseStringChars(self, str, chars):  # noqa: A002
         env = self.__env
         fun = env[0]
         fun.ReleaseStringChars(env, str, chars)
@@ -880,33 +883,33 @@ class JNIEnv:
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetStringUTFLength(self, str):
+    def GetStringUTFLength(self, str):  # noqa: A002
         env = self.__env
         fun = env[0]
         ret = fun.GetStringUTFLength(env, str)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetStringUTFChars(self, str, isCopy=None):
+    def GetStringUTFChars(self, str, isCopy=None):  # noqa: A002
         env = self.__env
         fun = env[0]
         ret = fun.GetStringUTFChars(env, str, _byref_or_NULL(isCopy))
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def ReleaseStringUTFChars(self, str, chars):
+    def ReleaseStringUTFChars(self, str, chars):  # noqa: A002
         env = self.__env
         fun = env[0]
         fun.ReleaseStringUTFChars(env, str, chars)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def GetStringRegion(self, str, start, len, buf):
+    def GetStringRegion(self, str, start, len, buf):  # noqa: A002
         env = self.__env
         fun = env[0]
         fun.GetStringRegion(env, str, start, len, buf)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def GetStringUTFRegion(self, str, start, len, buf):
+    def GetStringUTFRegion(self, str, start, len, buf):  # noqa: A002
         env = self.__env
         fun = env[0]
         fun.GetStringUTFRegion(env, str, start, len, buf)
@@ -1235,7 +1238,7 @@ class JNIEnv:
         # Required due to bug in jvm:
         # https://bugs.java.com/bugdatabase/view_bug.do?bug_id=6493522
         fun.GetMethodID(env, clazz, b"notify", b"()V")
-        ret = 0 # fun.RegisterNatives(env, clazz, methods, nMethods)
+        ret = 0  # fun.RegisterNatives(env, clazz, methods, nMethods)
         # print("RegisterNatives:ret:", ret)
         if ret != 0 and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
@@ -1324,6 +1327,7 @@ class JNIEnv:
         ret = fun.GetJavaVM(env, vm)
         if ret != 0: self._handle_JNIException(ret)
 
+
 tmap[JNIEnv] = ffi.typeof("JNIEnv")
 
 def JEnv(penv):
@@ -1379,6 +1383,7 @@ class JavaVM:
         if ret != JNI_OK: self._handle_JNIException(ret)
         _as_CData(penv).c_data = _as_CData(p_penv[0]).c_data
 
+
 tmap[JavaVM] = ffi.typeof("JavaVM")
 
 def JVM(pjvm):
@@ -1386,6 +1391,7 @@ def JVM(pjvm):
     jvm._JavaVM__jvm = pjvm
     jvm._JavaVM__fun = pjvm[0]
     return jvm
+
 
 JavaVMOption = ffi.typeof("JavaVMOption")
 
@@ -1409,14 +1415,17 @@ JNI_VERSION_1_6 = ffi.integer_const("JNI_VERSION_1_6")
 JNI_VERSION_1_8 = ffi.integer_const("JNI_VERSION_1_8")
 JNI_VERSION_9   = ffi.integer_const("JNI_VERSION_9")
 JNI_VERSION_10  = ffi.integer_const("JNI_VERSION_10")
+JNI_VERSION_19  = ffi.integer_const("JNI_VERSION_19")
+JNI_VERSION_20  = ffi.integer_const("JNI_VERSION_20")
+JNI_VERSION_21  = ffi.integer_const("JNI_VERSION_21")
 
 # eof jni.h
 
-class Throwable(Exception):
+class Throwable(Exception):  # noqa: N818
 
     last = None
 
-    def __init__(self, cause=NULL, info=NULL):
+    def __init__(self, cause=NULL, info=NULL):  # noqa: D107
         self._cause = cast(cause, jthrowable)
         self._info  = cast(info,  jstring)
         super().__init__(self._cause, self._info)
@@ -1439,7 +1448,7 @@ class JNIException(SystemError):
         JNI_EINVAL:    "invalid arguments",
     }
 
-    def __init__(self, error=JNI_ERR, info=None):
+    def __init__(self, error=JNI_ERR, info=None):  # noqa: D107
         self._error = error
         self._info  = info
         super().__init__(self.getMessage(), self.getError())
@@ -1495,6 +1504,7 @@ def method(signature, **kwargs):
     FunProto = CFUNC(ret_type, POINTER(JNIEnv), jobject, *arg_types)
     Fun_Proto = None
     _fun_name = None
+
     def wrapper(fun, fun_name=fun_name, fun_sign=fun_sign):
         nonlocal Fun_Proto, _fun_name
         Fun_Proto = FunProto(fun)
@@ -1504,6 +1514,7 @@ def method(signature, **kwargs):
         native_meth.signature = fun_sign
         native_meth.fnPtr     = cast(Fun_Proto, "void*")
         return native_meth
+
     return wrapper
 
 def __parse_signature(signature):
@@ -1543,6 +1554,7 @@ def __parse_signature(signature):
             raise JNIException(JNI_EINVAL, info="jni.method")
 
     return arg_types[0], tuple(arg_types[1:])
+
 
 __native_types = {
     "V": None,

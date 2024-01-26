@@ -1,4 +1,4 @@
-# Copyright (c) 2004-2022 Adam Karpierz
+# Copyright (c) 2004 Adam Karpierz
 # Licensed under CC BY-NC-ND 4.0
 # Licensed under proprietary License
 # Please refer to the accompanying LICENSE file.
@@ -9,6 +9,8 @@ class Preprocessor:
     import re
 
     class adict(dict):
+        """Dict with attr access to keys."""
+
         __getattr__ = dict.__getitem__
         __setattr__ = dict.__setitem__
         __delattr__ = dict.__delitem__
@@ -19,11 +21,12 @@ class Preprocessor:
                                  r"'(?:\\.|[^\\'])*'|"
                                  r'"(?:\\.|[^\\"])*"',
                                  re.DOTALL | re.MULTILINE)
+
     @staticmethod
     def comment_replacer(m):
         s = m.group(0)
         return "" if s.startswith("//") else " " if s.startswith("/*") else s
-       #return "" if s.startswith("//") else " " + ("\n" * s.count("\n")) if s.startswith("/*") else s
+        # return "" if s.startswith("//") else " " + ("\n" * s.count("\n")) if s.startswith("/*") else s
 
     basic_tokens = dict(
         bol     = r"^",
@@ -32,7 +35,7 @@ class Preprocessor:
         ws_opt  = r"[ \t\v\f]*",
         digits  = r"[0123456789]+",
         id      = r"[_a-zA-Z][_a-zA-Z0-9]*",
-        any     = r".*?", # ?
+        any     = r".*?",  # ?
         lparen  = r"\(",
         rparen  = r"\)",
         dec_int = r"[-+]?\s*[0123456789]" + "[uU]?[lL]?|[lL]?[uU]?",  # ?
@@ -83,8 +86,8 @@ class Preprocessor:
                           attrs=self.adict(macro=macro,
                                            subst=subst),
                           matched=m.group(0),
-                          replacement=m.group(1) + macro + m.group(3) +
-                                      expr_str if expr_str else "")
+                          replacement=m.group(1) + macro + m.group(3) + expr_str
+                                      if expr_str else "")
 
     def undef_action(self, m):
         macro = m.group(2)
@@ -136,12 +139,12 @@ class Preprocessor:
                           attrs=self.adict(),
                           matched=m.group(0))
 
-    def error_action(self, m): # NOK
+    def error_action(self, m):  # NOK
         return self.adict(kind="#error",
                           attrs=self.adict(),
                           matched=m.group(0))
 
-    def pragma_action(self, m): # NOK
+    def pragma_action(self, m):  # NOK
         return self.adict(kind="#pragma",
                           attrs=self.adict(),
                           matched=m.group(0))
@@ -194,12 +197,12 @@ class Preprocessor:
             for pattern, action in self.patterns:
                 match = pattern.match(line)
                 if match:
-                    node = action(self, match) 
-                    #print("Node:", node.kind)
-                    #print("  attributes  ->", node.attrs)
-                    #print("  matched     ->", node.matched)
-                    #if "replacement" in node and node.replacement is not None:
-                    #    print("  replacement ->", node.replacement)
+                    node = action(self, match)
+                    # print("Node:", node.kind)
+                    # print("  attributes  ->", node.attrs)
+                    # print("  matched     ->", node.matched)
+                    # if "replacement" in node and node.replacement is not None:
+                    #     print("  replacement ->", node.replacement)
                     if node.kind == "#define0":
                         if insert[-1]:
                             self.define_macros[node.attrs.macro] = node.attrs.subst
@@ -212,17 +215,17 @@ class Preprocessor:
                         if insert[-1]:
                             self.define_macros.pop(node.attrs.macro, None)
                     elif node.kind == "#ifdef":
-                        insert.append(insert[-1] and
-                                      node.attrs.macro in self.define_macros)
+                        insert.append(insert[-1]
+                                      and node.attrs.macro in self.define_macros)
                     elif node.kind == "#ifndef":
-                        insert.append(insert[-1] and
-                                      node.attrs.macro not in self.define_macros)
+                        insert.append(insert[-1]
+                                      and node.attrs.macro not in self.define_macros)
                     elif node.kind == "#if":
-                        insert.append(insert[-1] and
-                                      self.eval_expr(node.attrs.condition, self.define_macros))
+                        insert.append(insert[-1]
+                                      and self.eval_expr(node.attrs.condition, self.define_macros))
                     elif node.kind == "#elif":
-                        condition = (not insert.pop() and
-                                     self.eval_expr(node.attrs.condition, self.define_macros))
+                        condition = (not insert.pop()
+                                     and self.eval_expr(node.attrs.condition, self.define_macros))
                         insert.append(insert[-1] and condition)
                     elif node.kind == "#else":
                         condition = not insert.pop()
@@ -230,8 +233,8 @@ class Preprocessor:
                     elif node.kind == "#endif":
                         insert.pop()
 
-                    if (insert[-1] and
-                        "replacement" in node and node.replacement is not None):
+                    if (insert[-1]
+                        and "replacement" in node and node.replacement is not None):  # noqa: E129
                         lines.append(node.replacement)
                     break
             else:
