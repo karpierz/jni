@@ -44,7 +44,7 @@ from_buffer = lambda data,              __cyth=cython: __ffi.from_buffer(data)
 # null constant
 
 NULL   = cython.NULL
-isNULL = lambda jobj, __NULL=NULL: jobj is __NULL  # noqa: N816
+isNULL = lambda jobj, __NULL=NULL: jobj == __NULL  # noqa: N816
 
 #
 # Decorator for defining Java native method in Python
