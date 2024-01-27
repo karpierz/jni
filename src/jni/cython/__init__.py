@@ -27,7 +27,7 @@ byref     = lambda obj, offset=0,     __cyth=cython: __ffi.new(POINTER(__ffi.typ
 addressof = lambda obj,               __cyth=cython: __cyth.address(obj)
 cast      = lambda obj, type,         __cyth=cython: __cyth.cast(type, obj)
 sizeof    = lambda obj_or_type,       __cyth=cython: __cyth.sizeof(obj_or_type)
-#sizeof   = lambda obj_or_type,       __cyth=cython: __cyth.sizeof(obj_or_type)
+# sizeof  = lambda obj_or_type,       __cyth=cython: __cyth.sizeof(obj_or_type)
 py_object = lambda obj,               __cyth=cython: __ffi.new_handle(obj)
 memmove   = lambda dst, src, count,   __cyth=cython: __ffi.memmove(dst, src, count)
 obj       = lambda type, init=__none, __cyth=cython: (__ffi.new(__ffi.getctype(type)+"*", None if init is __none else init)[0]
@@ -43,8 +43,8 @@ from_buffer = lambda data,              __cyth=cython: __ffi.from_buffer(data)
 
 # null constant
 
-from cython import NULL
-isNULL = lambda jobj: jobj is NULL
+NULL   = cython.NULL
+isNULL = lambda jobj, __NULL=NULL: jobj is __NULL  # noqa: N816
 
 #
 # Decorator for defining Java native method in Python
