@@ -9,7 +9,7 @@ requires = ['setuptools>=68.2.2', 'wheel>=0.42.0', 'packaging>=23.2.0', 'tox>=4.
 
 [project]
 name        = 'jni'
-version     = '1.0.0b21'
+version     = '1.0.0b22'
 description = 'Python bridge for the Java Native Interface.'
 urls.Homepage      = 'https://pypi.org/project/jni/'
 urls.Documentation = 'https://jni.readthedocs.io/'
@@ -52,7 +52,7 @@ requires-python = '>=3.8.1,<4.0.0'
 dependencies = [
     # mandatory
     'setuptools>=68.2.2',
-    'pkg-about>=1.1.3',
+    'pkg-about>=1.1.5',
     # others
 ]
 dynamic = ['readme']
@@ -182,21 +182,21 @@ count = true
 [tool.tox]
 legacy_tox_ini = """
 [tox]
-envlist = py{38,39,310,311,312}, pypy{39,310}win, docs
+envlist = py{38,39,310,311,312}, pypy{39,310}, docs
 labels =
-    py = py{38,39,310,311,312}, pypy{39,310}win
+    py = py{38,39,310,311,312}, pypy{39,310}
     prepare = prepare
     coverage = coverage
     lint = lint
     docs = docs
-    build  = py{38,39,310,311,312}, pypy{39,310}win, docs, py{38,39,310,311,312}-build, pypy{39,310}win-build, build
-    deploy = py{38,39,310,311,312}, pypy{39,310}win, docs, py{38,39,310,311,312}-build, pypy{39,310}win-build, build, publish
+    build  = py{38,39,310,311,312}, pypy{39,310}, docs, py{38,39,310,311,312}-build, pypy{39,310}-build, build
+    deploy = py{38,39,310,311,312}, pypy{39,310}, docs, py{38,39,310,311,312}-build, pypy{39,310}-build, build, publish
 minversion = 4.11.3
 skip_missing_interpreters = true
 requires =
     {[base]deps}
     virtualenv>=20.25.0
-    tox-backtick>=0.4.3
+    tox-backtick>=0.4.4
     tox-tags>=0.2.0
 
 [base]
@@ -209,8 +209,6 @@ packagesubdir = jni
 
 [testenv]
 passenv = WINDIR
-    ProgramFiles
-    ProgramFiles(x86)
 setenv =
     PYTHONDONTWRITEBYTECODE = 1
 commands =
@@ -219,12 +217,6 @@ commands =
 extras = test, cffi, cython
 deps =
     {[base]deps}
-
-[testenv:pypy39win]
-basepython = C:\\PyPy39\\pypy.exe
-
-[testenv:pypy310win]
-basepython = C:\\PyPy310\\pypy.exe
 
 [testenv:prepare]
 basepython = {[base]basepython}
@@ -259,7 +251,7 @@ commands =
 extras = doc
 deps =
 
-[testenv:py{38,39,310,311,312}-build]
+[testenv:py{38,39,310,311,312}-build,pypy{39,310}-build]
 #depends = {envname}
 setenv =
     {[testenv]setenv}
@@ -274,17 +266,8 @@ deps =
     {[testenv]deps}
     #pyc-wheel>=1.2.7
 
-[testenv:pypy{39,310}win-build]
-#depends = {envname}
-basepython =
-    pypy39win:  {[testenv:pypy39win]basepython}
-    pypy310win: {[testenv:pypy310win]basepython}
-setenv   = {[testenv:py311-build]setenv}
-commands =
-    {envpython} -W ignore setup.py --quiet bdist_wheel
-
 [testenv:build]
-depends = py{38,39,310,311,312}, pypy{39,310}win, docs, py{38,39,310,311,312}-build, pypy{39,310}win-build
+depends = py{38,39,310,311,312}, pypy{39,310}, docs, py{38,39,310,311,312}-build, pypy{39,310}-build
 basepython = {[base]basepython}
 commands =
     {envpython} -W ignore setup.py --quiet sdist --formats=zip
