@@ -5,11 +5,11 @@
 
 [build-system]
 build-backend = 'setuptools.build_meta'
-requires = ['setuptools>=68.2.2', 'wheel>=0.42.0', 'packaging>=23.2.0', 'tox>=4.11.3']
+requires = ['setuptools>=75.3.0', 'wheel>=0.44.0', 'packaging>=24.1.0', 'tox>=4.23.2']
 
 [project]
 name        = 'jni'
-version     = '1.0.0b22'
+version     = '1.1.0b1'
 description = 'Python bridge for the Java Native Interface.'
 urls.Homepage      = 'https://pypi.org/project/jni/'
 urls.Documentation = 'https://jni.readthedocs.io/'
@@ -36,11 +36,11 @@ classifiers = [
     'Natural Language :: Polish',
     'Programming Language :: Python',
     'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.8',
     'Programming Language :: Python :: 3.9',
     'Programming Language :: Python :: 3.10',
     'Programming Language :: Python :: 3.11',
     'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: 3.13',
     'Programming Language :: Python :: 3 :: Only',
     'Programming Language :: Python :: Implementation :: CPython',
     'Programming Language :: Python :: Implementation :: PyPy',
@@ -48,34 +48,34 @@ classifiers = [
     'Topic :: Software Development :: Libraries :: Python Modules',
     'Topic :: Software Development :: Libraries :: Java Libraries',
 ]
-requires-python = '>=3.8.1,<4.0.0'
+requires-python = '>=3.9.0,<4.0.0'
 dependencies = [
     # mandatory
-    'setuptools>=68.2.2',
-    'pkg-about>=1.1.5',
+    'setuptools>=75.3.0',
+    'pkg-about>=1.2.2',
     # others
 ]
 dynamic = ['readme']
 [project.optional-dependencies]
 cffi = [
-    'cffi>=1.16.0',
+    'cffi>=1.17.1',
 ]
 cython = [
-    'Cython>=3.0.8',
+    'Cython>=3.0.11',
 ]
 doc = [
-    'Sphinx>=7.1.2',
-    'sphinx-toolbox>=3.5.0',
-    'sphinx-tabs>=3.4.1',
-    'sphinx-copybutton>=0.5.1',
-    'sphinxcontrib-spelling>=7.7.0',
-    'sphinx-lint>=0.6.7',
+    'Sphinx>=7.4.7',
+    'sphinx-toolbox>=3.8.1',
+    'sphinx-tabs>=3.4.5', # don't touch! sphinx-toolbox requires <3.4.7
+    'sphinx-copybutton>=0.5.2',
+    'sphinxcontrib-spelling>=8.0.0',
+    'sphinx-lint>=1.0.0',
     'restructuredtext-lint>=1.4.0',
-    'nbsphinx>=0.8.10',
+    'nbsphinx>=0.9.5',
 ]
 test = [
-    'deepdiff>=6.7.1',
-    'rich>=13.7.0',
+    'deepdiff>=8.0.1',
+    'rich>=13.9.4',
 ]
 
 [project.scripts]
@@ -182,44 +182,44 @@ count = true
 [tool.tox]
 legacy_tox_ini = """
 [tox]
-envlist = py{38,39,310,311,312}, pypy{39,310}, docs
+env_list = py{39,310,311,312,313}, pypy{39,310}, docs
 labels =
-    py = py{38,39,310,311,312}, pypy{39,310}
+    py = py{39,310,311,312,313}, pypy{39,310}
     prepare = prepare
     coverage = coverage
     lint = lint
     docs = docs
-    build  = py{38,39,310,311,312}, pypy{39,310}, docs, py{38,39,310,311,312}-build, pypy{39,310}-build, build
-    deploy = py{38,39,310,311,312}, pypy{39,310}, docs, py{38,39,310,311,312}-build, pypy{39,310}-build, build, publish
-minversion = 4.11.3
+    build  = py{39,310,311,312,313}, pypy{39,310}, docs, py{39,310,311,312,313}-build, pypy{39,310}-build, build
+    deploy = py{39,310,311,312,313}, pypy{39,310}, docs, py{39,310,311,312,313}-build, pypy{39,310}-build, build, publish
+min_version = 4.23.2
 skip_missing_interpreters = true
 requires =
     {[base]deps}
-    virtualenv>=20.25.0
-    tox-backtick>=0.4.4
+    virtualenv>=20.27.1
+    tox-backtick>=0.5.2
     tox-tags>=0.2.0
 
 [base]
-basepython = python3.11
+base_python = python3.12
 deps =
-    pip>=23.3.2
-    setuptools>=68.2.2
-    wheel>=0.42.0
-packagesubdir = jni
+    pip>=24.3.1
+    setuptools>=75.3.0
+    wheel>=0.44.0
+package_subdir = jni
 
 [testenv]
-passenv = WINDIR
-setenv =
+pass_env = WINDIR
+set_env =
     PYTHONDONTWRITEBYTECODE = 1
 commands =
-    {envpython} --version
-    {envpython} -m tests {posargs}
+    {env_python} --version
+    {env_python} -m tests {posargs}
 extras = test, cffi, cython
 deps =
     {[base]deps}
 
 [testenv:prepare]
-basepython = {[base]basepython}
+base_python = {[base]base_python}
 skip_install = true
 allowlist_externals =
     cmd
@@ -228,77 +228,77 @@ commands =
     cmd /C if exist .build.cmd .build.cmd
 
 [testenv:coverage]
-basepython = {[base]basepython}
+base_python = {[base]base_python}
 commands =
-    {envpython} -m coverage erase
-    -{envpython} -m coverage run -m tests {posargs}
-    {envpython} -m coverage report
-    {envpython} -m coverage html
+    {env_python} -m coverage erase
+    -{env_python} -m coverage run -m tests {posargs}
+    {env_python} -m coverage report
+    {env_python} -m coverage html
 deps =
     {[testenv]deps}
-    coverage>=7.4.0
+    coverage>=7.6.4
     covdefaults>=2.3.0
-    diff-cover>=7.7.0
+    diff-cover>=9.2.0
 
 [testenv:docs]
-basepython = {[base]basepython}
+base_python = {[base]base_python}
 commands =
-    {envpython} -m sphinxlint --ignore .tox --ignore build --ignore dist
-   #{envpython} -m sphinx.apidoc -f {envsitepackagesdir}/{[base]packagesubdir}
-    {envpython} -m sphinx.cmd.build -W -a -b html -E   ./docs ./build/docs/html
-    {envpython} -m sphinx.cmd.build -W -a -b linkcheck ./docs ./build/docs/html
-    {envpython} -m sphinx.cmd.build -W -a -b doctest   ./docs ./build/docs/html
+    {env_python} -m sphinxlint --ignore .tox --ignore build --ignore dist
+   #{env_python} -m sphinx.apidoc -f {envsitepackagesdir}/{[base]package_subdir}
+    {env_python} -m sphinx.cmd.build -W -a -b html -E   ./docs ./build/docs/html
+    {env_python} -m sphinx.cmd.build -W -a -b linkcheck ./docs ./build/docs/html
+    {env_python} -m sphinx.cmd.build -W -a -b doctest   ./docs ./build/docs/html
 extras = doc
 deps =
 
-[testenv:py{38,39,310,311,312}-build,pypy{39,310}-build]
+[testenv:py{39,310,311,312,313}-build,pypy{39,310}-build]
 #depends = {envname}
-setenv =
-    {[testenv]setenv}
-    PKG_PVER=`{envpython} -W ignore -c "import platform ; print(''.join(platform.python_version_tuple()[:2]), end='')" 2> nul`
-    PKG_NAME=`{envpython} -W ignore -c "import setuptools ; setuptools._distutils.core._setup_stop_after='config' ; print(setuptools.setup().metadata.get_name(),     end='')" 2> nul`
-    PKG_DIST=`{envpython} -W ignore -c "import setuptools ; setuptools._distutils.core._setup_stop_after='config' ; print(setuptools.setup().metadata.get_fullname(), end='')" 2> nul`
+set_env =
+    {[testenv]set_env}
+    PKG_PVER=`{env_python} -W ignore -c "import platform ; print(''.join(platform.python_version_tuple()[:2]), end='')" 2> nul`
+    PKG_NAME=`{env_python} -W ignore -c "import setuptools ; setuptools._distutils.core._setup_stop_after='config' ; print(setuptools.setup().metadata.get_name(),     end='')" 2> nul`
+    PKG_DIST=`{env_python} -W ignore -c "import setuptools ; setuptools._distutils.core._setup_stop_after='config' ; print(setuptools.setup().metadata.get_fullname(), end='')" 2> nul`
 commands =
-   #{envpython} -W ignore setup.py --quiet bdist_wheel --python-tag py{env:PKG_PVER}
-    {envpython} -W ignore setup.py --quiet bdist_wheel
-   #{envpython} -m pyc_wheel --quiet "dist/{env:PKG_DIST}*.whl"
+   #{env_python} -W ignore setup.py --quiet bdist_wheel --python-tag py{env:PKG_PVER}
+    {env_python} -W ignore setup.py --quiet bdist_wheel
+   #{env_python} -m pyc_wheel --quiet "dist/{env:PKG_DIST}*.whl"
 deps =
     {[testenv]deps}
-    #pyc-wheel>=1.2.7
+    #pyc-wheel>=1.3.0
 
 [testenv:build]
-depends = py{38,39,310,311,312}, pypy{39,310}, docs, py{38,39,310,311,312}-build, pypy{39,310}-build
-basepython = {[base]basepython}
+depends = py{39,310,311,312,313}, pypy{39,310}, docs, py{39,310,311,312,313}-build, pypy{39,310}-build
+base_python = {[base]base_python}
 commands =
-    {envpython} -W ignore setup.py --quiet sdist --formats=zip
+    {env_python} -W ignore setup.py --quiet sdist --formats=zip
     # check out for PyPi
-    {envpython} -m twine check dist/*
+    {env_python} -m twine check dist/*
 deps =
     {[testenv]deps}
-    twine>=4.0.2
+    twine>=5.1.1
 
 [testenv:publish]
 depends = build
-basepython = {[base]basepython}
+base_python = {[base]base_python}
 skip_install = true
 commands =
     # publish on PyPi
-    {envpython} -m twine upload dist/*
+    {env_python} -m twine upload dist/*
 extras =
 deps =
-    twine>=4.0.2
+    twine>=5.1.1
 
 [testenv:lint]
-basepython = {[base]basepython}
+base_python = {[base]base_python}
 commands =
-    {envpython} -m flake8 {envsitepackagesdir}/{[base]packagesubdir}/
+    {env_python} -m flake8 {envsitepackagesdir}/{[base]package_subdir}/
 extras =
 deps =
     {[testenv]deps}
-    flake8>=7.0.0
+    flake8>=7.1.1
     flake8-pyproject>=1.2.3
     flake8-docstrings>=1.7.0
-    pep8-naming>=0.13.3
-    flake8-builtins>=2.2.0
+    pep8-naming>=0.14.1
+    flake8-builtins>=2.5.0
     flake8-deprecated>=2.2.1
 """

@@ -6,10 +6,10 @@ Installation
 Requirements
 ------------
 
-+ Python 3.8 or higher
++ Python 3.9 or higher
 
   * https://www.python.org/
-  * Java 8 is a primary test environment.
+  * Java 11 is a primary test environment.
 
 + pip and setuptools
 

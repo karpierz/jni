@@ -3,7 +3,8 @@
 # Licensed under proprietary License
 # Please refer to the accompanying LICENSE file.
 
-from typing import Optional
+from __future__ import annotations
+
 import unittest
 import re
 

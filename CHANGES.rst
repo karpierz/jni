@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.1.0b1 (2024-10-30)
+--------------------
+- Add support for Python 3.13
+- Drop support for Python 3.8
+- Unittest have been performed for much more JVMs.
+- Setup (dependencies) update.
+
 1.0.0b22 (2024-01-26)
 ---------------------
 - Tox configuration has been moved to pyproject.toml

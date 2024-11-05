@@ -1,18 +1,17 @@
 @echo off
 setlocal enableDelayedExpansion
-set JAVA8_HOME=C:\Program Files\Java\jdk1.8.0_202
-if not defined JAVA_HOME (set JAVA_HOME=%JAVA8_HOME%)
-set javac="%JAVA_HOME%\bin\javac" -encoding UTF-8 -g:none -deprecation -Xlint:unchecked ^
-    -source 1.8 -target 1.8 -bootclasspath "%JAVA8_HOME%\jre\lib\rt.jar"
+set JAVA_HOME=C:\Program Files\Zulu\zulu-11
+set javac="%JAVA_HOME%\bin\javac" -encoding UTF-8 -g:none ^
+          -deprecation -Xlint:unchecked --release 8
 
 rem pushd "%~dp0"
-rem rem # for jni.cffi
+rem rem for jni.cffi
 rem del /F/Q src\jni\cffi\jni.i  2> nul
 rem del /F/Q src\jni\cffi\jni.py 2> nul
-rem rem # for jni.cython
+rem rem for jni.cython
 rem del /F/Q src\jni\cython\jni.c 2> nul
 rem del /F/Q src\jni\cython\jni.h 2> nul
-rem rem # for jni.cffi, jni.cython and jni.capi
+rem rem for jni.cffi, jni.cython and jni.capi
 rem rmdir /Q/S build 2> nul
 rem popd
 
