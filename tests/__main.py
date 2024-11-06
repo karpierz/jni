@@ -36,6 +36,15 @@ def test(jvm_path):
 
     package = sys.modules[__package__]
     package.jvm = jvm = _jvm.JVM(jvm_path)
+    jvm.JavaException = JavaException
+    jvm.ExceptionsMap = {
+        _jvm.EStatusCode.ERR:       UnknownError,
+        _jvm.EStatusCode.EDETACHED: ThreadNotAttachedError,
+        _jvm.EStatusCode.EVERSION:  VersionNotSupportedError,
+        _jvm.EStatusCode.ENOMEM:    NotEnoughMemoryError,
+        _jvm.EStatusCode.EEXIST:    JVMAlreadyExistError,
+        _jvm.EStatusCode.EINVAL:    InvalidArgumentError,
+    }
     jvm.start("-Djava.class.path={}".format(
               os.pathsep.join([str(test_dir/"java/classes")])),
               "-ea", "-Xms16M", "-Xmx512M")
@@ -101,3 +110,25 @@ def main(argv=sys.argv[1:]):
         result = pool.map(test, jvm_paths)
 
     return 0 if not any(result) else 1
+
+
+class JavaException(Exception):
+    """ """
+
+class UnknownError(Exception):
+    """ """
+
+class ThreadNotAttachedError(Exception):
+    """ """
+
+class VersionNotSupportedError(Exception):
+    """ """
+
+class NotEnoughMemoryError(Exception):
+    """ """
+
+class JVMAlreadyExistError(Exception):
+    """ """
+
+class InvalidArgumentError(Exception):
+    """ """

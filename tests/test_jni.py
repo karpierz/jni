@@ -17,8 +17,8 @@ class JNITestCase(unittest.TestCase):
     def setUpClass(cls):
         from . import jvm
         cls.jvm    = jvm
-        cls.JNI    = jvm._JNI
-        cls.jnijvm = jvm._jnijvm
+        cls.JNI    = jvm._jvm.JNI
+        cls.jnijvm = jvm._jvm.jnijvm
 
     def setUp(self):
         import jni

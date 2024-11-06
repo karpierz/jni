@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.1.0b1 (2024-10-30)
+1.1.0b2 (2024-11-05)
 --------------------
 - Add support for Python 3.13
 - Drop support for Python 3.8
