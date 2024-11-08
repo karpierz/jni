@@ -1,10 +1,11 @@
 Changelog
 =========
 
-1.1.0b3 (2024-11-08)
+1.1.0b4 (2024-11-08)
 --------------------
 - Add support for Python 3.13
 - Drop support for Python 3.8
+- jni.c has been included for further development.
 - Unittest have been performed for much more JVMs.
 - Setup fixes.
 - Setup (dependencies) update.

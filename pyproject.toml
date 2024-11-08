@@ -9,7 +9,7 @@ requires = ['setuptools>=75.3.0', 'wheel>=0.44.0', 'packaging>=24.2.0', 'tox>=4.
 
 [project]
 name        = 'jni'
-version     = '1.1.0b3'
+version     = '1.1.0b4'
 description = 'Python bridge for the Java Native Interface.'
 urls.Homepage      = 'https://pypi.org/project/jni/'
 urls.Documentation = 'https://jni.readthedocs.io/'
@@ -111,9 +111,12 @@ jni = [
 ]
 
 [tool.setuptools.exclude-package-data]
-'*' = ['*.c','*.h','*.cpp','*.hpp','*.cxx','*.hxx','*.pyx','*.pxd',
-       '*.txt']
-jni = [
+'*' = ['*.h','*.cpp','*.hpp','*.cxx','*.hxx','*.pyx','*.pxd', '*.txt']
+'jni.capi' = [
+    'jni.c',
+]
+'jni.cython' = [
+    'jni.c',
 ]
 
 [tool.coverage.run]
