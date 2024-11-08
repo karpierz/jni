@@ -23,5 +23,6 @@ dir /S/B/O:N ^
 %javac% -d java/classes -classpath java/lib/* @build.fil
 del /F/Q build.fil
 popd
+
 :exit
 endlocal

@@ -1,11 +1,12 @@
 Changelog
 =========
 
-1.1.0b2 (2024-11-05)
+1.1.0b3 (2024-11-08)
 --------------------
 - Add support for Python 3.13
 - Drop support for Python 3.8
 - Unittest have been performed for much more JVMs.
+- Setup fixes.
 - Setup (dependencies) update.
 
 1.0.0b22 (2024-01-26)
