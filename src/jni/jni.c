@@ -1,3 +1,11 @@
+// Copyright (c) 2004 Adam Karpierz
+// Licensed under CC BY-NC-ND 4.0
+// Licensed under proprietary License
+// Please refer to the accompanying LICENSE file.
+
+#ifndef JNI_C_INCLUDED
+#define JNI_C_INCLUDED
+
 //
 // JNI bridge
 //
@@ -67,14 +75,13 @@
 
 typedef struct JavaVM JavaVM;
 
-static void JNI_on_load  (JavaVM* jvm);
-static void JNI_on_unload(JavaVM* jvm);
+int  JNI_on_load(JavaVM* jvm);
+void JNI_on_unload(JavaVM* jvm);
 
 JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* jvm, void* reserved)
 {
     (void)reserved;
-    JNI_on_load(jvm);
-    return JNI_VERSION_1_6;
+    return (JNI_on_load(jvm)) ? JNI_VERSION_1_6 : 0;
 }
 
 JNIEXPORT void JNICALL JNI_OnUnload(JavaVM* jvm, void* reserved)
@@ -97,3 +104,5 @@ BOOL WINAPI DllMain(HINSTANCE hinst, DWORD reason, LPVOID reserved)
 }
 
 #endif
+
+#endif /* JNI_C_INCLUDED */
