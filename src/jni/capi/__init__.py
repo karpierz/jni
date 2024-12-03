@@ -16,7 +16,7 @@ else:
     from _ctypes import dlclose as dlclose  # noqa: N813
 
 __none = object()
-obj         = lambda type, init=__none: type() if init is __none else type(init)
+obj         = lambda ctype, init=__none: ctype() if init is __none else ctype(init)
 
 def defined(varname, __getframe=sys._getframe):
     frame = __getframe(1)

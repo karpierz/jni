@@ -26,7 +26,7 @@ def c_ptr_add(ptr, other):
     b'foobar'
     >>>
     """
-    from ctypes import c_void_p, cast, sizeof
+    from ctypes import c_void_p, cast  # , sizeof
     try:
         offset = other.__index__()
     except AttributeError:
@@ -64,7 +64,7 @@ def c_ptr_sub(ptr, other):
     0
     >>>
     """
-    from ctypes import c_void_p, cast, sizeof
+    from ctypes import c_void_p, cast  # , sizeof
     if type(ptr) is type(other):
         return cast(ptr, c_void_p).value - cast(other, c_void_p).value
     else:
@@ -90,7 +90,7 @@ def c_ptr_iadd(ptr, other):
     b'bar'
     >>>
     """
-    from ctypes import c_void_p, cast, sizeof, pointer, POINTER
+    from ctypes import c_void_p, cast, pointer, POINTER  # , sizeof
     try:
         offset = other.__index__()
     except AttributeError:
@@ -123,7 +123,7 @@ def c_ptr_isub(ptr, other):
     b'foobar'
     >>>
     """
-    from ctypes import c_void_p, cast, sizeof, pointer, POINTER
+    from ctypes import c_void_p, cast, pointer, POINTER  # , sizeof
     try:
         offset = other.__index__()
     except AttributeError:

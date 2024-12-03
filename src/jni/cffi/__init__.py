@@ -22,24 +22,24 @@ def CFUNC(restype, *argtypes, __ffi=ffi):
 tmap = {}
 __none = object()
 
-POINTER   = lambda type, __tmap=tmap, __ffi=ffi: __ffi.typeof(__ffi.getctype(__tmap.get(type, type))+"*")
-pointer   = lambda obj,               __ffi=ffi: __ffi.new(POINTER(__ffi.typeof(obj)), obj)
-byref     = lambda obj, offset=0,     __ffi=ffi: __ffi.new(POINTER(__ffi.typeof(obj)), obj)  # !!! zamplementowac offset !!!
-addressof = lambda obj,               __ffi=ffi: __ffi.addressof(obj)
-cast      = lambda obj, type,         __ffi=ffi: __ffi.cast(type, obj)
-sizeof    = lambda obj_or_type,       __ffi=ffi: __ffi.sizeof(obj_or_type)
-py_object = lambda obj,               __ffi=ffi: __ffi.new_handle(obj)
-memmove   = lambda dst, src, count,   __ffi=ffi: __ffi.memmove(dst, src, count)
-obj       = lambda type, init=__none, __ffi=ffi: (__ffi.new(__ffi.getctype(type)+"*", None if init is __none else init)[0]
-                                                  if type.kind != "primitive" else
-                                                  __ffi.cast(type, 0 if init is __none else init))
-new         = lambda type, init=__none, __ffi=ffi: __ffi.new(__ffi.getctype(type)+"*", None if init is __none else init)
-new_array   = lambda type, size,        __ffi=ffi: __ffi.new(__ffi.getctype(type)+"[]", size)
-new_cstr    = lambda init,              __ffi=ffi: __ffi.new("char[]", init)
-as_cstr     = lambda obj,               __ffi=ffi: __ffi.cast("char*", __ffi.from_buffer(obj))
-to_bytes    = lambda obj, size=-1,      __ffi=ffi: __ffi.string(obj, size) if size >= 0 else __ffi.string(obj)
+POINTER   = lambda ctype, __tmap=tmap,   __ffi=ffi: __ffi.typeof(__ffi.getctype(__tmap.get(ctype, ctype))+"*")
+pointer   = lambda obj,                  __ffi=ffi: __ffi.new(POINTER(__ffi.typeof(obj)), obj)
+byref     = lambda obj, offset=0,        __ffi=ffi: __ffi.new(POINTER(__ffi.typeof(obj)), obj)  # !!! zamplementowac offset !!!
+addressof = lambda obj,                  __ffi=ffi: __ffi.addressof(obj)
+cast      = lambda obj, ctype,           __ffi=ffi: __ffi.cast(ctype, obj)
+sizeof    = lambda obj_or_ctype,         __ffi=ffi: __ffi.sizeof(obj_or_ctype)
+py_object = lambda obj,                  __ffi=ffi: __ffi.new_handle(obj)
+memmove   = lambda dst, src, count,      __ffi=ffi: __ffi.memmove(dst, src, count)
+obj       = lambda ctype, init=__none,   __ffi=ffi: (__ffi.new(__ffi.getctype(ctype)+"*", None if init is __none else init)[0]
+                                                    if ctype.kind != "primitive" else
+                                                    __ffi.cast(ctype, 0 if init is __none else init))
+new         = lambda ctype, init=__none, __ffi=ffi: __ffi.new(__ffi.getctype(ctype)+"*", None if init is __none else init)
+new_array   = lambda ctype, size,        __ffi=ffi: __ffi.new(__ffi.getctype(ctype)+"[]", size)
+new_cstr    = lambda init,               __ffi=ffi: __ffi.new("char[]", init)
+as_cstr     = lambda obj,                __ffi=ffi: __ffi.cast("char*", __ffi.from_buffer(obj))
+to_bytes    = lambda obj, size=-1,       __ffi=ffi: __ffi.string(obj, size) if size >= 0 else __ffi.string(obj)
 to_unicode  = to_bytes
-from_buffer = lambda data,              __ffi=ffi: __ffi.from_buffer(data)
+from_buffer = lambda data,               __ffi=ffi: __ffi.from_buffer(data)
 
 _itself_or_NULL = lambda arg, __NULL=ffi.NULL: __NULL if arg is None else arg         # noqa: N816
 _byref_or_NULL  = lambda arg, __NULL=ffi.NULL: __NULL if arg is None else byref(arg)  # noqa: N816

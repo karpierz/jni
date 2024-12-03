@@ -21,25 +21,25 @@ CFUNC = lambda *args, **kwargs: object()
 
 __none = object()
 
-POINTER   = lambda type,              __cyth=cython: __cyth.pointer(type)
-pointer   = lambda obj,               __cyth=cython: __cyth.address(obj)
-byref     = lambda obj, offset=0,     __cyth=cython: __ffi.new(POINTER(__ffi.typeof(obj)), obj)  # !!! zamplementowac offset !!!
-addressof = lambda obj,               __cyth=cython: __cyth.address(obj)
-cast      = lambda obj, type,         __cyth=cython: __cyth.cast(type, obj)
-sizeof    = lambda obj_or_type,       __cyth=cython: __cyth.sizeof(obj_or_type)
-# sizeof  = lambda obj_or_type,       __cyth=cython: __cyth.sizeof(obj_or_type)
-py_object = lambda obj,               __cyth=cython: __ffi.new_handle(obj)
-memmove   = lambda dst, src, count,   __cyth=cython: __ffi.memmove(dst, src, count)
-obj       = lambda type, init=__none, __cyth=cython: (__ffi.new(__ffi.getctype(type)+"*", None if init is __none else init)[0]
-                                                  if type.kind != "primitive" else
-                                                  __ffi.cast(type, 0 if init is __none else init))
-new         = lambda type, init=__none, __cyth=cython: __ffi.new(__ffi.getctype(type)+"*", None if init is __none else init)
-new_array   = lambda type, size,        __cyth=cython: __ffi.new(__ffi.getctype(type)+"[]", size)
-new_cstr    = lambda init,              __cyth=cython: __ffi.new("char[]", init)
-as_cstr     = lambda obj,               __cyth=cython: __ffi.cast("char*", __ffi.from_buffer(obj))
-to_bytes    = lambda obj, size=-1,      __cyth=cython: __ffi.string(obj, size) if size >= 0 else __ffi.string(obj)
+POINTER   = lambda ctype,                __cyth=cython: __cyth.pointer(ctype)
+pointer   = lambda obj,                  __cyth=cython: __cyth.address(obj)
+byref     = lambda obj, offset=0,        __cyth=cython: __ffi.new(POINTER(__ffi.typeof(obj)), obj)  # !!! zamplementowac offset !!!
+addressof = lambda obj,                  __cyth=cython: __cyth.address(obj)
+cast      = lambda obj, ctype,           __cyth=cython: __cyth.cast(ctype, obj)
+sizeof    = lambda obj_or_ctype,         __cyth=cython: __cyth.sizeof(obj_or_ctype)
+# sizeof  = lambda obj_or_ctype,         __cyth=cython: __cyth.sizeof(obj_or_ctype)
+py_object = lambda obj,                  __cyth=cython: __ffi.new_handle(obj)
+memmove   = lambda dst, src, count,      __cyth=cython: __ffi.memmove(dst, src, count)
+obj       = lambda ctype, init=__none,   __cyth=cython: (__ffi.new(__ffi.getctype(ctype)+"*", None if init is __none else init)[0]
+                                                         if ctype.kind != "primitive" else
+                                                         __ffi.cast(ctype, 0 if init is __none else init))
+new         = lambda ctype, init=__none, __cyth=cython: __ffi.new(__ffi.getctype(ctype)+"*", None if init is __none else init)
+new_array   = lambda ctype, size,        __cyth=cython: __ffi.new(__ffi.getctype(ctype)+"[]", size)
+new_cstr    = lambda init,               __cyth=cython: __ffi.new("char[]", init)
+as_cstr     = lambda obj,                __cyth=cython: __ffi.cast("char*", __ffi.from_buffer(obj))
+to_bytes    = lambda obj, size=-1,       __cyth=cython: __ffi.string(obj, size) if size >= 0 else __ffi.string(obj)
 to_unicode  = to_bytes
-from_buffer = lambda data,              __cyth=cython: __ffi.from_buffer(data)
+from_buffer = lambda data,               __cyth=cython: __ffi.from_buffer(data)
 
 # null constant
 

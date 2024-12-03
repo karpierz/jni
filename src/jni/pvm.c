@@ -101,6 +101,7 @@ typedef struct PVM
 
     // Python API:
 
+    int*           DLL_Var(Py_Version);
     int*           DLL_Var(Py_OptimizeFlag);
     int*           DLL_Var(Py_DontWriteBytecodeFlag);
     int*           DLL_Var(Py_NoSiteFlag);
@@ -153,8 +154,9 @@ int PVM_load(PVM* self, const char* dll_path)
     self->_handle = DLL_Load(dll_path);
     if ( self->_handle == 0 )
         //throw std::runtime_error("Can't load Python VM from %s : %s", dll_path, DLL_Error(self->_handle));
-        return 0;
+        return 2;
 
+    self->Py_Version                   = DLL_BindVar(self->_handle, "Py_Version");
     self->Py_OptimizeFlag              = DLL_BindVar(self->_handle, "Py_OptimizeFlag");
     self->Py_DontWriteBytecodeFlag     = DLL_BindVar(self->_handle, "Py_DontWriteBytecodeFlag");
     self->Py_NoSiteFlag                = DLL_BindVar(self->_handle, "Py_NoSiteFlag");
@@ -196,7 +198,7 @@ int PVM_load(PVM* self, const char* dll_path)
     self->Py_True                      = DLL_BindVar(self->_handle, "_Py_TrueStruct");
     self->Py_False                     = DLL_BindVar(self->_handle, "_Py_ZeroStruct");
 
-    return 1;
+    return 0;
 }
 
 void PVM_unload(PVM* self)

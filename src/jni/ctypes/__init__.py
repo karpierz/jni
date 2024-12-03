@@ -29,9 +29,9 @@ from ctypes import py_object  # noqa: F401
 from ctypes import memmove    # noqa: F401
 from ctypes import cast
 __none = object()
-obj         = lambda type, init=__none: type() if init is __none else type(init)
-new         = lambda type, init=__none: pointer(type() if init is __none else type(init))
-new_array   = lambda type, size: (type * size)()
+obj         = lambda ctype, init=__none: ctype() if init is __none else ctype(init)
+new         = lambda ctype, init=__none: pointer(ctype() if init is __none else ctype(init))
+new_array   = lambda ctype, size: (ctype * size)()
 new_cstr    = lambda init, __ct=ct: __ct.cast(__ct.create_string_buffer(init), __ct.c_char_p)
 as_cstr     = lambda obj,  __ct=ct: __ct.c_char_p(obj)
 to_bytes    = lambda obj, size=-1, __ct=ct: __ct.string_at(obj, size=size)

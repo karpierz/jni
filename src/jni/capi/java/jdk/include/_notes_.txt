@@ -1,3 +1,7 @@
+# Java roadmap
+https://www.oracle.com/pl/java/technologies/java-se-support-roadmap.html
+
+# JNI headers
 https://raw.githubusercontent.com/openjdk/jdk/jdk8-b120/jdk/src/share/javavm/export/jni.h
 https://raw.githubusercontent.com/openjdk/jdk/jdk-11-ga/src/java.base/share/native/include/jni.h
 https://raw.githubusercontent.com/openjdk/jdk/jdk-17-ga/src/java.base/share/native/include/jni.h

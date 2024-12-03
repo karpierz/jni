@@ -1,12 +1,15 @@
 Changelog
 =========
 
-1.1.0b5 (2024-11-08)
+1.1.0b6 (2024-12-01)
 --------------------
+- Fixes for embedded python.
+- Java 17 is now the primary build/test environment.
 - Add support for Python 3.13
 - Drop support for Python 3.8
-- jni.c and pvm.c (useful for embedded python applications) have been added.
+- jni.c and pvm.c (useful for embedded python apps) have been added.
 - Unittest have been performed for much more JVMs.
+- Tox configuration is now in native (toml) format.
 - Setup fixes.
 - Setup (dependencies) update.
 

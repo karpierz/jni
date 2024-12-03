@@ -61,7 +61,7 @@ class Preprocessor:
     null_pattern    = r"{bol}({ws_opt}#){ws_opt}{eol}".format(**basic_tokens)
     subst_pattern   = r"({bol}|[^\w])({{macro}})({eol}|[^\w\d])".format(**basic_tokens)
 
-    eval_expr = lambda self, str, scope: eval(str, {}, scope)
+    eval_expr = lambda self, expr_str, scope: eval(expr_str, {}, scope)
 
     def include_action(self, m):
         header = m.group(2)

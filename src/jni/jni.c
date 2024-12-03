@@ -81,7 +81,7 @@ void JNI_on_unload(JavaVM* jvm);
 JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* jvm, void* reserved)
 {
     (void)reserved;
-    return (JNI_on_load(jvm)) ? JNI_VERSION_1_6 : 0;
+    return (JNI_on_load(jvm) == 0) ? JNI_VERSION_1_6 : 0;
 }
 
 JNIEXPORT void JNICALL JNI_OnUnload(JavaVM* jvm, void* reserved)

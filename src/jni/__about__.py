@@ -4,4 +4,3 @@
 # Please refer to the accompanying LICENSE file.
 
 __import__("pkg_about").about()
-__copyright__ = f"Copyright (c) 2004-2024 {__author__}"  # noqa

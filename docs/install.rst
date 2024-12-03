@@ -9,7 +9,7 @@ Requirements
 + Python 3.9 or higher
 
   * https://www.python.org/
-  * Java 11 is a primary test environment.
+  * Java 17 is a primary test environment.
 
 + pip and setuptools
 
