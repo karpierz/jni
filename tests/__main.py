@@ -1,6 +1,5 @@
 # Copyright (c) 2004 Adam Karpierz
-# Licensed under CC BY-NC-ND 4.0
-# Licensed under proprietary License
+# SPDX-License-Identifier: CC-BY-NC-ND-4.0 OR LicenseRef-Proprietary
 # Please refer to the accompanying LICENSE file.
 
 import unittest
@@ -32,7 +31,8 @@ def test_suite(names=None, omit=()):
 def test(jvm_path):
     argv = sys.argv[1:]
 
-    print(f"Running testsuite using JVM: {jvm_path}\n", file=sys.stderr)
+    print(f"\nRunning testsuite using JVM: {jvm_path}\n", flush=True, file=sys.stderr)
+    print(end="", flush=True)
 
     package = sys.modules[__package__]
     package.jvm = jvm = _jvm.JVM(jvm_path)
@@ -47,7 +47,7 @@ def test(jvm_path):
     }
     jvm.start("-Djava.class.path={}".format(
               os.pathsep.join([str(test_dir/"java/classes")])),
-              "-ea", "-Xms16M", "-Xmx512M")
+              "-ea", "-Xms64M", "-Xmx512M")
     try:
         tests = test_suite(argv or None)
         result = unittest.TextTestRunner(verbosity=2).run(tests)
@@ -63,44 +63,61 @@ def main(argv=sys.argv[1:]):
     # https://en.wikipedia.org/wiki/Java_version_history
     jvm_dll_paths = [
         # Oracle JDK/JRE
-        dir_prefix/"Java/jdk1.8.0_202/jre/bin/server/jvm.dll",
-        dir_prefix/"Java/jdk1.8.0_202/jre/bin/client/jvm.dll",
-        dir_prefix/"Java/jre1.8.0_202/bin/server/jvm.dll",
-        dir_prefix/"Java/jre1.8.0_202/bin/client/jvm.dll",
+        dir_prefix/"Java/jdk-17/bin/client/jvm.dll",
         dir_prefix/"Java/jdk-17/bin/server/jvm.dll",
+        dir_prefix/"Java/jdk-21/bin/client/jvm.dll",
         dir_prefix/"Java/jdk-21/bin/server/jvm.dll",
         # Azul JDK/JRE
-        dir_prefix/"Zulu/zulu-8/jre/bin/server/jvm.dll",
         dir_prefix/"Zulu/zulu-8/jre/bin/client/jvm.dll",
-        dir_prefix/"Zulu/zulu-8-jre/bin/server/jvm.dll",
+        dir_prefix/"Zulu/zulu-8/jre/bin/server/jvm.dll",
         dir_prefix/"Zulu/zulu-8-jre/bin/client/jvm.dll",
-        dir_prefix/"Zulu/zulu-11/bin/server/jvm.dll",
+        dir_prefix/"Zulu/zulu-8-jre/bin/server/jvm.dll",
         dir_prefix/"Zulu/zulu-11/bin/client/jvm.dll",
-        dir_prefix/"Zulu/zulu-11-jre/bin/server/jvm.dll",
+        dir_prefix/"Zulu/zulu-11/bin/server/jvm.dll",
         dir_prefix/"Zulu/zulu-11-jre/bin/client/jvm.dll",
-        dir_prefix/"Zulu/zulu-17/bin/server/jvm.dll",
+        dir_prefix/"Zulu/zulu-11-jre/bin/server/jvm.dll",
         dir_prefix/"Zulu/zulu-17/bin/client/jvm.dll",
-        dir_prefix/"Zulu/zulu-17-jre/bin/server/jvm.dll",
+        dir_prefix/"Zulu/zulu-17/bin/server/jvm.dll",
         dir_prefix/"Zulu/zulu-17-jre/bin/client/jvm.dll",
+        dir_prefix/"Zulu/zulu-17-jre/bin/server/jvm.dll",
+        dir_prefix/"Zulu/zulu-21/bin/client/jvm.dll",
         dir_prefix/"Zulu/zulu-21/bin/server/jvm.dll",
+        dir_prefix/"Zulu/zulu-21-jre/bin/client/jvm.dll",
         dir_prefix/"Zulu/zulu-21-jre/bin/server/jvm.dll",
         # Liberica JDK/JRE
-        dir_prefix/"BellSoft/LibericaJRE-8/bin/server/jvm.dll",
-        dir_prefix/"BellSoft/LibericaJRE-8/bin/client/jvm.dll",
-        dir_prefix/"BellSoft/LibericaJDK-8/jre/bin/server/jvm.dll",
         dir_prefix/"BellSoft/LibericaJDK-8/jre/bin/client/jvm.dll",
-        dir_prefix/"BellSoft/LibericaJDK-11/bin/server/jvm.dll",
+        dir_prefix/"BellSoft/LibericaJDK-8/jre/bin/server/jvm.dll",
+        dir_prefix/"BellSoft/LibericaJRE-8/bin/client/jvm.dll",
+        dir_prefix/"BellSoft/LibericaJRE-8/bin/server/jvm.dll",
         dir_prefix/"BellSoft/LibericaJDK-11/bin/client/jvm.dll",
-        dir_prefix/"BellSoft/LibericaJDK-17/bin/server/jvm.dll",
-        dir_prefix/"BellSoft/LibericaJDK-17/bin/client/jvm.dll",
-        dir_prefix/"BellSoft/LibericaJDK-21/bin/server/jvm.dll",
-        dir_prefix/"BellSoft/LibericaJDK-21/bin/client/jvm.dll",
-        dir_prefix/"BellSoft/LibericaJRE-11/bin/server/jvm.dll",
+        dir_prefix/"BellSoft/LibericaJDK-11/bin/server/jvm.dll",
         dir_prefix/"BellSoft/LibericaJRE-11/bin/client/jvm.dll",
-        dir_prefix/"BellSoft/LibericaJRE-17/bin/server/jvm.dll",
+        dir_prefix/"BellSoft/LibericaJRE-11/bin/server/jvm.dll",
+        dir_prefix/"BellSoft/LibericaJDK-17/bin/client/jvm.dll",
+        dir_prefix/"BellSoft/LibericaJDK-17/bin/server/jvm.dll",
         dir_prefix/"BellSoft/LibericaJRE-17/bin/client/jvm.dll",
-        dir_prefix/"BellSoft/LibericaJRE-21/bin/server/jvm.dll",
+        dir_prefix/"BellSoft/LibericaJRE-17/bin/server/jvm.dll",
+        dir_prefix/"BellSoft/LibericaJDK-21/bin/client/jvm.dll",
+        dir_prefix/"BellSoft/LibericaJDK-21/bin/server/jvm.dll",
         dir_prefix/"BellSoft/LibericaJRE-21/bin/client/jvm.dll",
+        dir_prefix/"BellSoft/LibericaJRE-21/bin/server/jvm.dll",
+        # Eclipse Adoptium JDK/JRE
+        dir_prefix/"Eclipse Adoptium/jdk-8.0.442.6-hotspot/jre/bin/client/jvm.dll",
+        dir_prefix/"Eclipse Adoptium/jdk-8.0.442.6-hotspot/jre/bin/server/jvm.dll",
+        dir_prefix/"Eclipse Adoptium/jre-8.0.442.6-hotspot/bin/client/jvm.dll",
+        dir_prefix/"Eclipse Adoptium/jre-8.0.442.6-hotspot/bin/server/jvm.dll",
+        dir_prefix/"Eclipse Adoptium/jdk-11.0.26.4-hotspot/bin/client/jvm.dll",
+        dir_prefix/"Eclipse Adoptium/jdk-11.0.26.4-hotspot/bin/server/jvm.dll",
+        dir_prefix/"Eclipse Adoptium/jre-11.0.26.4-hotspot/bin/client/jvm.dll",
+        dir_prefix/"Eclipse Adoptium/jre-11.0.26.4-hotspot/bin/server/jvm.dll",
+        dir_prefix/"Eclipse Adoptium/jdk-17.0.14.7-hotspot/bin/client/jvm.dll",
+        dir_prefix/"Eclipse Adoptium/jdk-17.0.14.7-hotspot/bin/server/jvm.dll",
+        dir_prefix/"Eclipse Adoptium/jre-17.0.14.7-hotspot/bin/client/jvm.dll",
+        dir_prefix/"Eclipse Adoptium/jre-17.0.14.7-hotspot/bin/server/jvm.dll",
+        dir_prefix/"Eclipse Adoptium/jdk-21.0.6.7-hotspot/bin/client/jvm.dll",
+        dir_prefix/"Eclipse Adoptium/jdk-21.0.6.7-hotspot/bin/server/jvm.dll",
+        dir_prefix/"Eclipse Adoptium/jre-21.0.6.7-hotspot/bin/client/jvm.dll",
+        dir_prefix/"Eclipse Adoptium/jre-21.0.6.7-hotspot/bin/server/jvm.dll",
     ]
     jvm_paths = [item for item in jvm_dll_paths if item.exists()]
     if not jvm_paths:
@@ -108,6 +125,9 @@ def main(argv=sys.argv[1:]):
 
     with multiprocessing.Pool(len(jvm_paths)) as pool:
         result = pool.map(test, jvm_paths)
+
+    # Needed for coverage
+    test(dir_prefix/"Zulu/zulu-17-jre/bin/server/jvm.dll")
 
     return 0 if not any(result) else 1
 

@@ -1,6 +1,5 @@
 // Copyright (c) 2004 Adam Karpierz
-// Licensed under CC BY-NC-ND 4.0
-// Licensed under proprietary License
+// SPDX-License-Identifier: CC-BY-NC-ND-4.0 OR LicenseRef-Proprietary
 // Please refer to the accompanying LICENSE file.
 
 #ifndef JNI_C_INCLUDED
@@ -21,18 +20,6 @@
     #define JNIEXPORT __declspec(dllexport)
   #endif
   #define JNIIMPORT __declspec(dllimport)
-  #define JNICALL __stdcall
-  #if defined(__CYGWIN__)
-    typedef int jint;
-  #elif defined(__GNUC__)
-    // JNICALL causes problem for function prototypes
-    // .. since I am not defining any JNI methods there is no need for it
-    #undef  JNICALL
-    #define JNICALL
-    typedef long jint;
-  #else
-    typedef long jint;
-  #endif
 #else
   #ifndef JNIEXPORT
     #if (defined(__GNUC__) && ((__GNUC__ > 4) || \
@@ -58,9 +45,11 @@
   #else
     #define JNIIMPORT
   #endif
-  #define JNICALL
-  typedef int jint;
 #endif
+
+typedef int jint;
+
+#define JNICALL
 
 #define JNI_VERSION_1_1 0x00010001
 #define JNI_VERSION_1_2 0x00010002
@@ -72,6 +61,7 @@
 #define JNI_VERSION_19  0x00130000
 #define JNI_VERSION_20  0x00140000
 #define JNI_VERSION_21  0x00150000
+#define JNI_VERSION_24  0x00180000
 
 typedef struct JavaVM JavaVM;
 

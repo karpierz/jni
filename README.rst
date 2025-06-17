@@ -34,7 +34,7 @@ Installation
 
 Prerequisites:
 
-+ Python 3.9 or higher
++ Python 3.10 or higher
 
   * https://www.python.org/
   * Java 17 is a primary test environment.
@@ -96,7 +96,7 @@ Authors
 
 .. |package| replace:: jni
 .. |package_bold| replace:: **jni**
-.. |copyright| replace:: Copyright (c) 2004-2024 Adam Karpierz
+.. |copyright| replace:: Copyright (c) 2004-2025 Adam Karpierz
 .. |respository| replace:: https://github.com/karpierz/jni.git
 .. _Development page: https://github.com/karpierz/jni
 .. _PyPI record: https://pypi.org/project/jni/

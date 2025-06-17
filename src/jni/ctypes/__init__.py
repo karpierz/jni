@@ -1,6 +1,5 @@
 # Copyright (c) 2004 Adam Karpierz
-# Licensed under CC BY-NC-ND 4.0
-# Licensed under proprietary License
+# SPDX-License-Identifier: CC-BY-NC-ND-4.0 OR LicenseRef-Proprietary
 # Please refer to the accompanying LICENSE file.
 
 import sys
@@ -53,8 +52,8 @@ def from_oid(oid, __cast=ct.cast, __py_object=ct.py_object):
 # JNI Types
 #
 
-jint     = ct.c_int32
-jlong    = ct.c_int64
+jint     = ct.c_int
+jlong    = ct.c_longlong
 jbyte    = ct.c_int8
 
 jboolean = ct.c_ubyte
@@ -905,6 +904,13 @@ class JNIEnv(ct.Structure):
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
+    def GetStringUTFLengthAsLong(self, str):  # noqa: A002
+        env = self
+        fun = self.functions[0]
+        ret = fun.GetStringUTFLengthAsLong(env, str)
+        if fun.ExceptionCheck(env): self._handle_JavaException()
+        return ret
+
     def GetStringUTFChars(self, str, isCopy=None):  # noqa: A002
         env = self
         fun = self.functions[0]
@@ -1341,6 +1347,24 @@ class JNIEnv(ct.Structure):
         ret = fun.GetJavaVM(env, vm)
         if ret != 0: self._handle_JNIException(ret)
 
+    # Module Features
+
+    def GetModule(self, clazz):
+        env = self
+        fun = self.functions[0]
+        ret = fun.GetModule(env, clazz)
+        if fun.ExceptionCheck(env): self._handle_JavaException()
+        return ret
+
+    # Virtual threads
+
+    def IsVirtualThread(self, obj):
+        env = self
+        fun = self.functions[0]
+        ret = fun.IsVirtualThread(env, obj)
+        if fun.ExceptionCheck(env): self._handle_JavaException()
+        return ret
+
 
 JEnv = lambda penv: penv[0]
 
@@ -1702,6 +1726,12 @@ JNINativeInterface_._fields_ = [
 
     # New JNI 9.0 Features
     ("GetModule",                     CFUNC(jobject,            POINTER(JNIEnv), jclass)),
+
+    # New JNI 19.0 Features
+    ("IsVirtualThread",               CFUNC(jboolean,           POINTER(JNIEnv), jobject)),
+
+    # New JNI 24.0 Features
+    ("GetStringUTFLengthAsLong",      CFUNC(jlong,              POINTER(JNIEnv), jstring)),
 ]
 
 del JNINativeInterface_
@@ -1764,6 +1794,7 @@ JNI_VERSION_10  = 0x000a0000
 JNI_VERSION_19  = 0x00130000
 JNI_VERSION_20  = 0x00140000
 JNI_VERSION_21  = 0x00150000
+JNI_VERSION_24  = 0x00180000
 
 # eof jni.h
 

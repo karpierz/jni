@@ -1,6 +1,5 @@
 // Copyright (c) 2004 Adam Karpierz
-// Licensed under CC BY-NC-ND 4.0
-// Licensed under proprietary License
+// SPDX-License-Identifier: CC-BY-NC-ND-4.0 OR LicenseRef-Proprietary
 // Please refer to the accompanying LICENSE file.
 
 #include <Python.h>
@@ -1659,6 +1658,7 @@ PyMODINIT_FUNC MODINIT_FUNC(jni)
     PyModule_AddIntConstant(module, "JNI_VERSION_19",  JNI_VERSION_19);
     PyModule_AddIntConstant(module, "JNI_VERSION_20",  JNI_VERSION_20);
     PyModule_AddIntConstant(module, "JNI_VERSION_21",  JNI_VERSION_21);
+    PyModule_AddIntConstant(module, "JNI_VERSION_24",  JNI_VERSION_24);
 
     return module;
 }

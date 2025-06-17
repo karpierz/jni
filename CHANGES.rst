@@ -1,6 +1,20 @@
 Changelog
 =========
 
+1.2.0b1 (2025-06-17)
+--------------------
+- Add support for Python 3.14
+- Add support for PyPy 3.11
+- Drop support for Python 3.9 (due to compatibility issues).
+- Drop support for PyPy 3.9
+- | Drop support for Oracle Java 1.8 (jdk, jre) due to licensing issues
+  | and the end of support from Oracle.
+- Update readthedocs's python to version 3.13
+- Update tox's base_python to version 3.13
+- The distribution is now created using 'build' instead of 'setuptools'.
+- Copyright year update.
+- Setup (dependencies) update.
+
 1.1.0b6 (2024-12-01)
 --------------------
 - Fixes for embedded python.

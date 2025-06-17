@@ -1183,6 +1183,9 @@ JNIEXPORT void JNI_OnUnload(JavaVM* vm, void* reserved);
 #define JNI_ERR         (-1)        /* generic error */
 #define JNI_EDETACHED   (-2)        /* thread detached from the VM */
 #define JNI_EVERSION    (-3)        /* JNI version error */
+#define JNI_ENOMEM      (-4)        /* Out of memory */
+#define JNI_EEXIST      (-5)        /* VM already created */
+#define JNI_EINVAL      (-6)        /* Invalid argument */
 
 #define JNI_COMMIT      1           /* copy content, do not free buffer */
 #define JNI_ABORT       2           /* free buffer w/o copying back */

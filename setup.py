@@ -1,6 +1,5 @@
 # Copyright (c) 2004 Adam Karpierz
-# Licensed under CC BY-NC-ND 4.0
-# Licensed under proprietary License
+# SPDX-License-Identifier: CC-BY-NC-ND-4.0 OR LicenseRef-Proprietary
 # Please refer to the accompanying LICENSE file.
 
 import sys
@@ -51,21 +50,21 @@ if GEN_CFFI:
 GEN_CYTHON = (not path.exists("src/jni/cython/jni.c") or
               not path.exists("src/jni/cython/jni.h"))
 ext = ".pyx" if GEN_CYTHON else ".c"
-ext_modules = [Extension(name="jni.cython.jni",
-                         language="c",
+ext_modules = [Extension(name="jni.cython.jni", language="c",
                          sources=["src/jni/cython/jni" + ext])]
 if GEN_CYTHON:
     from Cython.Build    import cythonize
     from Cython.Compiler import Options
     Options.docstrings         = False
     Options.emit_code_comments = False
-    ext_modules = cythonize(ext_modules, language_level=sys.version_info.major,
+    ext_modules = cythonize(ext_modules,
+                            language_level=sys.version_info.major,
                             force=True)#, show_all_warnings=True)
 
-platform = "linux" if sys.platform.startswith("linux") else sys.platform
-ext_modules += [Extension(name="jni.capi.jni",
-                          language="c",
-                          include_dirs=["src/jni/capi/java/jdk/include/"+ platform],
+platform = ("linux" if sys.platform.startswith("linux") else
+            "android" if hasattr(sys, "getandroidapilevel") else sys.platform)
+ext_modules += [Extension(name="jni.capi.jni", language="c",
+                          include_dirs=["src/jni/capi/java/jdk/include/" + platform],
                           sources=["src/jni/capi/jni.c"])]
 
 setup(ext_modules=ext_modules)
