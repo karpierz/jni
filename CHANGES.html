@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Changelog &#8212; jni 1.3.0b3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=5283bb3d" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    
+    <script src="_static/documentation_options.js?v=46b1d904"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="User Guide" href="userguide.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="userguide.html" title="User Guide"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">jni 1.3.0b3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Changelog</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="changelog">
+<span id="changes"></span><h1>Changelog<a class="headerlink" href="#changelog" title="Link to this heading">¶</a></h1>
+<section id="b3-2026-10-15">
+<h2>1.3.0b3 (2026-10-15)<a class="headerlink" href="#b3-2026-10-15" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Added support for Python 3.15</p></li>
+<li><p>Added support for PyPy 3.12</p></li>
+<li><p>Added support for GraalPy 3.13</p></li>
+<li><p>GraalPy &lt;= 3.12 is not supported due to ‘ctypes’ incompatibility.</p></li>
+<li><p>Dropped support for Python 3.10 (due to compatibility issues).</p></li>
+<li><p>Added support for Java 25</p></li>
+<li><p>Moved jni.c and pvm.c to the ‘jni’ subdirectory.</p></li>
+<li><p>Added class2py.py utility.</p></li>
+<li><p>100% code linting.</p></li>
+<li><p>95% code coverage.</p></li>
+<li><p>Added typing support and marked the package as typed.</p></li>
+<li><p>Copyright year update.</p></li>
+<li><p>The documentation has been moved from Read the Docs to GitHub Pages.</p></li>
+<li><p>Switched from tox to Nox for project automation.</p></li>
+<li><p>Updated nox’s default python to version 3.14</p></li>
+<li><p>Added the nox’s ‘cleanup’ test environment.</p></li>
+<li><p>Fix for nox ‘lint’ session.</p></li>
+<li><p>Setup update, unification and bug fixes.</p></li>
+</ul>
+</section>
+<section id="b1-2025-06-17">
+<h2>1.2.0b1 (2025-06-17)<a class="headerlink" href="#b1-2025-06-17" title="Link to this heading">¶</a></h2>
+<ul>
+<li><p>Added support for Python 3.14</p></li>
+<li><p>Added support for PyPy 3.11</p></li>
+<li><p>Dropped support for Python 3.9 (due to compatibility issues).</p></li>
+<li><p>Dropped support for PyPy 3.9</p></li>
+<li><div class="line-block">
+<div class="line">Dropped support for Oracle Java 1.8 (jdk, jre) due to licensing issues</div>
+<div class="line">and the end of support from Oracle.</div>
+</div>
+</li>
+<li><p>Updated Read the Docs’ Python version to 3.13</p></li>
+<li><p>Updated tox’s base_python to version 3.13</p></li>
+<li><p>The distribution is now built using ‘build’ instead of ‘setuptools’.</p></li>
+<li><p>Copyright year update.</p></li>
+<li><p>Setup update (mainly dependencies).</p></li>
+</ul>
+</section>
+<section id="b6-2024-12-01">
+<h2>1.1.0b6 (2024-12-01)<a class="headerlink" href="#b6-2024-12-01" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Fixes for embedded python.</p></li>
+<li><p>Java 17 is now the primary build/test environment.</p></li>
+<li><p>Added support for Python 3.13</p></li>
+<li><p>Dropped support for Python 3.8</p></li>
+<li><p>jni.c and pvm.c (useful for embedded python apps) have been added.</p></li>
+<li><p>Unittest have been performed for much more JVMs.</p></li>
+<li><p>Tox configuration is now in native (toml) format.</p></li>
+<li><p>Setup fixes.</p></li>
+<li><p>Setup update (mainly dependencies).</p></li>
+</ul>
+</section>
+<section id="b22-2024-01-26">
+<h2>1.0.0b22 (2024-01-26)<a class="headerlink" href="#b22-2024-01-26" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>The tox configuration has been moved to pyproject.toml</p></li>
+<li><p>Setup update (now based on tox &gt;= 4.0).</p></li>
+<li><p>Added support for Python 3.10, 3.11 and 3.12</p></li>
+<li><p>Dropped support for Python 3.7</p></li>
+<li><p>Added support for PyPy 3.9 and 3.10</p></li>
+<li><p>Copyright year update.</p></li>
+</ul>
+</section>
+<section id="b20-2022-01-29">
+<h2>1.0.0b20 (2022-01-29)<a class="headerlink" href="#b20-2022-01-29" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Dropped support for Python 3.6</p></li>
+<li><p>Setup update.</p></li>
+</ul>
+</section>
+<section id="b18-2021-10-13">
+<h2>1.0.0b18 (2021-10-13)<a class="headerlink" href="#b18-2021-10-13" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>dll_path argument of load() can also be type os.PathLike.</p></li>
+<li><p>Copyright year update.</p></li>
+<li><p>Setup update.</p></li>
+</ul>
+</section>
+<section id="b17-2020-11-10">
+<h2>1.0.0b17 (2020-11-10)<a class="headerlink" href="#b17-2020-11-10" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Added support for Python 3.9</p></li>
+<li><p>General update, improvements and cleanup.</p></li>
+<li><p>Setup update and improvements.</p></li>
+<li><p>Fixed docs setup.</p></li>
+</ul>
+</section>
+<section id="b7-2020-03-08">
+<h2>1.0.0b7 (2020-03-08)<a class="headerlink" href="#b7-2020-03-08" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Dropped support for Python2</p></li>
+<li><p>Update of license info.</p></li>
+<li><p>Setup update.</p></li>
+</ul>
+</section>
+<section id="b4-2019-07-10">
+<h2>1.0.0b4 (2019-07-10)<a class="headerlink" href="#b4-2019-07-10" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Last release for Python2</p></li>
+</ul>
+</section>
+<section id="b3-2018-05-22">
+<h2>1.0.0b3 (2018-05-22)<a class="headerlink" href="#b3-2018-05-22" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Update of the required setuptools version.</p></li>
+</ul>
+</section>
+<section id="b2-2018-02-26">
+<h2>1.0.0b2 (2018-02-26)<a class="headerlink" href="#b2-2018-02-26" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Improvement and simplification of setup and packaging.</p></li>
+</ul>
+</section>
+<section id="b1-2017-11-18">
+<h2>1.0.0b1 (2017-11-18)<a class="headerlink" href="#b1-2017-11-18" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>First ‘official’ version.</p></li>
+</ul>
+</section>
+<section id="id1">
+<h2>0.1.1 (2005-10-05)<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Initial version.</p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Changelog</a><ul>
+<li><a class="reference internal" href="#b3-2026-10-15">1.3.0b3 (2026-10-15)</a></li>
+<li><a class="reference internal" href="#b1-2025-06-17">1.2.0b1 (2025-06-17)</a></li>
+<li><a class="reference internal" href="#b6-2024-12-01">1.1.0b6 (2024-12-01)</a></li>
+<li><a class="reference internal" href="#b22-2024-01-26">1.0.0b22 (2024-01-26)</a></li>
+<li><a class="reference internal" href="#b20-2022-01-29">1.0.0b20 (2022-01-29)</a></li>
+<li><a class="reference internal" href="#b18-2021-10-13">1.0.0b18 (2021-10-13)</a></li>
+<li><a class="reference internal" href="#b17-2020-11-10">1.0.0b17 (2020-11-10)</a></li>
+<li><a class="reference internal" href="#b7-2020-03-08">1.0.0b7 (2020-03-08)</a></li>
+<li><a class="reference internal" href="#b4-2019-07-10">1.0.0b4 (2019-07-10)</a></li>
+<li><a class="reference internal" href="#b3-2018-05-22">1.0.0b3 (2018-05-22)</a></li>
+<li><a class="reference internal" href="#b2-2018-02-26">1.0.0b2 (2018-02-26)</a></li>
+<li><a class="reference internal" href="#b1-2017-11-18">1.0.0b1 (2017-11-18)</a></li>
+<li><a class="reference internal" href="#id1">0.1.1 (2005-10-05)</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="userguide.html"
+                          title="previous chapter">User Guide</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/CHANGES.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="userguide.html" title="User Guide"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">jni 1.3.0b3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Changelog</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright Adam Karpierz.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>
