@@ -3,26 +3,27 @@
 # Please refer to the accompanying LICENSE file.
 
 import sys
-from os import path
-from io import open
-from glob import glob
-from setuptools import setup
-from setuptools import Extension
+from pathlib import Path
+from setuptools import setup, Extension
+import platform
+is_graalpy = (platform.python_implementation().lower() == "graalvm")
 
-top_dir = path.dirname(path.abspath(__file__))
+top_dir  = Path(__file__).resolve().parent
+src_dir  = top_dir/"src"
+cffi_dir = src_dir/"jni/cffi"
+cyth_dir = src_dir/"jni/cython"
+capi_dir = src_dir/"jni/capi"
 
-GEN_CFFI = not path.exists("src/jni/cffi/jni.py")
-if GEN_CFFI:
+GEN_CFFI = not (cffi_dir/"jni.py").exists()
+if GEN_CFFI and not is_graalpy:
     def build_ffi(src_dir, emit_jni_i=False):
         import sys
-        from os import path
         import cffi
-        sys.path.insert(0, src_dir)
+        sys.path.insert(0, str(src_dir))
         from jni._util import Preprocessor
         sys.path.pop(0)
-        with open(path.join(src_dir, "jni/cffi/jni.h"),
-                  "r", encoding="utf-8") as f:
-            source = f.read()
+        jni_h_path = cffi_dir/"jni.h"
+        source = jni_h_path.read_text(encoding="utf-8")
         source = Preprocessor().preprocess(source,
             define_macros = (
                 ("JNICALL",   ""),
@@ -36,19 +37,19 @@ if GEN_CFFI:
                 "_JNI_IMPLEMENTATION_",
             ))
         if emit_jni_i:
-            with open(path.join(src_dir, "jni/cffi/jni.i"),
-                      "w", encoding="utf-8") as f:
-                f.write(source)
+            jni_i_path = cffi_dir/"jni.i"
+            jni_i_path.write_text(source, newline="",
+                                  encoding="utf-8")
         ffi = cffi.FFI()
         ffi.set_source("jni", None)
         ffi.cdef("// temporary for cffi")
         ffi.cdef("typedef void* va_list;")
         ffi.cdef(source)
-        ffi.compile(tmpdir=path.join(src_dir, "jni/cffi"))
-    build_ffi(path.join(top_dir, "src"))
+        ffi.compile(tmpdir=str(cffi_dir))
+    build_ffi(src_dir)
 
-GEN_CYTHON = (not path.exists("src/jni/cython/jni.c") or
-              not path.exists("src/jni/cython/jni.h"))
+GEN_CYTHON = (not (cyth_dir/"jni.c").exists() or
+              not (cyth_dir/"jni.h").exists())
 ext = ".pyx" if GEN_CYTHON else ".c"
 ext_modules = [Extension(name="jni.cython.jni", language="c",
                          sources=["src/jni/cython/jni" + ext])]
@@ -64,7 +65,7 @@ if GEN_CYTHON:
 platform = ("linux" if sys.platform.startswith("linux") else
             "android" if hasattr(sys, "getandroidapilevel") else sys.platform)
 ext_modules += [Extension(name="jni.capi.jni", language="c",
-                          include_dirs=["src/jni/capi/java/jdk/include/" + platform],
+                          include_dirs=["include/jdk", "include/jdk/" + platform],
                           sources=["src/jni/capi/jni.c"])]
 
 setup(ext_modules=ext_modules)
