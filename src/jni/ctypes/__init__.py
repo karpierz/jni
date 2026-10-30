@@ -1,23 +1,70 @@
+# flake8-in-file-ignores: noqa: A005,E305,E402,E501,N813,N814,N816,W504
+
 # Copyright (c) 2004 Adam Karpierz
 # SPDX-License-Identifier: CC-BY-NC-ND-4.0 OR LicenseRef-Proprietary
 # Please refer to the accompanying LICENSE file.
 
-import sys
-import os
-import platform
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+from typing import ParamSpec, TypeVar, TypeAlias, Final
+from typing_extensions import sentinel, Buffer
+from types  import GenericAlias  # noqa: F401
+from collections.abc import Callable
+from os import PathLike
 import ctypes as ct
 
-if platform.win32_ver()[0]:
-    from ctypes  import WinDLL as DLL  # noqa: N814
+from utlx import platform as _platform
+
+__all__ = (
+    "JVM", "JEnv", "load", "method", "JNIException", "Throwable",
+    # Must be provided by the implementation.
+    "DLL", "CFUNC",
+    "POINTER", "pointer", "byref", "addressof", "sizeof", "py_object", "memmove", "cast",
+    "obj", "new", "new_array", "new_cstr", "new_cwstr", "as_cstr", "as_cwstr", "to_bytes",
+    "to_unicode", "from_buffer", "isNULL", "NULL",
+    # JNI interface
+    "JavaVM", "JNIEnv",
+    "jboolean", "jbyte", "jchar", "jshort", "jint", "jlong", "jfloat", "jdouble", "jsize",
+    "jobject", "jclass", "jthrowable", "jstring", "jarray", "jbooleanArray", "jbyteArray",
+    "jcharArray", "jshortArray", "jintArray", "jlongArray", "jfloatArray", "jdoubleArray",
+    "jobjectArray", "jweak", "jvalue", "jfieldID", "jmethodID", "jobjectRefType",
+    "JNIInvalidRefType", "JNILocalRefType", "JNIGlobalRefType", "JNIWeakGlobalRefType",
+    "JNINativeMethod", "JavaVMOption", "JavaVMInitArgs", "JavaVMAttachArgs",
+    "JNI_TRUE", "JNI_FALSE",
+    "JNI_COMMIT", "JNI_ABORT",
+    "JNI_OK", "JNI_ERR", "JNI_EDETACHED", "JNI_EVERSION", "JNI_ENOMEM", "JNI_EEXIST", "JNI_EINVAL",
+    "JDK1_2", "JDK1_4",
+    "JNI_VERSION_1_1", "JNI_VERSION_1_2", "JNI_VERSION_1_4", "JNI_VERSION_1_6", "JNI_VERSION_1_8",
+    "JNI_VERSION_9",   "JNI_VERSION_10",  "JNI_VERSION_19",  "JNI_VERSION_20",  "JNI_VERSION_21",
+    "JNI_VERSION_24",
+)
+
+StrPath: TypeAlias = str | PathLike[str]
+
+if TYPE_CHECKING:
+    from ctypes import _CData
+    CData = TypeVar("CData", bound=_CData)
+    P = ParamSpec("P")
+    R = TypeVar("R")
+    Pointer: TypeAlias = ct._Pointer
+    Addr: TypeAlias = Pointer[CData] | ct.Array[CData] | int | bytes
+
+DLL: type
+if _platform.is_windows:
+    from ctypes import WinDLL as DLL
     try:
-        from _ctypes import FreeLibrary as dlclose  # noqa: N813
+        from _ctypes import FreeLibrary as dlclose
     except ImportError:  # pragma: no cover
-        dlclose = lambda handle: 0
-    from ctypes  import WINFUNCTYPE as CFUNC
-else:
-    from ctypes  import CDLL      as DLL      # noqa: N814
-    from _ctypes import dlclose   as dlclose  # noqa: N813
+        def dlclose(handle: int, /) -> None:
+            return
+    from ctypes import WINFUNCTYPE as CFUNC
+else:  # pragma: no cover
+    from ctypes  import CDLL      as DLL
+    from _ctypes import dlclose   as dlclose  # type: ignore[attr-defined, no-redef]
     from ctypes  import CFUNCTYPE as CFUNC
+
+__none = sentinel("__none")
 
 from ctypes import POINTER
 from ctypes import pointer
@@ -27,57 +74,112 @@ from ctypes import sizeof     # noqa: F401
 from ctypes import py_object  # noqa: F401
 from ctypes import memmove    # noqa: F401
 from ctypes import cast
-__none = object()
-obj         = lambda ctype, init=__none: ctype() if init is __none else ctype(init)
-new         = lambda ctype, init=__none: pointer(ctype() if init is __none else ctype(init))
-new_array   = lambda ctype, size: (ctype * size)()
-new_cstr    = lambda init, __ct=ct: __ct.cast(__ct.create_string_buffer(init), __ct.c_char_p)
-as_cstr     = lambda obj,  __ct=ct: __ct.c_char_p(obj)
-to_bytes    = lambda obj, size=-1, __ct=ct: __ct.string_at(obj, size=size)
-to_unicode  = lambda obj, size=-1, __ct=ct: __ct.wstring_at(obj, size=size)
-from_buffer = lambda data, __ct=ct: __ct.cast((__ct.c_char * 0).from_buffer(data), __ct.POINTER(__ct.c_char))
 
-def defined(varname, __getframe=sys._getframe):
-    frame = __getframe(1)
-    return varname in frame.f_locals or varname in frame.f_globals
+def obj(ctype: type[CData], init: object = __none) -> CData:
+    return ctype() if init is __none else ctype(init)  # type: ignore[call-arg]
 
-def from_oid(oid, __cast=ct.cast, __py_object=ct.py_object):
-    return __cast(oid, __py_object).value if oid else None
+def new(ctype: type[CData], init: object = __none) -> Pointer[CData]:
+    return ct.pointer(ctype() if init is __none else ctype(init))  # type: ignore[call-arg]
 
+def new_array(ctype: type[CData], size: int) -> ct.Array[CData]:
+    arr: ct.Array[CData] = (ctype * size)()  # type: ignore[operator]
+    return arr
 
-# Notes:
-#   if (GIL ?) should be use: with JHost.ThreadState():
+def new_cstr(init: int | bytes) -> ct.c_char_p:
+    return ct.cast(ct.create_string_buffer(init), ct.c_char_p)
+
+def new_cwstr(init: int | str) -> ct.c_wchar_p:
+    return ct.cast(ct.create_unicode_buffer(init), ct.c_wchar_p)
+
+def as_cstr(obj: int | bytes | None) -> ct.c_char_p:
+    return ct.c_char_p(obj)
+
+def as_cwstr(obj: int | str | None) -> ct.c_wchar_p:
+    return ct.c_wchar_p(obj)
+
+def to_bytes(obj: Addr[CData], size: int = -1) -> bytes:
+    return ct.string_at(obj, size=size)
+
+def to_unicode(obj: Addr[CData], size: int = -1) -> str:
+    return ct.wstring_at(obj, size=size)
+
+def from_buffer(data: Buffer) -> Pointer[ct.c_char]:
+    return ct.cast((ct.c_char * 0).from_buffer(data), ct.POINTER(ct.c_char))
+
+def isNULL(jobj: object) -> bool:
+    return not bool(jobj)
 
 #
 # JNI Types
 #
 
-jint     = ct.c_int
-jlong    = ct.c_longlong
-jbyte    = ct.c_int8
+# jni_md.h contains the machine-dependent typedefs for jbyte, jint
+# and jlong
 
-jboolean = ct.c_ubyte
-jchar    = ct.c_wchar
-jshort   = ct.c_int16
-jfloat   = ct.c_float
-jdouble  = ct.c_double
-jsize    = jint
+jboolean: TypeAlias = ct.c_ubyte
+jbyte:    TypeAlias = ct.c_int8
+jchar:    TypeAlias = ct.c_wchar
+jshort:   TypeAlias = ct.c_int16
+jint:     TypeAlias = ct.c_int32
+jlong:    TypeAlias = ct.c_int64
+jfloat:   TypeAlias = ct.c_float
+jdouble:  TypeAlias = ct.c_double
+jsize:    TypeAlias = jint
+CSimpleType: TypeAlias = (
+    type[jboolean] |
+    type[jbyte] |
+    type[jchar] |
+    type[jshort] |
+    type[jint] |
+    type[jlong] |
+    type[jfloat] |
+    type[jdouble]
+)
 
-jobject       = ct.c_void_p
-jclass        = jobject
-jthrowable    = jobject
-jstring       = jobject
-jarray        = jobject
-jbooleanArray = jarray  # noqa: N816
-jbyteArray    = jarray  # noqa: N816
-jcharArray    = jarray  # noqa: N816
-jshortArray   = jarray  # noqa: N816
-jintArray     = jarray  # noqa: N816
-jlongArray    = jarray  # noqa: N816
-jfloatArray   = jarray  # noqa: N816
-jdoubleArray  = jarray  # noqa: N816
-jobjectArray  = jarray  # noqa: N816
-jweak         = jobject
+# class _jobject(ct.Structure): pass
+# if TYPE_CHECKING:
+#     jobject: TypeAlias = Pointer[_jobject]
+# else:
+#     jobject = POINTER(_jobject)
+jobject:    TypeAlias = ct.c_void_p
+jclass:     TypeAlias = jobject
+jthrowable: TypeAlias = jobject
+jstring:    TypeAlias = jobject
+CObjectType: TypeAlias = (
+    type[jobject] |
+    type[jclass] |
+    type[jthrowable] |
+    type[jstring]
+)
+jarray:        TypeAlias = jobject
+jbooleanArray: TypeAlias = jarray
+jbyteArray:    TypeAlias = jarray
+jcharArray:    TypeAlias = jarray
+jshortArray:   TypeAlias = jarray
+jintArray:     TypeAlias = jarray
+jlongArray:    TypeAlias = jarray
+jfloatArray:   TypeAlias = jarray
+jdoubleArray:  TypeAlias = jarray
+jobjectArray:  TypeAlias = jarray
+CArrayType: TypeAlias = (
+    type[jarray] |
+    type[jbooleanArray] |
+    type[jbyteArray] |
+    type[jcharArray] |
+    type[jshortArray] |
+    type[jintArray] |
+    type[jlongArray] |
+    type[jfloatArray] |
+    type[jdoubleArray] |
+    type[jobjectArray]
+)
+
+jweak: TypeAlias = jobject
+
+CType: TypeAlias = CSimpleType | CObjectType | CArrayType
+
+NULL: jobject = jobject()  # null constant # added
+# NULL: ct.c_void_p = ct.c_void_p(0)  # null constant # added
 
 class jvalue(ct.Union):
     _fields_ = [
@@ -92,69 +194,67 @@ class jvalue(ct.Union):
     ("l", jobject),
 ]
 
-
-if platform.system().lower() == "cli":
+if _platform.is_ironpython:  # pragma: no cover
     _jvalue = jvalue
 
-    class jvalue(ct.Structure):
+    class jvalue(ct.Structure):  # type: ignore[no-redef]
         _anonymous_ = ("u",)
         _fields_    = [("u", _jvalue)]
 
     del _jvalue
 
-jfieldID = ct.c_void_p  # noqa: N816
+class _jfieldID(ct.Structure): pass
+if TYPE_CHECKING:
+    jfieldID: TypeAlias = Pointer[_jfieldID]
+else:
+    jfieldID = POINTER(_jfieldID)  # = ct.c_void_p
 
-jmethodID = ct.c_void_p  # noqa: N816
+class _jmethodID(ct.Structure): pass
+if TYPE_CHECKING:
+    jmethodID: TypeAlias = Pointer[_jmethodID]
+else:
+    jmethodID = POINTER(_jmethodID)  # = ct.c_void_p
 
 # Return values from jobjectRefType
 
-jobjectRefType = ct.c_int  # noqa: N816
-(
-    JNIInvalidRefType,
-    JNILocalRefType,
-    JNIGlobalRefType,
-    JNIWeakGlobalRefType
-) = (0, 1, 2, 3)
+jobjectRefType = ct.c_int
+JNIInvalidRefType:    Final[int] = 0
+JNILocalRefType:      Final[int] = 1
+JNIGlobalRefType:     Final[int] = 2
+JNIWeakGlobalRefType: Final[int] = 3
 
 #
 # jboolean constants
 #
 
-JNI_FALSE = 0
-JNI_TRUE  = 1
-
-#
-# null constant
-#
-
-NULL   = obj(jobject, 0)
-isNULL = lambda jobj: not bool(jobj)  # noqa: N816
+JNI_FALSE: Final[int] = 0
+JNI_TRUE:  Final[int] = 1
 
 #
 # possible return values for JNI functions.
 #
 
-JNI_OK        =  0  # success
-JNI_ERR       = -1  # unknown error
-JNI_EDETACHED = -2  # thread detached from the VM
-JNI_EVERSION  = -3  # JNI version error
-JNI_ENOMEM    = -4  # not enough memory
-JNI_EEXIST    = -5  # VM already created
-JNI_EINVAL    = -6  # invalid arguments
+JNI_OK:        Final[int] =  0  # success
+JNI_ERR:       Final[int] = -1  # unknown error
+JNI_EDETACHED: Final[int] = -2  # thread detached from the VM
+JNI_EVERSION:  Final[int] = -3  # JNI version error
+JNI_ENOMEM:    Final[int] = -4  # not enough memory
+JNI_EEXIST:    Final[int] = -5  # VM already created
+JNI_EINVAL:    Final[int] = -6  # invalid arguments
 
 #
 # used in ReleaseScalarArrayElements
 #
 
-JNI_COMMIT = 1
-JNI_ABORT  = 2
+JNI_COMMIT: Final[int] = 1
+JNI_ABORT:  Final[int] = 2
 
 #
 # JNI Native Method Interface.
 #
 
-# used in RegisterNatives to describe native method name,
-# signature, and function pointer.
+# used in RegisterNatives to describe native method name, signature,
+# and function pointer.
 
 class JNINativeMethod(ct.Structure):
     _fields_ = [
@@ -163,7 +263,8 @@ class JNINativeMethod(ct.Structure):
     ("fnPtr",     ct.c_void_p)
 ]
 
-class JNINativeInterface_(ct.Structure): pass
+class JNINativeInterface_(ct.Structure):
+    pass
 
 # We use inlined functions for C++ so that programmers can write:
 #
@@ -178,279 +279,277 @@ class JNINativeInterface_(ct.Structure): pass
 class JNIEnv(ct.Structure):
     _fields_ = [("functions", POINTER(JNINativeInterface_))]
 
-    def _handle_JNIException(self, err):
+    def _handle_JNIException(self, err: int) -> None:
         import sys
         fun_name = sys._getframe(1).f_code.co_name
         raise JNIException(err, info=fun_name)
 
-    def _handle_JavaException(self):
+    def _handle_JavaException(self) -> Throwable:
         env = self
         fun = self.functions[0]
         jthr = fun.ExceptionOccurred(env)
         fun.ExceptionClear(env)
-        jexc = fun.NewGlobalRef(env, jthr)
+        jexc = cast(fun.NewGlobalRef(env, jthr), jthrowable)
         fun.DeleteLocalRef(env, jthr)
-        if Throwable.last:
-            cause = Throwable.last.getCause()
-            if cause: fun.DeleteGlobalRef(env, cause)
-            Throwable.last = None
-        fun.ExceptionClear(env)
+        self.ExceptionClear()
         Throwable.last = thr = Throwable(jexc)  # !!!, fname)
         raise thr
 
     # Java version
 
-    def GetVersion(self):
+    def GetVersion(self) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.GetVersion(env)
+        ret: int = fun.GetVersion(env)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
     # Java class handling
 
-    def DefineClass(self, name, loader, buf, blen):
+    def DefineClass(self, name: bytes, loader: jobject, buf: Pointer[jbyte], blen: jsize | int) -> jclass:
         env = self
         fun = self.functions[0]
         ret = fun.DefineClass(env, name, loader, buf, blen)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jclass(ret)
 
-    def FindClass(self, name):  # (GIL ?)
+    def FindClass(self, name: bytes) -> jclass:
         env = self
         fun = self.functions[0]
         ret = fun.FindClass(env, name)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jclass(ret)
 
-    def GetSuperclass(self, sub):
+    def GetSuperclass(self, sub: jclass) -> jclass | None:
         env = self
         fun = self.functions[0]
         ret = fun.GetSuperclass(env, sub)
         if fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jclass(ret) if ret else None
 
-    def IsAssignableFrom(self, sub, sup):
+    def IsAssignableFrom(self, sub: jclass, sup: jclass) -> bool:
         env = self
         fun = self.functions[0]
         return bool(fun.IsAssignableFrom(env, sub, sup))
 
     # Java exceptions handling
 
-    def Throw(self, obj):
+    def Throw(self, obj: jthrowable) -> None:
         env = self
         fun = self.functions[0]
         ret = fun.Throw(env, obj)
         if ret != 0: self._handle_JNIException(ret)
 
-    def ThrowNew(self, clazz, msg):
+    def ThrowNew(self, clazz: jclass, msg: bytes) -> None:
         env = self
         fun = self.functions[0]
         ret = fun.ThrowNew(env, clazz, msg)
         if ret != 0: self._handle_JNIException(ret)
 
-    def ExceptionOccurred(self):
+    def ExceptionOccurred(self) -> jthrowable | None:
         env = self
         fun = self.functions[0]
-        return fun.ExceptionOccurred(env)
+        ret = fun.ExceptionOccurred(env)
+        return jthrowable(ret) if ret else None
 
-    def ExceptionDescribe(self):
+    def ExceptionDescribe(self) -> None:
         env = self
         fun = self.functions[0]
         fun.ExceptionDescribe(env)
 
-    def ExceptionClear(self):
+    def ExceptionClear(self) -> None:
         env = self
         fun = self.functions[0]
         if Throwable.last:
-            cause = Throwable.last.getCause()
-            if cause: fun.DeleteGlobalRef(env, cause)
+            jthr = Throwable.last.getJThrowable()
+            if jthr: fun.DeleteGlobalRef(env, jthr)
             Throwable.last = None
         fun.ExceptionClear(env)
 
-    def FatalError(self, msg):
+    def FatalError(self, msg: bytes) -> None:
         env = self
         fun = self.functions[0]
         fun.FatalError(env, msg)
 
-    def ExceptionCheck(self):
+    def ExceptionCheck(self) -> bool:
         env = self
         fun = self.functions[0]
         return bool(fun.ExceptionCheck(env))
 
     # JVM Call frame
 
-    def PushLocalFrame(self, capacity):
+    def PushLocalFrame(self, capacity: jint | int) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.PushLocalFrame(env, capacity)
+        ret: int = fun.PushLocalFrame(env, capacity)
         if ret != 0 and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def PopLocalFrame(self, result):
+    def PopLocalFrame(self, result: jobject | None = None) -> jobject:
         env = self
         fun = self.functions[0]
-        return fun.PopLocalFrame(env, result)
+        ret = fun.PopLocalFrame(env, result if result is not None else jobject())
+        return jobject(ret)
 
     # Java references handling
 
-    def NewGlobalRef(self, lobj):
+    def NewGlobalRef(self, lobj: jobject) -> jobject:
         env = self
         fun = self.functions[0]
         ret = fun.NewGlobalRef(env, lobj)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jobject(ret)
 
-    def DeleteGlobalRef(self, gref):
+    def DeleteGlobalRef(self, gref: jobject) -> None:
         env = self
         fun = self.functions[0]
         if gref: fun.DeleteGlobalRef(env, gref)
 
-    def NewLocalRef(self, ref):
+    def NewLocalRef(self, ref: jobject) -> jobject:
         env = self
         fun = self.functions[0]
         ret = fun.NewLocalRef(env, ref)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jobject(ret)
 
-    def DeleteLocalRef(self, obj):
+    def DeleteLocalRef(self, obj: jobject) -> None:
         env = self
         fun = self.functions[0]
         if obj: fun.DeleteLocalRef(env, obj)
 
-    def NewWeakGlobalRef(self, obj):
+    def NewWeakGlobalRef(self, obj: jobject) -> jweak:
         env = self
         fun = self.functions[0]
         ret = fun.NewWeakGlobalRef(env, obj)
         if fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jweak(ret)
 
-    def DeleteWeakGlobalRef(self, ref):
+    def DeleteWeakGlobalRef(self, ref: jweak) -> None:
         env = self
         fun = self.functions[0]
         fun.DeleteWeakGlobalRef(env, ref)
 
-    def EnsureLocalCapacity(self, capacity):
+    def EnsureLocalCapacity(self, capacity: jint | int) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.EnsureLocalCapacity(env, capacity)
+        ret: int = fun.EnsureLocalCapacity(env, capacity)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
     # Java objects handling
 
-    def AllocObject(self, clazz):
+    def AllocObject(self, clazz: jclass) -> jobject:
         env = self
         fun = self.functions[0]
         ret = fun.AllocObject(env, clazz)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jobject(ret)
 
-    def NewObject(self, clazz, methodID, args=None):  # (GIL ?)
+    def NewObject(self, clazz: jclass, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> jobject:
         env = self
         fun = self.functions[0]
         ret = fun.NewObjectA(env, clazz, methodID, args)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jobject(ret)
 
-    def GetObjectClass(self, obj):
+    def GetObjectClass(self, obj: jobject) -> jclass:
         env = self
         fun = self.functions[0]
         ret = fun.GetObjectClass(env, obj)
         if fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jclass(ret)
 
-    def GetObjectRefType(self, obj):
+    def GetObjectRefType(self, obj: jobject) -> int:
         # New in JNI 1.6
         env = self
         fun = self.functions[0]
-        ret = fun.GetObjectRefType(env, obj)
+        ret: int = fun.GetObjectRefType(env, obj)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def IsInstanceOf(self, obj, clazz):
+    def IsInstanceOf(self, obj: jobject, clazz: jclass) -> bool:
         env = self
         fun = self.functions[0]
         return bool(fun.IsInstanceOf(env, obj, clazz))
 
-    def IsSameObject(self, obj1, obj2):
+    def IsSameObject(self, obj1: jobject, obj2: jobject) -> bool:
         env = self
         fun = self.functions[0]
         return bool(fun.IsSameObject(env, obj1, obj2))
 
     # Call Java instance method
 
-    def GetMethodID(self, clazz, name, sig):
+    def GetMethodID(self, clazz: jclass, name: bytes, sig: bytes) -> jmethodID:
         env = self
         fun = self.functions[0]
-        ret = fun.GetMethodID(env, clazz, name, sig)
+        ret: jmethodID = fun.GetMethodID(env, clazz, name, sig)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def CallObjectMethod(self, obj, methodID, args=None):  # (GIL ?)
+    def CallObjectMethod(self, obj: jobject, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> jobject:
         env = self
         fun = self.functions[0]
         ret = fun.CallObjectMethodA(env, obj, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jobject(ret)
 
-    def CallBooleanMethod(self, obj, methodID, args=None):  # (GIL ?)
+    def CallBooleanMethod(self, obj: jobject, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> bool:
         env = self
         fun = self.functions[0]
         ret = fun.CallBooleanMethodA(env, obj, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return bool(ret)
 
-    def CallByteMethod(self, obj, methodID, args=None):  # (GIL ?)
+    def CallByteMethod(self, obj: jobject, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.CallByteMethodA(env, obj, methodID, args)
+        ret: int = fun.CallByteMethodA(env, obj, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def CallCharMethod(self, obj, methodID, args=None):  # (GIL ?)
+    def CallCharMethod(self, obj: jobject, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> str:
         env = self
         fun = self.functions[0]
-        ret = fun.CallCharMethodA(env, obj, methodID, args)
+        ret: str = fun.CallCharMethodA(env, obj, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def CallShortMethod(self, obj, methodID, args=None):  # (GIL ?)
+    def CallShortMethod(self, obj: jobject, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.CallShortMethodA(env, obj, methodID, args)
+        ret: int = fun.CallShortMethodA(env, obj, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def CallIntMethod(self, obj, methodID, args=None):  # (GIL ?)
+    def CallIntMethod(self, obj: jobject, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.CallIntMethodA(env, obj, methodID, args)
+        ret: int = fun.CallIntMethodA(env, obj, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def CallLongMethod(self, obj, methodID, args=None):  # (GIL ?)
+    def CallLongMethod(self, obj: jobject, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.CallLongMethodA(env, obj, methodID, args)
+        ret: int = fun.CallLongMethodA(env, obj, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def CallFloatMethod(self, obj, methodID, args=None):  # (GIL ?)
+    def CallFloatMethod(self, obj: jobject, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> float:
         env = self
         fun = self.functions[0]
-        ret = fun.CallFloatMethodA(env, obj, methodID, args)
+        ret: float = fun.CallFloatMethodA(env, obj, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def CallDoubleMethod(self, obj, methodID, args=None):  # (GIL ?)
+    def CallDoubleMethod(self, obj: jobject, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> float:
         env = self
         fun = self.functions[0]
-        ret = fun.CallDoubleMethodA(env, obj, methodID, args)
+        ret: float = fun.CallDoubleMethodA(env, obj, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def CallVoidMethod(self, obj, methodID, args=None):  # (GIL ?)
+    def CallVoidMethod(self, obj: jobject, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> None:
         env = self
         fun = self.functions[0]
         fun.CallVoidMethodA(env, obj, methodID, args)
@@ -458,70 +557,70 @@ class JNIEnv(ct.Structure):
 
     # ... nonvirtually
 
-    def CallNonvirtualObjectMethod(self, obj, clazz, methodID, args=None):
+    def CallNonvirtualObjectMethod(self, obj: jobject, clazz: jclass, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> jobject:
         env = self
         fun = self.functions[0]
         ret = fun.CallNonvirtualObjectMethodA(env, obj, clazz, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jobject(ret)
 
-    def CallNonvirtualBooleanMethod(self, obj, clazz, methodID, args=None):
+    def CallNonvirtualBooleanMethod(self, obj: jobject, clazz: jclass, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> bool:
         env = self
         fun = self.functions[0]
         ret = fun.CallNonvirtualBooleanMethodA(env, obj, clazz, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return bool(ret)
 
-    def CallNonvirtualByteMethod(self, obj, clazz, methodID, args=None):
+    def CallNonvirtualByteMethod(self, obj: jobject, clazz: jclass, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.CallNonvirtualByteMethodA(env, obj, clazz, methodID, args)
+        ret: int = fun.CallNonvirtualByteMethodA(env, obj, clazz, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def CallNonvirtualCharMethod(self, obj, clazz, methodID, args=None):
+    def CallNonvirtualCharMethod(self, obj: jobject, clazz: jclass, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> str:
         env = self
         fun = self.functions[0]
-        ret = fun.CallNonvirtualCharMethodA(env, obj, clazz, methodID, args)
+        ret: str = fun.CallNonvirtualCharMethodA(env, obj, clazz, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def CallNonvirtualShortMethod(self, obj, clazz, methodID, args=None):
+    def CallNonvirtualShortMethod(self, obj: jobject, clazz: jclass, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.CallNonvirtualShortMethodA(env, obj, clazz, methodID, args)
+        ret: int = fun.CallNonvirtualShortMethodA(env, obj, clazz, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def CallNonvirtualIntMethod(self, obj, clazz, methodID, args=None):
+    def CallNonvirtualIntMethod(self, obj: jobject, clazz: jclass, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.CallNonvirtualIntMethodA(env, obj, clazz, methodID, args)
+        ret: int = fun.CallNonvirtualIntMethodA(env, obj, clazz, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def CallNonvirtualLongMethod(self, obj, clazz, methodID, args=None):
+    def CallNonvirtualLongMethod(self, obj: jobject, clazz: jclass, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.CallNonvirtualLongMethodA(env, obj, clazz, methodID, args)
+        ret: int = fun.CallNonvirtualLongMethodA(env, obj, clazz, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def CallNonvirtualFloatMethod(self, obj, clazz, methodID, args=None):
+    def CallNonvirtualFloatMethod(self, obj: jobject, clazz: jclass, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> float:
         env = self
         fun = self.functions[0]
-        ret = fun.CallNonvirtualFloatMethodA(env, obj, clazz, methodID, args)
+        ret: float = fun.CallNonvirtualFloatMethodA(env, obj, clazz, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def CallNonvirtualDoubleMethod(self, obj, clazz, methodID, args=None):
+    def CallNonvirtualDoubleMethod(self, obj: jobject, clazz: jclass, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> float:
         env = self
         fun = self.functions[0]
-        ret = fun.CallNonvirtualDoubleMethodA(env, obj, clazz, methodID, args)
+        ret: float = fun.CallNonvirtualDoubleMethodA(env, obj, clazz, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def CallNonvirtualVoidMethod(self, obj, clazz, methodID, args=None):
+    def CallNonvirtualVoidMethod(self, obj: jobject, clazz: jclass, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> None:
         env = self
         fun = self.functions[0]
         fun.CallNonvirtualVoidMethodA(env, obj, clazz, methodID, args)
@@ -529,127 +628,127 @@ class JNIEnv(ct.Structure):
 
     # Getting Java instance fields
 
-    def GetFieldID(self, clazz, name, sig):
+    def GetFieldID(self, clazz: jclass, name: bytes, sig: bytes) -> jfieldID:
         env = self
         fun = self.functions[0]
-        ret = fun.GetFieldID(env, clazz, name, sig)
+        ret: jfieldID = fun.GetFieldID(env, clazz, name, sig)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetObjectField(self, obj, fieldID):
+    def GetObjectField(self, obj: jobject, fieldID: jfieldID) -> jobject:
         env = self
         fun = self.functions[0]
         ret = fun.GetObjectField(env, obj, fieldID)
         if fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jobject(ret)
 
-    def GetBooleanField(self, obj, fieldID):
+    def GetBooleanField(self, obj: jobject, fieldID: jfieldID) -> bool:
         env = self
         fun = self.functions[0]
         ret = fun.GetBooleanField(env, obj, fieldID)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return bool(ret)
 
-    def GetByteField(self, obj, fieldID):
+    def GetByteField(self, obj: jobject, fieldID: jfieldID) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.GetByteField(env, obj, fieldID)
+        ret: int = fun.GetByteField(env, obj, fieldID)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetCharField(self, obj, fieldID):
+    def GetCharField(self, obj: jobject, fieldID: jfieldID) -> str:
         env = self
         fun = self.functions[0]
-        ret = fun.GetCharField(env, obj, fieldID)
+        ret: str = fun.GetCharField(env, obj, fieldID)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetShortField(self, obj, fieldID):
+    def GetShortField(self, obj: jobject, fieldID: jfieldID) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.GetShortField(env, obj, fieldID)
+        ret: int = fun.GetShortField(env, obj, fieldID)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetIntField(self, obj, fieldID):
+    def GetIntField(self, obj: jobject, fieldID: jfieldID) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.GetIntField(env, obj, fieldID)
+        ret: int = fun.GetIntField(env, obj, fieldID)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetLongField(self, obj, fieldID):
+    def GetLongField(self, obj: jobject, fieldID: jfieldID) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.GetLongField(env, obj, fieldID)
+        ret: int = fun.GetLongField(env, obj, fieldID)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetFloatField(self, obj, fieldID):
+    def GetFloatField(self, obj: jobject, fieldID: jfieldID) -> float:
         env = self
         fun = self.functions[0]
-        ret = fun.GetFloatField(env, obj, fieldID)
+        ret: float = fun.GetFloatField(env, obj, fieldID)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetDoubleField(self, obj, fieldID):
+    def GetDoubleField(self, obj: jobject, fieldID: jfieldID) -> float:
         env = self
         fun = self.functions[0]
-        ret = fun.GetDoubleField(env, obj, fieldID)
+        ret: float = fun.GetDoubleField(env, obj, fieldID)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
     # Setting Java instance fields
 
-    def SetObjectField(self, obj, fieldID, value):
+    def SetObjectField(self, obj: jobject, fieldID: jfieldID, value: jobject) -> None:
         env = self
         fun = self.functions[0]
         fun.SetObjectField(env, obj, fieldID, value)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetBooleanField(self, obj, fieldID, value):
+    def SetBooleanField(self, obj: jobject, fieldID: jfieldID, value: jboolean | bool) -> None:
         env = self
         fun = self.functions[0]
         fun.SetBooleanField(env, obj, fieldID, value)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetByteField(self, obj, fieldID, value):
+    def SetByteField(self, obj: jobject, fieldID: jfieldID, value: jbyte | int) -> None:
         env = self
         fun = self.functions[0]
         fun.SetByteField(env, obj, fieldID, value)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetCharField(self, obj, fieldID, value):
+    def SetCharField(self, obj: jobject, fieldID: jfieldID, value: jchar | str) -> None:
         env = self
         fun = self.functions[0]
         fun.SetCharField(env, obj, fieldID, value)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetShortField(self, obj, fieldID, value):
+    def SetShortField(self, obj: jobject, fieldID: jfieldID, value: jshort | int) -> None:
         env = self
         fun = self.functions[0]
         fun.SetShortField(env, obj, fieldID, value)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetIntField(self, obj, fieldID, value):
+    def SetIntField(self, obj: jobject, fieldID: jfieldID, value: jint | int) -> None:
         env = self
         fun = self.functions[0]
         fun.SetIntField(env, obj, fieldID, value)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetLongField(self, obj, fieldID, value):
+    def SetLongField(self, obj: jobject, fieldID: jfieldID, value: jlong | int) -> None:
         env = self
         fun = self.functions[0]
         fun.SetLongField(env, obj, fieldID, value)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetFloatField(self, obj, fieldID, value):
+    def SetFloatField(self, obj: jobject, fieldID: jfieldID, value: jfloat | float) -> None:
         env = self
         fun = self.functions[0]
         fun.SetFloatField(env, obj, fieldID, value)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetDoubleField(self, obj, fieldID, value):
+    def SetDoubleField(self, obj: jobject, fieldID: jfieldID, value: jdouble | float) -> None:
         env = self
         fun = self.functions[0]
         fun.SetDoubleField(env, obj, fieldID, value)
@@ -657,77 +756,77 @@ class JNIEnv(ct.Structure):
 
     # Call Java static method
 
-    def GetStaticMethodID(self, clazz, name, sig):
+    def GetStaticMethodID(self, clazz: jclass, name: bytes, sig: bytes) -> jmethodID:
         env = self
         fun = self.functions[0]
-        ret = fun.GetStaticMethodID(env, clazz, name, sig)
+        ret: jmethodID = fun.GetStaticMethodID(env, clazz, name, sig)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def CallStaticObjectMethod(self, clazz, methodID, args=None):  # (GIL ?)
+    def CallStaticObjectMethod(self, clazz: jclass, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> jobject:
         env = self
         fun = self.functions[0]
         ret = fun.CallStaticObjectMethodA(env, clazz, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jobject(ret)
 
-    def CallStaticBooleanMethod(self, clazz, methodID, args=None):  # (GIL ?)
+    def CallStaticBooleanMethod(self, clazz: jclass, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> bool:
         env = self
         fun = self.functions[0]
         ret = fun.CallStaticBooleanMethodA(env, clazz, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return bool(ret)
 
-    def CallStaticByteMethod(self, clazz, methodID, args=None):  # (GIL ?)
+    def CallStaticByteMethod(self, clazz: jclass, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.CallStaticByteMethodA(env, clazz, methodID, args)
+        ret: int = fun.CallStaticByteMethodA(env, clazz, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def CallStaticCharMethod(self, clazz, methodID, args=None):  # (GIL ?)
+    def CallStaticCharMethod(self, clazz: jclass, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> str:
         env = self
         fun = self.functions[0]
-        ret = fun.CallStaticCharMethodA(env, clazz, methodID, args)
+        ret: str = fun.CallStaticCharMethodA(env, clazz, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def CallStaticShortMethod(self, clazz, methodID, args=None):  # (GIL ?)
+    def CallStaticShortMethod(self, clazz: jclass, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.CallStaticShortMethodA(env, clazz, methodID, args)
+        ret: int = fun.CallStaticShortMethodA(env, clazz, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def CallStaticIntMethod(self, clazz, methodID, args=None):  # (GIL ?)
+    def CallStaticIntMethod(self, clazz: jclass, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.CallStaticIntMethodA(env, clazz, methodID, args)
+        ret: int = fun.CallStaticIntMethodA(env, clazz, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def CallStaticLongMethod(self, clazz, methodID, args=None):  # (GIL ?)
+    def CallStaticLongMethod(self, clazz: jclass, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.CallStaticLongMethodA(env, clazz, methodID, args)
+        ret: int = fun.CallStaticLongMethodA(env, clazz, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def CallStaticFloatMethod(self, clazz, methodID, args=None):  # (GIL ?)
+    def CallStaticFloatMethod(self, clazz: jclass, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> float:
         env = self
         fun = self.functions[0]
-        ret = fun.CallStaticFloatMethodA(env, clazz, methodID, args)
+        ret: float = fun.CallStaticFloatMethodA(env, clazz, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def CallStaticDoubleMethod(self, clazz, methodID, args=None):  # (GIL ?)
+    def CallStaticDoubleMethod(self, clazz: jclass, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> float:
         env = self
         fun = self.functions[0]
-        ret = fun.CallStaticDoubleMethodA(env, clazz, methodID, args)
+        ret: float = fun.CallStaticDoubleMethodA(env, clazz, methodID, args)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def CallStaticVoidMethod(self, clazz, methodID, args=None):  # (GIL ?)
+    def CallStaticVoidMethod(self, clazz: jclass, methodID: jmethodID, args: Pointer[jvalue] | None = None) -> None:
         env = self
         fun = self.functions[0]
         fun.CallStaticVoidMethodA(env, clazz, methodID, args)
@@ -735,127 +834,127 @@ class JNIEnv(ct.Structure):
 
     # Getting Java static fields
 
-    def GetStaticFieldID(self, clazz, name, sig):
+    def GetStaticFieldID(self, clazz: jclass, name: bytes, sig: bytes) -> jfieldID:
         env = self
         fun = self.functions[0]
-        ret = fun.GetStaticFieldID(env, clazz, name, sig)
+        ret: jfieldID = fun.GetStaticFieldID(env, clazz, name, sig)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetStaticObjectField(self, clazz, fieldID):
+    def GetStaticObjectField(self, clazz: jclass, fieldID: jfieldID) -> jobject:
         env = self
         fun = self.functions[0]
         ret = fun.GetStaticObjectField(env, clazz, fieldID)
         if fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jobject(ret)
 
-    def GetStaticBooleanField(self, clazz, fieldID):
+    def GetStaticBooleanField(self, clazz: jclass, fieldID: jfieldID) -> bool:
         env = self
         fun = self.functions[0]
         ret = fun.GetStaticBooleanField(env, clazz, fieldID)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return bool(ret)
 
-    def GetStaticByteField(self, clazz, fieldID):
+    def GetStaticByteField(self, clazz: jclass, fieldID: jfieldID) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.GetStaticByteField(env, clazz, fieldID)
+        ret: int = fun.GetStaticByteField(env, clazz, fieldID)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetStaticCharField(self, clazz, fieldID):
+    def GetStaticCharField(self, clazz: jclass, fieldID: jfieldID) -> str:
         env = self
         fun = self.functions[0]
-        ret = fun.GetStaticCharField(env, clazz, fieldID)
+        ret: str = fun.GetStaticCharField(env, clazz, fieldID)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetStaticShortField(self, clazz, fieldID):
+    def GetStaticShortField(self, clazz: jclass, fieldID: jfieldID) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.GetStaticShortField(env, clazz, fieldID)
+        ret: int = fun.GetStaticShortField(env, clazz, fieldID)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetStaticIntField(self, clazz, fieldID):
+    def GetStaticIntField(self, clazz: jclass, fieldID: jfieldID) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.GetStaticIntField(env, clazz, fieldID)
+        ret: int = fun.GetStaticIntField(env, clazz, fieldID)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetStaticLongField(self, clazz, fieldID):
+    def GetStaticLongField(self, clazz: jclass, fieldID: jfieldID) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.GetStaticLongField(env, clazz, fieldID)
+        ret: int = fun.GetStaticLongField(env, clazz, fieldID)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetStaticFloatField(self, clazz, fieldID):
+    def GetStaticFloatField(self, clazz: jclass, fieldID: jfieldID) -> float:
         env = self
         fun = self.functions[0]
-        ret = fun.GetStaticFloatField(env, clazz, fieldID)
+        ret: float = fun.GetStaticFloatField(env, clazz, fieldID)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetStaticDoubleField(self, clazz, fieldID):
+    def GetStaticDoubleField(self, clazz: jclass, fieldID: jfieldID) -> float:
         env = self
         fun = self.functions[0]
-        ret = fun.GetStaticDoubleField(env, clazz, fieldID)
+        ret: float = fun.GetStaticDoubleField(env, clazz, fieldID)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
     # Setting Java static fields
 
-    def SetStaticObjectField(self, clazz, fieldID, value):
+    def SetStaticObjectField(self, clazz: jclass, fieldID: jfieldID, value: jobject) -> None:
         env = self
         fun = self.functions[0]
         fun.SetStaticObjectField(env, clazz, fieldID, value)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetStaticBooleanField(self, clazz, fieldID, value):
+    def SetStaticBooleanField(self, clazz: jclass, fieldID: jfieldID, value: jboolean | bool) -> None:
         env = self
         fun = self.functions[0]
         fun.SetStaticBooleanField(env, clazz, fieldID, value)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetStaticByteField(self, clazz, fieldID, value):
+    def SetStaticByteField(self, clazz: jclass, fieldID: jfieldID, value: jbyte | int) -> None:
         env = self
         fun = self.functions[0]
         fun.SetStaticByteField(env, clazz, fieldID, value)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetStaticCharField(self, clazz, fieldID, value):
+    def SetStaticCharField(self, clazz: jclass, fieldID: jfieldID, value: jchar | str) -> None:
         env = self
         fun = self.functions[0]
         fun.SetStaticCharField(env, clazz, fieldID, value)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetStaticShortField(self, clazz, fieldID, value):
+    def SetStaticShortField(self, clazz: jclass, fieldID: jfieldID, value: jshort | int) -> None:
         env = self
         fun = self.functions[0]
         fun.SetStaticShortField(env, clazz, fieldID, value)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetStaticIntField(self, clazz, fieldID, value):
+    def SetStaticIntField(self, clazz: jclass, fieldID: jfieldID, value: jint | int) -> None:
         env = self
         fun = self.functions[0]
         fun.SetStaticIntField(env, clazz, fieldID, value)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetStaticLongField(self, clazz, fieldID, value):
+    def SetStaticLongField(self, clazz: jclass, fieldID: jfieldID, value: jlong | int) -> None:
         env = self
         fun = self.functions[0]
         fun.SetStaticLongField(env, clazz, fieldID, value)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetStaticFloatField(self, clazz, fieldID, value):
+    def SetStaticFloatField(self, clazz: jclass, fieldID: jfieldID, value: jfloat | float) -> None:
         env = self
         fun = self.functions[0]
         fun.SetStaticFloatField(env, clazz, fieldID, value)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetStaticDoubleField(self, clazz, fieldID, value):
+    def SetStaticDoubleField(self, clazz: jclass, fieldID: jfieldID, value: jdouble | float) -> None:
         env = self
         fun = self.functions[0]
         fun.SetStaticDoubleField(env, clazz, fieldID, value)
@@ -863,74 +962,75 @@ class JNIEnv(ct.Structure):
 
     # Java strings handling
 
-    def NewString(self, unicode, slen):
+    def NewString(self, unicode: str, slen: jsize | int) -> jstring:
         env = self
         fun = self.functions[0]
         ret = fun.NewString(env, unicode, slen)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jstring(ret)
 
-    def GetStringLength(self, str):  # noqa: A002
+    def GetStringLength(self, str: jstring) -> int:  # noqa: A002
         env = self
         fun = self.functions[0]
-        ret = fun.GetStringLength(env, str)
+        ret: int = fun.GetStringLength(env, str)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetStringChars(self, str, isCopy=None):  # noqa: A002
+    def GetStringChars(self, str: jstring, isCopy: Pointer[jboolean] | None = None) -> Pointer[jchar]:  # noqa: A002
         env = self
         fun = self.functions[0]
-        ret = fun.GetStringChars(env, str, isCopy)
+        ret: Pointer[jchar] = fun.GetStringChars(env, str, isCopy)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def ReleaseStringChars(self, str, chars):  # noqa: A002
+    def ReleaseStringChars(self, str: jstring, chars: Pointer[jchar]) -> None:  # noqa: A002
         env = self
         fun = self.functions[0]
         fun.ReleaseStringChars(env, str, chars)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def NewStringUTF(self, utf):
+    def NewStringUTF(self, utf: bytes) -> jstring:
         env = self
         fun = self.functions[0]
         ret = fun.NewStringUTF(env, utf)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jstring(ret)
 
-    def GetStringUTFLength(self, str):  # noqa: A002
+    def GetStringUTFLength(self, str: jstring) -> int:  # noqa: A002
         env = self
         fun = self.functions[0]
-        ret = fun.GetStringUTFLength(env, str)
+        ret: int = fun.GetStringUTFLength(env, str)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetStringUTFLengthAsLong(self, str):  # noqa: A002
+    def GetStringUTFLengthAsLong(self, str: jstring) -> int:  # noqa: A002
+        # Since: JDK/JRE 24.0
         env = self
         fun = self.functions[0]
-        ret = fun.GetStringUTFLengthAsLong(env, str)
+        ret: int = fun.GetStringUTFLengthAsLong(env, str)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetStringUTFChars(self, str, isCopy=None):  # noqa: A002
+    def GetStringUTFChars(self, str: jstring, isCopy: Pointer[jboolean] | None = None) -> Pointer[ct.c_char]:  # noqa: A002
         env = self
         fun = self.functions[0]
-        ret = fun.GetStringUTFChars(env, str, isCopy)
+        ret: Pointer[ct.c_char] = fun.GetStringUTFChars(env, str, isCopy)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def ReleaseStringUTFChars(self, str, chars):  # noqa: A002
+    def ReleaseStringUTFChars(self, str: jstring, chars: Pointer[ct.c_char]) -> None:  # noqa: A002
         env = self
         fun = self.functions[0]
         fun.ReleaseStringUTFChars(env, str, chars)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def GetStringRegion(self, str, start, len, buf):  # noqa: A002
+    def GetStringRegion(self, str: jstring, start: jsize | int, len: jsize | int, buf: Pointer[jchar]) -> None:  # noqa: A002
         env = self
         fun = self.functions[0]
         fun.GetStringRegion(env, str, start, len, buf)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def GetStringUTFRegion(self, str, start, len, buf):  # noqa: A002
+    def GetStringUTFRegion(self, str: jstring, start: jsize | int, len: jsize | int, buf: Pointer[ct.c_char]) -> None:  # noqa: A002
         env = self
         fun = self.functions[0]
         fun.GetStringUTFRegion(env, str, start, len, buf)
@@ -938,14 +1038,14 @@ class JNIEnv(ct.Structure):
 
     # ... in a critical manner
 
-    def GetStringCritical(self, string, isCopy=None):
+    def GetStringCritical(self, string: jstring, isCopy: Pointer[jboolean] | None = None) -> Pointer[jchar]:
         env = self
         fun = self.functions[0]
-        ret = fun.GetStringCritical(env, string, isCopy)
+        ret: Pointer[jchar] = fun.GetStringCritical(env, string, isCopy)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def ReleaseStringCritical(self, string, cstring):
+    def ReleaseStringCritical(self, string: jstring, cstring: Pointer[jchar]) -> None:
         env = self
         fun = self.functions[0]
         fun.ReleaseStringCritical(env, string, cstring)
@@ -953,284 +1053,284 @@ class JNIEnv(ct.Structure):
 
     # Java arrays handling
 
-    def GetArrayLength(self, array):
+    def GetArrayLength(self, array: jarray) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.GetArrayLength(env, array)
+        ret: int = fun.GetArrayLength(env, array)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def NewObjectArray(self, size, clazz, init=None):
+    def NewObjectArray(self, size: jsize | int, clazz: jclass, init: jobject | None = None) -> jobjectArray:
         env = self
         fun = self.functions[0]
         ret = fun.NewObjectArray(env, size, clazz, init)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jobjectArray(ret)
 
-    def GetObjectArrayElement(self, array, index):
+    def GetObjectArrayElement(self, array: jobjectArray, index: jsize | int) -> jobject:
         env = self
         fun = self.functions[0]
         ret = fun.GetObjectArrayElement(env, array, index)
         if fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jobject(ret)
 
-    def SetObjectArrayElement(self, array, index, value):
+    def SetObjectArrayElement(self, array: jobjectArray, index: jsize | int, value: jobject) -> None:
         env = self
         fun = self.functions[0]
         fun.SetObjectArrayElement(env, array, index, value)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def NewBooleanArray(self, size):
+    def NewBooleanArray(self, size: jsize | int) -> jbooleanArray:
         env = self
         fun = self.functions[0]
         ret = fun.NewBooleanArray(env, size)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jbooleanArray(ret)
 
-    def NewByteArray(self, size):
+    def NewByteArray(self, size: jsize | int) -> jbyteArray:
         env = self
         fun = self.functions[0]
         ret = fun.NewByteArray(env, size)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jbyteArray(ret)
 
-    def NewCharArray(self, size):
+    def NewCharArray(self, size: jsize | int) -> jcharArray:
         env = self
         fun = self.functions[0]
         ret = fun.NewCharArray(env, size)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jcharArray(ret)
 
-    def NewShortArray(self, size):
+    def NewShortArray(self, size: jsize | int) -> jshortArray:
         env = self
         fun = self.functions[0]
         ret = fun.NewShortArray(env, size)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jshortArray(ret)
 
-    def NewIntArray(self, size):
+    def NewIntArray(self, size: jsize | int) -> jintArray:
         env = self
         fun = self.functions[0]
         ret = fun.NewIntArray(env, size)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jintArray(ret)
 
-    def NewLongArray(self, size):
+    def NewLongArray(self, size: jsize | int) -> jlongArray:
         env = self
         fun = self.functions[0]
         ret = fun.NewLongArray(env, size)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jlongArray(ret)
 
-    def NewFloatArray(self, size):
+    def NewFloatArray(self, size: jsize | int) -> jfloatArray:
         env = self
         fun = self.functions[0]
         ret = fun.NewFloatArray(env, size)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jfloatArray(ret)
 
-    def NewDoubleArray(self, size):
+    def NewDoubleArray(self, size: jsize | int) -> jdoubleArray:
         env = self
         fun = self.functions[0]
         ret = fun.NewDoubleArray(env, size)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jdoubleArray(ret)
 
-    def GetBooleanArrayElements(self, array, isCopy=None):
+    def GetBooleanArrayElements(self, array: jbooleanArray, isCopy: Pointer[jboolean] | None = None) -> Pointer[jboolean]:
         env = self
         fun = self.functions[0]
-        ret = fun.GetBooleanArrayElements(env, array, isCopy)
+        ret: Pointer[jboolean] = fun.GetBooleanArrayElements(env, array, isCopy)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetByteArrayElements(self, array, isCopy=None):
+    def GetByteArrayElements(self, array: jbyteArray, isCopy: Pointer[jboolean] | None = None) -> Pointer[jbyte]:
         env = self
         fun = self.functions[0]
-        ret = fun.GetByteArrayElements(env, array, isCopy)
+        ret: Pointer[jbyte] = fun.GetByteArrayElements(env, array, isCopy)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetCharArrayElements(self, array, isCopy=None):
+    def GetCharArrayElements(self, array: jcharArray, isCopy: Pointer[jboolean] | None = None) -> Pointer[jchar]:
         env = self
         fun = self.functions[0]
-        ret = fun.GetCharArrayElements(env, array, isCopy)
+        ret: Pointer[jchar] = fun.GetCharArrayElements(env, array, isCopy)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetShortArrayElements(self, array, isCopy=None):
+    def GetShortArrayElements(self, array: jshortArray, isCopy: Pointer[jboolean] | None = None) -> Pointer[jshort]:
         env = self
         fun = self.functions[0]
-        ret = fun.GetShortArrayElements(env, array, isCopy)
+        ret: Pointer[jshort] = fun.GetShortArrayElements(env, array, isCopy)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetIntArrayElements(self, array, isCopy=None):
+    def GetIntArrayElements(self, array: jintArray, isCopy: Pointer[jboolean] | None = None) -> Pointer[jint]:
         env = self
         fun = self.functions[0]
-        ret = fun.GetIntArrayElements(env, array, isCopy)
+        ret: Pointer[jint] = fun.GetIntArrayElements(env, array, isCopy)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetLongArrayElements(self, array, isCopy=None):
+    def GetLongArrayElements(self, array: jlongArray, isCopy: Pointer[jboolean] | None = None) -> Pointer[jlong]:
         env = self
         fun = self.functions[0]
-        ret = fun.GetLongArrayElements(env, array, isCopy)
+        ret: Pointer[jlong] = fun.GetLongArrayElements(env, array, isCopy)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetFloatArrayElements(self, array, isCopy=None):
+    def GetFloatArrayElements(self, array: jfloatArray, isCopy: Pointer[jboolean] | None = None) -> Pointer[jfloat]:
         env = self
         fun = self.functions[0]
-        ret = fun.GetFloatArrayElements(env, array, isCopy)
+        ret: Pointer[jfloat] = fun.GetFloatArrayElements(env, array, isCopy)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetDoubleArrayElements(self, array, isCopy=None):
+    def GetDoubleArrayElements(self, array: jdoubleArray, isCopy: Pointer[jboolean] | None = None) -> Pointer[jdouble]:
         env = self
         fun = self.functions[0]
-        ret = fun.GetDoubleArrayElements(env, array, isCopy)
+        ret: Pointer[jdouble] = fun.GetDoubleArrayElements(env, array, isCopy)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def ReleaseBooleanArrayElements(self, array, elems, mode=0):
+    def ReleaseBooleanArrayElements(self, array: jbooleanArray, elems: Pointer[jboolean], mode: jint | int = 0) -> None:
         env = self
         fun = self.functions[0]
         fun.ReleaseBooleanArrayElements(env, array, elems, mode)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def ReleaseByteArrayElements(self, array, elems, mode=0):
+    def ReleaseByteArrayElements(self, array: jbyteArray, elems: Pointer[jbyte], mode: jint | int = 0) -> None:
         env = self
         fun = self.functions[0]
         fun.ReleaseByteArrayElements(env, array, elems, mode)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def ReleaseCharArrayElements(self, array, elems, mode=0):
+    def ReleaseCharArrayElements(self, array: jcharArray, elems: Pointer[jchar], mode: jint | int = 0) -> None:
         env = self
         fun = self.functions[0]
         fun.ReleaseCharArrayElements(env, array, elems, mode)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def ReleaseShortArrayElements(self, array, elems, mode=0):
+    def ReleaseShortArrayElements(self, array: jshortArray, elems: Pointer[jshort], mode: jint | int = 0) -> None:
         env = self
         fun = self.functions[0]
         fun.ReleaseShortArrayElements(env, array, elems, mode)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def ReleaseIntArrayElements(self, array, elems, mode=0):
+    def ReleaseIntArrayElements(self, array: jintArray, elems: Pointer[jint], mode: jint | int = 0) -> None:
         env = self
         fun = self.functions[0]
         fun.ReleaseIntArrayElements(env, array, elems, mode)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def ReleaseLongArrayElements(self, array, elems, mode=0):
+    def ReleaseLongArrayElements(self, array: jlongArray, elems: Pointer[jlong], mode: jint | int = 0) -> None:
         env = self
         fun = self.functions[0]
         fun.ReleaseLongArrayElements(env, array, elems, mode)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def ReleaseFloatArrayElements(self, array, elems, mode=0):
+    def ReleaseFloatArrayElements(self, array: jfloatArray, elems: Pointer[jfloat], mode: jint | int = 0) -> None:
         env = self
         fun = self.functions[0]
         fun.ReleaseFloatArrayElements(env, array, elems, mode)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def ReleaseDoubleArrayElements(self, array, elems, mode=0):
+    def ReleaseDoubleArrayElements(self, array: jdoubleArray, elems: Pointer[jdouble], mode: jint | int = 0) -> None:
         env = self
         fun = self.functions[0]
         fun.ReleaseDoubleArrayElements(env, array, elems, mode)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def GetBooleanArrayRegion(self, array, start, size, buf):
+    def GetBooleanArrayRegion(self, array: jbooleanArray, start: jint | int, size: jint | int, buf: Pointer[jboolean]) -> None:
         env = self
         fun = self.functions[0]
         fun.GetBooleanArrayRegion(env, array, start, size, buf)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def GetByteArrayRegion(self, array, start, size, buf):
+    def GetByteArrayRegion(self, array: jbyteArray, start: jint | int, size: jint | int, buf: Pointer[jbyte]) -> None:
         env = self
         fun = self.functions[0]
         fun.GetByteArrayRegion(env, array, start, size, buf)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def GetCharArrayRegion(self, array, start, size, buf):
+    def GetCharArrayRegion(self, array: jcharArray, start: jint | int, size: jint | int, buf: Pointer[jchar]) -> None:
         env = self
         fun = self.functions[0]
         fun.GetCharArrayRegion(env, array, start, size, buf)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def GetShortArrayRegion(self, array, start, size, buf):
+    def GetShortArrayRegion(self, array: jshortArray, start: jint | int, size: jint | int, buf: Pointer[jshort]) -> None:
         env = self
         fun = self.functions[0]
         fun.GetShortArrayRegion(env, array, start, size, buf)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def GetIntArrayRegion(self, array, start, size, buf):
+    def GetIntArrayRegion(self, array: jintArray, start: jint | int, size: jint | int, buf: Pointer[jint]) -> None:
         env = self
         fun = self.functions[0]
         fun.GetIntArrayRegion(env, array, start, size, buf)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def GetLongArrayRegion(self, array, start, size, buf):
+    def GetLongArrayRegion(self, array: jlongArray, start: jint | int, size: jint | int, buf: Pointer[jlong]) -> None:
         env = self
         fun = self.functions[0]
         fun.GetLongArrayRegion(env, array, start, size, buf)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def GetFloatArrayRegion(self, array, start, size, buf):
+    def GetFloatArrayRegion(self, array: jfloatArray, start: jint | int, size: jint | int, buf: Pointer[jfloat]) -> None:
         env = self
         fun = self.functions[0]
         fun.GetFloatArrayRegion(env, array, start, size, buf)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def GetDoubleArrayRegion(self, array, start, size, buf):
+    def GetDoubleArrayRegion(self, array: jdoubleArray, start: jint | int, size: jint | int, buf: Pointer[jdouble]) -> None:
         env = self
         fun = self.functions[0]
         fun.GetDoubleArrayRegion(env, array, start, size, buf)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetBooleanArrayRegion(self, array, start, size, buf):
+    def SetBooleanArrayRegion(self, array: jbooleanArray, start: jint | int, size: jint | int, buf: Pointer[jboolean]) -> None:
         env = self
         fun = self.functions[0]
         fun.SetBooleanArrayRegion(env, array, start, size, buf)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetByteArrayRegion(self, array, start, size, buf):
+    def SetByteArrayRegion(self, array: jbyteArray, start: jint | int, size: jint | int, buf: Pointer[jbyte]) -> None:
         env = self
         fun = self.functions[0]
         fun.SetByteArrayRegion(env, array, start, size, buf)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetCharArrayRegion(self, array, start, size, buf):
+    def SetCharArrayRegion(self, array: jcharArray, start: jint | int, size: jint | int, buf: Pointer[jchar]) -> None:
         env = self
         fun = self.functions[0]
         fun.SetCharArrayRegion(env, array, start, size, buf)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetShortArrayRegion(self, array, start, size, buf):
+    def SetShortArrayRegion(self, array: jshortArray, start: jint | int, size: jint | int, buf: Pointer[jshort]) -> None:
         env = self
         fun = self.functions[0]
         fun.SetShortArrayRegion(env, array, start, size, buf)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetIntArrayRegion(self, array, start, size, buf):
+    def SetIntArrayRegion(self, array: jintArray, start: jint | int, size: jint | int, buf: Pointer[jint]) -> None:
         env = self
         fun = self.functions[0]
         fun.SetIntArrayRegion(env, array, start, size, buf)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetLongArrayRegion(self, array, start, size, buf):
+    def SetLongArrayRegion(self, array: jlongArray, start: jint | int, size: jint | int, buf: Pointer[jlong]) -> None:
         env = self
         fun = self.functions[0]
         fun.SetLongArrayRegion(env, array, start, size, buf)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetFloatArrayRegion(self, array, start, size, buf):
+    def SetFloatArrayRegion(self, array: jfloatArray, start: jint | int, size: jint | int, buf: Pointer[jfloat]) -> None:
         env = self
         fun = self.functions[0]
         fun.SetFloatArrayRegion(env, array, start, size, buf)
         if fun.ExceptionCheck(env): self._handle_JavaException()
 
-    def SetDoubleArrayRegion(self, array, start, size, buf):
+    def SetDoubleArrayRegion(self, array: jdoubleArray, start: jint | int, size: jint | int, buf: Pointer[jdouble]) -> None:
         env = self
         fun = self.functions[0]
         fun.SetDoubleArrayRegion(env, array, start, size, buf)
@@ -1238,14 +1338,14 @@ class JNIEnv(ct.Structure):
 
     # ... in a critical manner
 
-    def GetPrimitiveArrayCritical(self, array, isCopy=None):
+    def GetPrimitiveArrayCritical(self, array: jarray, isCopy: Pointer[jboolean] | None = None) -> ct.c_void_p:
         env = self
         fun = self.functions[0]
         ret = fun.GetPrimitiveArrayCritical(env, array, isCopy)
         if fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return ct.c_void_p(ret)
 
-    def ReleasePrimitiveArrayCritical(self, array, carray, mode=0):
+    def ReleasePrimitiveArrayCritical(self, array: jarray, carray: ct.c_void_p, mode: jint | int = 0) -> None:
         env = self
         fun = self.functions[0]
         fun.ReleasePrimitiveArrayCritical(env, array, carray, mode)
@@ -1253,172 +1353,176 @@ class JNIEnv(ct.Structure):
 
     # Java native methods handling
 
-    def RegisterNatives(self, clazz, methods, nMethods):
+    def RegisterNatives(self, clazz: jclass, methods: Pointer[JNINativeMethod], nMethods: jint | int) -> int:
         env = self
         fun = self.functions[0]
         # Required due to bug in jvm:
         # https://bugs.java.com/bugdatabase/view_bug.do?bug_id=6493522
         fun.GetMethodID(env, clazz, b"notify", b"()V")
-        ret = fun.RegisterNatives(env, clazz, methods, nMethods)
+        ret: int = fun.RegisterNatives(env, clazz, methods, nMethods)
         if ret != 0 and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def UnregisterNatives(self, clazz):
+    def UnregisterNatives(self, clazz: jclass) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.UnregisterNatives(env, clazz)
+        ret: int = fun.UnregisterNatives(env, clazz)
         if ret != 0 and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
     # Java object monitoring
 
-    def MonitorEnter(self, obj):
+    def MonitorEnter(self, obj: jobject) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.MonitorEnter(env, obj)
+        ret: int = fun.MonitorEnter(env, obj)
         if ret != 0 and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def MonitorExit(self, obj):
+    def MonitorExit(self, obj: jobject) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.MonitorExit(env, obj)
+        ret: int = fun.MonitorExit(env, obj)
         if ret != 0 and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
     # Java direct buffer handling
 
-    def NewDirectByteBuffer(self, address, capacity):
+    def NewDirectByteBuffer(self, address: Pointer[ct.c_char], capacity: jlong | int) -> jobject:
         env = self
         fun = self.functions[0]
         ret = fun.NewDirectByteBuffer(env, address, capacity)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jobject(ret)
 
-    def GetDirectBufferAddress(self, buf):
+    def GetDirectBufferAddress(self, buf: jobject) -> Pointer[ct.c_char]:
         env = self
         fun = self.functions[0]
-        ret = fun.GetDirectBufferAddress(env, buf)
+        ret: Pointer[ct.c_char] = fun.GetDirectBufferAddress(env, buf)
         if not ret and fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def GetDirectBufferCapacity(self, buf):
+    def GetDirectBufferCapacity(self, buf: jobject) -> int:
         env = self
         fun = self.functions[0]
-        ret = fun.GetDirectBufferCapacity(env, buf)
+        ret: int = fun.GetDirectBufferCapacity(env, buf)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
     # Java reflection support
 
-    def FromReflectedMethod(self, method):
+    def FromReflectedMethod(self, method: jobject) -> jmethodID:
         env = self
         fun = self.functions[0]
-        ret = fun.FromReflectedMethod(env, method)
+        ret: jmethodID = fun.FromReflectedMethod(env, method)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def FromReflectedField(self, field):
+    def FromReflectedField(self, field: jobject) -> jfieldID:
         env = self
         fun = self.functions[0]
-        ret = fun.FromReflectedField(env, field)
+        ret: jfieldID = fun.FromReflectedField(env, field)
         if fun.ExceptionCheck(env): self._handle_JavaException()
         return ret
 
-    def ToReflectedMethod(self, cls, methodID, isStatic):
+    def ToReflectedMethod(self, cls: jclass, methodID: jmethodID, isStatic: jboolean | bool) -> jobject:
         env = self
         fun = self.functions[0]
         ret = fun.ToReflectedMethod(env, cls, methodID, isStatic)
         if fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jobject(ret)
 
-    def ToReflectedField(self, cls, fieldID, isStatic):
+    def ToReflectedField(self, cls: jclass, fieldID: jfieldID, isStatic: jboolean | bool) -> jobject:
         env = self
         fun = self.functions[0]
         ret = fun.ToReflectedField(env, cls, fieldID, isStatic)
         if fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jobject(ret)
 
     # Java VM Interface
 
-    def GetJavaVM(self, vm):
+    def GetJavaVM(self, vm: Pointer[Pointer[JavaVM]]) -> None:
         env = self
         fun = self.functions[0]
-        ret = fun.GetJavaVM(env, vm)
+        ret: int = fun.GetJavaVM(env, vm)
         if ret != 0: self._handle_JNIException(ret)
 
     # Module Features
 
-    def GetModule(self, clazz):
+    def GetModule(self, clazz: jclass) -> jobject:
+        # Since: JDK/JRE 9.0
         env = self
         fun = self.functions[0]
         ret = fun.GetModule(env, clazz)
         if fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return jobject(ret)
 
     # Virtual threads
 
-    def IsVirtualThread(self, obj):
+    def IsVirtualThread(self, obj: jobject) -> bool:
+        # Since: JDK/JRE 19.0
         env = self
         fun = self.functions[0]
         ret = fun.IsVirtualThread(env, obj)
         if fun.ExceptionCheck(env): self._handle_JavaException()
-        return ret
+        return bool(ret)
 
-
-JEnv = lambda penv: penv[0]
+def JEnv(penv: Pointer[JNIEnv]) -> JNIEnv:
+    env: JNIEnv = penv[0]
+    return env
 
 #
 # JNI Invocation Interface.
 #
 
-class JNIInvokeInterface_(ct.Structure): pass
+class JNIInvokeInterface_(ct.Structure):
+    pass
 
 class JavaVM(ct.Structure):
     _fields_ = [("functions", POINTER(JNIInvokeInterface_))]
 
-    def _handle_JNIException(self, err):
+    def _handle_JNIException(self, err: int) -> None:
         import sys
         fun_name = sys._getframe(1).f_code.co_name
         raise JNIException(err, info=fun_name)
 
-    def DestroyJavaVM(self):
+    def DestroyJavaVM(self) -> None:
         jvm = self
         fun = self.functions[0]
         ret = fun.DestroyJavaVM(jvm)
         if ret != JNI_OK: self._handle_JNIException(ret)
 
-    def AttachCurrentThread(self, penv, args=None):
+    def AttachCurrentThread(self, penv: Pointer[Pointer[JNIEnv]], args: Pointer[JavaVMAttachArgs] | None = None) -> None:
         jvm = self
         fun = self.functions[0]
         ret = fun.AttachCurrentThread(jvm, penv, args)
         if ret != JNI_OK: self._handle_JNIException(ret)
 
-    def AttachCurrentThreadAsDaemon(self, penv, args=None):
+    def AttachCurrentThreadAsDaemon(self, penv: Pointer[Pointer[JNIEnv]], args: Pointer[JavaVMAttachArgs] | None = None) -> None:
         jvm = self
         fun = self.functions[0]
         ret = fun.AttachCurrentThreadAsDaemon(jvm, penv, args)
         if ret != JNI_OK: self._handle_JNIException(ret)
 
-    def DetachCurrentThread(self):
+    def DetachCurrentThread(self) -> None:
         jvm = self
         fun = self.functions[0]
         ret = fun.DetachCurrentThread(jvm)
         if ret != JNI_OK: self._handle_JNIException(ret)
 
-    def GetEnv(self, penv, version):
+    def GetEnv(self, penv: Pointer[Pointer[JNIEnv]], version: jint | int) -> None:
         jvm = self
         fun = self.functions[0]
         ret = fun.GetEnv(jvm, penv, version)
         if ret != JNI_OK: self._handle_JNIException(ret)
 
-
-JVM = lambda pjvm: pjvm[0]
+def JVM(pjvm: Pointer[JavaVM]) -> JavaVM:
+    jvm: JavaVM = pjvm[0]
+    return jvm
 
 # JNI Native Method Interface.
 
-# temporary
-va_list = ct.c_void_p
+va_list = ct.c_void_p  # temporary
 
 JNINativeInterface_._fields_ = [
     ("reserved0", ct.c_void_p),
@@ -1737,8 +1841,19 @@ JNINativeInterface_._fields_ = [
 del JNINativeInterface_
 del va_list
 
-# JNI Invocation Interface.
-
+# optionString may be any option accepted by the JVM, or one of the
+# following:
+#
+# -D<name>=<value>          Set a system property.
+# -verbose[:class|gc|jni]   Enable verbose output, comma-separated. E.g.
+#                           "-verbose:class" or "-verbose:gc,class"
+#                           Standard names include: gc, class, and jni.
+#                           All nonstandard (VM-specific) names must begin
+#                           with "X".
+# vfprintf                  extraInfo is a pointer to the vfprintf hook.
+# exit                      extraInfo is a pointer to the exit hook.
+# abort                     extraInfo is a pointer to the abort hook.
+#
 class JavaVMOption(ct.Structure):
     _fields_ = [
     ("optionString", ct.c_char_p),
@@ -1760,13 +1875,14 @@ class JavaVMAttachArgs(ct.Structure):
     ("group",   jobject),
 ]
 
-
 # These will be VM-specific.
 
-JDK1_2 = 1
-JDK1_4 = 1
+JDK1_2: Final[int] = 1
+JDK1_4: Final[int] = 1
 
 # End VM-specific.
+
+# JNI Invocation Interface.
 
 JNIInvokeInterface_._fields_ = [
     ("reserved0", ct.c_void_p),
@@ -1784,38 +1900,39 @@ del JNIInvokeInterface_
 
 # JNI version constants
 
-JNI_VERSION_1_1 = 0x00010001
-JNI_VERSION_1_2 = 0x00010002
-JNI_VERSION_1_4 = 0x00010004
-JNI_VERSION_1_6 = 0x00010006
-JNI_VERSION_1_8 = 0x00010008
-JNI_VERSION_9   = 0x00090000
-JNI_VERSION_10  = 0x000a0000
-JNI_VERSION_19  = 0x00130000
-JNI_VERSION_20  = 0x00140000
-JNI_VERSION_21  = 0x00150000
-JNI_VERSION_24  = 0x00180000
+JNI_VERSION_1_1: Final[int] = 0x00010001
+JNI_VERSION_1_2: Final[int] = 0x00010002
+JNI_VERSION_1_4: Final[int] = 0x00010004
+JNI_VERSION_1_6: Final[int] = 0x00010006
+JNI_VERSION_1_8: Final[int] = 0x00010008
+JNI_VERSION_9:   Final[int] = 0x00090000
+JNI_VERSION_10:  Final[int] = 0x000a0000
+JNI_VERSION_19:  Final[int] = 0x00130000
+JNI_VERSION_20:  Final[int] = 0x00140000
+JNI_VERSION_21:  Final[int] = 0x00150000
+JNI_VERSION_24:  Final[int] = 0x00180000
 
 # eof jni.h
 
 class Throwable(Exception):  # noqa: N818
 
-    last = None
+    last: Throwable | None = None
 
-    def __init__(self, cause=NULL, info=NULL):  # noqa: D107
-        self._cause = cast(cause, jthrowable)
-        self._info  = cast(info,  jstring)
-        super().__init__(self._cause, self._info)
+    def __init__(self, jthr: jthrowable | None = None, info: jstring | None = None) -> None:
+        """Initializer"""
+        self._jthr: jthrowable = cast(jthr, jthrowable) if jthr is not None else jthrowable()
+        self._info: jstring    = cast(info, jstring)    if info is not None else jstring()
+        super().__init__(self._jthr, self._info)
 
-    def getCause(self):
-        return self._cause
+    def getJThrowable(self) -> jthrowable:
+        return self._jthr
 
-    def getInfo(self):
+    def getInfo(self) -> jstring:
         return self._info
 
 class JNIException(SystemError):
 
-    reason = {
+    reason: dict[int, str] = {
         JNI_OK:        "success",
         JNI_ERR:       "unknown error",
         JNI_EDETACHED: "thread detached from the VM",
@@ -1825,38 +1942,42 @@ class JNIException(SystemError):
         JNI_EINVAL:    "invalid arguments",
     }
 
-    def __init__(self, error=JNI_ERR, info=None):  # noqa: D107
+    def __init__(self, error: int = JNI_ERR, info: str | None = None) -> None:
+        """Initializer"""
         self._error = error
         self._info  = info
         super().__init__(self.getMessage(), self.getError())
 
-    def getMessage(self):
+    def getMessage(self) -> str:
         prefix = self._info + ": " if self._info else ""
         return prefix + JNIException.reason.get(self._error,
                                                 f"unknown error code {self._error}")
 
-    def getError(self):
+    def getError(self) -> int:
         return self._error
 
-def load(dll_path, handle=None, __dlclose=dlclose):
+def load(dll_path: StrPath | None = None, *, handle=None,  # type: ignore[no-untyped-def]
+         __dlclose=dlclose) -> type:
 
+    import os
     try:
-        if isinstance(dll_path, os.PathLike): dll_path = str(dll_path)
-        dll = DLL(dll_path, handle=handle)
+        dll = DLL(os.fspath(dll_path) if dll_path is not None else None, handle=handle)
     except OSError as exc:
         raise exc
     except Exception as exc:
         raise OSError(f"{exc}") from None
 
-    def proto(restype, func, *argtypes):
-        func.restype  = restype
-        func.argtypes = argtypes
+    dllclose = classmethod(lambda cls, __dlclose=__dlclose: __dlclose(cls.dll._handle))
+
+    def proto(restype: type | None, func: Callable[P, R], *argtypes: type | None) -> Callable[P, R]:
+        func.restype  = restype   # type: ignore[attr-defined]
+        func.argtypes = argtypes  # type: ignore[attr-defined]
         return func
 
-    JNI = type("JNI", (), dict(dll=dll, dllclose=classmethod(lambda cls, __dlclose=__dlclose: __dlclose(cls.dll._handle))))
-    JNI.GetDefaultJavaVMInitArgs = proto(jint, dll.JNI_GetDefaultJavaVMInitArgs, POINTER(JavaVMInitArgs))
-    JNI.CreateJavaVM             = proto(jint, dll.JNI_CreateJavaVM,             POINTER(POINTER(JavaVM)), POINTER(POINTER(JNIEnv)), POINTER(JavaVMInitArgs))
-    JNI.GetCreatedJavaVMs        = proto(jint, dll.JNI_GetCreatedJavaVMs,        POINTER(POINTER(JavaVM)), jsize, POINTER(jsize))
+    JNI = type("JNI", (), dict(dll=dll, dllclose=dllclose,
+               GetDefaultJavaVMInitArgs = proto(jint, dll.JNI_GetDefaultJavaVMInitArgs, POINTER(JavaVMInitArgs)),
+               CreateJavaVM = proto(jint, dll.JNI_CreateJavaVM, POINTER(POINTER(JavaVM)), POINTER(POINTER(JNIEnv)), POINTER(JavaVMInitArgs)),
+               GetCreatedJavaVMs = proto(jint, dll.JNI_GetCreatedJavaVMs, POINTER(POINTER(JavaVM)), jsize, POINTER(jsize)),))
 
     return JNI
 
@@ -1864,19 +1985,20 @@ def load(dll_path, handle=None, __dlclose=dlclose):
 # Decorator for defining Java native method in Python
 #
 
-def method(signature, **kwargs):
-    ret_type, arg_types = __parse_signature(signature)
-    fun_name = kwargs["name"].encode("utf-8") if "name" in kwargs else None
-    fun_sign = signature.encode("utf-8")
-    FunProto = CFUNC(ret_type, POINTER(JNIEnv), jobject, *arg_types)
+def method(signature: str, *,
+           name: str | None = None) -> Callable[[Callable[P, R]], JNINativeMethod]:
+    arg_types, res_type = __parse_signature(signature)
+    fun_name = name.encode() if name is not None else None
+    fun_sign = signature.encode()
+    FunProto = CFUNC(res_type, POINTER(JNIEnv), jobject, *arg_types)
 
-    def wrapper(fun):
-        return JNINativeMethod(name=fun_name or fun.__name__.encode("utf-8"),
+    def wrapper(fun: Callable[P, R]) -> JNINativeMethod:
+        return JNINativeMethod(name=fun_name or fun.__name__.encode(),
                                signature=fun_sign,
                                fnPtr=cast(FunProto(fun), jobject))  # ct.c_void_p
     return wrapper
 
-def __parse_signature(signature):
+def __parse_signature(signature: str) -> tuple[tuple[CType, ...], CType | None]:
 
     if signature[0] != "(":
         raise JNIException(JNI_EINVAL, info="jni.method")
@@ -1887,7 +2009,7 @@ def __parse_signature(signature):
 
     sig = ret_sig + args_sig
 
-    arg_types = []
+    jarg_types: list[CType | None] = []
     while sig:
 
         dim = 0
@@ -1895,27 +2017,31 @@ def __parse_signature(signature):
         sig = sig[dim:]
 
         ch = sig[0]
-        if ch in "ZBCSIJFD" or (ch == "V" and dim == 0 and not arg_types):
+        if ch == "V" and dim == 0 and not jarg_types:
+            sig = sig[1:]
+            jarg_types.append(__native_simple_types[ch])
+        elif ch in "ZBCSIJFD":
             sig = sig[1:]
             if dim == 0:
-                arg_types.append(__native_types[ch])
+                jarg_types.append(__native_simple_types[ch])
             elif dim == 1:
-                arg_types.append(__native_array_types[ch])
+                jarg_types.append(__native_array_types[ch])
             else:
-                arg_types.append(jobjectArray)
+                jarg_types.append(jobjectArray)
         elif ch == "L":
             cname, sig = sig[1:].split(";", 1)
             if dim == 0:
-                arg_types.append(__object_types.get(cname, jobject))
+                jarg_types.append(__object_types.get(cname, jobject))
             else:
-                arg_types.append(jobjectArray)
+                jarg_types.append(jobjectArray)
         else:
             raise JNIException(JNI_EINVAL, info="jni.method")
 
-    return arg_types[0], tuple(arg_types[1:])
+    arg_types: list[CType]  = jarg_types[1:]  # type: ignore[assignment]
+    res_type:  CType | None = jarg_types[0]
+    return tuple(arg_types), res_type
 
-
-__native_types = {
+__native_simple_types: Final[dict[str, CSimpleType | None]] = {
     "V": None,
     "Z": jboolean,
     "B": jbyte,
@@ -1927,7 +2053,7 @@ __native_types = {
     "D": jdouble
 }
 
-__native_array_types = {
+__native_array_types: Final[dict[str, CArrayType]] = {
     "Z": jbooleanArray,
     "B": jbyteArray,
     "C": jcharArray,
@@ -1938,12 +2064,14 @@ __native_array_types = {
     "D": jdoubleArray
 }
 
-__object_types = {
+__object_types: Final[dict[str, CObjectType]] = {
     "java/lang/String": jstring,
     "java/lang/Class":  jclass
 }
 
-del sys
-del platform
-del ct
+if TYPE_CHECKING:
+    POINTER: TypeAlias = Pointer  # type: ignore[no-redef]
+    del P, R
+
 del dlclose
+del _platform

@@ -4,7 +4,7 @@
 
 if __name__.rpartition(".")[-1] == "__main__":
     import sys
-    from . __main import main
+    from .main import main
     # logging.basicConfig(level=logging.INFO)
     # logging.basicConfig(level=logging.DEBUG)
     sys.exit(main())

@@ -1,0 +1,119 @@
+# Oracle JDK/JRE
+Java/jre1.8.0_501/bin/client/jvm.dll
+Java/jre1.8.0_501/bin/server/jvm.dll
+Java/jdk1.8.0_202/jre/bin/client/jvm.dll
+Java/jdk1.8.0_202/jre/bin/server/jvm.dll
+Java/jdk-17/bin/client/jvm.dll
+Java/jdk-17/bin/server/jvm.dll
+Java/jdk-21/bin/client/jvm.dll
+Java/jdk-21/bin/server/jvm.dll
+Java/jdk-25/bin/client/jvm.dll
+Java/jdk-25/bin/server/jvm.dll
+
+# Eclipse Adoptium JDK/JRE
+Eclipse Adoptium/jre-8.0.472.8-hotspot/bin/client/jvm.dll
+Eclipse Adoptium/jre-8.0.472.8-hotspot/bin/server/jvm.dll
+Eclipse Adoptium/jdk-8.0.472.8-hotspot/jre/bin/client/jvm.dll
+Eclipse Adoptium/jdk-8.0.472.8-hotspot/jre/bin/server/jvm.dll
+Eclipse Adoptium/jre-11.0.29.7-hotspot/bin/client/jvm.dll
+Eclipse Adoptium/jre-11.0.29.7-hotspot/bin/server/jvm.dll
+Eclipse Adoptium/jdk-11.0.29.7-hotspot/bin/client/jvm.dll
+Eclipse Adoptium/jdk-11.0.29.7-hotspot/bin/server/jvm.dll
+Eclipse Adoptium/jre-17.0.17.10-hotspot/bin/client/jvm.dll
+Eclipse Adoptium/jre-17.0.17.10-hotspot/bin/server/jvm.dll
+Eclipse Adoptium/jdk-17.0.17.10-hotspot/bin/client/jvm.dll
+Eclipse Adoptium/jdk-17.0.17.10-hotspot/bin/server/jvm.dll
+Eclipse Adoptium/jre-21.0.9.10-hotspot/bin/client/jvm.dll
+Eclipse Adoptium/jre-21.0.9.10-hotspot/bin/server/jvm.dll
+Eclipse Adoptium/jdk-21.0.9.10-hotspot/bin/client/jvm.dll
+Eclipse Adoptium/jdk-21.0.9.10-hotspot/bin/server/jvm.dll
+Eclipse Adoptium/jre-25.0.1.8-hotspot/bin/client/jvm.dll
+Eclipse Adoptium/jre-25.0.1.8-hotspot/bin/server/jvm.dll
+Eclipse Adoptium/jdk-25.0.1.8-hotspot/bin/client/jvm.dll
+Eclipse Adoptium/jdk-25.0.1.8-hotspot/bin/server/jvm.dll
+
+# Liberica JDK/JRE
+BellSoft/LibericaJRE-8/bin/client/jvm.dll
+BellSoft/LibericaJRE-8/bin/server/jvm.dll
+BellSoft/LibericaJDK-8/jre/bin/client/jvm.dll
+BellSoft/LibericaJDK-8/jre/bin/server/jvm.dll
+BellSoft/LibericaJRE-11/bin/client/jvm.dll
+BellSoft/LibericaJRE-11/bin/server/jvm.dll
+BellSoft/LibericaJDK-11/bin/client/jvm.dll
+BellSoft/LibericaJDK-11/bin/server/jvm.dll
+BellSoft/LibericaJRE-17/bin/client/jvm.dll
+BellSoft/LibericaJRE-17/bin/server/jvm.dll
+BellSoft/LibericaJDK-17/bin/client/jvm.dll
+BellSoft/LibericaJDK-17/bin/server/jvm.dll
+BellSoft/LibericaJRE-21/bin/client/jvm.dll
+BellSoft/LibericaJRE-21/bin/server/jvm.dll
+BellSoft/LibericaJDK-21/bin/client/jvm.dll
+BellSoft/LibericaJDK-21/bin/server/jvm.dll
+BellSoft/LibericaJRE-25/bin/client/jvm.dll
+BellSoft/LibericaJRE-25/bin/server/jvm.dll
+BellSoft/LibericaJDK-25/bin/client/jvm.dll
+BellSoft/LibericaJDK-25/bin/server/jvm.dll
+
+# Amazon Corretto JDK/JRE
+Amazon Corretto/jre8/bin/client/jvm.dll
+Amazon Corretto/jre8/bin/server/jvm.dll
+Amazon Corretto/jdk1.8.0_504/jre/bin/client/jvm.dll
+Amazon Corretto/jdk1.8.0_504/jre/bin/server/jvm.dll
+Amazon Corretto/jdk11.0.32_10/bin/client/jvm.dll
+Amazon Corretto/jdk11.0.32_10/bin/server/jvm.dll
+Amazon Corretto/jdk17.0.20_10/bin/client/jvm.dll
+Amazon Corretto/jdk17.0.20_10/bin/server/jvm.dll
+Amazon Corretto/jdk21.0.12_9/bin/client/jvm.dll
+Amazon Corretto/jdk21.0.12_9/bin/server/jvm.dll
+Amazon Corretto/jdk25.0.4_8/bin/client/jvm.dll
+Amazon Corretto/jdk25.0.4_8/bin/server/jvm.dll
+
+# SapMachine JDK/JRE
+SapMachine/JRE/11/bin/client/jvm.dll
+SapMachine/JRE/11/server/client/jvm.dll
+SapMachine/JDK/11/bin/client/jvm.dll
+SapMachine/JDK/11/server/client/jvm.dll
+SapMachine/JRE/17/bin/client/jvm.dll
+SapMachine/JRE/17/server/client/jvm.dll
+SapMachine/JDK/17/bin/client/jvm.dll
+SapMachine/JDK/17/server/client/jvm.dll
+SapMachine/JRE/21/bin/client/jvm.dll
+SapMachine/JRE/21/server/client/jvm.dll
+SapMachine/JDK/21/bin/client/jvm.dll
+SapMachine/JDK/21/server/client/jvm.dll
+SapMachine/JRE/25/bin/client/jvm.dll
+SapMachine/JRE/25/server/client/jvm.dll
+SapMachine/JDK/25/bin/client/jvm.dll
+SapMachine/JDK/25/server/client/jvm.dll
+
+# Microsoft JDK
+Microsoft/jdk-11.0.32.101-hotspot/bin/client/jvm.dll
+Microsoft/jdk-11.0.32.101-hotspot/bin/server/jvm.dll
+Microsoft/jdk-17.0.20.101-hotspot/bin/client/jvm.dll
+Microsoft/jdk-17.0.20.101-hotspot/bin/server/jvm.dll
+Microsoft/jdk-21.0.12.101-hotspot/bin/client/jvm.dll
+Microsoft/jdk-21.0.12.101-hotspot/bin/server/jvm.dll
+Microsoft/jdk-25.0.4.101-hotspot/bin/client/jvm.dll
+Microsoft/jdk-25.0.4.101-hotspot/bin/server/jvm.dll
+
+# Azul JDK/JRE
+Zulu/zulu-8-jre/bin/client/jvm.dll
+Zulu/zulu-8-jre/bin/server/jvm.dll
+Zulu/zulu-8/jre/bin/client/jvm.dll
+Zulu/zulu-8/jre/bin/server/jvm.dll
+Zulu/zulu-11-jre/bin/client/jvm.dll
+Zulu/zulu-11-jre/bin/server/jvm.dll
+Zulu/zulu-11/bin/client/jvm.dll
+Zulu/zulu-11/bin/server/jvm.dll
+Zulu/zulu-17-jre/bin/client/jvm.dll
+Zulu/zulu-17-jre/bin/server/jvm.dll
+Zulu/zulu-17/bin/client/jvm.dll
+Zulu/zulu-17/bin/server/jvm.dll
+Zulu/zulu-21-jre/bin/client/jvm.dll
+Zulu/zulu-21-jre/bin/server/jvm.dll
+Zulu/zulu-21/bin/client/jvm.dll
+Zulu/zulu-21/bin/server/jvm.dll
+Zulu/zulu-25-jre/bin/client/jvm.dll
+Zulu/zulu-25-jre/bin/server/jvm.dll
+Zulu/zulu-25/bin/client/jvm.dll
+Zulu/zulu-25/bin/server/jvm.dll
