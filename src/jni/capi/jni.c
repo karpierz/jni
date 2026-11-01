@@ -5,7 +5,7 @@
 #include <Python.h>
 #include <structmember.h>
 
-#include "java/jdk/include/jni.h"
+#include <jni.h>
 
 #define member_size(type, member) sizeof(((type *)0)->member)
 
@@ -19,98 +19,54 @@ typedef struct {
 
 PyTypeObject _CData_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "CData",
+    .tp_name      = "jni.capi.jni.CData",
     .tp_basicsize = sizeof(_CData_Object),
     .tp_flags     = Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE,
 };
 
 //------------ JNI Types -------------//
 
-//----- jint -----//
+//--- jboolean ---//
 
 typedef struct {
     PyObject_HEAD
-    jint value;
-} jint_Object;
+    jboolean value;
+} jboolean_Object;
 
-static int jint_init(jint_Object* self, PyObject* args)
+static int jboolean_init(jboolean_Object* self, PyObject* args)
 {
-    jint value = 0;
-    if ( ! PyArg_ParseTuple(args, "|l", &value) )
+    unsigned char value = 0;
+    if ( ! PyArg_ParseTuple(args, "|b", &value) )
         return -1;
     self->value = value;
     return 0;
 }
 
-static int jint_bool(jint_Object* self)
+static int jboolean_bool(jboolean_Object* self)
 {
     return !!self->value;
 }
 
-static PyNumberMethods jint_as_number = {
-    .nb_bool = (inquiry)jint_bool,
+static PyNumberMethods jboolean_as_number = {
+    .nb_bool = (inquiry)jboolean_bool,
 };
 
-static PyMemberDef jint_members[] =
+static PyMemberDef jboolean_members[] =
 {
-    {"value", T_LONG, offsetof(jint_Object, value)},
+    {"value", T_BOOL, offsetof(jboolean_Object, value)},
     {NULL}
 };
 
-PyTypeObject jint_Type = {
+PyTypeObject jboolean_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jint",
-    .tp_basicsize = sizeof(jint_Object),
-    .tp_itemsize  = member_size(jint_Object, value),
+    .tp_name      = "jni.capi.jni.jboolean",
+    .tp_basicsize = sizeof(jboolean_Object),
+    .tp_itemsize  = member_size(jboolean_Object, value),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
     .tp_base      = &_CData_Type,
-    .tp_as_number = &jint_as_number,
-    .tp_members   = jint_members,
-    .tp_init      = (initproc)jint_init,
-    .tp_new       = PyType_GenericNew,
-};
-
-//----- jlong ----//
-
-typedef struct {
-    PyObject_HEAD
-    jlong value;
-} jlong_Object;
-
-static int jlong_init(jlong_Object* self, PyObject* args)
-{
-    jlong value = 0;
-    if ( ! PyArg_ParseTuple(args, "|L", &value) )
-        return -1;
-    self->value = value;
-    return 0;
-}
-
-static int jlong_bool(jlong_Object* self)
-{
-    return !!self->value;
-}
-
-static PyNumberMethods jlong_as_number = {
-    .nb_bool = (inquiry)jlong_bool,
-};
-
-static PyMemberDef jlong_members[] =
-{
-    {"value", T_LONGLONG, offsetof(jlong_Object, value)},
-    {NULL}
-};
-
-PyTypeObject jlong_Type = {
-    PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jlong",
-    .tp_basicsize = sizeof(jlong_Object),
-    .tp_itemsize  = member_size(jlong_Object, value),
-    .tp_flags     = Py_TPFLAGS_DEFAULT,
-    .tp_base      = &_CData_Type,
-    .tp_as_number = &jlong_as_number,
-    .tp_members   = jlong_members,
-    .tp_init      = (initproc)jlong_init,
+    .tp_as_number = &jboolean_as_number,
+    .tp_members   = jboolean_members,
+    .tp_init      = (initproc)jboolean_init,
     .tp_new       = PyType_GenericNew,
 };
 
@@ -147,7 +103,7 @@ static PyMemberDef jbyte_members[] =
 
 PyTypeObject jbyte_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jbyte",
+    .tp_name      = "jni.capi.jni.jbyte",
     .tp_basicsize = sizeof(jbyte_Object),
     .tp_itemsize  = member_size(jbyte_Object, value),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -155,50 +111,6 @@ PyTypeObject jbyte_Type = {
     .tp_as_number = &jbyte_as_number,
     .tp_members   = jbyte_members,
     .tp_init      = (initproc)jbyte_init,
-    .tp_new       = PyType_GenericNew,
-};
-
-//--- jboolean ---//
-
-typedef struct {
-    PyObject_HEAD
-    jboolean value;
-} jboolean_Object;
-
-static int jboolean_init(jboolean_Object* self, PyObject* args)
-{
-    unsigned char value = 0;
-    if ( ! PyArg_ParseTuple(args, "|b", &value) )
-        return -1;
-    self->value = value;
-    return 0;
-}
-
-static int jboolean_bool(jboolean_Object* self)
-{
-    return !!self->value;
-}
-
-static PyNumberMethods jboolean_as_number = {
-    .nb_bool = (inquiry)jboolean_bool,
-};
-
-static PyMemberDef jboolean_members[] =
-{
-    {"value", T_BOOL, offsetof(jboolean_Object, value)},
-    {NULL}
-};
-
-PyTypeObject jboolean_Type = {
-    PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jboolean",
-    .tp_basicsize = sizeof(jboolean_Object),
-    .tp_itemsize  = member_size(jboolean_Object, value),
-    .tp_flags     = Py_TPFLAGS_DEFAULT,
-    .tp_base      = &_CData_Type,
-    .tp_as_number = &jboolean_as_number,
-    .tp_members   = jboolean_members,
-    .tp_init      = (initproc)jboolean_init,
     .tp_new       = PyType_GenericNew,
 };
 
@@ -255,7 +167,7 @@ static PyGetSetDef jchar_getsets[] =
 
 PyTypeObject jchar_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jchar",
+    .tp_name      = "jni.capi.jni.jchar",
     .tp_basicsize = sizeof(jchar_Object),
     .tp_itemsize  = member_size(jchar_Object, value),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -299,7 +211,7 @@ static PyMemberDef jshort_members[] =
 
 PyTypeObject jshort_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jshort",
+    .tp_name      = "jni.capi.jni.jshort",
     .tp_basicsize = sizeof(jshort_Object),
     .tp_itemsize  = member_size(jshort_Object, value),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -307,6 +219,94 @@ PyTypeObject jshort_Type = {
     .tp_as_number = &jshort_as_number,
     .tp_members   = jshort_members,
     .tp_init      = (initproc)jshort_init,
+    .tp_new       = PyType_GenericNew,
+};
+
+//----- jint -----//
+
+typedef struct {
+    PyObject_HEAD
+    jint value;
+} jint_Object;
+
+static int jint_init(jint_Object* self, PyObject* args)
+{
+    jint value = 0;
+    if ( ! PyArg_ParseTuple(args, "|l", &value) )
+        return -1;
+    self->value = value;
+    return 0;
+}
+
+static int jint_bool(jint_Object* self)
+{
+    return !!self->value;
+}
+
+static PyNumberMethods jint_as_number = {
+    .nb_bool = (inquiry)jint_bool,
+};
+
+static PyMemberDef jint_members[] =
+{
+    {"value", T_LONG, offsetof(jint_Object, value)},
+    {NULL}
+};
+
+PyTypeObject jint_Type = {
+    PyVarObject_HEAD_INIT(NULL, 0)
+    .tp_name      = "jni.capi.jni.jint",
+    .tp_basicsize = sizeof(jint_Object),
+    .tp_itemsize  = member_size(jint_Object, value),
+    .tp_flags     = Py_TPFLAGS_DEFAULT,
+    .tp_base      = &_CData_Type,
+    .tp_as_number = &jint_as_number,
+    .tp_members   = jint_members,
+    .tp_init      = (initproc)jint_init,
+    .tp_new       = PyType_GenericNew,
+};
+
+//----- jlong ----//
+
+typedef struct {
+    PyObject_HEAD
+    jlong value;
+} jlong_Object;
+
+static int jlong_init(jlong_Object* self, PyObject* args)
+{
+    jlong value = 0;
+    if ( ! PyArg_ParseTuple(args, "|L", &value) )
+        return -1;
+    self->value = value;
+    return 0;
+}
+
+static int jlong_bool(jlong_Object* self)
+{
+    return !!self->value;
+}
+
+static PyNumberMethods jlong_as_number = {
+    .nb_bool = (inquiry)jlong_bool,
+};
+
+static PyMemberDef jlong_members[] =
+{
+    {"value", T_LONGLONG, offsetof(jlong_Object, value)},
+    {NULL}
+};
+
+PyTypeObject jlong_Type = {
+    PyVarObject_HEAD_INIT(NULL, 0)
+    .tp_name      = "jni.capi.jni.jlong",
+    .tp_basicsize = sizeof(jlong_Object),
+    .tp_itemsize  = member_size(jlong_Object, value),
+    .tp_flags     = Py_TPFLAGS_DEFAULT,
+    .tp_base      = &_CData_Type,
+    .tp_as_number = &jlong_as_number,
+    .tp_members   = jlong_members,
+    .tp_init      = (initproc)jlong_init,
     .tp_new       = PyType_GenericNew,
 };
 
@@ -343,7 +343,7 @@ static PyMemberDef jfloat_members[] =
 
 PyTypeObject jfloat_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jfloat",
+    .tp_name      = "jni.capi.jni.jfloat",
     .tp_basicsize = sizeof(jfloat_Object),
     .tp_itemsize  = member_size(jfloat_Object, value),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -387,7 +387,7 @@ static PyMemberDef jdouble_members[] =
 
 PyTypeObject jdouble_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jdouble",
+    .tp_name      = "jni.capi.jni.jdouble",
     .tp_basicsize = sizeof(jdouble_Object),
     .tp_itemsize  = member_size(jdouble_Object, value),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -457,7 +457,7 @@ static PyGetSetDef jobject_getsets[] =
 
 PyTypeObject jobject_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jobject",
+    .tp_name      = "jni.capi.jni.jobject",
     .tp_basicsize = sizeof(jobject_Object),
     .tp_itemsize  = member_size(jobject_Object, value),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -689,7 +689,7 @@ static PyGetSetDef jvalue_getsets[] =
 
 PyTypeObject jvalue_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jvalue",
+    .tp_name      = "jni.capi.jni.jvalue",
     .tp_basicsize = sizeof(jvalue_Object),
     .tp_itemsize  = member_size(jvalue_Object, this),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -753,7 +753,7 @@ static PyGetSetDef jfieldID_getsets[] =
 
 PyTypeObject jfieldID_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jfieldID",
+    .tp_name      = "jni.capi.jni.jfieldID",
     .tp_basicsize = sizeof(jfieldID_Object),
     .tp_itemsize  = member_size(jfieldID_Object, value),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -819,7 +819,7 @@ static PyGetSetDef jmethodID_getsets[] =
 
 PyTypeObject jmethodID_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jmethodID",
+    .tp_name      = "jni.capi.jni.jmethodID",
     .tp_basicsize = sizeof(jmethodID_Object),
     .tp_itemsize  = member_size(jmethodID_Object, value),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -841,8 +841,8 @@ PyTypeObject jmethodID_Type = {
 
 //---- JNI Native Method Interface ---//
 
-// used in RegisterNatives to describe native method name,
-// signature, and function pointer.
+// used in RegisterNatives to describe native method name, signature,
+// and function pointer.
 
 typedef struct {
     PyObject_HEAD
@@ -921,7 +921,7 @@ static PyGetSetDef JNINativeMethod_getsets[] =
 
 PyTypeObject JNINativeMethod_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "JNINativeMethod",
+    .tp_name      = "jni.capi.jni.JNINativeMethod",
     .tp_basicsize = sizeof(JNINativeMethod_Object),
     .tp_itemsize  = member_size(JNINativeMethod_Object, this),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -991,7 +991,7 @@ static PyGetSetDef JavaVMOption_getsets[] =
 
 PyTypeObject JavaVMOption_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "JavaVMOption",
+    .tp_name      = "jni.capi.jni.JavaVMOption",
     .tp_basicsize = sizeof(JavaVMOption_Object),
     .tp_itemsize  = member_size(JavaVMOption_Object, this),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -1102,7 +1102,7 @@ static PyGetSetDef JavaVMInitArgs_getsets[] =
 
 PyTypeObject JavaVMInitArgs_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "JavaVMInitArgs",
+    .tp_name      = "jni.capi.jni.JavaVMInitArgs",
     .tp_basicsize = sizeof(JavaVMInitArgs_Object),/* tp_basicsize */
     .tp_itemsize  = member_size(JavaVMInitArgs_Object, this),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -1191,7 +1191,7 @@ static PyGetSetDef JavaVMAttachArgs_getsets[] =
 
 PyTypeObject JavaVMAttachArgs_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "JavaVMAttachArgs",
+    .tp_name      = "jni.capi.jni.JavaVMAttachArgs",
     .tp_basicsize = sizeof(JavaVMAttachArgs_Object),
     .tp_itemsize  = member_size(JavaVMAttachArgs_Object, this),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -1223,8 +1223,8 @@ static PyObject* _handle_JavaException(JNIEnv_Object* self)
     //jexc = fun.NewGlobalRef(self, jthr)
     //fun.DeleteLocalRef(self, jthr)
     //if Throwable.last:
-    //    cause = Throwable.last.getCause()
-    //    if cause: fun.DeleteGlobalRef(self, cause)
+    //    jthr = Throwable.last.getJThrowable()
+    //    if jthr: fun.DeleteGlobalRef(self, jthr)
     //    Throwable.last = None
     //fun.ExceptionClear(self)
     //Throwable.last = thr = Throwable(jexc)#!!!, fname)
@@ -1266,7 +1266,7 @@ static PyMethodDef JNIEnv_methods[] = {
 
 PyTypeObject JNIEnv_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "JNIEnv",
+    .tp_name      = "jni.capi.jni.JNIEnv",
     .tp_basicsize = sizeof(JNIEnv_Object),
     .tp_itemsize  = member_size(JNIEnv_Object, this),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -1374,7 +1374,7 @@ static PyMethodDef JavaVM_methods[] = {
 
 PyTypeObject JavaVM_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "JavaVM",
+    .tp_name      = "jni.capi.jni.JavaVM",
     .tp_basicsize = sizeof(JavaVM_Object),
     .tp_itemsize  = member_size(JavaVM_Object, this),
     .tp_flags     = Py_TPFLAGS_DEFAULT,

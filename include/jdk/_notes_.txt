@@ -1,0 +1,33 @@
+# Java roadmap
+https://www.oracle.com/pl/java/technologies/java-se-support-roadmap.html
+https://github.com/openjdk/jdk
+
+# JNI headers
+https://raw.githubusercontent.com/openjdk/jdk/jdk8-b120/jdk/src/share/javavm/export/jni.h
+https://raw.githubusercontent.com/openjdk/jdk/jdk-11-ga/src/java.base/share/native/include/jni.h
+https://raw.githubusercontent.com/openjdk/jdk/jdk-17-ga/src/java.base/share/native/include/jni.h
+https://raw.githubusercontent.com/openjdk/jdk/jdk-21-ga/src/java.base/share/native/include/jni.h
+https://raw.githubusercontent.com/openjdk/jdk/jdk-25-ga/src/java.base/share/native/include/jni.h
+win32:
+https://raw.githubusercontent.com/openjdk/jdk/jdk8-b120/jdk/src/windows/javavm/export/jni_md.h
+https://raw.githubusercontent.com/openjdk/jdk/jdk-11-ga/src/java.base/windows/native/include/jni_md.h
+https://raw.githubusercontent.com/openjdk/jdk/jdk-17-ga/src/java.base/windows/native/include/jni_md.h
+https://raw.githubusercontent.com/openjdk/jdk/jdk-21-ga/src/java.base/windows/native/include/jni_md.h
+https://raw.githubusercontent.com/openjdk/jdk/jdk-25-ga/src/java.base/windows/native/include/jni_md.h
+linux:
+https://raw.githubusercontent.com/openjdk/jdk/jdk8-b120/jdk/src/macosx/javavm/export/jni_md.h
+https://raw.githubusercontent.com/openjdk/jdk/jdk-11-ga/src/java.base/unix/native/include/jni_md.h
+https://raw.githubusercontent.com/openjdk/jdk/jdk-17-ga/src/java.base/unix/native/include/jni_md.h
+https://raw.githubusercontent.com/openjdk/jdk/jdk-21-ga/src/java.base/unix/native/include/jni_md.h
+https://raw.githubusercontent.com/openjdk/jdk/jdk-25-ga/src/java.base/unix/native/include/jni_md.h
+darwin:
+https://raw.githubusercontent.com/openjdk/jdk/jdk8-b120/jdk/src/macosx/javavm/export/jni_md.h
+https://raw.githubusercontent.com/openjdk/jdk/jdk-11-ga/src/java.base/unix/native/include/jni_md.h
+https://raw.githubusercontent.com/openjdk/jdk/jdk-17-ga/src/java.base/unix/native/include/jni_md.h
+https://raw.githubusercontent.com/openjdk/jdk/jdk-21-ga/src/java.base/unix/native/include/jni_md.h
+https://raw.githubusercontent.com/openjdk/jdk/jdk-25-ga/src/java.base/unix/native/include/jni_md.h
+android:
+# https://github.com/android/ndk/releases
+# https://dl.google.com/android/repository/android-ndk-r29-windows.zip
+https://android.googlesource.com/platform/libnativehelper/+/refs/heads/master/include_jni/jni.h?format=TEXT
+certutil -f -decode jni.h jni.h > nul

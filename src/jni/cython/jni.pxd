@@ -4,79 +4,87 @@
 
 # distutils: language=c
 
-cdef extern from "<stdarg.h>":
+# *************************************************************************** #
+# Java Runtime Interface                                                      #
+# Copyright (c) 1996 Netscape Communications Corporation. All rights reserved.#
+# *************************************************************************** #
 
+cdef extern from "<stdarg.h>":
     ctypedef struct va_list:
         pass
 
-#cdef extern from *:
-#cdef public:
-#cdef public api: # from "jni.h":
-cdef api: # from "jni.h":
+# define JNICALL
+
+cdef api:  # cdef extern from "jni.h" and "jni_md.h"
 
     #
     # JNI Types
     #
 
-    ctypedef long           c_jint
-    ctypedef long long      c_jlong  # int64_t, jni.h: __int64
-    ctypedef signed char    c_jbyte  # javabridge: unsigned (chyba blad!!!)
+    # jni_md.h contains the machine-dependent typedefs for jbyte, jint
+    # and jlong
+    #
+    ctypedef int            jint
+    ctypedef long long      jlong
+    ctypedef signed char    jbyte
 
-    ctypedef unsigned char  c_jboolean
-    ctypedef unsigned short c_jchar
-    ctypedef short          c_jshort
-    ctypedef float          c_jfloat
-    ctypedef double         c_jdouble
-    ctypedef c_jint         c_jsize
+    ctypedef unsigned char  jboolean
+    ctypedef unsigned short jchar
+    ctypedef short          jshort
+    ctypedef float          jfloat
+    ctypedef double         jdouble
 
-    struct _jobject
-    ctypedef _jobject* c_jobject
-    ctypedef c_jobject c_jclass
-    ctypedef c_jobject c_jthrowable
-    ctypedef c_jobject c_jstring
-    ctypedef c_jobject c_jarray
-    ctypedef c_jarray  c_jbooleanArray
-    ctypedef c_jarray  c_jbyteArray
-    ctypedef c_jarray  c_jcharArray
-    ctypedef c_jarray  c_jshortArray
-    ctypedef c_jarray  c_jintArray
-    ctypedef c_jarray  c_jlongArray
-    ctypedef c_jarray  c_jfloatArray
-    ctypedef c_jarray  c_jdoubleArray
-    ctypedef c_jarray  c_jobjectArray
-    ctypedef c_jobject c_jweak
+    ctypedef jint           jsize
 
-    ctypedef union c_jvalue:
-        c_jboolean z
-        c_jbyte    b
-        c_jchar    c
-        c_jshort   s
-        c_jint     i
-        c_jlong    j
-        c_jfloat   f
-        c_jdouble  d
-        c_jobject  l
+    cdef struct _jobject
 
-    struct _jfieldID
-    ctypedef _jfieldID* c_jfieldID
+    ctypedef _jobject *jobject
+    ctypedef jobject jclass
+    ctypedef jobject jthrowable
+    ctypedef jobject jstring
+    ctypedef jobject jarray
+    ctypedef jarray  jbooleanArray
+    ctypedef jarray  jbyteArray
+    ctypedef jarray  jcharArray
+    ctypedef jarray  jshortArray
+    ctypedef jarray  jintArray
+    ctypedef jarray  jlongArray
+    ctypedef jarray  jfloatArray
+    ctypedef jarray  jdoubleArray
+    ctypedef jarray  jobjectArray
 
-    struct _jmethodID
-    ctypedef _jmethodID* c_jmethodID
+    ctypedef jobject jweak
+
+    ctypedef union jvalue:
+        jboolean z
+        jbyte    b
+        jchar    c
+        jshort   s
+        jint     i
+        jlong    j
+        jfloat   f
+        jdouble  d
+        jobject  l
+
+    cdef struct _jfieldID
+    ctypedef _jfieldID *jfieldID
+
+    cdef struct _jmethodID
+    ctypedef _jmethodID *jmethodID
 
     # Return values from jobjectRefType
-
-    cpdef enum:
+    cdef enum _jobjectType:
         JNIInvalidRefType    = 0
         JNILocalRefType      = 1
         JNIGlobalRefType     = 2
         JNIWeakGlobalRefType = 3
-    ctypedef int c_jobjectRefType
+    ctypedef _jobjectType jobjectRefType
 
     #
     # jboolean constants
     #
 
-    cpdef enum:
+    cdef enum:
         JNI_FALSE = 0
         JNI_TRUE  = 1
 
@@ -84,7 +92,7 @@ cdef api: # from "jni.h":
     # possible return values for JNI functions.
     #
 
-    cpdef enum:
+    cdef enum:
         JNI_OK        =  0  # success
         JNI_ERR       = -1  # unknown error
         JNI_EDETACHED = -2  # thread detached from the VM
@@ -97,380 +105,672 @@ cdef api: # from "jni.h":
     # used in ReleaseScalarArrayElements
     #
 
-    cpdef enum:
+    cdef enum:
         JNI_COMMIT = 1
         JNI_ABORT  = 2
 
     #
-    # used in RegisterNatives to describe native method name,
-    # signature, and function pointer.
+    # used in RegisterNatives to describe native method name, signature,
+    # and function pointer.
     #
 
-    ctypedef struct c_JNINativeMethod:
-        char* name       # Android and/or jnius: const char*
-        char* signature  # Android and/or jnius: const char*
-        void* fnPtr
+    ctypedef struct JNINativeMethod:
+        char *name       # Android: const char *
+        char *signature  # Android: const char *
+        void *fnPtr
 
     #
     # JNI Native Method Interface.
     #
 
-    struct JNINativeInterface_
-    ctypedef const JNINativeInterface_* c_JNIEnv
+    cdef struct JNINativeInterface_
+
+    cdef struct JNIEnv_
+
+    ctypedef const JNINativeInterface_ *JNIEnv
 
     #
     # JNI Invocation Interface.
     #
 
-    struct JNIInvokeInterface_
-    ctypedef const JNIInvokeInterface_* c_JavaVM
-
-    # JNI Native Method Interface.
-
-    struct JNINativeInterface_:
-
-        void* reserved0
-        void* reserved1
-        void* reserved2
-        void* reserved3
-
-        c_jint        (*GetVersion)                   (c_JNIEnv* env)
-
-        c_jclass      (*DefineClass)                  (c_JNIEnv* env, const char* name, c_jobject loader, const c_jbyte* buf, c_jsize len)
-        c_jclass      (*FindClass)                    (c_JNIEnv* env, const char* name)
-
-        c_jmethodID   (*FromReflectedMethod)          (c_JNIEnv* env, c_jobject method)
-        c_jfieldID    (*FromReflectedField)           (c_JNIEnv* env, c_jobject field)
-
-        c_jobject     (*ToReflectedMethod)            (c_JNIEnv* env, c_jclass cls, c_jmethodID methodID, c_jboolean isStatic)
-
-        c_jclass      (*GetSuperclass)                (c_JNIEnv* env, c_jclass sub)
-        c_jboolean    (*IsAssignableFrom)             (c_JNIEnv* env, c_jclass sub, c_jclass sup)
-
-        c_jobject     (*ToReflectedField)             (c_JNIEnv* env, c_jclass cls, c_jfieldID fieldID, c_jboolean isStatic)
-
-        c_jint        (*Throw)                        (c_JNIEnv* env, c_jthrowable obj)
-        c_jint        (*ThrowNew)                     (c_JNIEnv* env, c_jclass clazz, const char* msg)
-        c_jthrowable  (*ExceptionOccurred)            (c_JNIEnv* env)
-        void          (*ExceptionDescribe)            (c_JNIEnv* env)
-        void          (*ExceptionClear)               (c_JNIEnv* env)
-        void          (*FatalError)                   (c_JNIEnv* env, const char* msg)
-
-        c_jint        (*PushLocalFrame)               (c_JNIEnv* env, c_jint capacity)
-        c_jobject     (*PopLocalFrame)                (c_JNIEnv* env, c_jobject result)
-
-        c_jobject     (*NewGlobalRef)                 (c_JNIEnv* env, c_jobject lobj)
-        void          (*DeleteGlobalRef)              (c_JNIEnv* env, c_jobject gref)
-        void          (*DeleteLocalRef)               (c_JNIEnv* env, c_jobject obj)
-        c_jboolean    (*IsSameObject)                 (c_JNIEnv* env, c_jobject obj1, c_jobject obj2)
-        c_jobject     (*NewLocalRef)                  (c_JNIEnv* env, c_jobject ref)
-        c_jint        (*EnsureLocalCapacity)          (c_JNIEnv* env, c_jint capacity)
-
-        c_jobject     (*AllocObject)                  (c_JNIEnv* env, c_jclass clazz)
-        c_jobject     (*NewObject)                    (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...)
-        c_jobject     (*NewObjectV)                   (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args)
-        c_jobject     (*NewObjectA)                   (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)
-
-        c_jclass      (*GetObjectClass)               (c_JNIEnv* env, c_jobject obj)
-        c_jboolean    (*IsInstanceOf)                 (c_JNIEnv* env, c_jobject obj, c_jclass clazz)
-
-        c_jmethodID   (*GetMethodID)                  (c_JNIEnv* env, c_jclass clazz, const char* name, const char* sig)
-
-        c_jobject     (*CallObjectMethod)             (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...)  # nogil
-        c_jobject     (*CallObjectMethodV)            (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args)  # nogil
-        c_jobject     (*CallObjectMethodA)            (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jboolean    (*CallBooleanMethod)            (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...)  # nogil
-        c_jboolean    (*CallBooleanMethodV)           (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args)  # nogil
-        c_jboolean    (*CallBooleanMethodA)           (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jbyte       (*CallByteMethod)               (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...)  # nogil
-        c_jbyte       (*CallByteMethodV)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args)  # nogil
-        c_jbyte       (*CallByteMethodA)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jchar       (*CallCharMethod)               (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...)  # nogil
-        c_jchar       (*CallCharMethodV)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args)  # nogil
-        c_jchar       (*CallCharMethodA)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jshort      (*CallShortMethod)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...)  # nogil
-        c_jshort      (*CallShortMethodV)             (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args)  # nogil
-        c_jshort      (*CallShortMethodA)             (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jint        (*CallIntMethod)                (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...)  # nogil
-        c_jint        (*CallIntMethodV)               (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args)  # nogil
-        c_jint        (*CallIntMethodA)               (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jlong       (*CallLongMethod)               (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...)  # nogil
-        c_jlong       (*CallLongMethodV)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args)  # nogil
-        c_jlong       (*CallLongMethodA)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jfloat      (*CallFloatMethod)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...)  # nogil
-        c_jfloat      (*CallFloatMethodV)             (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args)  # nogil
-        c_jfloat      (*CallFloatMethodA)             (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jdouble     (*CallDoubleMethod)             (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...)  # nogil
-        c_jdouble     (*CallDoubleMethodV)            (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args)  # nogil
-        c_jdouble     (*CallDoubleMethodA)            (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        void          (*CallVoidMethod)               (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, ...)  # nogil
-        void          (*CallVoidMethodV)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, va_list args)  # nogil
-        void          (*CallVoidMethodA)              (c_JNIEnv* env, c_jobject obj, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jobject     (*CallNonvirtualObjectMethod)   (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
-        c_jobject     (*CallNonvirtualObjectMethodV)  (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
-        c_jobject     (*CallNonvirtualObjectMethodA)  (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jboolean    (*CallNonvirtualBooleanMethod)  (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
-        c_jboolean    (*CallNonvirtualBooleanMethodV) (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
-        c_jboolean    (*CallNonvirtualBooleanMethodA) (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jbyte       (*CallNonvirtualByteMethod)     (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
-        c_jbyte       (*CallNonvirtualByteMethodV)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
-        c_jbyte       (*CallNonvirtualByteMethodA)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jchar       (*CallNonvirtualCharMethod)     (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
-        c_jchar       (*CallNonvirtualCharMethodV)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
-        c_jchar       (*CallNonvirtualCharMethodA)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jshort      (*CallNonvirtualShortMethod)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
-        c_jshort      (*CallNonvirtualShortMethodV)   (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
-        c_jshort      (*CallNonvirtualShortMethodA)   (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jint        (*CallNonvirtualIntMethod)      (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
-        c_jint        (*CallNonvirtualIntMethodV)     (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
-        c_jint        (*CallNonvirtualIntMethodA)     (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jlong       (*CallNonvirtualLongMethod)     (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
-        c_jlong       (*CallNonvirtualLongMethodV)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
-        c_jlong       (*CallNonvirtualLongMethodA)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jfloat      (*CallNonvirtualFloatMethod)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
-        c_jfloat      (*CallNonvirtualFloatMethodV)   (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
-        c_jfloat      (*CallNonvirtualFloatMethodA)   (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jdouble     (*CallNonvirtualDoubleMethod)   (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
-        c_jdouble     (*CallNonvirtualDoubleMethodV)  (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
-        c_jdouble     (*CallNonvirtualDoubleMethodA)  (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        void          (*CallNonvirtualVoidMethod)     (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
-        void          (*CallNonvirtualVoidMethodV)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
-        void          (*CallNonvirtualVoidMethodA)    (c_JNIEnv* env, c_jobject obj, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jfieldID    (*GetFieldID)                   (c_JNIEnv* env, c_jclass clazz, const char* name, const char* sig)
-
-        c_jobject     (*GetObjectField)               (c_JNIEnv* env, c_jobject obj, c_jfieldID fieldID)
-        c_jboolean    (*GetBooleanField)              (c_JNIEnv* env, c_jobject obj, c_jfieldID fieldID)
-        c_jbyte       (*GetByteField)                 (c_JNIEnv* env, c_jobject obj, c_jfieldID fieldID)
-        c_jchar       (*GetCharField)                 (c_JNIEnv* env, c_jobject obj, c_jfieldID fieldID)
-        c_jshort      (*GetShortField)                (c_JNIEnv* env, c_jobject obj, c_jfieldID fieldID)
-        c_jint        (*GetIntField)                  (c_JNIEnv* env, c_jobject obj, c_jfieldID fieldID)
-        c_jlong       (*GetLongField)                 (c_JNIEnv* env, c_jobject obj, c_jfieldID fieldID)
-        c_jfloat      (*GetFloatField)                (c_JNIEnv* env, c_jobject obj, c_jfieldID fieldID)
-        c_jdouble     (*GetDoubleField)               (c_JNIEnv* env, c_jobject obj, c_jfieldID fieldID)
-
-        void          (*SetObjectField)               (c_JNIEnv* env, c_jobject obj, c_jfieldID fieldID, c_jobject  value)
-        void          (*SetBooleanField)              (c_JNIEnv* env, c_jobject obj, c_jfieldID fieldID, c_jboolean value)
-        void          (*SetByteField)                 (c_JNIEnv* env, c_jobject obj, c_jfieldID fieldID, c_jbyte    value)
-        void          (*SetCharField)                 (c_JNIEnv* env, c_jobject obj, c_jfieldID fieldID, c_jchar    value)
-        void          (*SetShortField)                (c_JNIEnv* env, c_jobject obj, c_jfieldID fieldID, c_jshort   value)
-        void          (*SetIntField)                  (c_JNIEnv* env, c_jobject obj, c_jfieldID fieldID, c_jint     value)
-        void          (*SetLongField)                 (c_JNIEnv* env, c_jobject obj, c_jfieldID fieldID, c_jlong    value)
-        void          (*SetFloatField)                (c_JNIEnv* env, c_jobject obj, c_jfieldID fieldID, c_jfloat   value)
-        void          (*SetDoubleField)               (c_JNIEnv* env, c_jobject obj, c_jfieldID fieldID, c_jdouble  value)
-
-        c_jmethodID   (*GetStaticMethodID)            (c_JNIEnv* env, c_jclass clazz, const char* name, const char* sig)
-
-        c_jobject     (*CallStaticObjectMethod)       (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
-        c_jobject     (*CallStaticObjectMethodV)      (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
-        c_jobject     (*CallStaticObjectMethodA)      (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jboolean    (*CallStaticBooleanMethod)      (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
-        c_jboolean    (*CallStaticBooleanMethodV)     (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
-        c_jboolean    (*CallStaticBooleanMethodA)     (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jbyte       (*CallStaticByteMethod)         (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
-        c_jbyte       (*CallStaticByteMethodV)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
-        c_jbyte       (*CallStaticByteMethodA)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jchar       (*CallStaticCharMethod)         (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
-        c_jchar       (*CallStaticCharMethodV)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
-        c_jchar       (*CallStaticCharMethodA)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jshort      (*CallStaticShortMethod)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
-        c_jshort      (*CallStaticShortMethodV)       (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
-        c_jshort      (*CallStaticShortMethodA)       (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jint        (*CallStaticIntMethod)          (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
-        c_jint        (*CallStaticIntMethodV)         (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
-        c_jint        (*CallStaticIntMethodA)         (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jlong       (*CallStaticLongMethod)         (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
-        c_jlong       (*CallStaticLongMethodV)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
-        c_jlong       (*CallStaticLongMethodA)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jfloat      (*CallStaticFloatMethod)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
-        c_jfloat      (*CallStaticFloatMethodV)       (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
-        c_jfloat      (*CallStaticFloatMethodA)       (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jdouble     (*CallStaticDoubleMethod)       (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
-        c_jdouble     (*CallStaticDoubleMethodV)      (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
-        c_jdouble     (*CallStaticDoubleMethodA)      (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        void          (*CallStaticVoidMethod)         (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, ...)  # nogil
-        void          (*CallStaticVoidMethodV)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, va_list args)  # nogil
-        void          (*CallStaticVoidMethodA)        (c_JNIEnv* env, c_jclass clazz, c_jmethodID methodID, const c_jvalue* args)  # nogil
-
-        c_jfieldID    (*GetStaticFieldID)             (c_JNIEnv* env, c_jclass clazz, const char* name, const char* sig)
-
-        c_jobject     (*GetStaticObjectField)         (c_JNIEnv* env, c_jclass clazz, c_jfieldID fieldID)
-        c_jboolean    (*GetStaticBooleanField)        (c_JNIEnv* env, c_jclass clazz, c_jfieldID fieldID)
-        c_jbyte       (*GetStaticByteField)           (c_JNIEnv* env, c_jclass clazz, c_jfieldID fieldID)
-        c_jchar       (*GetStaticCharField)           (c_JNIEnv* env, c_jclass clazz, c_jfieldID fieldID)
-        c_jshort      (*GetStaticShortField)          (c_JNIEnv* env, c_jclass clazz, c_jfieldID fieldID)
-        c_jint        (*GetStaticIntField)            (c_JNIEnv* env, c_jclass clazz, c_jfieldID fieldID)
-        c_jlong       (*GetStaticLongField)           (c_JNIEnv* env, c_jclass clazz, c_jfieldID fieldID)
-        c_jfloat      (*GetStaticFloatField)          (c_JNIEnv* env, c_jclass clazz, c_jfieldID fieldID)
-        c_jdouble     (*GetStaticDoubleField)         (c_JNIEnv* env, c_jclass clazz, c_jfieldID fieldID)
-
-        void          (*SetStaticObjectField)         (c_JNIEnv* env, c_jclass clazz, c_jfieldID fieldID, c_jobject  value)
-        void          (*SetStaticBooleanField)        (c_JNIEnv* env, c_jclass clazz, c_jfieldID fieldID, c_jboolean value)
-        void          (*SetStaticByteField)           (c_JNIEnv* env, c_jclass clazz, c_jfieldID fieldID, c_jbyte    value)
-        void          (*SetStaticCharField)           (c_JNIEnv* env, c_jclass clazz, c_jfieldID fieldID, c_jchar    value)
-        void          (*SetStaticShortField)          (c_JNIEnv* env, c_jclass clazz, c_jfieldID fieldID, c_jshort   value)
-        void          (*SetStaticIntField)            (c_JNIEnv* env, c_jclass clazz, c_jfieldID fieldID, c_jint     value)
-        void          (*SetStaticLongField)           (c_JNIEnv* env, c_jclass clazz, c_jfieldID fieldID, c_jlong    value)
-        void          (*SetStaticFloatField)          (c_JNIEnv* env, c_jclass clazz, c_jfieldID fieldID, c_jfloat   value)
-        void          (*SetStaticDoubleField)         (c_JNIEnv* env, c_jclass clazz, c_jfieldID fieldID, c_jdouble  value)
-
-        c_jstring     (*NewString)                    (c_JNIEnv* env, const c_jchar* ustr, c_jsize len)
-        c_jsize       (*GetStringLength)              (c_JNIEnv* env, c_jstring str)
-        const c_jchar*(*GetStringChars)               (c_JNIEnv* env, c_jstring str, c_jboolean* isCopy)
-        void          (*ReleaseStringChars)           (c_JNIEnv* env, c_jstring str, const c_jchar* chars)
-
-        c_jstring     (*NewStringUTF)                 (c_JNIEnv* env, const char* utf)
-        c_jsize       (*GetStringUTFLength)           (c_JNIEnv* env, c_jstring str)
-        const char*   (*GetStringUTFChars)            (c_JNIEnv* env, c_jstring str, c_jboolean* isCopy)
-        void          (*ReleaseStringUTFChars)        (c_JNIEnv* env, c_jstring str, const char* chars)
-
-        c_jsize       (*GetArrayLength)               (c_JNIEnv* env, c_jarray array)
-
-        c_jobjectArray (*NewObjectArray)              (c_JNIEnv* env, c_jsize len, c_jclass clazz, c_jobject init)
-        c_jobject     (*GetObjectArrayElement)        (c_JNIEnv* env, c_jobjectArray array, c_jsize index)
-        void          (*SetObjectArrayElement)        (c_JNIEnv* env, c_jobjectArray array, c_jsize index, c_jobject value)
-
-        c_jbooleanArray (*NewBooleanArray)            (c_JNIEnv* env, c_jsize len)
-        c_jbyteArray  (*NewByteArray)                 (c_JNIEnv* env, c_jsize len)
-        c_jcharArray  (*NewCharArray)                 (c_JNIEnv* env, c_jsize len)
-        c_jshortArray (*NewShortArray)                (c_JNIEnv* env, c_jsize len)
-        c_jintArray   (*NewIntArray)                  (c_JNIEnv* env, c_jsize len)
-        c_jlongArray  (*NewLongArray)                 (c_JNIEnv* env, c_jsize len)
-        c_jfloatArray (*NewFloatArray)                (c_JNIEnv* env, c_jsize len)
-        c_jdoubleArray(*NewDoubleArray)               (c_JNIEnv* env, c_jsize len)
-
-        c_jboolean*   (*GetBooleanArrayElements)      (c_JNIEnv* env, c_jbooleanArray array, c_jboolean* isCopy)
-        c_jbyte*      (*GetByteArrayElements)         (c_JNIEnv* env, c_jbyteArray    array, c_jboolean* isCopy)
-        c_jchar*      (*GetCharArrayElements)         (c_JNIEnv* env, c_jcharArray    array, c_jboolean* isCopy)
-        c_jshort*     (*GetShortArrayElements)        (c_JNIEnv* env, c_jshortArray   array, c_jboolean* isCopy)
-        c_jint*       (*GetIntArrayElements)          (c_JNIEnv* env, c_jintArray     array, c_jboolean* isCopy)
-        c_jlong*      (*GetLongArrayElements)         (c_JNIEnv* env, c_jlongArray    array, c_jboolean* isCopy)
-        c_jfloat*     (*GetFloatArrayElements)        (c_JNIEnv* env, c_jfloatArray   array, c_jboolean* isCopy)
-        c_jdouble*    (*GetDoubleArrayElements)       (c_JNIEnv* env, c_jdoubleArray  array, c_jboolean* isCopy)
-
-        void          (*ReleaseBooleanArrayElements)  (c_JNIEnv* env, c_jbooleanArray array, c_jboolean* elems, c_jint mode)
-        void          (*ReleaseByteArrayElements)     (c_JNIEnv* env, c_jbyteArray    array, c_jbyte*    elems, c_jint mode)
-        void          (*ReleaseCharArrayElements)     (c_JNIEnv* env, c_jcharArray    array, c_jchar*    elems, c_jint mode)
-        void          (*ReleaseShortArrayElements)    (c_JNIEnv* env, c_jshortArray   array, c_jshort*   elems, c_jint mode)
-        void          (*ReleaseIntArrayElements)      (c_JNIEnv* env, c_jintArray     array, c_jint*     elems, c_jint mode)
-        void          (*ReleaseLongArrayElements)     (c_JNIEnv* env, c_jlongArray    array, c_jlong*    elems, c_jint mode)
-        void          (*ReleaseFloatArrayElements)    (c_JNIEnv* env, c_jfloatArray   array, c_jfloat*   elems, c_jint mode)
-        void          (*ReleaseDoubleArrayElements)   (c_JNIEnv* env, c_jdoubleArray  array, c_jdouble*  elems, c_jint mode)
-
-        void          (*GetBooleanArrayRegion)        (c_JNIEnv* env, c_jbooleanArray array, c_jsize start, c_jsize len, c_jboolean* buf)
-        void          (*GetByteArrayRegion)           (c_JNIEnv* env, c_jbyteArray    array, c_jsize start, c_jsize len, c_jbyte*    buf)
-        void          (*GetCharArrayRegion)           (c_JNIEnv* env, c_jcharArray    array, c_jsize start, c_jsize len, c_jchar*    buf)
-        void          (*GetShortArrayRegion)          (c_JNIEnv* env, c_jshortArray   array, c_jsize start, c_jsize len, c_jshort*   buf)
-        void          (*GetIntArrayRegion)            (c_JNIEnv* env, c_jintArray     array, c_jsize start, c_jsize len, c_jint*     buf)
-        void          (*GetLongArrayRegion)           (c_JNIEnv* env, c_jlongArray    array, c_jsize start, c_jsize len, c_jlong*    buf)
-        void          (*GetFloatArrayRegion)          (c_JNIEnv* env, c_jfloatArray   array, c_jsize start, c_jsize len, c_jfloat*   buf)
-        void          (*GetDoubleArrayRegion)         (c_JNIEnv* env, c_jdoubleArray  array, c_jsize start, c_jsize len, c_jdouble*  buf)
-
-        void          (*SetBooleanArrayRegion)        (c_JNIEnv* env, c_jbooleanArray array, c_jsize start, c_jsize len, const c_jboolean* buf)
-        void          (*SetByteArrayRegion)           (c_JNIEnv* env, c_jbyteArray    array, c_jsize start, c_jsize len, const c_jbyte*    buf)
-        void          (*SetCharArrayRegion)           (c_JNIEnv* env, c_jcharArray    array, c_jsize start, c_jsize len, const c_jchar*    buf)
-        void          (*SetShortArrayRegion)          (c_JNIEnv* env, c_jshortArray   array, c_jsize start, c_jsize len, const c_jshort*   buf)
-        void          (*SetIntArrayRegion)            (c_JNIEnv* env, c_jintArray     array, c_jsize start, c_jsize len, const c_jint*     buf)
-        void          (*SetLongArrayRegion)           (c_JNIEnv* env, c_jlongArray    array, c_jsize start, c_jsize len, const c_jlong*    buf)
-        void          (*SetFloatArrayRegion)          (c_JNIEnv* env, c_jfloatArray   array, c_jsize start, c_jsize len, const c_jfloat*   buf)
-        void          (*SetDoubleArrayRegion)         (c_JNIEnv* env, c_jdoubleArray  array, c_jsize start, c_jsize len, const c_jdouble*  buf)
-
-        c_jint        (*RegisterNatives)              (c_JNIEnv* env, c_jclass clazz, const c_JNINativeMethod* methods, c_jint nMethods)
-        c_jint        (*UnregisterNatives)            (c_JNIEnv* env, c_jclass clazz)
-
-        c_jint        (*MonitorEnter)                 (c_JNIEnv* env, c_jobject obj)
-        c_jint        (*MonitorExit)                  (c_JNIEnv* env, c_jobject obj)
-
-        c_jint        (*GetJavaVM)                    (c_JNIEnv* env, c_JavaVM** vm)
-
-        void          (*GetStringRegion)              (c_JNIEnv* env, c_jstring str, c_jsize start, c_jsize len, c_jchar* buf)
-        void          (*GetStringUTFRegion)           (c_JNIEnv* env, c_jstring str, c_jsize start, c_jsize len, char*    buf)
-
-        void*         (*GetPrimitiveArrayCritical)    (c_JNIEnv* env, c_jarray array, c_jboolean* isCopy)
-        void          (*ReleasePrimitiveArrayCritical)(c_JNIEnv* env, c_jarray array, void* carray, c_jint mode)
-
-        const c_jchar*(*GetStringCritical)            (c_JNIEnv* env, c_jstring string, c_jboolean* isCopy)
-        void          (*ReleaseStringCritical)        (c_JNIEnv* env, c_jstring string, const c_jchar* cstring)
-
-        c_jweak       (*NewWeakGlobalRef)             (c_JNIEnv* env, c_jobject obj)
-        void          (*DeleteWeakGlobalRef)          (c_JNIEnv* env, c_jweak   ref)
-
-        c_jboolean    (*ExceptionCheck)               (c_JNIEnv* env)
-
-        c_jobject     (*NewDirectByteBuffer)          (c_JNIEnv* env, void* address, c_jlong capacity)
-        void*         (*GetDirectBufferAddress)       (c_JNIEnv* env, c_jobject buf)
-        c_jlong       (*GetDirectBufferCapacity)      (c_JNIEnv* env, c_jobject buf)
+    cdef struct JNIInvokeInterface_
+
+    cdef struct JavaVM_
+
+    ctypedef const JNIInvokeInterface_ *JavaVM
+
+    cdef struct JNINativeInterface_:
+        void *reserved0
+        void *reserved1
+        void *reserved2
+        void *reserved3
+
+        jint (*GetVersion)(JNIEnv *env)
+
+        jclass (*DefineClass) \
+          (JNIEnv *env, const char *name, jobject loader, const jbyte *buf, \
+           jsize len)
+        jclass (*FindClass) \
+          (JNIEnv *env, const char *name)
+
+        jmethodID (*FromReflectedMethod) \
+          (JNIEnv *env, jobject method)
+        jfieldID (*FromReflectedField) \
+          (JNIEnv *env, jobject field)
+
+        jobject (*ToReflectedMethod) \
+          (JNIEnv *env, jclass cls, jmethodID methodID, jboolean isStatic)
+
+        jclass (*GetSuperclass) \
+          (JNIEnv *env, jclass sub)
+        jboolean (*IsAssignableFrom) \
+          (JNIEnv *env, jclass sub, jclass sup)
+
+        jobject (*ToReflectedField) \
+          (JNIEnv *env, jclass cls, jfieldID fieldID, jboolean isStatic)
+
+        jint (*Throw) \
+          (JNIEnv *env, jthrowable obj)
+        jint (*ThrowNew) \
+          (JNIEnv *env, jclass clazz, const char *msg)
+        jthrowable (*ExceptionOccurred) \
+          (JNIEnv *env)
+        void (*ExceptionDescribe) \
+          (JNIEnv *env)
+        void (*ExceptionClear) \
+          (JNIEnv *env)
+        void (*FatalError) \
+          (JNIEnv *env, const char *msg)
+
+        jint (*PushLocalFrame) \
+          (JNIEnv *env, jint capacity)
+        jobject (*PopLocalFrame) \
+          (JNIEnv *env, jobject result)
+
+        jobject (*NewGlobalRef) \
+          (JNIEnv *env, jobject lobj)
+        void (*DeleteGlobalRef) \
+          (JNIEnv *env, jobject gref)
+        void (*DeleteLocalRef) \
+          (JNIEnv *env, jobject obj)
+        jboolean (*IsSameObject) \
+          (JNIEnv *env, jobject obj1, jobject obj2)
+        jobject (*NewLocalRef) \
+          (JNIEnv *env, jobject ref)
+        jint (*EnsureLocalCapacity) \
+          (JNIEnv *env, jint capacity)
+
+        jobject (*AllocObject) \
+          (JNIEnv *env, jclass clazz)
+        jobject (*NewObject) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, ...)
+        jobject (*NewObjectV) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, va_list args)
+        jobject (*NewObjectA) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, const jvalue *args)
+
+        jclass (*GetObjectClass) \
+          (JNIEnv *env, jobject obj)
+        jboolean (*IsInstanceOf) \
+          (JNIEnv *env, jobject obj, jclass clazz)
+
+        jmethodID (*GetMethodID) \
+          (JNIEnv *env, jclass clazz, const char *name, const char *sig)
+
+        jobject (*CallObjectMethod) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, ...)
+        jobject (*CallObjectMethodV) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, va_list args)
+        jobject (*CallObjectMethodA) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, const jvalue *args)
+
+        jboolean (*CallBooleanMethod) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, ...)
+        jboolean (*CallBooleanMethodV) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, va_list args)
+        jboolean (*CallBooleanMethodA) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, const jvalue *args)
+
+        jbyte (*CallByteMethod) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, ...)
+        jbyte (*CallByteMethodV) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, va_list args)
+        jbyte (*CallByteMethodA) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, const jvalue *args)
+
+        jchar (*CallCharMethod) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, ...)
+        jchar (*CallCharMethodV) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, va_list args)
+        jchar (*CallCharMethodA) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, const jvalue *args)
+
+        jshort (*CallShortMethod) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, ...)
+        jshort (*CallShortMethodV) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, va_list args)
+        jshort (*CallShortMethodA) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, const jvalue *args)
+
+        jint (*CallIntMethod) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, ...)
+        jint (*CallIntMethodV) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, va_list args)
+        jint (*CallIntMethodA) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, const jvalue *args)
+
+        jlong (*CallLongMethod) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, ...)
+        jlong (*CallLongMethodV) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, va_list args)
+        jlong (*CallLongMethodA) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, const jvalue *args)
+
+        jfloat (*CallFloatMethod) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, ...)
+        jfloat (*CallFloatMethodV) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, va_list args)
+        jfloat (*CallFloatMethodA) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, const jvalue *args)
+
+        jdouble (*CallDoubleMethod) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, ...)
+        jdouble (*CallDoubleMethodV) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, va_list args)
+        jdouble (*CallDoubleMethodA) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, const jvalue *args)
+
+        void (*CallVoidMethod) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, ...)
+        void (*CallVoidMethodV) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, va_list args)
+        void (*CallVoidMethodA) \
+          (JNIEnv *env, jobject obj, jmethodID methodID, const jvalue *args)
+
+        jobject (*CallNonvirtualObjectMethod) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, ...)
+        jobject (*CallNonvirtualObjectMethodV) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, \
+           va_list args)
+        jobject (*CallNonvirtualObjectMethodA) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, \
+           const jvalue *args)
+
+        jboolean (*CallNonvirtualBooleanMethod) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, ...)
+        jboolean (*CallNonvirtualBooleanMethodV) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, \
+           va_list args)
+        jboolean (*CallNonvirtualBooleanMethodA) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, \
+           const jvalue *args)
+
+        jbyte (*CallNonvirtualByteMethod) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, ...)
+        jbyte (*CallNonvirtualByteMethodV) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, \
+           va_list args)
+        jbyte (*CallNonvirtualByteMethodA) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, \
+           const jvalue *args)
+
+        jchar (*CallNonvirtualCharMethod) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, ...)
+        jchar (*CallNonvirtualCharMethodV) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, \
+           va_list args)
+        jchar (*CallNonvirtualCharMethodA) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, \
+           const jvalue *args)
+
+        jshort (*CallNonvirtualShortMethod) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, ...)
+        jshort (*CallNonvirtualShortMethodV) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, \
+           va_list args)
+        jshort (*CallNonvirtualShortMethodA) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, \
+           const jvalue *args)
+
+        jint (*CallNonvirtualIntMethod) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, ...)
+        jint (*CallNonvirtualIntMethodV) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, \
+           va_list args)
+        jint (*CallNonvirtualIntMethodA) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, \
+           const jvalue *args)
+
+        jlong (*CallNonvirtualLongMethod) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, ...)
+        jlong (*CallNonvirtualLongMethodV) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, \
+           va_list args)
+        jlong (*CallNonvirtualLongMethodA) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, \
+           const jvalue *args)
+
+        jfloat (*CallNonvirtualFloatMethod) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, ...)
+        jfloat (*CallNonvirtualFloatMethodV) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, \
+           va_list args)
+        jfloat (*CallNonvirtualFloatMethodA) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, \
+           const jvalue *args)
+
+        jdouble (*CallNonvirtualDoubleMethod) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, ...)
+        jdouble (*CallNonvirtualDoubleMethodV) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, \
+           va_list args)
+        jdouble (*CallNonvirtualDoubleMethodA) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, \
+           const jvalue *args)
+
+        void (*CallNonvirtualVoidMethod) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, ...)
+        void (*CallNonvirtualVoidMethodV) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, \
+           va_list args)
+        void (*CallNonvirtualVoidMethodA) \
+          (JNIEnv *env, jobject obj, jclass clazz, jmethodID methodID, \
+           const jvalue *args)
+
+        jfieldID (*GetFieldID) \
+          (JNIEnv *env, jclass clazz, const char *name, const char *sig)
+
+        jobject (*GetObjectField) \
+          (JNIEnv *env, jobject obj, jfieldID fieldID)
+        jboolean (*GetBooleanField) \
+          (JNIEnv *env, jobject obj, jfieldID fieldID)
+        jbyte (*GetByteField) \
+          (JNIEnv *env, jobject obj, jfieldID fieldID)
+        jchar (*GetCharField) \
+          (JNIEnv *env, jobject obj, jfieldID fieldID)
+        jshort (*GetShortField) \
+          (JNIEnv *env, jobject obj, jfieldID fieldID)
+        jint (*GetIntField) \
+          (JNIEnv *env, jobject obj, jfieldID fieldID)
+        jlong (*GetLongField) \
+          (JNIEnv *env, jobject obj, jfieldID fieldID)
+        jfloat (*GetFloatField) \
+          (JNIEnv *env, jobject obj, jfieldID fieldID)
+        jdouble (*GetDoubleField) \
+          (JNIEnv *env, jobject obj, jfieldID fieldID)
+
+        void (*SetObjectField) \
+          (JNIEnv *env, jobject obj, jfieldID fieldID, jobject val)
+        void (*SetBooleanField) \
+          (JNIEnv *env, jobject obj, jfieldID fieldID, jboolean val)
+        void (*SetByteField) \
+          (JNIEnv *env, jobject obj, jfieldID fieldID, jbyte val)
+        void (*SetCharField) \
+          (JNIEnv *env, jobject obj, jfieldID fieldID, jchar val)
+        void (*SetShortField) \
+          (JNIEnv *env, jobject obj, jfieldID fieldID, jshort val)
+        void (*SetIntField) \
+          (JNIEnv *env, jobject obj, jfieldID fieldID, jint val)
+        void (*SetLongField) \
+          (JNIEnv *env, jobject obj, jfieldID fieldID, jlong val)
+        void (*SetFloatField) \
+          (JNIEnv *env, jobject obj, jfieldID fieldID, jfloat val)
+        void (*SetDoubleField) \
+          (JNIEnv *env, jobject obj, jfieldID fieldID, jdouble val)
+
+        jmethodID (*GetStaticMethodID) \
+          (JNIEnv *env, jclass clazz, const char *name, const char *sig)
+
+        jobject (*CallStaticObjectMethod) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, ...)
+        jobject (*CallStaticObjectMethodV) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, va_list args)
+        jobject (*CallStaticObjectMethodA) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, const jvalue *args)
+
+        jboolean (*CallStaticBooleanMethod) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, ...)
+        jboolean (*CallStaticBooleanMethodV) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, va_list args)
+        jboolean (*CallStaticBooleanMethodA) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, const jvalue *args)
+
+        jbyte (*CallStaticByteMethod) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, ...)
+        jbyte (*CallStaticByteMethodV) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, va_list args)
+        jbyte (*CallStaticByteMethodA) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, const jvalue *args)
+
+        jchar (*CallStaticCharMethod) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, ...)
+        jchar (*CallStaticCharMethodV) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, va_list args)
+        jchar (*CallStaticCharMethodA) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, const jvalue *args)
+
+        jshort (*CallStaticShortMethod) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, ...)
+        jshort (*CallStaticShortMethodV) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, va_list args)
+        jshort (*CallStaticShortMethodA) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, const jvalue *args)
+
+        jint (*CallStaticIntMethod) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, ...)
+        jint (*CallStaticIntMethodV) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, va_list args)
+        jint (*CallStaticIntMethodA) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, const jvalue *args)
+
+        jlong (*CallStaticLongMethod) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, ...)
+        jlong (*CallStaticLongMethodV) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, va_list args)
+        jlong (*CallStaticLongMethodA) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, const jvalue *args)
+
+        jfloat (*CallStaticFloatMethod) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, ...)
+        jfloat (*CallStaticFloatMethodV) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, va_list args)
+        jfloat (*CallStaticFloatMethodA) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, const jvalue *args)
+
+        jdouble (*CallStaticDoubleMethod) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, ...)
+        jdouble (*CallStaticDoubleMethodV) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, va_list args)
+        jdouble (*CallStaticDoubleMethodA) \
+          (JNIEnv *env, jclass clazz, jmethodID methodID, const jvalue *args)
+
+        void (*CallStaticVoidMethod) \
+          (JNIEnv *env, jclass cls, jmethodID methodID, ...)
+        void (*CallStaticVoidMethodV) \
+          (JNIEnv *env, jclass cls, jmethodID methodID, va_list args)
+        void (*CallStaticVoidMethodA) \
+          (JNIEnv *env, jclass cls, jmethodID methodID, const jvalue *args)
+
+        jfieldID (*GetStaticFieldID) \
+          (JNIEnv *env, jclass clazz, const char *name, const char *sig)
+        jobject (*GetStaticObjectField) \
+          (JNIEnv *env, jclass clazz, jfieldID fieldID)
+        jboolean (*GetStaticBooleanField) \
+          (JNIEnv *env, jclass clazz, jfieldID fieldID)
+        jbyte (*GetStaticByteField) \
+          (JNIEnv *env, jclass clazz, jfieldID fieldID)
+        jchar (*GetStaticCharField) \
+          (JNIEnv *env, jclass clazz, jfieldID fieldID)
+        jshort (*GetStaticShortField) \
+          (JNIEnv *env, jclass clazz, jfieldID fieldID)
+        jint (*GetStaticIntField) \
+          (JNIEnv *env, jclass clazz, jfieldID fieldID)
+        jlong (*GetStaticLongField) \
+          (JNIEnv *env, jclass clazz, jfieldID fieldID)
+        jfloat (*GetStaticFloatField) \
+          (JNIEnv *env, jclass clazz, jfieldID fieldID)
+        jdouble (*GetStaticDoubleField) \
+          (JNIEnv *env, jclass clazz, jfieldID fieldID)
+
+        void (*SetStaticObjectField) \
+          (JNIEnv *env, jclass clazz, jfieldID fieldID, jobject value)
+        void (*SetStaticBooleanField) \
+          (JNIEnv *env, jclass clazz, jfieldID fieldID, jboolean value)
+        void (*SetStaticByteField) \
+          (JNIEnv *env, jclass clazz, jfieldID fieldID, jbyte value)
+        void (*SetStaticCharField) \
+          (JNIEnv *env, jclass clazz, jfieldID fieldID, jchar value)
+        void (*SetStaticShortField) \
+          (JNIEnv *env, jclass clazz, jfieldID fieldID, jshort value)
+        void (*SetStaticIntField) \
+          (JNIEnv *env, jclass clazz, jfieldID fieldID, jint value)
+        void (*SetStaticLongField) \
+          (JNIEnv *env, jclass clazz, jfieldID fieldID, jlong value)
+        void (*SetStaticFloatField) \
+          (JNIEnv *env, jclass clazz, jfieldID fieldID, jfloat value)
+        void (*SetStaticDoubleField) \
+          (JNIEnv *env, jclass clazz, jfieldID fieldID, jdouble value)
+
+        jstring (*NewString) \
+          (JNIEnv *env, const jchar *unicode, jsize len)
+        jsize (*GetStringLength) \
+          (JNIEnv *env, jstring str)
+        const jchar *(*GetStringChars) \
+          (JNIEnv *env, jstring str, jboolean *isCopy)
+        void (*ReleaseStringChars) \
+          (JNIEnv *env, jstring str, const jchar *chars)
+
+        jstring (*NewStringUTF) \
+          (JNIEnv *env, const char *utf)
+        jsize (*GetStringUTFLength) \
+          (JNIEnv *env, jstring str)
+        const char* (*GetStringUTFChars) \
+          (JNIEnv *env, jstring str, jboolean *isCopy)
+        void (*ReleaseStringUTFChars) \
+          (JNIEnv *env, jstring str, const char* chars)
+
+        jsize (*GetArrayLength) \
+          (JNIEnv *env, jarray array)
+
+        jobjectArray (*NewObjectArray) \
+          (JNIEnv *env, jsize len, jclass clazz, jobject init)
+        jobject (*GetObjectArrayElement) \
+          (JNIEnv *env, jobjectArray array, jsize index)
+        void (*SetObjectArrayElement) \
+          (JNIEnv *env, jobjectArray array, jsize index, jobject val)
+
+        jbooleanArray (*NewBooleanArray) \
+          (JNIEnv *env, jsize len)
+        jbyteArray (*NewByteArray) \
+          (JNIEnv *env, jsize len)
+        jcharArray (*NewCharArray) \
+          (JNIEnv *env, jsize len)
+        jshortArray (*NewShortArray) \
+          (JNIEnv *env, jsize len)
+        jintArray (*NewIntArray) \
+          (JNIEnv *env, jsize len)
+        jlongArray (*NewLongArray) \
+          (JNIEnv *env, jsize len)
+        jfloatArray (*NewFloatArray) \
+          (JNIEnv *env, jsize len)
+        jdoubleArray (*NewDoubleArray) \
+          (JNIEnv *env, jsize len)
+
+        jboolean * (*GetBooleanArrayElements) \
+          (JNIEnv *env, jbooleanArray array, jboolean *isCopy)
+        jbyte * (*GetByteArrayElements) \
+          (JNIEnv *env, jbyteArray array, jboolean *isCopy)
+        jchar * (*GetCharArrayElements) \
+          (JNIEnv *env, jcharArray array, jboolean *isCopy)
+        jshort * (*GetShortArrayElements) \
+          (JNIEnv *env, jshortArray array, jboolean *isCopy)
+        jint * (*GetIntArrayElements) \
+          (JNIEnv *env, jintArray array, jboolean *isCopy)
+        jlong * (*GetLongArrayElements) \
+          (JNIEnv *env, jlongArray array, jboolean *isCopy)
+        jfloat * (*GetFloatArrayElements) \
+          (JNIEnv *env, jfloatArray array, jboolean *isCopy)
+        jdouble * (*GetDoubleArrayElements) \
+          (JNIEnv *env, jdoubleArray array, jboolean *isCopy)
+
+        void (*ReleaseBooleanArrayElements) \
+          (JNIEnv *env, jbooleanArray array, jboolean *elems, jint mode)
+        void (*ReleaseByteArrayElements) \
+          (JNIEnv *env, jbyteArray array, jbyte *elems, jint mode)
+        void (*ReleaseCharArrayElements) \
+          (JNIEnv *env, jcharArray array, jchar *elems, jint mode)
+        void (*ReleaseShortArrayElements) \
+          (JNIEnv *env, jshortArray array, jshort *elems, jint mode)
+        void (*ReleaseIntArrayElements) \
+          (JNIEnv *env, jintArray array, jint *elems, jint mode)
+        void (*ReleaseLongArrayElements) \
+          (JNIEnv *env, jlongArray array, jlong *elems, jint mode)
+        void (*ReleaseFloatArrayElements) \
+          (JNIEnv *env, jfloatArray array, jfloat *elems, jint mode)
+        void (*ReleaseDoubleArrayElements) \
+          (JNIEnv *env, jdoubleArray array, jdouble *elems, jint mode)
+
+        void (*GetBooleanArrayRegion) \
+          (JNIEnv *env, jbooleanArray array, jsize start, jsize l, jboolean *buf)
+        void (*GetByteArrayRegion) \
+          (JNIEnv *env, jbyteArray array, jsize start, jsize len, jbyte *buf)
+        void (*GetCharArrayRegion) \
+          (JNIEnv *env, jcharArray array, jsize start, jsize len, jchar *buf)
+        void (*GetShortArrayRegion) \
+          (JNIEnv *env, jshortArray array, jsize start, jsize len, jshort *buf)
+        void (*GetIntArrayRegion) \
+          (JNIEnv *env, jintArray array, jsize start, jsize len, jint *buf)
+        void (*GetLongArrayRegion) \
+          (JNIEnv *env, jlongArray array, jsize start, jsize len, jlong *buf)
+        void (*GetFloatArrayRegion) \
+          (JNIEnv *env, jfloatArray array, jsize start, jsize len, jfloat *buf)
+        void (*GetDoubleArrayRegion) \
+          (JNIEnv *env, jdoubleArray array, jsize start, jsize len, jdouble *buf)
+
+        void (*SetBooleanArrayRegion) \
+          (JNIEnv *env, jbooleanArray array, jsize start, jsize l, const jboolean *buf)
+        void (*SetByteArrayRegion) \
+          (JNIEnv *env, jbyteArray array, jsize start, jsize len, const jbyte *buf)
+        void (*SetCharArrayRegion) \
+          (JNIEnv *env, jcharArray array, jsize start, jsize len, const jchar *buf)
+        void (*SetShortArrayRegion) \
+          (JNIEnv *env, jshortArray array, jsize start, jsize len, const jshort *buf)
+        void (*SetIntArrayRegion) \
+          (JNIEnv *env, jintArray array, jsize start, jsize len, const jint *buf)
+        void (*SetLongArrayRegion) \
+          (JNIEnv *env, jlongArray array, jsize start, jsize len, const jlong *buf)
+        void (*SetFloatArrayRegion) \
+          (JNIEnv *env, jfloatArray array, jsize start, jsize len, const jfloat *buf)
+        void (*SetDoubleArrayRegion) \
+          (JNIEnv *env, jdoubleArray array, jsize start, jsize len, const jdouble *buf)
+
+        jint (*RegisterNatives) \
+          (JNIEnv *env, jclass clazz, const JNINativeMethod *methods, \
+           jint nMethods)
+        jint (*UnregisterNatives) \
+          (JNIEnv *env, jclass clazz)
+
+        jint (*MonitorEnter) \
+          (JNIEnv *env, jobject obj)
+        jint (*MonitorExit) \
+          (JNIEnv *env, jobject obj)
+
+        jint (*GetJavaVM) \
+          (JNIEnv *env, JavaVM **vm)
+
+        void (*GetStringRegion) \
+          (JNIEnv *env, jstring str, jsize start, jsize len, jchar *buf)
+        void (*GetStringUTFRegion) \
+          (JNIEnv *env, jstring str, jsize start, jsize len, char *buf)
+
+        void * (*GetPrimitiveArrayCritical) \
+          (JNIEnv *env, jarray array, jboolean *isCopy)
+        void (*ReleasePrimitiveArrayCritical) \
+          (JNIEnv *env, jarray array, void *carray, jint mode)
+
+        const jchar * (*GetStringCritical) \
+          (JNIEnv *env, jstring string, jboolean *isCopy)
+        void (*ReleaseStringCritical) \
+          (JNIEnv *env, jstring string, const jchar *cstring)
+
+        jweak (*NewWeakGlobalRef) \
+           (JNIEnv *env, jobject obj)
+        void (*DeleteWeakGlobalRef) \
+           (JNIEnv *env, jweak ref)
+
+        jboolean (*ExceptionCheck) \
+           (JNIEnv *env)
+
+        jobject (*NewDirectByteBuffer) \
+           (JNIEnv* env, void* address, jlong capacity)
+        void* (*GetDirectBufferAddress) \
+           (JNIEnv* env, jobject buf)
+        jlong (*GetDirectBufferCapacity) \
+           (JNIEnv* env, jobject buf)
 
         # New JNI 1.6 Features
 
-        c_jobjectRefType (*GetObjectRefType)          (c_JNIEnv* env, c_jobject obj)
+        jobjectRefType (*GetObjectRefType) \
+            (JNIEnv* env, jobject obj)
 
-    # JNI Invocation Interface.
+        # New JNI 9.0 Features
 
-    ctypedef struct c_JavaVMOption:
-        char* optionString
-        void* extraInfo
+        # Module Features
+        jobject (*GetModule) \
+           (JNIEnv* env, jclass clazz)
 
-    ctypedef struct c_JavaVMInitArgs:
-        c_jint          version
-        c_jint          nOptions
-        c_JavaVMOption* options
-        c_jboolean      ignoreUnrecognized
+        # New JNI 19.0 Features
 
-    ctypedef struct c_JavaVMAttachArgs:
-        c_jint    version
-        char*     name
-        c_jobject group
+        # Virtual threads
+        jboolean (*IsVirtualThread) \
+           (JNIEnv* env, jobject obj)
+
+        # New JNI 24.0 Features
+
+        # Large UTF8 Support
+        jlong (*GetStringUTFLengthAsLong) \
+          (JNIEnv *env, jstring str)
+
+    cdef struct JNIEnv_:
+        const JNINativeInterface_ *functions
+
+    # optionString may be any option accepted by the JVM, or one of the
+    # following:
+    #
+    # -D<name>=<value>          Set a system property.
+    # -verbose[:class|gc|jni]   Enable verbose output, comma-separated. E.g.
+    #                           "-verbose:class" or "-verbose:gc,class"
+    #                           Standard names include: gc, class, and jni.
+    #                           All nonstandard (VM-specific) names must begin
+    #                           with "X".
+    # vfprintf                  extraInfo is a pointer to the vfprintf hook.
+    # exit                      extraInfo is a pointer to the exit hook.
+    # abort                     extraInfo is a pointer to the abort hook.
+    #
+    ctypedef struct JavaVMOption:
+        char *optionString
+        void *extraInfo
+
+    ctypedef struct JavaVMInitArgs:
+        jint version
+
+        jint nOptions
+        JavaVMOption *options
+        jboolean ignoreUnrecognized
+
+    ctypedef struct JavaVMAttachArgs:
+        jint version
+
+        char *name
+        jobject group
 
     # These will be VM-specific.
 
-    cpdef enum:
+    cdef enum:
         JDK1_2 = 1
         JDK1_4 = 1
 
     # End VM-specific.
 
-    struct JNIInvokeInterface_:
+    cdef struct JNIInvokeInterface_:
+        void *reserved0
+        void *reserved1
+        void *reserved2
 
-        void* reserved0
-        void* reserved1
-        void* reserved2
+        jint (*DestroyJavaVM)(JavaVM *vm)  # nogil
 
-        c_jint (*DestroyJavaVM)              (c_JavaVM* vm)  # nogil
-        c_jint (*AttachCurrentThread)        (c_JavaVM* vm, void** penv, void* args)  # nogil
-        c_jint (*DetachCurrentThread)        (c_JavaVM* vm)  # nogil
-        c_jint (*GetEnv)                     (c_JavaVM* vm, void** penv, c_jint version)  # nogil
-        c_jint (*AttachCurrentThreadAsDaemon)(c_JavaVM* vm, void** penv, void* args)  # nogil
+        jint (*AttachCurrentThread)(JavaVM *vm, void **penv, void *args)  # nogil
 
-    cpdef enum:
+        jint (*DetachCurrentThread)(JavaVM *vm)  # nogil
+
+        jint (*GetEnv)(JavaVM *vm, void **penv, jint version)  # nogil
+
+        jint (*AttachCurrentThreadAsDaemon)(JavaVM *vm, void **penv, void *args)  # nogil
+
+    cdef struct JavaVM_:
+        const JNIInvokeInterface_ *functions
+
+    cdef enum:
         JNI_VERSION_1_1 = 0x00010001
         JNI_VERSION_1_2 = 0x00010002
         JNI_VERSION_1_4 = 0x00010004
@@ -478,10 +778,9 @@ cdef api: # from "jni.h":
         JNI_VERSION_1_8 = 0x00010008
         JNI_VERSION_9   = 0x00090000
         JNI_VERSION_10  = 0x000a0000
+        JNI_VERSION_19  = 0x00130000
+        JNI_VERSION_20  = 0x00140000
+        JNI_VERSION_21  = 0x00150000
+        JNI_VERSION_24  = 0x00180000
 
 # eof jni.h
-
-cdef extern: # from "jni.h":
-    c_jint __stdcall JNI_GetDefaultJavaVMInitArgs(void* args)  # nogil
-    c_jint __stdcall JNI_CreateJavaVM     (c_JavaVM** pvm, void** penv, void* args)  # nogil
-    c_jint __stdcall JNI_GetCreatedJavaVMs(c_JavaVM** pvm, c_jsize size, c_jsize* nvms)  # nogil
