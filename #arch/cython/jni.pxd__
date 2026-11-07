@@ -1,0 +1,18 @@
+
+# NOTE: its required to have a 'from *' after the 'extern' declaration
+#       here, in order to avoid problems with cython on Cywin and MSYS
+#       Windows environments. The 'from *' will make cython think the
+#       declaration is from some header, so it avoids the __imp_ prefix
+#       on the symbols. Otherwise linking will fail. For more details see
+#       https://trac.sagemath.org/ticket/19868
+cdef extern from *:
+    # int CreateJavaVM(JavaVM** pvm, void** penv, void* args) nogil
+    # void StopVM(JavaVM* vm) nogil
+
+    jint JNI_GetDefaultJavaVMInitArgs(void *args)  # nogil
+    jint JNI_CreateJavaVM(JavaVM **pvm, void **penv, void *args)  # nogil
+    jint JNI_GetCreatedJavaVMs(JavaVM **, jsize, jsize *)  # nogil
+
+    # Defined by native libraries.
+    jint JNI_OnLoad(JavaVM *vm, void *reserved)  # nogil
+    void JNI_OnUnload(JavaVM *vm, void *reserved)  # nogil
