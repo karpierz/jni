@@ -1,7 +1,0 @@
-Url:       https://raw.githubusercontent.com/openjdk/jdk/jdk-24-ga/src/java.base/windows/native/include/jni_md.h
-Completed: 2025-03-21 14:21:39
-File name: jni_md.h
-File date: 2025-03-21 14:21:39
-File size: 1484
-SHA256sum: C989B8C6F03C26C6F170836DF8531379EB5CB3F5891F5D53F3BD17C1FDB28938
-SHA1sum:   D200B7516BA426A929984C79821F5DBC2E2F09B9

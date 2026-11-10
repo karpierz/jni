@@ -3,22 +3,25 @@
 Installation
 ============
 
-Requirements
-------------
+Prerequisites
+-------------
 
-+ Python 3.10 or higher
++ Java 1.8 or higher
+
+  * Java Runtime (JRE) or Java Development Kit (JDK).
+
++ Python 3.11 or higher
 
   * https://www.python.org/
   * Java 17 is a primary test environment.
 
-+ pip and setuptools
++ pip
 
   * https://pypi.org/project/pip/
-  * https://pypi.org/project/setuptools/
 
 Install
 -------
 
-Should be easy as::
+  .. parsed-literal::
 
     python -m pip install --upgrade jni

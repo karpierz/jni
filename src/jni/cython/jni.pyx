@@ -6,391 +6,30 @@
 
 from __future__ import absolute_import
 
-import os
 import platform
-import ctypes as ct
 
 if platform.win32_ver()[0]:
     from ctypes import WinDLL as DLL
     try:
         from _ctypes import FreeLibrary as dlclose
     except ImportError:
-        dlclose = lambda handle: 0
+        def dlclose(handle: int, /) -> None:
+            return
 else:
     from ctypes  import CDLL    as DLL
     from _ctypes import dlclose as dlclose
 
-from libc.stdint cimport uintptr_t
-
-JEnv = lambda *args, **kwargs: object()
-JVM  = lambda *args, **kwargs: object()
-
+from libc.stdint cimport uintptr_t  # noqa: E999
 
 # JNI Types
 
-cdef class _CData:
-    pass
-
-cdef class jint(_CData):
-    cdef public c_jint value
-
-    def __init__(self, val=0):
-        self.value = val
-
-    def __bool__(self):
-        return self.value != 0
-
-cdef class jlong(_CData):
-    cdef public c_jlong value
-
-    def __init__(self, val=0):
-        self.value = val
-
-    def __bool__(self):
-        return self.value != 0
-
-cdef class jbyte(_CData):
-    cdef public c_jbyte value
-
-    def __init__(self, val=0):
-        self.value = val
-
-    def __bool__(self):
-        return self.value != 0
-
-cdef class jboolean(_CData):
-    cdef c_jboolean val
-
-    def __init__(self, val=0):
-        self.val = val
-
-    @property
-    def value(self):
-        return self.val
-
-    @value.setter
-    def value(self, val):
-        self.val = val
-
-    def __bool__(self):
-        return self.val != 0
-
-cdef class jchar(_CData):
-    cdef c_jchar val
-
-    def __init__(self, val=u"\0"):
-        self.val = <c_jchar>ord(val)
-
-    @property
-    def value(self):
-        return chr(self.val)
-
-    @value.setter
-    def value(self, val):
-        self.val = <c_jchar>ord(val)
-
-    def __bool__(self):
-        return self.val != 0
-
-cdef class jshort(_CData):
-    cdef public c_jshort value
-
-    def __init__(self, val=0):
-        self.value = val
-
-    def __bool__(self):
-        return self.value != 0
-
-cdef class jfloat(_CData):
-    cdef public c_jfloat value
-
-    def __init__(self, val=0.0):
-        self.value = val
-
-    def __bool__(self):
-        return self.value != 0.0
-
-cdef class jdouble(_CData):
-    cdef public c_jdouble value
-
-    def __init__(self, val=0.0):
-        self.value = val
-
-    def __bool__(self):
-        return self.value != 0.0
-
-jsize = jint
-
-cdef class jobject(_CData):
-    cdef c_jobject val
-
-    def __init__(self, val=None):
-        self.val = <c_jobject><uintptr_t>val if val is not None else NULL
-
-    @property
-    def value(self):
-        return int(<uintptr_t>self.val) if self.val is not NULL else None
-
-    @value.setter
-    def value(self, val):
-        self.val = <c_jobject><uintptr_t>val if val is not None else NULL
-
-    def __bool__(self):
-        return self.val != NULL
-
-jclass        = jobject
-jthrowable    = jobject
-jstring       = jobject
-jarray        = jobject
-jbooleanArray = jarray
-jcharArray    = jarray
-jbyteArray    = jarray
-jshortArray   = jarray
-jintArray     = jarray
-jlongArray    = jarray
-jfloatArray   = jarray
-jdoubleArray  = jarray
-jobjectArray  = jarray
-jweak         = jobject
-
-cdef class jvalue(_CData):
-    cdef c_jvalue this
-
-    @property
-    def z(self):
-        return self.this.z
-
-    @z.setter
-    def z(self, val):
-        self.this.z = val.val if isinstance(val, jboolean) else val
-
-    @property
-    def b(self):
-        return self.this.b
-
-    @b.setter
-    def b(self, val):
-        self.this.b = val.val if isinstance(val, jbyte) else val
-
-    @property
-    def c(self):
-        return chr(self.this.c)
-
-    @c.setter
-    def c(self, val):
-        self.this.c = val.val if isinstance(val, jchar) else <c_jchar>ord(val)
-
-    @property
-    def s(self):
-        return self.this.s
-
-    @s.setter
-    def s(self, val):
-        self.this.s = val.val if isinstance(val, jshort) else val
-
-    @property
-    def i(self):
-        return self.this.i
-
-    @i.setter
-    def i(self, val):
-        self.this.i = val.val if isinstance(val, jint) else val
-
-    @property
-    def j(self):
-        return self.this.j
-
-    @j.setter
-    def j(self, val):
-        self.this.j = val.val if isinstance(val, jlong) else val
-
-    @property
-    def f(self):
-        return self.this.f
-
-    @f.setter
-    def f(self, val):
-        self.this.f = val.val if isinstance(val, jfloat) else val
-
-    @property
-    def d(self):
-        return self.this.d
-
-    @d.setter
-    def d(self, val):
-        self.this.d = val.val if isinstance(val, jdouble) else val
-
-    @property
-    def l(self):
-        return int(<uintptr_t>self.this.l) if self.this.l is not NULL else None
-
-    @l.setter
-    def l(self, val):
-        self.this.l = (<c_jobject>val.val if isinstance(val, jobject) else
-                       <c_jobject><uintptr_t>val if val is not None else NULL)
-
-cdef class jfieldID(_CData):
-    cdef c_jfieldID val
-
-    def __init__(self, val=None):
-        self.val = <c_jfieldID><uintptr_t>val if val is not None else NULL
-
-    @property
-    def value(self):
-        return int(<uintptr_t>self.val) if self.val is not NULL else None
-
-    @value.setter
-    def value(self, val):
-        self.val = <c_jfieldID><uintptr_t>val if val is not None else NULL
-
-    def __bool__(self):
-        return self.val != NULL
-
-cdef class jmethodID(_CData):
-    cdef c_jmethodID val
-
-    def __init__(self, val=None):
-        self.val = <c_jmethodID><uintptr_t>val if val is not None else NULL
-
-    @property
-    def value(self):
-        return int(<uintptr_t>self.val) if self.val is not NULL else None
-
-    @value.setter
-    def value(self, val):
-        self.val = <c_jmethodID><uintptr_t>val if val is not None else NULL
-
-    def __bool__(self):
-        return self.val != NULL
-
-# Return values from jobjectRefType
-
-cdef class jobjectRefType(_CData):
-    cdef public c_jobjectRefType value
-
-    def __init__(self, val=0):
-        self.value = val
-
-    def __bool__(self):
-        return self.value != 0
-
-# JNI Native Method Interface.
-
-cdef class JNINativeMethod(_CData):
-    cdef c_JNINativeMethod this
-
-    @property
-    def name(self):
-        return self.this.name if self.this.name is not NULL else None
-
-    @name.setter
-    def name(self, val):
-        self.this.name = <char*>val if val is not None else NULL
-
-    @property
-    def signature(self):
-        return self.this.signature if self.this.signature is not NULL else None
-
-    @signature.setter
-    def signature(self, val):
-        self.this.signature = <char*>val if val is not None else NULL
-
-    @property
-    def fnPtr(self):
-        return int(<uintptr_t>self.this.fnPtr) if self.this.fnPtr is not NULL else None
-
-    @fnPtr.setter
-    def fnPtr(self, val):
-        self.this.fnPtr = (<void*>val.val if isinstance(val, jobject) else
-                           <void*><uintptr_t>val if val is not None else NULL)
-
-cdef class JNIEnv(_CData):
-    cdef c_JNIEnv this
-# [...] !!!
-
-# JNI Invocation Interface.
-
-cdef class JavaVM(_CData):
-    cdef c_JavaVM this
-# [...] !!!
-
-cdef class JavaVMOption(_CData):
-    cdef c_JavaVMOption this
-
-    @property
-    def optionString(self):
-        return self.this.optionString if self.this.optionString is not NULL else None
-
-    @optionString.setter
-    def optionString(self, val):
-        self.this.optionString = <char*>val if val is not None else NULL
-
-    @property
-    def extraInfo(self):
-        return int(<uintptr_t>self.this.extraInfo) if self.this.extraInfo is not NULL else None
-
-    @extraInfo.setter
-    def extraInfo(self, val):
-        self.this.extraInfo = (<void*>val.val if isinstance(val, jobject) else
-                               <void*><uintptr_t>val if val is not None else NULL)
-
-cdef class JavaVMInitArgs(_CData):
-    cdef c_JavaVMInitArgs this
-
-    @property
-    def version(self):
-        return self.this.version
-
-    @version.setter
-    def version(self, val):
-        self.this.version = val.val if isinstance(val, jint) else val
-
-    @property
-    def nOptions(self):
-        return self.this.nOptions
-
-    @nOptions.setter
-    def nOptions(self, val):
-        self.this.nOptions = val.val if isinstance(val, jint) else val
-
-    options = property(lambda self:      getattr(self.this, "options"),
-                       lambda self, val: setattr(self.this, "options", val))
-
-    @property
-    def ignoreUnrecognized(self):
-        return self.this.ignoreUnrecognized
-
-    @ignoreUnrecognized.setter
-    def ignoreUnrecognized(self, val):
-        self.this.ignoreUnrecognized = val.val if isinstance(val, jboolean) else val
-
-cdef class JavaVMAttachArgs(_CData):
-    cdef c_JavaVMAttachArgs this
-
-    @property
-    def version(self):
-        return self.this.version
-
-    @version.setter
-    def version(self, val):
-        self.this.version = val.val if isinstance(val, jint) else val
-
-    @property
-    def name(self):
-        return self.this.name if self.this.name is not NULL else None
-
-    @name.setter
-    def name(self, val):
-        self.this.name = <char*>val if val is not None else NULL
-
-    @property
-    def group(self):
-        return int(<uintptr_t>self.this.group) if self.this.group is not NULL else None
-
-    @group.setter
-    def group(self, val):
-        self.this.group = (<c_jobject>val.val if isinstance(val, jobject) else
-                           <c_jobject><uintptr_t>val if val is not None else NULL)
+# JNIEnv_ = cy.struct(
+#     functions = const JNINativeInterface_*,
+# )
+#
+# JavaVM_ = cy.struct(
+#     functions = const JNIInvokeInterface_*,
+# )
 
 # eof jni.h
 
@@ -400,12 +39,12 @@ cdef class JavaVMAttachArgs(_CData):
 #    print(cython.cast("char*", b"ccc"))
 #    return f * n
 
-#cdef class WaveFunction(c_JavaVMOption):
+#cdef class WaveFunction(JavaVMOption):
 #    pass
 
 #cdef extern from "foo_nominal.h":
 #
-#    ctypedef class foo_extension.Foo [object c_JavaVMOption]:
+#    ctypedef class foo_extension.Foo [object JavaVMOption]:
 #        cdef:
 #            int field0 "f0"
 #            int field1 "f1"
@@ -414,84 +53,14 @@ cdef class JavaVMAttachArgs(_CData):
 #def sum(Foo f) except -1:
 #    return f.field0 + f.field1 + f.field2
 
-#from pprint import pprint
-#pprint(vars())
-
-#cdef class Shrubbery:
-#    def __new__(self, int w, int l):
-#        self.width = w
-#        self.length = l
-
-#cdef class JB_Env:
-#
-#    cdef:
-#        c_JNIEnv *env
-#
-#    def __init__(self):
-#        self.env = NULL
-#        
-#    def __repr__(self):
-#        return "<JB_Env at 0x%x>"%(<size_t>(self.env))
-#        
-#    def __dealloc__(self):
-#        self.env = NULL
-#        
-#    def get_version(self):
-#        '''Return the version number as a major / minor version tuple'''
-#        cdef:
-#            int version
-#        version = self.env[0].GetVersion(self.env)
-#        return (int(version / 65536), version % 65536)
-
-cdef class Throwable(Exception):
-
-    last = None
-
-    cdef c_jthrowable _cause
-    cdef c_jstring    _info
-
-    #def __cinit__(self, c_jthrowable cause=NULL, c_jstring info=NULL):
-    #    self._cause = cause
-    #    self._info  = info
-    #    #super(Throwable, self).__init__(self._cause, self._info)
-
-    cdef c_jthrowable getCause(self):
-        return self._cause
-
-    cdef c_jstring getInfo(self):
-        return self._info
-
-class JNIException(SystemError):
-
-    reason = {
-        JNI_OK:        u"success",
-        JNI_ERR:       u"unknown error",
-        JNI_EDETACHED: u"thread detached from the VM",
-        JNI_EVERSION:  u"JNI version error",
-        JNI_ENOMEM:    u"not enough memory",
-        JNI_EEXIST:    u"VM already created",
-        JNI_EINVAL:    u"invalid arguments",
-    }
-
-    def __init__(self, error=JNI_ERR, info=None):
-        self._error = error
-        self._info  = info
-        super().__init__(self.getMessage(), self.getError())
-
-    def getMessage(self):
-        prefix = self._info + ": " if self._info else ""
-        return prefix + JNIException.reason.get(self._error,
-                                                u"unknown error code {0}".format(self._error))
-
-    def getError(self):
-        return self._error
-
-ctypedef c_jint (__stdcall *JNI_GetDefaultJavaVMInitArgs_ptr)(void* args)
-ctypedef c_jint (__stdcall *JNI_CreateJavaVM_ptr)(c_JavaVM** pvm, void** penv, void* args)
-ctypedef c_jint (__stdcall *JNI_GetCreatedJavaVMs_ptr)(c_JavaVM** pvm, c_jsize size, c_jsize* nvms)
+ctypedef jint (__stdcall *JNI_GetDefaultJavaVMInitArgs_ptr)(void* args)
+ctypedef jint (__stdcall *JNI_CreateJavaVM_ptr)(JavaVM** pvm, void** penv, void* args)
+ctypedef jint (__stdcall *JNI_GetCreatedJavaVMs_ptr)(JavaVM** pvm, jsize size, jsize* nvms)
 
 def load(dll_path, handle=None, __dlclose=dlclose):
 
+    import ctypes as ct
+    import os
     try:
         if isinstance(dll_path, os.PathLike): dll_path = str(dll_path)
         dll = DLL(dll_path, handle=handle)
@@ -503,16 +72,16 @@ def load(dll_path, handle=None, __dlclose=dlclose):
     def JNI_GetDefaultJavaVMInitArgs(args, __dll=dll):
         cdef JNI_GetDefaultJavaVMInitArgs_ptr GetDefaultJavaVMInitArgs = <JNI_GetDefaultJavaVMInitArgs_ptr> \
             <long long>ct.cast(__dll.JNI_GetDefaultJavaVMInitArgs, ct.c_void_p).value
-        cdef c_jint result = GetDefaultJavaVMInitArgs(<void*>args)
+        cdef jint result = GetDefaultJavaVMInitArgs(<void*>args)
         return result
 
     def JNI_CreateJavaVM(pvm, penv, args, __dll=dll):
-        cdef c_JavaVM** p_pvm  # = pointer(pvm)
-        cdef c_JNIEnv** p_penv # = pointer(penv)
+        cdef JavaVM** p_pvm  # = pointer(pvm)
+        cdef JNIEnv** p_penv # = pointer(penv)
         cdef void*      p_args # = pointer(args)
         cdef JNI_CreateJavaVM_ptr CreateJavaVM = <JNI_CreateJavaVM_ptr> \
             <long long>ct.cast(__dll.JNI_CreateJavaVM, ct.c_void_p).value
-        cdef c_jint result = CreateJavaVM(p_pvm, <void**>p_penv, <void*>p_args)
+        cdef jint result = CreateJavaVM(p_pvm, <void**>p_penv, <void*>p_args)
         #_as_CData(pvm).c_data  = _as_CData(p_pvm[0]).c_data
         #_as_CData(penv).c_data = _as_CData(p_penv[0]).c_data
         return result
@@ -520,7 +89,7 @@ def load(dll_path, handle=None, __dlclose=dlclose):
     def JNI_GetCreatedJavaVMs(pvm, size, nvms, __dll=dll):
         cdef JNI_GetCreatedJavaVMs_ptr GetCreatedJavaVMs = <JNI_GetCreatedJavaVMs_ptr> \
             <long long>ct.cast(__dll.JNI_GetCreatedJavaVMs, ct.c_void_p).value
-        cdef c_jint result = <long long>GetCreatedJavaVMs#(_itself_or_NULL(pvm), size, nvms)
+        cdef jint result = <long long>GetCreatedJavaVMs#(_itself_or_NULL(pvm), size, nvms)
         return result
 
     JNI = type("JNI", (), dict(dll=dll, dllclose=classmethod(lambda cls, __dlclose=__dlclose: __dlclose(cls.dll._handle))))

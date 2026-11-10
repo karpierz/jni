@@ -1,0 +1,2 @@
+# Notes:
+#   if (GIL ?) should be used: with JHost.ThreadState():

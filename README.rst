@@ -29,20 +29,28 @@ What is |package|:
 Known Bugs/Limitations :
   * Because of lack of JVM support, you cannot shutdown the JVM and then restart it.
 
+Requirements
+============
+
+- ATTENTION: currently works and tested only for Windows.
+
 Installation
 ============
 
 Prerequisites:
 
-+ Python 3.10 or higher
++ Java 1.8 or higher
+
+  * Java Runtime (JRE) or Java Development Kit (JDK).
+
++ Python 3.11 or higher
 
   * https://www.python.org/
   * Java 17 is a primary test environment.
 
-+ pip and setuptools
++ pip
 
   * https://pypi.org/project/pip/
-  * https://pypi.org/project/setuptools/
 
 To install run:
 
@@ -55,9 +63,9 @@ Development
 
 Prerequisites:
 
-+ Development is strictly based on *tox*. To install it run::
++ Development is strictly based on *nox*. To install it run::
 
-    python -m pip install --upgrade tox
+    python -m pip install --upgrade nox
 
 Visit `Development page`_.
 
@@ -94,10 +102,21 @@ Authors
 
 * Adam Karpierz <adam@karpierz.net>
 
+Sponsoring
+==========
+
+| If you would like to sponsor the development of this project, your contribution
+  is greatly appreciated.
+| As I am now retired, any support helps me dedicate more time to maintaining and
+  improving this work.
+
+`Donate`_
+
 .. |package| replace:: jni
 .. |package_bold| replace:: **jni**
-.. |copyright| replace:: Copyright (c) 2004-2025 Adam Karpierz
-.. |respository| replace:: https://github.com/karpierz/jni.git
+.. |copyright| replace:: Copyright (c) 2004-2026 Adam Karpierz
+.. |respository| replace:: https://github.com/karpierz/jni
 .. _Development page: https://github.com/karpierz/jni
 .. _PyPI record: https://pypi.org/project/jni/
-.. _Documentation: https://jni.readthedocs.io/
+.. _Documentation: https://karpierz.github.io/jni/
+.. _Donate: https://www.paypal.com/donate/?hosted_button_id=FX8L7CJUGLW7S

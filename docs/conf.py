@@ -4,9 +4,13 @@
 # list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
-__import__("pkg_about").about_from_setup()
+import os
 
-def setup(app):
+from sphinx import application
+
+about = __import__("pkg_about").about_from_setup(1)
+
+def setup(app: application.Sphinx) -> None:
     pass
 
 # -- Path setup --------------------------------------------------------------
@@ -40,21 +44,28 @@ needs_sphinx = '8.1.3'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'myst_parser',
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.doctest',
     'sphinx.ext.intersphinx',
    #'sphinx.ext.todo',
    #'sphinx.ext.coverage',
+    'sphinx.ext.viewcode',
     'sphinx.ext.ifconfig',
     'sphinx.ext.napoleon',
     'sphinx_autodoc_typehints',
-   #'sphinx_toolbox',
     'sphinx_tabs.tabs',
+    'sphinx-prompt',
     'sphinx_copybutton',
     'sphinxcontrib.spelling',
     'nbsphinx',
 ]
+
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.md':  'markdown',
+}
 
 # Needed for e.g. linkcheck builder
 tls_verify = False
@@ -93,6 +104,16 @@ html_static_path = ['_static']
 
 # -- Extension configuration -------------------------------------------------
 
+# -- Options for MyST extension ----------------------------------------------
+
+myst_enable_extensions = [
+    'colon_fence',      # ```{note} ... ```
+    'deflist',          # definitions list
+    'fieldlist',        # fields as in reST
+    'html_admonition',  # :::note
+    'html_image',       # ![alt](img.png)
+]
+
 # -- Options for autodoc extension -------------------------------------------
 
 autoclass_content = 'both'
@@ -113,3 +134,10 @@ apidoc_output_dir = 'api'
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
+
+# -- Options for linkcheck extension -----------------------------------------
+
+linkcheck_ignore = []
+doc_url = about.__urls__.get("Documentation")
+if doc_url is not None and os.getenv("PKG_INITIAL_BUILD") == "1":
+    linkcheck_ignore += [rf"{doc_url.rstrip('/')}(/.*)?"]

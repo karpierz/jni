@@ -5,7 +5,7 @@
 #include <Python.h>
 #include <structmember.h>
 
-#include "java/jdk/include/jni.h"
+#include <jni.h>
 
 #define member_size(type, member) sizeof(((type *)0)->member)
 
@@ -19,144 +19,12 @@ typedef struct {
 
 PyTypeObject _CData_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "CData",
+    .tp_name      = "jni.capi.CData",
     .tp_basicsize = sizeof(_CData_Object),
     .tp_flags     = Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE,
 };
 
 //------------ JNI Types -------------//
-
-//----- jint -----//
-
-typedef struct {
-    PyObject_HEAD
-    jint value;
-} jint_Object;
-
-static int jint_init(jint_Object* self, PyObject* args)
-{
-    jint value = 0;
-    if ( ! PyArg_ParseTuple(args, "|l", &value) )
-        return -1;
-    self->value = value;
-    return 0;
-}
-
-static int jint_bool(jint_Object* self)
-{
-    return !!self->value;
-}
-
-static PyNumberMethods jint_as_number = {
-    .nb_bool = (inquiry)jint_bool,
-};
-
-static PyMemberDef jint_members[] =
-{
-    {"value", T_LONG, offsetof(jint_Object, value)},
-    {NULL}
-};
-
-PyTypeObject jint_Type = {
-    PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jint",
-    .tp_basicsize = sizeof(jint_Object),
-    .tp_itemsize  = member_size(jint_Object, value),
-    .tp_flags     = Py_TPFLAGS_DEFAULT,
-    .tp_base      = &_CData_Type,
-    .tp_as_number = &jint_as_number,
-    .tp_members   = jint_members,
-    .tp_init      = (initproc)jint_init,
-    .tp_new       = PyType_GenericNew,
-};
-
-//----- jlong ----//
-
-typedef struct {
-    PyObject_HEAD
-    jlong value;
-} jlong_Object;
-
-static int jlong_init(jlong_Object* self, PyObject* args)
-{
-    jlong value = 0;
-    if ( ! PyArg_ParseTuple(args, "|L", &value) )
-        return -1;
-    self->value = value;
-    return 0;
-}
-
-static int jlong_bool(jlong_Object* self)
-{
-    return !!self->value;
-}
-
-static PyNumberMethods jlong_as_number = {
-    .nb_bool = (inquiry)jlong_bool,
-};
-
-static PyMemberDef jlong_members[] =
-{
-    {"value", T_LONGLONG, offsetof(jlong_Object, value)},
-    {NULL}
-};
-
-PyTypeObject jlong_Type = {
-    PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jlong",
-    .tp_basicsize = sizeof(jlong_Object),
-    .tp_itemsize  = member_size(jlong_Object, value),
-    .tp_flags     = Py_TPFLAGS_DEFAULT,
-    .tp_base      = &_CData_Type,
-    .tp_as_number = &jlong_as_number,
-    .tp_members   = jlong_members,
-    .tp_init      = (initproc)jlong_init,
-    .tp_new       = PyType_GenericNew,
-};
-
-//----- jbyte ----//
-
-typedef struct {
-    PyObject_HEAD
-    jbyte value;
-} jbyte_Object;
-
-static int jbyte_init(jbyte_Object* self, PyObject* args)
-{
-    jbyte value = 0;
-    if ( ! PyArg_ParseTuple(args, "|b", &value) )
-        return -1;
-    self->value = value;
-    return 0;
-}
-
-static int jbyte_bool(jbyte_Object* self)
-{
-    return !!self->value;
-}
-
-static PyNumberMethods jbyte_as_number = {
-    .nb_bool = (inquiry)jbyte_bool,
-};
-
-static PyMemberDef jbyte_members[] =
-{
-    {"value", T_BYTE, offsetof(jbyte_Object, value)},
-    {NULL}
-};
-
-PyTypeObject jbyte_Type = {
-    PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jbyte",
-    .tp_basicsize = sizeof(jbyte_Object),
-    .tp_itemsize  = member_size(jbyte_Object, value),
-    .tp_flags     = Py_TPFLAGS_DEFAULT,
-    .tp_base      = &_CData_Type,
-    .tp_as_number = &jbyte_as_number,
-    .tp_members   = jbyte_members,
-    .tp_init      = (initproc)jbyte_init,
-    .tp_new       = PyType_GenericNew,
-};
 
 //--- jboolean ---//
 
@@ -191,7 +59,7 @@ static PyMemberDef jboolean_members[] =
 
 PyTypeObject jboolean_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jboolean",
+    .tp_name      = "jni.capi.jboolean",
     .tp_basicsize = sizeof(jboolean_Object),
     .tp_itemsize  = member_size(jboolean_Object, value),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -255,7 +123,7 @@ static PyGetSetDef jchar_getsets[] =
 
 PyTypeObject jchar_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jchar",
+    .tp_name      = "jni.capi.jchar",
     .tp_basicsize = sizeof(jchar_Object),
     .tp_itemsize  = member_size(jchar_Object, value),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -263,6 +131,50 @@ PyTypeObject jchar_Type = {
     .tp_as_number = &jchar_as_number,
     .tp_getset    = jchar_getsets,
     .tp_init      = (initproc)jchar_init,
+    .tp_new       = PyType_GenericNew,
+};
+
+//----- jbyte ----//
+
+typedef struct {
+    PyObject_HEAD
+    jbyte value;
+} jbyte_Object;
+
+static int jbyte_init(jbyte_Object* self, PyObject* args)
+{
+    jbyte value = 0;
+    if ( ! PyArg_ParseTuple(args, "|b", &value) )
+        return -1;
+    self->value = value;
+    return 0;
+}
+
+static int jbyte_bool(jbyte_Object* self)
+{
+    return !!self->value;
+}
+
+static PyNumberMethods jbyte_as_number = {
+    .nb_bool = (inquiry)jbyte_bool,
+};
+
+static PyMemberDef jbyte_members[] =
+{
+    {"value", T_BYTE, offsetof(jbyte_Object, value)},
+    {NULL}
+};
+
+PyTypeObject jbyte_Type = {
+    PyVarObject_HEAD_INIT(NULL, 0)
+    .tp_name      = "jni.capi.jbyte",
+    .tp_basicsize = sizeof(jbyte_Object),
+    .tp_itemsize  = member_size(jbyte_Object, value),
+    .tp_flags     = Py_TPFLAGS_DEFAULT,
+    .tp_base      = &_CData_Type,
+    .tp_as_number = &jbyte_as_number,
+    .tp_members   = jbyte_members,
+    .tp_init      = (initproc)jbyte_init,
     .tp_new       = PyType_GenericNew,
 };
 
@@ -299,7 +211,7 @@ static PyMemberDef jshort_members[] =
 
 PyTypeObject jshort_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jshort",
+    .tp_name      = "jni.capi.jshort",
     .tp_basicsize = sizeof(jshort_Object),
     .tp_itemsize  = member_size(jshort_Object, value),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -307,6 +219,94 @@ PyTypeObject jshort_Type = {
     .tp_as_number = &jshort_as_number,
     .tp_members   = jshort_members,
     .tp_init      = (initproc)jshort_init,
+    .tp_new       = PyType_GenericNew,
+};
+
+//----- jint -----//
+
+typedef struct {
+    PyObject_HEAD
+    jint value;
+} jint_Object;
+
+static int jint_init(jint_Object* self, PyObject* args)
+{
+    jint value = 0;
+    if ( ! PyArg_ParseTuple(args, "|l", &value) )
+        return -1;
+    self->value = value;
+    return 0;
+}
+
+static int jint_bool(jint_Object* self)
+{
+    return !!self->value;
+}
+
+static PyNumberMethods jint_as_number = {
+    .nb_bool = (inquiry)jint_bool,
+};
+
+static PyMemberDef jint_members[] =
+{
+    {"value", T_LONG, offsetof(jint_Object, value)},
+    {NULL}
+};
+
+PyTypeObject jint_Type = {
+    PyVarObject_HEAD_INIT(NULL, 0)
+    .tp_name      = "jni.capi.jint",
+    .tp_basicsize = sizeof(jint_Object),
+    .tp_itemsize  = member_size(jint_Object, value),
+    .tp_flags     = Py_TPFLAGS_DEFAULT,
+    .tp_base      = &_CData_Type,
+    .tp_as_number = &jint_as_number,
+    .tp_members   = jint_members,
+    .tp_init      = (initproc)jint_init,
+    .tp_new       = PyType_GenericNew,
+};
+
+//----- jlong ----//
+
+typedef struct {
+    PyObject_HEAD
+    jlong value;
+} jlong_Object;
+
+static int jlong_init(jlong_Object* self, PyObject* args)
+{
+    jlong value = 0;
+    if ( ! PyArg_ParseTuple(args, "|L", &value) )
+        return -1;
+    self->value = value;
+    return 0;
+}
+
+static int jlong_bool(jlong_Object* self)
+{
+    return !!self->value;
+}
+
+static PyNumberMethods jlong_as_number = {
+    .nb_bool = (inquiry)jlong_bool,
+};
+
+static PyMemberDef jlong_members[] =
+{
+    {"value", T_LONGLONG, offsetof(jlong_Object, value)},
+    {NULL}
+};
+
+PyTypeObject jlong_Type = {
+    PyVarObject_HEAD_INIT(NULL, 0)
+    .tp_name      = "jni.capi.jlong",
+    .tp_basicsize = sizeof(jlong_Object),
+    .tp_itemsize  = member_size(jlong_Object, value),
+    .tp_flags     = Py_TPFLAGS_DEFAULT,
+    .tp_base      = &_CData_Type,
+    .tp_as_number = &jlong_as_number,
+    .tp_members   = jlong_members,
+    .tp_init      = (initproc)jlong_init,
     .tp_new       = PyType_GenericNew,
 };
 
@@ -343,7 +343,7 @@ static PyMemberDef jfloat_members[] =
 
 PyTypeObject jfloat_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jfloat",
+    .tp_name      = "jni.capi.jfloat",
     .tp_basicsize = sizeof(jfloat_Object),
     .tp_itemsize  = member_size(jfloat_Object, value),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -387,7 +387,7 @@ static PyMemberDef jdouble_members[] =
 
 PyTypeObject jdouble_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jdouble",
+    .tp_name      = "jni.capi.jdouble",
     .tp_basicsize = sizeof(jdouble_Object),
     .tp_itemsize  = member_size(jdouble_Object, value),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -457,10 +457,10 @@ static PyGetSetDef jobject_getsets[] =
 
 PyTypeObject jobject_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jobject",
+    .tp_name      = "jni.capi.jobject",
     .tp_basicsize = sizeof(jobject_Object),
     .tp_itemsize  = member_size(jobject_Object, value),
-    .tp_flags     = Py_TPFLAGS_DEFAULT,
+    .tp_flags     = Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE,
     .tp_base      = &_CData_Type,
     .tp_as_number = &jobject_as_number,
     .tp_getset    = jobject_getsets,
@@ -470,20 +470,145 @@ PyTypeObject jobject_Type = {
 
 //-- jclass ... --//
 
-#define jclass_Type        jobject_Type
-#define jthrowable_Type    jobject_Type
-#define jstring_Type       jobject_Type
-#define jarray_Type        jobject_Type
-#define jbooleanArray_Type jarray_Type
-#define jbyteArray_Type    jarray_Type
-#define jcharArray_Type    jarray_Type
-#define jshortArray_Type   jarray_Type
-#define jintArray_Type     jarray_Type
-#define jlongArray_Type    jarray_Type
-#define jfloatArray_Type   jarray_Type
-#define jdoubleArray_Type  jarray_Type
-#define jobjectArray_Type  jarray_Type
-#define jweak_Type         jobject_Type
+static PyTypeObject jclass_Type = {
+    PyVarObject_HEAD_INIT(NULL, 0)
+    .tp_name      = "jni.capi.jclass",
+    .tp_basicsize = sizeof(jobject_Object),
+    .tp_itemsize  = member_size(jobject_Object, value),
+    .tp_flags     = Py_TPFLAGS_DEFAULT,
+    .tp_base      = &jobject_Type,
+    .tp_new       = PyType_GenericNew,
+};
+
+//-- jthrowable ... --//
+
+static PyTypeObject jthrowable_Type = {
+    PyVarObject_HEAD_INIT(NULL, 0)
+    .tp_name      = "jni.capi.jthrowable",
+    .tp_basicsize = sizeof(jobject_Object),
+    .tp_itemsize  = member_size(jobject_Object, value),
+    .tp_flags     = Py_TPFLAGS_DEFAULT,
+    .tp_base      = &jobject_Type,
+    .tp_new       = PyType_GenericNew,
+};
+
+//-- jstring ... --//
+
+static PyTypeObject jstring_Type = {
+    PyVarObject_HEAD_INIT(NULL, 0)
+    .tp_name      = "jni.capi.jstring",
+    .tp_basicsize = sizeof(jobject_Object),
+    .tp_itemsize  = member_size(jobject_Object, value),
+    .tp_flags     = Py_TPFLAGS_DEFAULT,
+    .tp_base      = &jobject_Type,
+    .tp_new       = PyType_GenericNew,
+};
+
+//-- jarays's ... --//
+
+static PyTypeObject jarray_Type = {
+    PyVarObject_HEAD_INIT(NULL, 0)
+    .tp_name      = "jni.capi.jarray",
+    .tp_basicsize = sizeof(jobject_Object),
+    .tp_itemsize  = member_size(jobject_Object, value),
+    .tp_flags     = Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE,
+    .tp_base      = &jobject_Type,
+    .tp_new       = PyType_GenericNew,
+};
+
+static PyTypeObject jbooleanArray_Type = {
+    PyVarObject_HEAD_INIT(NULL, 0)
+    .tp_name      = "jni.capi.jbooleanArray",
+    .tp_basicsize = sizeof(jobject_Object),
+    .tp_itemsize  = member_size(jobject_Object, value),
+    .tp_flags     = Py_TPFLAGS_DEFAULT,
+    .tp_base      = &jarray_Type,
+    .tp_new       = PyType_GenericNew,
+};
+
+static PyTypeObject jcharArray_Type = {
+    PyVarObject_HEAD_INIT(NULL, 0)
+    .tp_name      = "jni.capi.jcharArray",
+    .tp_basicsize = sizeof(jobject_Object),
+    .tp_itemsize  = member_size(jobject_Object, value),
+    .tp_flags     = Py_TPFLAGS_DEFAULT,
+    .tp_base      = &jarray_Type,
+    .tp_new       = PyType_GenericNew,
+};
+
+static PyTypeObject jbyteArray_Type = {
+    PyVarObject_HEAD_INIT(NULL, 0)
+    .tp_name      = "jni.capi.jbyteArray",
+    .tp_basicsize = sizeof(jobject_Object),
+    .tp_itemsize  = member_size(jobject_Object, value),
+    .tp_flags     = Py_TPFLAGS_DEFAULT,
+    .tp_base      = &jarray_Type,
+    .tp_new       = PyType_GenericNew,
+};
+
+static PyTypeObject jshortArray_Type = {
+    PyVarObject_HEAD_INIT(NULL, 0)
+    .tp_name      = "jni.capi.jshortArray",
+    .tp_basicsize = sizeof(jobject_Object),
+    .tp_itemsize  = member_size(jobject_Object, value),
+    .tp_flags     = Py_TPFLAGS_DEFAULT,
+    .tp_base      = &jarray_Type,
+    .tp_new       = PyType_GenericNew,
+};
+
+static PyTypeObject jintArray_Type = {
+    PyVarObject_HEAD_INIT(NULL, 0)
+    .tp_name      = "jni.capi.jintArray",
+    .tp_basicsize = sizeof(jobject_Object),
+    .tp_itemsize  = member_size(jobject_Object, value),
+    .tp_flags     = Py_TPFLAGS_DEFAULT,
+    .tp_base      = &jarray_Type,
+    .tp_new       = PyType_GenericNew,
+};
+
+static PyTypeObject jlongArray_Type = {
+    PyVarObject_HEAD_INIT(NULL, 0)
+    .tp_name      = "jni.capi.jlongArray",
+    .tp_basicsize = sizeof(jobject_Object),
+    .tp_itemsize  = member_size(jobject_Object, value),
+    .tp_flags     = Py_TPFLAGS_DEFAULT,
+    .tp_base      = &jarray_Type,
+    .tp_new       = PyType_GenericNew,
+};
+
+static PyTypeObject jfloatArray_Type = {
+    PyVarObject_HEAD_INIT(NULL, 0)
+    .tp_name      = "jni.capi.jfloatArray",
+    .tp_basicsize = sizeof(jobject_Object),
+    .tp_itemsize  = member_size(jobject_Object, value),
+    .tp_flags     = Py_TPFLAGS_DEFAULT,
+    .tp_base      = &jarray_Type,
+    .tp_new       = PyType_GenericNew,
+};
+
+static PyTypeObject jdoubleArray_Type = {
+    PyVarObject_HEAD_INIT(NULL, 0)
+    .tp_name      = "jni.capi.jdoubleArray",
+    .tp_basicsize = sizeof(jobject_Object),
+    .tp_itemsize  = member_size(jobject_Object, value),
+    .tp_flags     = Py_TPFLAGS_DEFAULT,
+    .tp_base      = &jarray_Type,
+    .tp_new       = PyType_GenericNew,
+};
+
+static PyTypeObject jobjectArray_Type = {
+    PyVarObject_HEAD_INIT(NULL, 0)
+    .tp_name      = "jni.capi.jobjectArray",
+    .tp_basicsize = sizeof(jobject_Object),
+    .tp_itemsize  = member_size(jobject_Object, value),
+    .tp_flags     = Py_TPFLAGS_DEFAULT,
+    .tp_base      = &jarray_Type,
+    .tp_new       = PyType_GenericNew,
+};
+
+//-- jweak ... --//
+
+#define jweak_Type jobject_Type
 
 //---- jvalue ----//
 
@@ -689,7 +814,7 @@ static PyGetSetDef jvalue_getsets[] =
 
 PyTypeObject jvalue_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jvalue",
+    .tp_name      = "jni.capi.jvalue",
     .tp_basicsize = sizeof(jvalue_Object),
     .tp_itemsize  = member_size(jvalue_Object, this),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -753,7 +878,7 @@ static PyGetSetDef jfieldID_getsets[] =
 
 PyTypeObject jfieldID_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jfieldID",
+    .tp_name      = "jni.capi.jfieldID",
     .tp_basicsize = sizeof(jfieldID_Object),
     .tp_itemsize  = member_size(jfieldID_Object, value),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -819,7 +944,7 @@ static PyGetSetDef jmethodID_getsets[] =
 
 PyTypeObject jmethodID_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "jmethodID",
+    .tp_name      = "jni.capi.jmethodID",
     .tp_basicsize = sizeof(jmethodID_Object),
     .tp_itemsize  = member_size(jmethodID_Object, value),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -841,8 +966,8 @@ PyTypeObject jmethodID_Type = {
 
 //---- JNI Native Method Interface ---//
 
-// used in RegisterNatives to describe native method name,
-// signature, and function pointer.
+// used in RegisterNatives to describe native method name, signature,
+// and function pointer.
 
 typedef struct {
     PyObject_HEAD
@@ -921,7 +1046,7 @@ static PyGetSetDef JNINativeMethod_getsets[] =
 
 PyTypeObject JNINativeMethod_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "JNINativeMethod",
+    .tp_name      = "jni.capi.JNINativeMethod",
     .tp_basicsize = sizeof(JNINativeMethod_Object),
     .tp_itemsize  = member_size(JNINativeMethod_Object, this),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -991,7 +1116,7 @@ static PyGetSetDef JavaVMOption_getsets[] =
 
 PyTypeObject JavaVMOption_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "JavaVMOption",
+    .tp_name      = "jni.capi.JavaVMOption",
     .tp_basicsize = sizeof(JavaVMOption_Object),
     .tp_itemsize  = member_size(JavaVMOption_Object, this),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -1102,7 +1227,7 @@ static PyGetSetDef JavaVMInitArgs_getsets[] =
 
 PyTypeObject JavaVMInitArgs_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "JavaVMInitArgs",
+    .tp_name      = "jni.capi.JavaVMInitArgs",
     .tp_basicsize = sizeof(JavaVMInitArgs_Object),/* tp_basicsize */
     .tp_itemsize  = member_size(JavaVMInitArgs_Object, this),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -1191,7 +1316,7 @@ static PyGetSetDef JavaVMAttachArgs_getsets[] =
 
 PyTypeObject JavaVMAttachArgs_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "JavaVMAttachArgs",
+    .tp_name      = "jni.capi.JavaVMAttachArgs",
     .tp_basicsize = sizeof(JavaVMAttachArgs_Object),
     .tp_itemsize  = member_size(JavaVMAttachArgs_Object, this),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -1223,8 +1348,8 @@ static PyObject* _handle_JavaException(JNIEnv_Object* self)
     //jexc = fun.NewGlobalRef(self, jthr)
     //fun.DeleteLocalRef(self, jthr)
     //if Throwable.last:
-    //    cause = Throwable.last.getCause()
-    //    if cause: fun.DeleteGlobalRef(self, cause)
+    //    jthr = Throwable.last.getJThrowable()
+    //    if jthr: fun.DeleteGlobalRef(self, jthr)
     //    Throwable.last = None
     //fun.ExceptionClear(self)
     //Throwable.last = thr = Throwable(jexc)#!!!, fname)
@@ -1240,6 +1365,1562 @@ static PyObject* GetVersion(JNIEnv_Object* self)
     jint ret = jenv->GetVersion(&jenv);
     return PyLong_FromLong((long)ret);
 }
+
+/*
+static PyObject* jint GetVersion()
+{
+    j??? ret = jenv->GetVersion(&jenv);
+}
+
+static PyObject* jclass DefineClass(const char *name, jobject loader, const jbyte *buf,
+                       jsize len)
+{
+    j??? ret = jenv->DefineClass(&jenv, name, loader, buf, len);
+}
+
+static PyObject* jclass FindClass(const char *name)
+{
+    j??? ret = jenv->FindClass(&jenv, name);
+}
+
+static PyObject* jmethodID FromReflectedMethod(jobject method)
+{
+    j??? ret = jenv->FromReflectedMethod(&jenv,method);
+}
+
+static PyObject* jfieldID FromReflectedField(jobject field)
+{
+    j??? ret = jenv->FromReflectedField(&jenv,field);
+}
+
+
+static PyObject* jobject ToReflectedMethod(jclass cls, jmethodID methodID, jboolean isStatic)
+{
+    j??? ret = jenv->ToReflectedMethod(&jenv, cls, methodID, isStatic);
+}
+
+
+static PyObject* jclass GetSuperclass(jclass sub)
+{
+    j??? ret = jenv->GetSuperclass(&jenv, sub);
+}
+
+static PyObject* jboolean IsAssignableFrom(jclass sub, jclass sup)
+{
+    j??? ret = jenv->IsAssignableFrom(&jenv, sub, sup);
+}
+
+
+static PyObject* jobject ToReflectedField(jclass cls, jfieldID fieldID, jboolean isStatic)
+{
+    j??? ret = jenv->ToReflectedField(&jenv,cls,fieldID,isStatic);
+}
+
+
+static PyObject* jint Throw(jthrowable obj)
+{
+    j??? ret = jenv->Throw(&jenv, obj);
+}
+
+static PyObject* jint ThrowNew(jclass clazz, const char *msg)
+{
+    j??? ret = jenv->ThrowNew(&jenv, clazz, msg);
+}
+
+static PyObject* jthrowable ExceptionOccurred()
+{
+    j??? ret = jenv->ExceptionOccurred(&jenv);
+}
+
+static PyObject* ExceptionDescribe()
+{
+    jenv->ExceptionDescribe(&jenv);
+}
+
+static PyObject* ExceptionClear()
+{
+    jenv->ExceptionClear(&jenv);
+}
+
+static PyObject* FatalError(const char *msg)
+{
+    jenv->FatalError(&jenv, msg);
+}
+
+
+static PyObject* jint PushLocalFrame(jint capacity)
+{
+    j??? ret = jenv->PushLocalFrame(&jenv,capacity);
+}
+
+static PyObject* jobject PopLocalFrame(jobject result)
+{
+    j??? ret = jenv->PopLocalFrame(&jenv,result);
+}
+
+
+static PyObject* jobject NewGlobalRef(jobject lobj)
+{
+    j??? ret = jenv->NewGlobalRef(&jenv,lobj);
+}
+
+static PyObject* DeleteGlobalRef(jobject gref)
+{
+    jenv->DeleteGlobalRef(&jenv,gref);
+}
+
+static PyObject* DeleteLocalRef(jobject obj)
+{
+    jenv->DeleteLocalRef(&jenv, obj);
+}
+
+
+static PyObject* jboolean IsSameObject(jobject obj1, jobject obj2)
+{
+    j??? ret = jenv->IsSameObject(&jenv,obj1,obj2);
+}
+
+
+static PyObject* jobject NewLocalRef(jobject ref)
+{
+    j??? ret = jenv->NewLocalRef(&jenv,ref);
+}
+
+static PyObject* jint EnsureLocalCapacity(jint capacity)
+{
+    j??? ret = jenv->EnsureLocalCapacity(&jenv,capacity);
+}
+
+
+static PyObject* jobject AllocObject(jclass clazz)
+{
+    j??? ret = jenv->AllocObject(&jenv,clazz);
+}
+
+static PyObject* jobject NewObject(jclass clazz, jmethodID methodID, ...)
+{
+        va_list args;
+        jobject result;
+        va_start(args, methodID);
+        result = functions->NewObjectV(&jenv,clazz,methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jobject NewObjectV(jclass clazz, jmethodID methodID,
+                       va_list args)
+{
+    j??? ret = jenv->NewObjectV(&jenv,clazz,methodID,args);
+}
+
+static PyObject* jobject NewObjectA(jclass clazz, jmethodID methodID,
+                       const jvalue *args)
+{
+    j??? ret = jenv->NewObjectA(&jenv,clazz,methodID,args);
+}
+
+
+static PyObject* jclass GetObjectClass(jobject obj)
+{
+    j??? ret = jenv->GetObjectClass(&jenv,obj);
+}
+
+static PyObject* jboolean IsInstanceOf(jobject obj, jclass clazz)
+{
+    j??? ret = jenv->IsInstanceOf(&jenv,obj,clazz);
+}
+
+
+static PyObject* jmethodID GetMethodID(jclass clazz, const char *name,
+                          const char *sig)
+{
+    j??? ret = jenv->GetMethodID(&jenv,clazz,name,sig);
+}
+
+
+static PyObject* jobject CallObjectMethod(jobject obj, jmethodID methodID, ...)
+{
+        va_list args;
+        jobject result;
+        va_start(args,methodID);
+        result = functions->CallObjectMethodV(&jenv,obj,methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jobject CallObjectMethodV(jobject obj, jmethodID methodID,
+                        va_list args)
+{
+    j??? ret = jenv->CallObjectMethodV(&jenv,obj,methodID,args);
+}
+
+static PyObject* jobject CallObjectMethodA(jobject obj, jmethodID methodID,
+                        const jvalue * args)
+{
+    j??? ret = jenv->CallObjectMethodA(&jenv,obj,methodID,args);
+}
+
+
+static PyObject* jboolean CallBooleanMethod(jobject obj,
+                               jmethodID methodID, ...)
+{
+        va_list args;
+        jboolean result;
+        va_start(args,methodID);
+        result = functions->CallBooleanMethodV(&jenv,obj,methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jboolean CallBooleanMethodV(jobject obj, jmethodID methodID,
+                                va_list args)
+{
+    j??? ret = jenv->CallBooleanMethodV(&jenv,obj,methodID,args);
+}
+
+static PyObject* jboolean CallBooleanMethodA(jobject obj, jmethodID methodID,
+                                const jvalue * args)
+{
+    j??? ret = jenv->CallBooleanMethodA(&jenv,obj,methodID, args);
+}
+
+
+static PyObject* jbyte CallByteMethod(jobject obj, jmethodID methodID, ...)
+{
+        va_list args;
+        jbyte result;
+        va_start(args,methodID);
+        result = functions->CallByteMethodV(&jenv,obj,methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jbyte CallByteMethodV(jobject obj, jmethodID methodID,
+                          va_list args)
+{
+    j??? ret = jenv->CallByteMethodV(&jenv,obj,methodID,args);
+}
+
+static PyObject* jbyte CallByteMethodA(jobject obj, jmethodID methodID,
+                          const jvalue * args)
+{
+    j??? ret = jenv->CallByteMethodA(&jenv,obj,methodID,args);
+}
+
+
+static PyObject* jchar CallCharMethod(jobject obj, jmethodID methodID, ...)
+{
+        va_list args;
+        jchar result;
+        va_start(args,methodID);
+        result = functions->CallCharMethodV(&jenv,obj,methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jchar CallCharMethodV(jobject obj, jmethodID methodID,
+                          va_list args)
+{
+    j??? ret = jenv->CallCharMethodV(&jenv,obj,methodID,args);
+}
+
+static PyObject* jchar CallCharMethodA(jobject obj, jmethodID methodID,
+                          const jvalue * args)
+{
+    j??? ret = jenv->CallCharMethodA(&jenv,obj,methodID,args);
+}
+
+
+static PyObject* jshort CallShortMethod(jobject obj, jmethodID methodID, ...)
+{
+        va_list args;
+        jshort result;
+        va_start(args,methodID);
+        result = functions->CallShortMethodV(&jenv,obj,methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jshort CallShortMethodV(jobject obj, jmethodID methodID,
+                            va_list args)
+{
+    j??? ret = jenv->CallShortMethodV(&jenv,obj,methodID,args);
+}
+
+static PyObject* jshort CallShortMethodA(jobject obj, jmethodID methodID,
+                            const jvalue * args)
+{
+    j??? ret = jenv->CallShortMethodA(&jenv,obj,methodID,args);
+}
+
+
+static PyObject* jint CallIntMethod(jobject obj, jmethodID methodID, ...)
+{
+        va_list args;
+        jint result;
+        va_start(args,methodID);
+        result = functions->CallIntMethodV(&jenv,obj,methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jint CallIntMethodV(jobject obj, jmethodID methodID,
+                        va_list args)
+{
+    j??? ret = jenv->CallIntMethodV(&jenv,obj,methodID,args);
+}
+
+static PyObject* jint CallIntMethodA(jobject obj, jmethodID methodID,
+                        const jvalue * args)
+{
+    j??? ret = jenv->CallIntMethodA(&jenv,obj,methodID,args);
+}
+
+
+static PyObject* jlong CallLongMethod(jobject obj, jmethodID methodID, ...)
+{
+        va_list args;
+        jlong result;
+        va_start(args,methodID);
+        result = functions->CallLongMethodV(&jenv,obj,methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jlong CallLongMethodV(jobject obj, jmethodID methodID,
+                          va_list args)
+{
+    j??? ret = jenv->CallLongMethodV(&jenv,obj,methodID,args);
+}
+
+static PyObject* jlong CallLongMethodA(jobject obj, jmethodID methodID,
+                          const jvalue * args)
+{
+    j??? ret = jenv->CallLongMethodA(&jenv,obj,methodID,args);
+}
+
+
+static PyObject* jfloat CallFloatMethod(jobject obj, jmethodID methodID, ...)
+{
+        va_list args;
+        jfloat result;
+        va_start(args,methodID);
+        result = functions->CallFloatMethodV(&jenv,obj,methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jfloat CallFloatMethodV(jobject obj, jmethodID methodID,
+                            va_list args)
+{
+    j??? ret = jenv->CallFloatMethodV(&jenv,obj,methodID,args);
+}
+
+static PyObject* jfloat CallFloatMethodA(jobject obj, jmethodID methodID,
+                            const jvalue * args)
+{
+    j??? ret = jenv->CallFloatMethodA(&jenv,obj,methodID,args);
+}
+
+
+static PyObject* jdouble CallDoubleMethod(jobject obj, jmethodID methodID, ...)
+{
+        va_list args;
+        jdouble result;
+        va_start(args,methodID);
+        result = functions->CallDoubleMethodV(&jenv,obj,methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jdouble CallDoubleMethodV(jobject obj, jmethodID methodID,
+                        va_list args)
+{
+    j??? ret = jenv->CallDoubleMethodV(&jenv,obj,methodID,args);
+}
+
+static PyObject* jdouble CallDoubleMethodA(jobject obj, jmethodID methodID,
+                        const jvalue * args)
+{
+    j??? ret = jenv->CallDoubleMethodA(&jenv,obj,methodID,args);
+}
+
+
+static PyObject* CallVoidMethod(jobject obj, jmethodID methodID, ...)
+{
+        va_list args;
+        va_start(args,methodID);
+    jenv->CallVoidMethodV(&jenv,obj,methodID,args);
+        va_end(args);
+}
+
+static PyObject* CallVoidMethodV(jobject obj, jmethodID methodID,
+                         va_list args)
+{
+    jenv->CallVoidMethodV(&jenv,obj,methodID,args);
+}
+
+static PyObject* CallVoidMethodA(jobject obj, jmethodID methodID,
+                         const jvalue * args)
+{
+    jenv->CallVoidMethodA(&jenv,obj,methodID,args);
+}
+
+
+static PyObject* jobject CallNonvirtualObjectMethod(jobject obj, jclass clazz,
+                                       jmethodID methodID, ...)
+{
+        va_list args;
+        jobject result;
+        va_start(args,methodID);
+        result = functions->CallNonvirtualObjectMethodV(&jenv,obj,clazz,
+                                                        methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jobject CallNonvirtualObjectMethodV(jobject obj, jclass clazz,
+                                        jmethodID methodID, va_list args)
+{
+    j??? ret = jenv->CallNonvirtualObjectMethodV(&jenv,obj,clazz,
+                                                      methodID,args);
+}
+
+static PyObject* jobject CallNonvirtualObjectMethodA(jobject obj, jclass clazz,
+                                        jmethodID methodID, const jvalue * args)
+{
+    j??? ret = jenv->CallNonvirtualObjectMethodA(&jenv,obj,clazz,
+                                                      methodID,args);
+}
+
+
+static PyObject* jboolean CallNonvirtualBooleanMethod(jobject obj, jclass clazz,
+                                         jmethodID methodID, ...)
+{
+        va_list args;
+        jboolean result;
+        va_start(args,methodID);
+        result = functions->CallNonvirtualBooleanMethodV(&jenv,obj,clazz,
+                                                         methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jboolean CallNonvirtualBooleanMethodV(jobject obj, jclass clazz,
+                                          jmethodID methodID, va_list args)
+{
+    j??? ret = jenv->CallNonvirtualBooleanMethodV(&jenv,obj,clazz,
+                                                       methodID,args);
+}
+
+static PyObject* jboolean CallNonvirtualBooleanMethodA(jobject obj, jclass clazz,
+                                          jmethodID methodID, const jvalue * args)
+{
+    j??? ret = jenv->CallNonvirtualBooleanMethodA(&jenv,obj,clazz,
+                                                       methodID, args);
+}
+
+
+static PyObject* jbyte CallNonvirtualByteMethod(jobject obj, jclass clazz,
+                                   jmethodID methodID, ...)
+{
+        va_list args;
+        jbyte result;
+        va_start(args,methodID);
+        result = functions->CallNonvirtualByteMethodV(&jenv,obj,clazz,
+                                                      methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jbyte CallNonvirtualByteMethodV(jobject obj, jclass clazz,
+                                    jmethodID methodID, va_list args)
+{
+    j??? ret = jenv->CallNonvirtualByteMethodV(&jenv,obj,clazz,
+                                                    methodID,args);
+}
+
+static PyObject* jbyte CallNonvirtualByteMethodA(jobject obj, jclass clazz,
+                                    jmethodID methodID, const jvalue * args)
+{
+    j??? ret = jenv->CallNonvirtualByteMethodA(&jenv,obj,clazz,
+                                                    methodID,args);
+}
+
+
+static PyObject* jchar CallNonvirtualCharMethod(jobject obj, jclass clazz,
+                                   jmethodID methodID, ...)
+{
+        va_list args;
+        jchar result;
+        va_start(args,methodID);
+        result = functions->CallNonvirtualCharMethodV(&jenv,obj,clazz,
+                                                      methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jchar CallNonvirtualCharMethodV(jobject obj, jclass clazz,
+                                    jmethodID methodID, va_list args)
+{
+    j??? ret = jenv->CallNonvirtualCharMethodV(&jenv,obj,clazz,
+                                                    methodID,args);
+}
+
+static PyObject* jchar CallNonvirtualCharMethodA(jobject obj, jclass clazz,
+                                    jmethodID methodID, const jvalue * args)
+{
+    j??? ret = jenv->CallNonvirtualCharMethodA(&jenv,obj,clazz,
+                                                    methodID,args);
+}
+
+
+static PyObject* jshort CallNonvirtualShortMethod(jobject obj, jclass clazz,
+                                     jmethodID methodID, ...)
+{
+        va_list args;
+        jshort result;
+        va_start(args,methodID);
+        result = functions->CallNonvirtualShortMethodV(&jenv,obj,clazz,
+                                                       methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jshort CallNonvirtualShortMethodV(jobject obj, jclass clazz,
+                                      jmethodID methodID, va_list args)
+{
+    j??? ret = jenv->CallNonvirtualShortMethodV(&jenv,obj,clazz,
+                                                     methodID,args);
+}
+
+static PyObject* jshort CallNonvirtualShortMethodA(jobject obj, jclass clazz,
+                                      jmethodID methodID, const jvalue * args)
+{
+    j??? ret = jenv->CallNonvirtualShortMethodA(&jenv,obj,clazz,
+                                                     methodID,args);
+}
+
+
+static PyObject* jint CallNonvirtualIntMethod(jobject obj, jclass clazz,
+                                 jmethodID methodID, ...)
+{
+        va_list args;
+        jint result;
+        va_start(args,methodID);
+        result = functions->CallNonvirtualIntMethodV(&jenv,obj,clazz,
+                                                     methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jint CallNonvirtualIntMethodV(jobject obj, jclass clazz,
+                                  jmethodID methodID, va_list args)
+{
+    j??? ret = jenv->CallNonvirtualIntMethodV(&jenv,obj,clazz,
+                                                   methodID,args);
+}
+
+static PyObject* jint CallNonvirtualIntMethodA(jobject obj, jclass clazz,
+                                  jmethodID methodID, const jvalue * args)
+{
+    j??? ret = jenv->CallNonvirtualIntMethodA(&jenv,obj,clazz,
+                                                   methodID,args);
+}
+
+
+static PyObject* jlong CallNonvirtualLongMethod(jobject obj, jclass clazz,
+                                   jmethodID methodID, ...)
+{
+        va_list args;
+        jlong result;
+        va_start(args,methodID);
+        result = functions->CallNonvirtualLongMethodV(&jenv,obj,clazz,
+                                                      methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jlong CallNonvirtualLongMethodV(jobject obj, jclass clazz,
+                                    jmethodID methodID, va_list args)
+{
+    j??? ret = jenv->CallNonvirtualLongMethodV(&jenv,obj,clazz,
+                                                    methodID,args);
+}
+
+static PyObject* jlong CallNonvirtualLongMethodA(jobject obj, jclass clazz,
+                                    jmethodID methodID, const jvalue * args)
+{
+    j??? ret = jenv->CallNonvirtualLongMethodA(&jenv,obj,clazz,
+                                                    methodID,args);
+}
+
+
+static PyObject* jfloat CallNonvirtualFloatMethod(jobject obj, jclass clazz,
+                                     jmethodID methodID, ...)
+{
+        va_list args;
+        jfloat result;
+        va_start(args,methodID);
+        result = functions->CallNonvirtualFloatMethodV(&jenv,obj,clazz,
+                                                       methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jfloat CallNonvirtualFloatMethodV(jobject obj, jclass clazz,
+                                      jmethodID methodID,
+                                      va_list args)
+{
+    j??? ret = jenv->CallNonvirtualFloatMethodV(&jenv,obj,clazz,
+                                                     methodID,args);
+}
+
+static PyObject* jfloat CallNonvirtualFloatMethodA(jobject obj, jclass clazz,
+                                      jmethodID methodID,
+                                      const jvalue * args)
+{
+    j??? ret = jenv->CallNonvirtualFloatMethodA(&jenv,obj,clazz,
+                                                     methodID,args);
+}
+
+
+static PyObject* jdouble CallNonvirtualDoubleMethod(jobject obj, jclass clazz,
+                                       jmethodID methodID, ...)
+{
+        va_list args;
+        jdouble result;
+        va_start(args,methodID);
+        result = functions->CallNonvirtualDoubleMethodV(&jenv,obj,clazz,
+                                                        methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jdouble CallNonvirtualDoubleMethodV(jobject obj, jclass clazz,
+                                        jmethodID methodID,
+                                        va_list args)
+{
+    j??? ret = jenv->CallNonvirtualDoubleMethodV(&jenv,obj,clazz,
+                                                      methodID,args);
+}
+
+static PyObject* jdouble CallNonvirtualDoubleMethodA(jobject obj, jclass clazz,
+                                        jmethodID methodID,
+                                        const jvalue * args)
+{
+    j??? ret = jenv->CallNonvirtualDoubleMethodA(&jenv,obj,clazz,
+                                                      methodID,args);
+}
+
+
+static PyObject* CallNonvirtualVoidMethod(jobject obj, jclass clazz,
+                                  jmethodID methodID, ...)
+{
+        va_list args;
+        va_start(args,methodID);
+    jenv->CallNonvirtualVoidMethodV(&jenv,obj,clazz,methodID,args);
+        va_end(args);
+}
+
+static PyObject* CallNonvirtualVoidMethodV(jobject obj, jclass clazz,
+                                   jmethodID methodID,
+                                   va_list args)
+{
+    jenv->CallNonvirtualVoidMethodV(&jenv,obj,clazz,methodID,args);
+}
+
+static PyObject* CallNonvirtualVoidMethodA(jobject obj, jclass clazz,
+                                   jmethodID methodID,
+                                   const jvalue * args)
+{
+    jenv->CallNonvirtualVoidMethodA(&jenv,obj,clazz,methodID,args);
+}
+
+
+static PyObject* jfieldID GetFieldID(jclass clazz, const char *name,
+                        const char *sig)
+{
+    j??? ret = jenv->GetFieldID(&jenv,clazz,name,sig);
+}
+
+
+static PyObject* jobject GetObjectField(jobject obj, jfieldID fieldID)
+{
+    j??? ret = jenv->GetObjectField(&jenv,obj,fieldID);
+}
+
+static PyObject* jboolean GetBooleanField(jobject obj, jfieldID fieldID)
+{
+    j??? ret = jenv->GetBooleanField(&jenv,obj,fieldID);
+}
+
+static PyObject* jbyte GetByteField(jobject obj, jfieldID fieldID)
+{
+    j??? ret = jenv->GetByteField(&jenv,obj,fieldID);
+}
+
+static PyObject* jchar GetCharField(jobject obj, jfieldID fieldID)
+{
+    j??? ret = jenv->GetCharField(&jenv,obj,fieldID);
+}
+
+static PyObject* jshort GetShortField(jobject obj, jfieldID fieldID)
+{
+    j??? ret = jenv->GetShortField(&jenv,obj,fieldID);
+}
+
+static PyObject* jint GetIntField(jobject obj, jfieldID fieldID)
+{
+    j??? ret = jenv->GetIntField(&jenv,obj,fieldID);
+}
+
+static PyObject* jlong GetLongField(jobject obj, jfieldID fieldID)
+{
+    j??? ret = jenv->GetLongField(&jenv,obj,fieldID);
+}
+
+static PyObject* jfloat GetFloatField(jobject obj, jfieldID fieldID)
+{
+    j??? ret = jenv->GetFloatField(&jenv,obj,fieldID);
+}
+
+static PyObject* jdouble GetDoubleField(jobject obj, jfieldID fieldID)
+{
+    j??? ret = jenv->GetDoubleField(&jenv,obj,fieldID);
+}
+
+
+static PyObject* SetObjectField(jobject obj, jfieldID fieldID, jobject val)
+{
+    jenv->SetObjectField(&jenv,obj,fieldID,val);
+}
+
+static PyObject* SetBooleanField(jobject obj, jfieldID fieldID,
+                         jboolean val)
+{
+    jenv->SetBooleanField(&jenv,obj,fieldID,val);
+}
+
+static PyObject* SetByteField(jobject obj, jfieldID fieldID,
+                      jbyte val)
+{
+    jenv->SetByteField(&jenv,obj,fieldID,val);
+}
+
+static PyObject* SetCharField(jobject obj, jfieldID fieldID,
+                      jchar val)
+{
+    jenv->SetCharField(&jenv,obj,fieldID,val);
+}
+
+static PyObject* SetShortField(jobject obj, jfieldID fieldID,
+                       jshort val)
+{
+    jenv->SetShortField(&jenv,obj,fieldID,val);
+}
+
+static PyObject* SetIntField(jobject obj, jfieldID fieldID,
+                     jint val)
+{
+    jenv->SetIntField(&jenv,obj,fieldID,val);
+}
+
+static PyObject* SetLongField(jobject obj, jfieldID fieldID,
+                      jlong val)
+{
+    jenv->SetLongField(&jenv,obj,fieldID,val);
+}
+
+static PyObject* SetFloatField(jobject obj, jfieldID fieldID,
+                       jfloat val)
+{
+    jenv->SetFloatField(&jenv,obj,fieldID,val);
+}
+
+static PyObject* SetDoubleField(jobject obj, jfieldID fieldID,
+                        jdouble val)
+{
+    jenv->SetDoubleField(&jenv,obj,fieldID,val);
+}
+
+
+static PyObject* jmethodID GetStaticMethodID(jclass clazz, const char *name,
+                                const char *sig)
+{
+    j??? ret = jenv->GetStaticMethodID(&jenv,clazz,name,sig);
+}
+
+
+static PyObject* jobject CallStaticObjectMethod(jclass clazz, jmethodID methodID,
+                             ...)
+{
+        va_list args;
+        jobject result;
+        va_start(args,methodID);
+        result = functions->CallStaticObjectMethodV(&jenv,clazz,methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jobject CallStaticObjectMethodV(jclass clazz, jmethodID methodID,
+                              va_list args)
+{
+    j??? ret = jenv->CallStaticObjectMethodV(&jenv,clazz,methodID,args);
+}
+
+static PyObject* jobject CallStaticObjectMethodA(jclass clazz, jmethodID methodID,
+                              const jvalue *args)
+{
+    j??? ret = jenv->CallStaticObjectMethodA(&jenv,clazz,methodID,args);
+}
+
+
+static PyObject* jboolean CallStaticBooleanMethod(jclass clazz,
+                                     jmethodID methodID, ...)
+{
+        va_list args;
+        jboolean result;
+        va_start(args,methodID);
+        result = functions->CallStaticBooleanMethodV(&jenv,clazz,methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jboolean CallStaticBooleanMethodV(jclass clazz,
+                                      jmethodID methodID, va_list args)
+{
+    j??? ret = jenv->CallStaticBooleanMethodV(&jenv,clazz,methodID,args);
+}
+
+static PyObject* jboolean CallStaticBooleanMethodA(jclass clazz,
+                                      jmethodID methodID, const jvalue *args)
+{
+    j??? ret = jenv->CallStaticBooleanMethodA(&jenv,clazz,methodID,args);
+}
+
+
+static PyObject* jbyte CallStaticByteMethod(jclass clazz,
+                               jmethodID methodID, ...)
+{
+        va_list args;
+        jbyte result;
+        va_start(args,methodID);
+        result = functions->CallStaticByteMethodV(&jenv,clazz,methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jbyte CallStaticByteMethodV(jclass clazz,
+                                jmethodID methodID, va_list args)
+{
+    j??? ret = jenv->CallStaticByteMethodV(&jenv,clazz,methodID,args);
+}
+
+static PyObject* jbyte CallStaticByteMethodA(jclass clazz,
+                                jmethodID methodID, const jvalue *args)
+{
+    j??? ret = jenv->CallStaticByteMethodA(&jenv,clazz,methodID,args);
+}
+
+
+static PyObject* jchar CallStaticCharMethod(jclass clazz,
+                               jmethodID methodID, ...)
+{
+        va_list args;
+        jchar result;
+        va_start(args,methodID);
+        result = functions->CallStaticCharMethodV(&jenv,clazz,methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jchar CallStaticCharMethodV(jclass clazz,
+                                jmethodID methodID, va_list args)
+{
+    j??? ret = jenv->CallStaticCharMethodV(&jenv,clazz,methodID,args);
+}
+
+static PyObject* jchar CallStaticCharMethodA(jclass clazz,
+                                jmethodID methodID, const jvalue *args)
+{
+    j??? ret = jenv->CallStaticCharMethodA(&jenv,clazz,methodID,args);
+}
+
+
+static PyObject* jshort CallStaticShortMethod(jclass clazz,
+                                 jmethodID methodID, ...)
+{
+        va_list args;
+        jshort result;
+        va_start(args,methodID);
+        result = functions->CallStaticShortMethodV(&jenv,clazz,methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jshort CallStaticShortMethodV(jclass clazz,
+                                  jmethodID methodID, va_list args)
+{
+    j??? ret = jenv->CallStaticShortMethodV(&jenv,clazz,methodID,args);
+}
+
+static PyObject* jshort CallStaticShortMethodA(jclass clazz,
+                                  jmethodID methodID, const jvalue *args)
+{
+    j??? ret = jenv->CallStaticShortMethodA(&jenv,clazz,methodID,args);
+}
+
+
+static PyObject* jint CallStaticIntMethod(jclass clazz,
+                             jmethodID methodID, ...)
+{
+        va_list args;
+        jint result;
+        va_start(args,methodID);
+        result = functions->CallStaticIntMethodV(&jenv,clazz,methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jint CallStaticIntMethodV(jclass clazz,
+                              jmethodID methodID, va_list args)
+{
+    j??? ret = jenv->CallStaticIntMethodV(&jenv,clazz,methodID,args);
+}
+
+static PyObject* jint CallStaticIntMethodA(jclass clazz,
+                              jmethodID methodID, const jvalue *args)
+{
+    j??? ret = jenv->CallStaticIntMethodA(&jenv,clazz,methodID,args);
+}
+
+
+static PyObject* jlong CallStaticLongMethod(jclass clazz,
+                               jmethodID methodID, ...)
+{
+        va_list args;
+        jlong result;
+        va_start(args,methodID);
+        result = functions->CallStaticLongMethodV(&jenv,clazz,methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jlong CallStaticLongMethodV(jclass clazz,
+                                jmethodID methodID, va_list args)
+{
+    j??? ret = jenv->CallStaticLongMethodV(&jenv,clazz,methodID,args);
+}
+
+static PyObject* jlong CallStaticLongMethodA(jclass clazz,
+                                jmethodID methodID, const jvalue *args)
+{
+    j??? ret = jenv->CallStaticLongMethodA(&jenv,clazz,methodID,args);
+}
+
+
+static PyObject* jfloat CallStaticFloatMethod(jclass clazz,
+                                 jmethodID methodID, ...)
+{
+        va_list args;
+        jfloat result;
+        va_start(args,methodID);
+        result = functions->CallStaticFloatMethodV(&jenv,clazz,methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jfloat CallStaticFloatMethodV(jclass clazz,
+                                  jmethodID methodID, va_list args)
+{
+    j??? ret = jenv->CallStaticFloatMethodV(&jenv,clazz,methodID,args);
+}
+
+static PyObject* jfloat CallStaticFloatMethodA(jclass clazz,
+                                  jmethodID methodID, const jvalue *args)
+{
+    j??? ret = jenv->CallStaticFloatMethodA(&jenv,clazz,methodID,args);
+}
+
+
+static PyObject* jdouble CallStaticDoubleMethod(jclass clazz,
+                                   jmethodID methodID, ...)
+{
+        va_list args;
+        jdouble result;
+        va_start(args,methodID);
+        result = functions->CallStaticDoubleMethodV(&jenv,clazz,methodID,args);
+        va_end(args);
+        return result;
+}
+
+static PyObject* jdouble CallStaticDoubleMethodV(jclass clazz,
+                                    jmethodID methodID, va_list args)
+{
+    j??? ret = jenv->CallStaticDoubleMethodV(&jenv,clazz,methodID,args);
+}
+
+static PyObject* jdouble CallStaticDoubleMethodA(jclass clazz,
+                                    jmethodID methodID, const jvalue *args)
+{
+    j??? ret = jenv->CallStaticDoubleMethodA(&jenv,clazz,methodID,args);
+}
+
+
+static PyObject* CallStaticVoidMethod(jclass cls, jmethodID methodID, ...)
+{
+        va_list args;
+        va_start(args,methodID);
+    jenv->CallStaticVoidMethodV(&jenv,cls,methodID,args);
+        va_end(args);
+}
+
+static PyObject* CallStaticVoidMethodV(jclass cls, jmethodID methodID,
+                               va_list args)
+{
+    jenv->CallStaticVoidMethodV(&jenv,cls,methodID,args);
+}
+
+static PyObject* CallStaticVoidMethodA(jclass cls, jmethodID methodID,
+                               const jvalue * args)
+{
+    jenv->CallStaticVoidMethodA(&jenv,cls,methodID,args);
+}
+
+
+static PyObject* jfieldID GetStaticFieldID(jclass clazz, const char *name,
+                              const char *sig)
+{
+    j??? ret = jenv->GetStaticFieldID(&jenv,clazz,name,sig);
+}
+
+static PyObject* jobject GetStaticObjectField(jclass clazz, jfieldID fieldID)
+{
+    j??? ret = jenv->GetStaticObjectField(&jenv,clazz,fieldID);
+}
+
+static PyObject* jboolean GetStaticBooleanField(jclass clazz, jfieldID fieldID)
+{
+    j??? ret = jenv->GetStaticBooleanField(&jenv,clazz,fieldID);
+}
+
+static PyObject* jbyte GetStaticByteField(jclass clazz, jfieldID fieldID)
+{
+    j??? ret = jenv->GetStaticByteField(&jenv,clazz,fieldID);
+}
+
+static PyObject* jchar GetStaticCharField(jclass clazz, jfieldID fieldID)
+{
+    j??? ret = jenv->GetStaticCharField(&jenv,clazz,fieldID);
+}
+
+static PyObject* jshort GetStaticShortField(jclass clazz, jfieldID fieldID)
+{
+    j??? ret = jenv->GetStaticShortField(&jenv,clazz,fieldID);
+}
+
+static PyObject* jint GetStaticIntField(jclass clazz, jfieldID fieldID)
+{
+    j??? ret = jenv->GetStaticIntField(&jenv,clazz,fieldID);
+}
+
+static PyObject* jlong GetStaticLongField(jclass clazz, jfieldID fieldID)
+{
+    j??? ret = jenv->GetStaticLongField(&jenv,clazz,fieldID);
+}
+
+static PyObject* jfloat GetStaticFloatField(jclass clazz, jfieldID fieldID)
+{
+    j??? ret = jenv->GetStaticFloatField(&jenv,clazz,fieldID);
+}
+
+static PyObject* jdouble GetStaticDoubleField(jclass clazz, jfieldID fieldID)
+{
+    j??? ret = jenv->GetStaticDoubleField(&jenv,clazz,fieldID);
+}
+
+
+static PyObject* SetStaticObjectField(jclass clazz, jfieldID fieldID,
+                        jobject value)
+{
+      functions->SetStaticObjectField(&jenv,clazz,fieldID,value);
+}
+
+static PyObject* SetStaticBooleanField(jclass clazz, jfieldID fieldID,
+                        jboolean value)
+{
+      functions->SetStaticBooleanField(&jenv,clazz,fieldID,value);
+}
+
+static PyObject* SetStaticByteField(jclass clazz, jfieldID fieldID,
+                        jbyte value)
+{
+      functions->SetStaticByteField(&jenv,clazz,fieldID,value);
+}
+
+static PyObject* SetStaticCharField(jclass clazz, jfieldID fieldID,
+                        jchar value)
+{
+      functions->SetStaticCharField(&jenv,clazz,fieldID,value);
+}
+
+static PyObject* SetStaticShortField(jclass clazz, jfieldID fieldID,
+                        jshort value)
+{
+      functions->SetStaticShortField(&jenv,clazz,fieldID,value);
+}
+
+static PyObject* SetStaticIntField(jclass clazz, jfieldID fieldID,
+                        jint value)
+{
+      functions->SetStaticIntField(&jenv,clazz,fieldID,value);
+}
+
+static PyObject* SetStaticLongField(jclass clazz, jfieldID fieldID,
+                        jlong value)
+{
+      functions->SetStaticLongField(&jenv,clazz,fieldID,value);
+}
+
+static PyObject* SetStaticFloatField(jclass clazz, jfieldID fieldID,
+                        jfloat value)
+{
+      functions->SetStaticFloatField(&jenv,clazz,fieldID,value);
+}
+
+static PyObject* SetStaticDoubleField(jclass clazz, jfieldID fieldID,
+                        jdouble value)
+{
+      functions->SetStaticDoubleField(&jenv,clazz,fieldID,value);
+}
+
+
+static PyObject* jstring NewString(const jchar *unicode, jsize len)
+{
+    j??? ret = jenv->NewString(&jenv,unicode,len);
+}
+
+static PyObject* jsize GetStringLength(jstring str)
+{
+    j??? ret = jenv->GetStringLength(&jenv,str);
+}
+
+    const jchar *GetStringChars(jstring str, jboolean *isCopy)
+{
+    j??? ret = jenv->GetStringChars(&jenv,str,isCopy);
+}
+
+static PyObject* ReleaseStringChars(jstring str, const jchar *chars)
+{
+    jenv->ReleaseStringChars(&jenv,str,chars);
+}
+
+
+static PyObject* jstring NewStringUTF(const char *utf)
+{
+    j??? ret = jenv->NewStringUTF(&jenv,utf);
+}
+
+static PyObject* jsize GetStringUTFLength(jstring str)
+{
+    j??? ret = jenv->GetStringUTFLength(&jenv,str);
+}
+
+static PyObject* jlong GetStringUTFLengthAsLong(jstring str)
+{
+    j??? ret = jenv->GetStringUTFLengthAsLong(&jenv,str);
+}
+
+    const char* GetStringUTFChars(jstring str, jboolean *isCopy)
+{
+    j??? ret = jenv->GetStringUTFChars(&jenv,str,isCopy);
+}
+
+static PyObject* ReleaseStringUTFChars(jstring str, const char* chars)
+{
+    jenv->ReleaseStringUTFChars(&jenv,str,chars);
+}
+
+
+static PyObject* jsize GetArrayLength(jarray array)
+{
+    j??? ret = jenv->GetArrayLength(&jenv,array);
+}
+
+
+static PyObject* jobjectArray NewObjectArray(jsize len, jclass clazz,
+                                jobject init)
+{
+    j??? ret = jenv->NewObjectArray(&jenv,len,clazz,init);
+}
+
+static PyObject* jobject GetObjectArrayElement(jobjectArray array, jsize index)
+{
+    j??? ret = jenv->GetObjectArrayElement(&jenv,array,index);
+}
+
+static PyObject* SetObjectArrayElement(jobjectArray array, jsize index,
+                               jobject val)
+{
+    jenv->SetObjectArrayElement(&jenv,array,index,val);
+}
+
+
+static PyObject* jbooleanArray NewBooleanArray(jsize len)
+{
+    j??? ret = jenv->NewBooleanArray(&jenv,len);
+}
+
+static PyObject* jbyteArray NewByteArray(jsize len)
+{
+    j??? ret = jenv->NewByteArray(&jenv,len);
+}
+
+static PyObject* jcharArray NewCharArray(jsize len)
+{
+    j??? ret = jenv->NewCharArray(&jenv,len);
+}
+
+static PyObject* jshortArray NewShortArray(jsize len)
+{
+    j??? ret = jenv->NewShortArray(&jenv,len);
+}
+
+static PyObject* jintArray NewIntArray(jsize len)
+{
+    j??? ret = jenv->NewIntArray(&jenv,len);
+}
+
+static PyObject* jlongArray NewLongArray(jsize len)
+{
+    j??? ret = jenv->NewLongArray(&jenv,len);
+}
+
+static PyObject* jfloatArray NewFloatArray(jsize len)
+{
+    j??? ret = jenv->NewFloatArray(&jenv,len);
+}
+
+static PyObject* jdoubleArray NewDoubleArray(jsize len)
+{
+    j??? ret = jenv->NewDoubleArray(&jenv,len);
+}
+
+
+static PyObject* jboolean * GetBooleanArrayElements(jbooleanArray array, jboolean *isCopy)
+{
+    j??? ret = jenv->GetBooleanArrayElements(&jenv,array,isCopy);
+}
+
+static PyObject* jbyte * GetByteArrayElements(jbyteArray array, jboolean *isCopy)
+{
+    j??? ret = jenv->GetByteArrayElements(&jenv,array,isCopy);
+}
+
+static PyObject* jchar * GetCharArrayElements(jcharArray array, jboolean *isCopy)
+{
+    j??? ret = jenv->GetCharArrayElements(&jenv,array,isCopy);
+}
+
+static PyObject* jshort * GetShortArrayElements(jshortArray array, jboolean *isCopy)
+{
+    j??? ret = jenv->GetShortArrayElements(&jenv,array,isCopy);
+}
+
+static PyObject* jint * GetIntArrayElements(jintArray array, jboolean *isCopy)
+{
+    j??? ret = jenv->GetIntArrayElements(&jenv,array,isCopy);
+}
+
+static PyObject* jlong * GetLongArrayElements(jlongArray array, jboolean *isCopy)
+{
+    j??? ret = jenv->GetLongArrayElements(&jenv,array,isCopy);
+}
+
+static PyObject* jfloat * GetFloatArrayElements(jfloatArray array, jboolean *isCopy)
+{
+    j??? ret = jenv->GetFloatArrayElements(&jenv,array,isCopy);
+}
+
+static PyObject* jdouble * GetDoubleArrayElements(jdoubleArray array, jboolean *isCopy)
+{
+    j??? ret = jenv->GetDoubleArrayElements(&jenv,array,isCopy);
+}
+
+
+static PyObject* ReleaseBooleanArrayElements(jbooleanArray array,
+                                     jboolean *elems,
+                                     jint mode)
+{
+    jenv->ReleaseBooleanArrayElements(&jenv,array,elems,mode);
+}
+
+static PyObject* ReleaseByteArrayElements(jbyteArray array,
+                                  jbyte *elems,
+                                  jint mode)
+{
+    jenv->ReleaseByteArrayElements(&jenv,array,elems,mode);
+}
+
+static PyObject* ReleaseCharArrayElements(jcharArray array,
+                                  jchar *elems,
+                                  jint mode)
+{
+    jenv->ReleaseCharArrayElements(&jenv,array,elems,mode);
+}
+
+static PyObject* ReleaseShortArrayElements(jshortArray array,
+                                   jshort *elems,
+                                   jint mode)
+{
+    jenv->ReleaseShortArrayElements(&jenv,array,elems,mode);
+}
+
+static PyObject* ReleaseIntArrayElements(jintArray array,
+                                 jint *elems,
+                                 jint mode)
+{
+    jenv->ReleaseIntArrayElements(&jenv,array,elems,mode);
+}
+
+static PyObject* ReleaseLongArrayElements(jlongArray array,
+                                  jlong *elems,
+                                  jint mode)
+{
+    jenv->ReleaseLongArrayElements(&jenv,array,elems,mode);
+}
+
+static PyObject* ReleaseFloatArrayElements(jfloatArray array,
+                                   jfloat *elems,
+                                   jint mode)
+{
+    jenv->ReleaseFloatArrayElements(&jenv,array,elems,mode);
+}
+
+static PyObject* ReleaseDoubleArrayElements(jdoubleArray array,
+                                    jdouble *elems,
+                                    jint mode)
+{
+    jenv->ReleaseDoubleArrayElements(&jenv,array,elems,mode);
+}
+
+
+static PyObject* GetBooleanArrayRegion(jbooleanArray array,
+                               jsize start, jsize len, jboolean *buf)
+{
+    jenv->GetBooleanArrayRegion(&jenv,array,start,len,buf);
+}
+
+static PyObject* GetByteArrayRegion(jbyteArray array,
+                            jsize start, jsize len, jbyte *buf)
+{
+    jenv->GetByteArrayRegion(&jenv,array,start,len,buf);
+}
+
+static PyObject* GetCharArrayRegion(jcharArray array,
+                            jsize start, jsize len, jchar *buf)
+{
+    jenv->GetCharArrayRegion(&jenv,array,start,len,buf);
+}
+
+static PyObject* GetShortArrayRegion(jshortArray array,
+                             jsize start, jsize len, jshort *buf)
+{
+    jenv->GetShortArrayRegion(&jenv,array,start,len,buf);
+}
+
+static PyObject* GetIntArrayRegion(jintArray array,
+                           jsize start, jsize len, jint *buf)
+{
+    jenv->GetIntArrayRegion(&jenv,array,start,len,buf);
+}
+
+static PyObject* GetLongArrayRegion(jlongArray array,
+                            jsize start, jsize len, jlong *buf)
+{
+    jenv->GetLongArrayRegion(&jenv,array,start,len,buf);
+}
+
+static PyObject* GetFloatArrayRegion(jfloatArray array,
+                             jsize start, jsize len, jfloat *buf)
+{
+    jenv->GetFloatArrayRegion(&jenv,array,start,len,buf);
+}
+
+static PyObject* GetDoubleArrayRegion(jdoubleArray array,
+                              jsize start, jsize len, jdouble *buf)
+{
+    jenv->GetDoubleArrayRegion(&jenv,array,start,len,buf);
+}
+
+
+static PyObject* SetBooleanArrayRegion(jbooleanArray array, jsize start, jsize len,
+                               const jboolean *buf)
+{
+    jenv->SetBooleanArrayRegion(&jenv,array,start,len,buf);
+}
+
+static PyObject* SetByteArrayRegion(jbyteArray array, jsize start, jsize len,
+                            const jbyte *buf)
+{
+    jenv->SetByteArrayRegion(&jenv,array,start,len,buf);
+}
+
+static PyObject* SetCharArrayRegion(jcharArray array, jsize start, jsize len,
+                            const jchar *buf)
+{
+    jenv->SetCharArrayRegion(&jenv,array,start,len,buf);
+}
+
+static PyObject* SetShortArrayRegion(jshortArray array, jsize start, jsize len,
+                             const jshort *buf)
+{
+    jenv->SetShortArrayRegion(&jenv,array,start,len,buf);
+}
+
+static PyObject* SetIntArrayRegion(jintArray array, jsize start, jsize len,
+                           const jint *buf)
+{
+    jenv->SetIntArrayRegion(&jenv,array,start,len,buf);
+}
+
+static PyObject* SetLongArrayRegion(jlongArray array, jsize start, jsize len,
+                            const jlong *buf)
+{
+    jenv->SetLongArrayRegion(&jenv,array,start,len,buf);
+}
+
+static PyObject* SetFloatArrayRegion(jfloatArray array, jsize start, jsize len,
+                             const jfloat *buf)
+{
+    jenv->SetFloatArrayRegion(&jenv,array,start,len,buf);
+}
+
+static PyObject* SetDoubleArrayRegion(jdoubleArray array, jsize start, jsize len,
+                              const jdouble *buf)
+{
+    jenv->SetDoubleArrayRegion(&jenv,array,start,len,buf);
+}
+
+
+static PyObject* jint RegisterNatives(jclass clazz, const JNINativeMethod *methods,
+                         jint nMethods)
+{
+    j??? ret = jenv->RegisterNatives(&jenv,clazz,methods,nMethods);
+}
+
+static PyObject* jint UnregisterNatives(jclass clazz)
+{
+    j??? ret = jenv->UnregisterNatives(&jenv,clazz);
+}
+
+
+static PyObject* jint MonitorEnter(jobject obj)
+{
+    j??? ret = jenv->MonitorEnter(&jenv,obj);
+}
+
+static PyObject* jint MonitorExit(jobject obj)
+{
+    j??? ret = jenv->MonitorExit(&jenv,obj);
+}
+
+
+static PyObject* jint GetJavaVM(JavaVM **vm)
+{
+    j??? ret = jenv->GetJavaVM(&jenv,vm);
+}
+
+
+static PyObject* GetStringRegion(jstring str, jsize start, jsize len, jchar *buf)
+{
+    jenv->GetStringRegion(&jenv,str,start,len,buf);
+}
+
+static PyObject* GetStringUTFRegion(jstring str, jsize start, jsize len, char *buf)
+{
+    jenv->GetStringUTFRegion(&jenv,str,start,len,buf);
+}
+
+
+static PyObject* * GetPrimitiveArrayCritical(jarray array, jboolean *isCopy)
+{
+    j??? ret = jenv->GetPrimitiveArrayCritical(&jenv,array,isCopy);
+}
+
+static PyObject* ReleasePrimitiveArrayCritical(jarray array, void *carray, jint mode)
+{
+    jenv->ReleasePrimitiveArrayCritical(&jenv,array,carray,mode);
+}
+
+
+    const jchar * GetStringCritical(jstring string, jboolean *isCopy)
+{
+    j??? ret = jenv->GetStringCritical(&jenv,string,isCopy);
+}
+
+static PyObject* ReleaseStringCritical(jstring string, const jchar *cstring)
+{
+    jenv->ReleaseStringCritical(&jenv,string,cstring);
+}
+
+
+static PyObject* jweak NewWeakGlobalRef(jobject obj)
+{
+    j??? ret = jenv->NewWeakGlobalRef(&jenv,obj);
+}
+
+static PyObject* DeleteWeakGlobalRef(jweak ref)
+{
+    jenv->DeleteWeakGlobalRef(&jenv,ref);
+}
+
+
+static PyObject* jboolean ExceptionCheck()
+{
+    j??? ret = jenv->ExceptionCheck(&jenv);
+}
+
+
+static PyObject* jobject NewDirectByteBuffer(void* address, jlong capacity)
+{
+    j??? ret = jenv->NewDirectByteBuffer(&jenv, address, capacity);
+}
+
+    void* GetDirectBufferAddress(jobject buf)
+{
+    j??? ret = jenv->GetDirectBufferAddress(&jenv, buf);
+}
+
+static PyObject* jlong GetDirectBufferCapacity(jobject buf)
+{
+    j??? ret = jenv->GetDirectBufferCapacity(&jenv, buf);
+}
+
+static PyObject* jobjectRefType GetObjectRefType(jobject obj)
+{
+    j??? ret = jenv->GetObjectRefType(&jenv, obj);
+}
+
+
+    // Module Features
+
+static PyObject* jobject GetModule(jclass clazz)
+{
+    j??? ret = jenv->GetModule(&jenv, clazz);
+}
+
+
+    // Virtual threads
+
+static PyObject* jboolean IsVirtualThread(jobject obj)
+{
+    j??? ret = jenv->IsVirtualThread(&jenv, obj);
+}
+
+
+*/
 
 // JNIEnv* env; 
 // return env->functions->CallObjectMethodA(env, obj, mid, val); 
@@ -1266,7 +2947,7 @@ static PyMethodDef JNIEnv_methods[] = {
 
 PyTypeObject JNIEnv_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "JNIEnv",
+    .tp_name      = "jni.capi.JNIEnv",
     .tp_basicsize = sizeof(JNIEnv_Object),
     .tp_itemsize  = member_size(JNIEnv_Object, this),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -1374,7 +3055,7 @@ static PyMethodDef JavaVM_methods[] = {
 
 PyTypeObject JavaVM_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    .tp_name      = "JavaVM",
+    .tp_name      = "jni.capi.JavaVM",
     .tp_basicsize = sizeof(JavaVM_Object),
     .tp_itemsize  = member_size(JavaVM_Object, this),
     .tp_flags     = Py_TPFLAGS_DEFAULT,
@@ -1502,15 +3183,30 @@ PyMODINIT_FUNC MODINIT_FUNC(jni)
 
     /* JNI Types */
 
-    if ( PyType_Ready(&jint_Type)  < 0 ||
-         PyType_Ready(&jlong_Type) < 0 ||
-         PyType_Ready(&jbyte_Type) < 0 ||
-         PyType_Ready(&jboolean_Type) < 0 ||
+    if ( PyType_Ready(&jboolean_Type) < 0 ||
          PyType_Ready(&jchar_Type) < 0 ||
+         PyType_Ready(&jbyte_Type) < 0 ||
          PyType_Ready(&jshort_Type) < 0 ||
+         PyType_Ready(&jint_Type)  < 0 ||
+         PyType_Ready(&jlong_Type) < 0 ||
          PyType_Ready(&jfloat_Type) < 0 ||
          PyType_Ready(&jdouble_Type) < 0 ||
+         // PyType_Ready(&jsize_Type)  < 0 ||
          PyType_Ready(&jobject_Type) < 0 ||
+         PyType_Ready(&jclass_Type) < 0 ||
+         PyType_Ready(&jthrowable_Type) < 0 ||
+         PyType_Ready(&jstring_Type) < 0 ||
+         PyType_Ready(&jarray_Type) < 0 ||
+         PyType_Ready(&jbooleanArray_Type) < 0 ||
+         PyType_Ready(&jcharArray_Type) < 0 ||
+         PyType_Ready(&jbyteArray_Type) < 0 ||
+         PyType_Ready(&jshortArray_Type) < 0 ||
+         PyType_Ready(&jintArray_Type) < 0 ||
+         PyType_Ready(&jlongArray_Type) < 0 ||
+         PyType_Ready(&jfloatArray_Type) < 0 ||
+         PyType_Ready(&jdoubleArray_Type) < 0 ||
+         PyType_Ready(&jobjectArray_Type) < 0 ||
+         // PyType_Ready(&jweak_Type) < 0 ||
          PyType_Ready(&jvalue_Type) < 0 ||
          PyType_Ready(&jfieldID_Type) < 0 ||
          PyType_Ready(&jmethodID_Type) < 0 ||
@@ -1522,26 +3218,24 @@ PyMODINIT_FUNC MODINIT_FUNC(jni)
          PyType_Ready(&JavaVM_Type) < 0 )
         return NULL;
 
-    Py_INCREF(&jint_Type);
-    PyModule_AddObject(module, "jint",  (PyObject*)&jint_Type);
-    Py_INCREF(&jlong_Type);
-    PyModule_AddObject(module, "jlong", (PyObject*)&jlong_Type);
-    Py_INCREF(&jbyte_Type);
-    PyModule_AddObject(module, "jbyte", (PyObject*)&jbyte_Type);
-
     Py_INCREF(&jboolean_Type);
     PyModule_AddObject(module, "jboolean", (PyObject*)&jboolean_Type);
     Py_INCREF(&jchar_Type);
     PyModule_AddObject(module, "jchar",    (PyObject*)&jchar_Type);
+    Py_INCREF(&jbyte_Type);
+    PyModule_AddObject(module, "jbyte", (PyObject*)&jbyte_Type);
     Py_INCREF(&jshort_Type);
     PyModule_AddObject(module, "jshort",   (PyObject*)&jshort_Type);
+    Py_INCREF(&jint_Type);
+    PyModule_AddObject(module, "jint",  (PyObject*)&jint_Type);
+    Py_INCREF(&jlong_Type);
+    PyModule_AddObject(module, "jlong", (PyObject*)&jlong_Type);
     Py_INCREF(&jfloat_Type);
     PyModule_AddObject(module, "jfloat",   (PyObject*)&jfloat_Type);
     Py_INCREF(&jdouble_Type);
     PyModule_AddObject(module, "jdouble",  (PyObject*)&jdouble_Type);
     Py_INCREF(&jsize_Type);
     PyModule_AddObject(module, "jsize",    (PyObject*)&jsize_Type);
-
     Py_INCREF(&jobject_Type);
     PyModule_AddObject(module, "jobject",       (PyObject*)&jobject_Type);
     Py_INCREF(&jclass_Type);
@@ -1554,10 +3248,10 @@ PyMODINIT_FUNC MODINIT_FUNC(jni)
     PyModule_AddObject(module, "jarray",        (PyObject*)&jarray_Type);
     Py_INCREF(&jbooleanArray_Type);
     PyModule_AddObject(module, "jbooleanArray", (PyObject*)&jbooleanArray_Type);
-    Py_INCREF(&jbyteArray_Type);
-    PyModule_AddObject(module, "jbyteArray",    (PyObject*)&jbyteArray_Type);
     Py_INCREF(&jcharArray_Type);
     PyModule_AddObject(module, "jcharArray",    (PyObject*)&jcharArray_Type);
+    Py_INCREF(&jbyteArray_Type);
+    PyModule_AddObject(module, "jbyteArray",    (PyObject*)&jbyteArray_Type);
     Py_INCREF(&jshortArray_Type);
     PyModule_AddObject(module, "jshortArray",   (PyObject*)&jshortArray_Type);
     Py_INCREF(&jintArray_Type);
@@ -1570,8 +3264,9 @@ PyMODINIT_FUNC MODINIT_FUNC(jni)
     PyModule_AddObject(module, "jdoubleArray",  (PyObject*)&jdoubleArray_Type);
     Py_INCREF(&jobjectArray_Type);
     PyModule_AddObject(module, "jobjectArray",  (PyObject*)&jobjectArray_Type);
+
     Py_INCREF(&jweak_Type);
-    PyModule_AddObject(module, "jweak",         (PyObject*)&jweak_Type);
+    PyModule_AddObject(module, "jweak", (PyObject*)&jweak_Type);
 
     Py_INCREF(&jvalue_Type);
     PyModule_AddObject(module, "jvalue", (PyObject*)&jvalue_Type);
